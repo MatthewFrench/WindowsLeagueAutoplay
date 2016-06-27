@@ -1,0 +1,3 @@
+C:\Users\Matthew\Desktop\GlobalHook\Gma.UserActivityMonitor\bin\Release\Gma.UserActivityMonitor.dll
+C:\Users\Matthew\Desktop\GlobalHook\Gma.UserActivityMonitor\obj\Release\Gma.UserActivityMonitor.csprojResolveAssemblyReference.cache
+C:\Users\Matthew\Desktop\GlobalHook\Gma.UserActivityMonitor\obj\Release\Gma.UserActivityMonitor.dll
