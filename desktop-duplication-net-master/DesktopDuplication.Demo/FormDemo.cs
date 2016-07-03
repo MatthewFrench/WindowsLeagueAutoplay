@@ -8,11 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace DesktopDuplication.Demo
 {
     public partial class FormDemo : Form
     {
+
+        [DllImport("C:\\Users\\Cats 4 Christ\\Documents\\GitHub\\WindowsLeagueAutoplay\\League Autoplay\\Debug\\C++ DLL League Autoplay\\C++ DLL League Autoplay.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern double Add(double a, double b);
+
         private DesktopDuplicator desktopDuplicator;
 
         public FormDemo()
@@ -64,8 +69,11 @@ namespace DesktopDuplication.Demo
                     //    UpdatedRegion.Size = updated.Size;
                     //}
                     this.BackgroundImage = frame.DesktopImage;
-                    frame.DesktopImage.GetPixel(0, 0);
+
+                    
+                    //frame.DesktopImage.GetPixel(0, 0);
                 }
+                Console.WriteLine("1 + 1 = {0}", Add(1, 1));
             }
         }
     }

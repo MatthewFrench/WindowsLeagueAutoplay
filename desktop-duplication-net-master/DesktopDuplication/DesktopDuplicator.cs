@@ -17,8 +17,12 @@ namespace DesktopDuplication
     /// <summary>
     /// Provides access to frame-by-frame updates of a particular desktop (i.e. one monitor), with image and cursor information.
     /// </summary>
+    /// 
     public class DesktopDuplicator
     {
+        //[DllImport("./C++ DLL League Autoplay.dll", CallingConvention = CallingConvention.Cdecl)]
+        //public static extern double Add(double a, double b);
+
         private Device mDevice;
         private Texture2DDescription mTextureDesc;
         private OutputDescription mOutputDesc;
@@ -57,7 +61,11 @@ namespace DesktopDuplication
         /// </summary>
         /// <param name="whichMonitor">The output device to duplicate (i.e. monitor). Begins with zero, which seems to correspond to the primary monitor.</param>
         public DesktopDuplicator(int whichMonitor)
-            : this(0, whichMonitor) { }
+            : this(0, whichMonitor) {
+            //var dllFile = new FileInfo(@".\C++ DLL League Autoplay.dll");
+            //Console.WriteLine("Loaded DLL: {0}", dllFile.FullName);
+            //var DLL = Assembly.LoadFile(dllFile.FullName);
+        }
 
         /// <summary>
         /// Duplicates the output of the specified monitor on the specified graphics adapter.
@@ -277,10 +285,96 @@ namespace DesktopDuplication
 
             FinalImage = new System.Drawing.Bitmap(mOutputDesc.DesktopBounds.Width, mOutputDesc.DesktopBounds.Height, PixelFormat.Format32bppRgb);
             var boundsRect = new System.Drawing.Rectangle(0, 0, mOutputDesc.DesktopBounds.Width, mOutputDesc.DesktopBounds.Height);
-            // Copy pixels from screen capture Texture to GDI bitmap
-            var mapDest = FinalImage.LockBits(boundsRect, ImageLockMode.WriteOnly, FinalImage.PixelFormat);
             var sourcePtr = mapSource.DataPointer;
+
+            var mapDest = FinalImage.LockBits(boundsRect, ImageLockMode.WriteOnly, FinalImage.PixelFormat);
             var destPtr = mapDest.Scan0;
+
+            Stopwatch performanceWatch = new Stopwatch();
+            performanceWatch.Start();
+
+
+
+            // Test 1
+            
+            unsafe
+            {
+                byte* startDestinationPointer = (byte*)destPtr.ToPointer();
+
+                byte* startPointer = (byte*)sourcePtr.ToPointer();
+                int height = mOutputDesc.DesktopBounds.Height;
+                int width = mOutputDesc.DesktopBounds.Width;
+                int channels = 4;
+                const int r_channel = 2;
+                const int g_channel = 1;
+                const int b_channel = 0;
+                const int a_channel = 3;
+
+                int loc = 0;
+
+                /*
+                int startX = 0;
+                int endX = height * width * channels;
+
+                for (int i = startX; i < endX; i+= channels)
+                {
+                    startDestinationPointer[i] = startPointer[i];
+                    startDestinationPointer[i+1] = startPointer[i+1];
+                    startDestinationPointer[i+2] = startPointer[i+2];
+                    startDestinationPointer[i+3] = startPointer[i+3];
+                }
+                */
+
+                for (int y = 0; y < height; y++)
+                {
+                    
+                    byte* upToRow = startPointer + y * width * channels;
+                    byte* destinationUpToRow = startDestinationPointer + y * width * channels;
+                    
+                   for (int x = 0; x < width; x++)
+                    {
+                        /*
+                        startDestinationPointer[loc + b_channel] = startPointer[loc + b_channel];
+                        startDestinationPointer[loc + g_channel] = startPointer[loc + g_channel];
+                        startDestinationPointer[loc + r_channel] = startPointer[loc + r_channel];
+                        startDestinationPointer[loc + a_channel] = startPointer[loc + a_channel];
+
+                        loc += 4;
+                        */
+
+                        
+                        byte* pixel = upToRow + x * channels;
+                        byte* destinationPixel = destinationUpToRow + x * channels;
+
+
+                        destinationPixel[b_channel] = pixel[b_channel];
+                        destinationPixel[g_channel] = pixel[g_channel];
+                        destinationPixel[r_channel] = pixel[r_channel];
+                        destinationPixel[a_channel] = pixel[a_channel];
+                        
+
+                        /*
+                        byte r = pixel[r_channel];
+                        byte g = pixel[g_channel];
+                        byte b = pixel[b_channel];
+                        byte a = pixel[a_channel];
+                        destinationPixel[r_channel] = r;
+                        destinationPixel[g_channel] = g;
+                        destinationPixel[b_channel] = b;
+                        destinationPixel[a_channel] = a;
+                        */
+                    }
+                    
+                }
+                
+            }
+
+            FinalImage.UnlockBits(mapDest);
+             //End Test 1
+
+
+            //Test 2, 6 times faster than test 1
+            /*
             for (int y = 0; y < mOutputDesc.DesktopBounds.Height; y++)
             {
                 // Copy a single line 
@@ -293,7 +387,40 @@ namespace DesktopDuplication
 
             // Release source and dest locks
             FinalImage.UnlockBits(mapDest);
+            */
+
+
+            performanceWatch.Stop();
+
+            Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.Elapsed.Ticks / 10000.0);
+            Console.WriteLine("Elapsed fps: {0}", 1000.0 / (performanceWatch.Elapsed.Ticks / 10000.0));
+            
+          
+
+
+            /*
+
+            // Copy pixels from screen capture Texture to GDI bitmap
+            var mapDest = FinalImage.LockBits(boundsRect, ImageLockMode.WriteOnly, FinalImage.PixelFormat);
+            var destPtr = mapDest.Scan0;
+
+            for (int y = 0; y < mOutputDesc.DesktopBounds.Height; y++)
+            {
+                // Copy a single line 
+                Utilities.CopyMemory(destPtr, sourcePtr, mOutputDesc.DesktopBounds.Width * 4);
+
+                // Advance pointers
+                sourcePtr = IntPtr.Add(sourcePtr, mapSource.RowPitch);
+                destPtr = IntPtr.Add(destPtr, mapDest.Stride);
+            }
+
+            // Release source and dest locks
+            FinalImage.UnlockBits(mapDest);
+            */
+
             mDevice.ImmediateContext.UnmapSubresource(desktopImageTexture, 0);
+            
+
             frame.DesktopImage = FinalImage;
         }
 
