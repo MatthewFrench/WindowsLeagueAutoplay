@@ -16,13 +16,13 @@
 //  Copyright © 2015 Matthew French. All rights reserved.
 //
 
-ImageData ShopManager::shopBuyableItemTopLeftCornerImageData = loadImage("Resources/Shop/Buyable Item Top Left Corner.png");
-ImageData ShopManager::shopBuyableItemBottomLeftCornerImageData = loadImage("Resources/Shop/Buyable Item Bottom Left Corner.png");
-ImageData ShopManager::shopBuyableItemTopRightCornerImageData = loadImage("Resources/Shop/Buyable Item Top Right Corner.png");
-ImageData ShopManager::shopBuyableItemBottomRightCornerImageData = loadImage("Resources/Shop/Buyable Item Bottom Right Corner.png");
-ImageData ShopManager::shopTopLeftCornerImageData = loadImage("Resources/Shop/Shop Top Left Corner.png");
-ImageData ShopManager::shopAvailableImageData = loadImage("Resources/Shop/Shop Available.png");
-ImageData ShopManager::shopBottomLeftCornerImageData = loadImage("Resources/Shop/Shop Bottom Left Corner.png");
+ImageData ShopManager::shopBuyableItemTopLeftCornerImageData;//TODO = loadImage("Resources/Shop/Buyable Item Top Left Corner.png");
+ImageData ShopManager::shopBuyableItemBottomLeftCornerImageData;//TODO = loadImage("Resources/Shop/Buyable Item Bottom Left Corner.png");
+ImageData ShopManager::shopBuyableItemTopRightCornerImageData;//TODO = loadImage("Resources/Shop/Buyable Item Top Right Corner.png");
+ImageData ShopManager::shopBuyableItemBottomRightCornerImageData;//TODO = loadImage("Resources/Shop/Buyable Item Bottom Right Corner.png");
+ImageData ShopManager::shopTopLeftCornerImageData;//TODO = loadImage("Resources/Shop/Shop Top Left Corner.png");
+ImageData ShopManager::shopAvailableImageData;//TODO = loadImage("Resources/Shop/Shop Available.png");
+ImageData ShopManager::shopBottomLeftCornerImageData;//TODO = loadImage("Resources/Shop/Shop Bottom Left Corner.png");
 
 ShopManager::ShopManager() {}
 
@@ -67,7 +67,7 @@ const int ItemWidth = 38;
 const int ItemHeight = 38;
 const int SearchMargin = 10;
 GenericObject* ShopManager::detectBuyableItems(ImageData imageData, uint8_t *pixel, int x, int y) {
-    float precision = 0.8;
+    double precision = 0.8;
     GenericObject* object = NULL;
     if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData.imageWidth, imageData.imageHeight, shopBuyableItemTopLeftCornerImageData, precision) >=  precision) {
         

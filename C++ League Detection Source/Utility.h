@@ -17,6 +17,8 @@
 #include <mach/mach_time.h>
 #include <unistd.h>
  */
+#include <time.h>
+#include <Windows.h>
 #include <cstdint>
 #include <string>
 #include "Detection/Objects/Minion.h"
@@ -26,14 +28,13 @@
 #include "Detection/Objects/GenericObject.h"
 #include "Detection/Objects/Position.h"
 
-#define cimg_display 0
-#define cimg_use_png
+//#define cimg_display 0
+//#define cimg_use_png
 
-#include "lib/CImg.h"
+//#include "lib/CImg.h"
 
 using namespace std;
-using namespace cimg_library; 
-
+//using namespace cimg_library; 
 
 
 //
@@ -42,15 +43,19 @@ using namespace cimg_library;
 extern inline double read_timer( )
 {
     static bool initialized = false;
-    static struct timeval start;
-    struct timeval end;
+    static __int64 CounterStart = 0;
+	static double PCFreq = 0.0;
     if( !initialized )
     {
-        gettimeofday( &start, NULL );
+		LARGE_INTEGER li;
+		QueryPerformanceCounter(&li);
+		PCFreq = double(li.QuadPart);
+		CounterStart = li.QuadPart;
         initialized = true;
     }
-    gettimeofday( &end, NULL );
-    return (end.tv_sec - start.tv_sec) + 1.0e-6 * (end.tv_usec - start.tv_usec);
+	LARGE_INTEGER li;
+	QueryPerformanceCounter(&li);
+	return double(li.QuadPart - CounterStart) / PCFreq;
 }
 
 
@@ -71,6 +76,7 @@ struct Pixel {
 
 inline  ImageData makeImageData(uint8_t * data, int imageWidth, int imageHeight);
 
+/*
 inline ImageData loadImage(string name) {
     CImg<unsigned char> image(name.c_str());
 
@@ -90,10 +96,10 @@ inline ImageData loadImage(string name) {
         }
     }
     return makeImageData(data, image.width(), image.height());;
-}
+}*/
 inline Position makePosition(int x, int y);
 inline int getRandomInteger(int minimum, int maximum);
-inline  Minion* makeMinionBar( Position topLeft,  Position bottomLeft,  Position topRight,  Position bottomRight, float health);
+inline  Minion* makeMinionBar( Position topLeft,  Position bottomLeft,  Position topRight,  Position bottomRight, double health);
 inline  Pixel getPixel( ImageData imageData, int x, int y);
 inline  uint8_t* getPixel2( ImageData imageData, int x, int y);
 inline  uint8_t* getPixel3( uint8_t *baseAddress, int x, int y, int width);
@@ -106,13 +112,13 @@ inline bool isColor3(const uint8_t *pixel, unsigned char r, unsigned char g, uns
 inline bool isColor2(const uint8_t *pixel, const uint8_t *pixel2, int tolerance);
 //inline ImageData makeImageDataFrom(string* path);
 //inline bool detectImageAtPixel(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, int tolerance);
-//inline bool detectImageAtPixelPercentage(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, float percentage);
+//inline bool detectImageAtPixelPercentage(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, double percentage);
 inline void normalizePoint(int &x, int &y, int length);
-//inline Position detectRelativeImageInImage(ImageData smallImage, ImageData largeImage, float percentageMatch, int xStart, int yStart, int xEnd, int yEnd);
-//inline Position detectRelativeImageInImagePercentage(ImageData smallImage, ImageData largeImage, float percentageMatch, int xStart, int yStart, int xEnd, int yEnd, float &returnPercentage);
-inline float getColorPercentage(const uint8_t *pixel, const uint8_t *pixel2);
-inline bool colorInPercentage(const uint8_t *pixel, const uint8_t *pixel2, float percentage);
-//inline float getImageAtPixelPercentage(const uint8_t *pixel, int x, int y, int width, int height, ImageData image);
+//inline Position detectRelativeImageInImage(ImageData smallImage, ImageData largeImage, double percentageMatch, int xStart, int yStart, int xEnd, int yEnd);
+//inline Position detectRelativeImageInImagePercentage(ImageData smallImage, ImageData largeImage, double percentageMatch, int xStart, int yStart, int xEnd, int yEnd, double &returnPercentage);
+inline double getColorPercentage(const uint8_t *pixel, const uint8_t *pixel2);
+inline bool colorInPercentage(const uint8_t *pixel, const uint8_t *pixel2, double percentage);
+//inline double getImageAtPixelPercentage(const uint8_t *pixel, int x, int y, int width, int height, ImageData image);
 inline uint8_t * copyImageBuffer(uint8_t *baseAddress, int bufferWidth, int bufferHeight);
 inline uint8_t * copyImageBufferSection(uint8_t *baseAddress, int bufferWidth, int bufferHeight, int copyX, int copyY, int copyWidth, int copyHeight) ;
 inline uint8_t * copyImageBufferFromBGRAtoRGBA(uint8_t *baseAddress, int bufferWidth, int bufferHeight);
@@ -120,15 +126,15 @@ inline uint8_t * copyImageBufferFromBGRAtoRGBA(uint8_t *baseAddress, int bufferW
 //inline NSImage* getImageFromRGBABuffer(uint8_t *baseAddress, int bufferWidth, int bufferHeight);
 //inline NSImage* getImageFromBGRABufferImageData(ImageData* imageData);
 //inline NSImage* getImageFromRGBABufferImageData(ImageData* imageData);
-inline void detectSimilarImageToImage(ImageData smallImage, ImageData largeImage, int xStart, int yStart, int xEnd, int yEnd, float &returnPercentage, Position &returnPosition, float minimumPercentage, bool getFirstMatching);
+inline void detectSimilarImageToImage(ImageData smallImage, ImageData largeImage, int xStart, int yStart, int xEnd, int yEnd, double &returnPercentage, Position &returnPosition, double minimumPercentage, bool getFirstMatching);
 inline int getTimeInMilliseconds(int64_t absoluteTime);
-inline float getImageAtPixelPercentageOptimized(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, float minimumPercentage);
-inline float getImageAtPixelPercentageOptimizedExact(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, float minimumPercentage);
-inline void detectExactImageToImage(ImageData smallImage, ImageData largeImage, int xStart, int yStart, int xEnd, int yEnd, float &returnPercentage, Position &returnPosition, float minimumPercentage, bool getFirstMatching);
-//inline void detectExactImageToImageToRectangles(ImageData smallImage, ImageData largeImage, CGRect* rects, size_t num_rects, float &returnPercentage, Position &returnPosition, float minimumPercentage, bool getFirstMatching);
+inline double getImageAtPixelPercentageOptimized(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, double minimumPercentage);
+inline double getImageAtPixelPercentageOptimizedExact(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, double minimumPercentage);
+inline void detectExactImageToImage(ImageData smallImage, ImageData largeImage, int xStart, int yStart, int xEnd, int yEnd, double &returnPercentage, Position &returnPosition, double minimumPercentage, bool getFirstMatching);
+//inline void detectExactImageToImageToRectangles(ImageData smallImage, ImageData largeImage, CGRect* rects, size_t num_rects, double &returnPercentage, Position &returnPosition, double minimumPercentage, bool getFirstMatching);
 //inline CGRect* getIntersectionRectangles(CGRect baseRect, const CGRect* rects, size_t num_rects, size_t &returnNumRects);
 
-//inline void detectExactImageToImageToRectangle(ImageData smallImage, ImageData largeImage, CGRect rect, float &returnPercentage, Position &returnPosition, float minimumPercentage, bool getFirstMatching);
+//inline void detectExactImageToImageToRectangle(ImageData smallImage, ImageData largeImage, CGRect rect, double &returnPercentage, Position &returnPosition, double minimumPercentage, bool getFirstMatching);
 //inline void combineRectangles(NSMutableArray* rectangles, CGRect newRect);
 //inline NSMutableArray* getCGRectDifference(CGRect sourceRect, CGRect minusRect);
 //inline CGRect fitRectangleInRectangle(CGRect smallRect, CGRect bigRect);
@@ -141,21 +147,21 @@ extern inline CGRect fitRectangleInRectangle(CGRect smallRect, CGRect bigRect) {
         return smallRect;
     }
     if (smallRect.origin.x < bigRect.origin.x) {
-        float diff = bigRect.origin.x - smallRect.origin.x;
+        double diff = bigRect.origin.x - smallRect.origin.x;
         smallRect.origin.x = bigRect.origin.x;
         smallRect.size.width -= diff;
     }
     if (smallRect.origin.y < bigRect.origin.y) {
-        float diff = bigRect.origin.y - smallRect.origin.y;
+        double diff = bigRect.origin.y - smallRect.origin.y;
         smallRect.origin.y = bigRect.origin.y;
         smallRect.size.height -= diff;
     }
     if (smallRect.origin.x + smallRect.size.width > bigRect.origin.x + bigRect.size.width) {
-        float diff = (bigRect.origin.x + bigRect.size.width) - (smallRect.origin.x + smallRect.size.width);
+        double diff = (bigRect.origin.x + bigRect.size.width) - (smallRect.origin.x + smallRect.size.width);
         smallRect.size.width += diff;
     }
     if (smallRect.origin.y + smallRect.size.height > bigRect.origin.y + bigRect.size.height) {
-        float diff = (bigRect.origin.y + bigRect.size.height) - (smallRect.origin.y + smallRect.size.height);
+        double diff = (bigRect.origin.y + bigRect.size.height) - (smallRect.origin.y + smallRect.size.height);
         smallRect.size.height += diff;
     }
     return smallRect;
@@ -281,9 +287,9 @@ extern inline CGRect* getIntersectionRectangles(CGRect baseRect, const CGRect* r
         return testImage;
     }
 /*
-extern inline void detectExactImageToImageToRectangle(ImageData smallImage, ImageData largeImage, CGRect rect, float &returnPercentage, Position &returnPosition, float minimumPercentage, bool getFirstMatching) {
+extern inline void detectExactImageToImageToRectangle(ImageData smallImage, ImageData largeImage, CGRect rect, double &returnPercentage, Position &returnPosition, double minimumPercentage, bool getFirstMatching) {
     Position position;
-    float highestPercentage;
+    double highestPercentage;
     returnPercentage = 0.0;
         detectExactImageToImage(smallImage, largeImage, rect.origin.x, rect.origin.y, rect.origin.x+rect.size.width, rect.origin.y+rect.size.height, highestPercentage, position, minimumPercentage, getFirstMatching);
         if (highestPercentage > returnPercentage) {
@@ -295,9 +301,9 @@ extern inline void detectExactImageToImageToRectangle(ImageData smallImage, Imag
         }
 }*/
 /*
-extern inline void detectExactImageToImageToRectangles(ImageData smallImage, ImageData largeImage, CGRect* rects, size_t num_rects, float &returnPercentage, Position &returnPosition, float minimumPercentage, bool getFirstMatching) {
+extern inline void detectExactImageToImageToRectangles(ImageData smallImage, ImageData largeImage, CGRect* rects, size_t num_rects, double &returnPercentage, Position &returnPosition, double minimumPercentage, bool getFirstMatching) {
     Position position;
-    float highestPercentage;
+    double highestPercentage;
     returnPercentage = 0.0;
     for (int i = 0; i < num_rects; i++) {
         CGRect rect = rects[i];
@@ -311,9 +317,9 @@ extern inline void detectExactImageToImageToRectangles(ImageData smallImage, Ima
         }
     }
 }*/
-    extern inline void detectExactImageToImage(ImageData smallImage, ImageData largeImage, int xStart, int yStart, int xEnd, int yEnd, float &returnPercentage, Position &returnPosition, float minimumPercentage, bool getFirstMatching) {
+    extern inline void detectExactImageToImage(ImageData smallImage, ImageData largeImage, int xStart, int yStart, int xEnd, int yEnd, double &returnPercentage, Position &returnPosition, double minimumPercentage, bool getFirstMatching) {
     //Minimum percentage is so it matches faster
-        float highestPercent = 0.0;
+        double highestPercent = 0.0;
         Position location;
         location.x = -1; location.y = -1;
     //Stop image search from putting the width and height past the end
@@ -323,7 +329,7 @@ extern inline void detectExactImageToImageToRectangles(ImageData smallImage, Ima
         for (int y = yStart; y < yEnd; y++) {
             uint8_t *pixel = getPixel2(largeImage, xStart, y);
             for (int x = xStart; x < xEnd; x++) {
-                float percent = getImageAtPixelPercentageOptimizedExact(pixel, x, y, largeImage.imageWidth, largeImage.imageHeight, smallImage, minimumPercentage);
+                double percent = getImageAtPixelPercentageOptimizedExact(pixel, x, y, largeImage.imageWidth, largeImage.imageHeight, smallImage, minimumPercentage);
                 if (percent > highestPercent) {
                     location.x = x; location.y = y;
                     highestPercent = percent;
@@ -337,11 +343,11 @@ extern inline void detectExactImageToImageToRectangles(ImageData smallImage, Ima
         returnPercentage = highestPercent;
         returnPosition = location;
     }
-    extern inline float getImageAtPixelPercentageOptimizedExact(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, float minimumPercentage) {
+    extern inline double getImageAtPixelPercentageOptimizedExact(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, double minimumPercentage) {
         int pixels = 0;
         int maxPixelCount = image.imageWidth * image.imageHeight;
         int skipPixels = 4 * (width - image.imageWidth);
-        float percentage = 0.0;
+        double percentage = 0.0;
         uint8_t *pixel2 = image.imageData;
     //int xLimit = image.imageWidth;
     //int yLimit = image.imageHeight;
@@ -362,7 +368,7 @@ extern inline void detectExactImageToImageToRectangles(ImageData smallImage, Ima
             for (int x1 = 0; x1 < image.imageWidth; x1++) {
                 if (pixel2[3] != 0) {
                     pixels++;
-                    float p = getColorPercentage(pixel, pixel2);
+                    double p = getColorPercentage(pixel, pixel2);
 
                     percentage += p;
                     if (p < minimumPercentage) {
@@ -383,9 +389,9 @@ extern inline void detectExactImageToImageToRectangles(ImageData smallImage, Ima
         }
         return percentage / pixels;
     }
-    extern inline void detectSimilarImageToImage(ImageData smallImage, ImageData largeImage, int xStart, int yStart, int xEnd, int yEnd, float &returnPercentage, Position &returnPosition, float minimumPercentage, bool getFirstMatching) {
+    extern inline void detectSimilarImageToImage(ImageData smallImage, ImageData largeImage, int xStart, int yStart, int xEnd, int yEnd, double &returnPercentage, Position &returnPosition, double minimumPercentage, bool getFirstMatching) {
     //Minimum percentage is so it matches faster
-        float highestPercent = 0.0;
+        double highestPercent = 0.0;
         Position location;
         location.x = -1; location.y = -1;
     //Stop image search from putting the width and height past the end
@@ -395,7 +401,7 @@ extern inline void detectExactImageToImageToRectangles(ImageData smallImage, Ima
         for (int y = yStart; y < yEnd; y++) {
             uint8_t *pixel = getPixel2(largeImage, xStart, y);
             for (int x = xStart; x < xEnd; x++) {
-                float percent = getImageAtPixelPercentageOptimized(pixel, x, y, largeImage.imageWidth, largeImage.imageHeight, smallImage, minimumPercentage);
+                double percent = getImageAtPixelPercentageOptimized(pixel, x, y, largeImage.imageWidth, largeImage.imageHeight, smallImage, minimumPercentage);
                 if (percent > highestPercent) {
                     location.x = x; location.y = y;
                     highestPercent = percent;
@@ -409,11 +415,11 @@ extern inline void detectExactImageToImageToRectangles(ImageData smallImage, Ima
         returnPercentage = highestPercent;
         returnPosition = location;
     }
-    extern inline float getImageAtPixelPercentageOptimized(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, float minimumPercentage) {
+    extern inline double getImageAtPixelPercentageOptimized(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, double minimumPercentage) {
         int pixels = 0;
         int maxPixelCount = image.imageWidth * image.imageHeight;
         int skipPixels = 4 * (width - image.imageWidth);
-        float percentage = 0.0;
+        double percentage = 0.0;
         uint8_t *pixel2 = image.imageData;
         for (int y1 = 0; y1 < image.imageHeight; y1++) {
         //const uint8_t *pixel1 = pixel + y1 * width * 4;
@@ -489,16 +495,16 @@ extern inline uint8_t * copyImageBuffer(uint8_t *baseAddress, int bufferWidth, i
     return testImage;
 }
 /*
-extern inline Position detectRelativeImageInImage(ImageData smallImage, ImageData largeImage, float percentageMatch, int xStart, int yStart, int xEnd, int yEnd) {
+extern inline Position detectRelativeImageInImage(ImageData smallImage, ImageData largeImage, double percentageMatch, int xStart, int yStart, int xEnd, int yEnd) {
     bool found = false;
-    float highestPercent = 0.0;
+    double highestPercent = 0.0;
     Position location;
     location.x = -1; location.y = -1;
     
     for (int y = yStart; y < yEnd; y++) {
         uint8_t *pixel = getPixel2(largeImage, xStart, y);
         for (int x = xStart; x < xEnd; x++) {
-            float percent = getImageAtPixelPercentage(pixel, x, y, largeImage.imageWidth, largeImage.imageHeight, smallImage);
+            double percent = getImageAtPixelPercentage(pixel, x, y, largeImage.imageWidth, largeImage.imageHeight, smallImage);
             if (percent > highestPercent) {
                 location.x = x; location.y = y;
                 highestPercent = percent;
@@ -522,16 +528,16 @@ extern inline Position detectRelativeImageInImage(ImageData smallImage, ImageDat
 }
 */
 /*
-extern inline Position detectRelativeImageInImagePercentage(ImageData smallImage, ImageData largeImage, float percentageMatch, int xStart, int yStart, int xEnd, int yEnd, float &returnPercentage) {
+extern inline Position detectRelativeImageInImagePercentage(ImageData smallImage, ImageData largeImage, double percentageMatch, int xStart, int yStart, int xEnd, int yEnd, double &returnPercentage) {
     bool found = false;
-    float highestPercent = 0.0;
+    double highestPercent = 0.0;
     Position location;
     location.x = -1; location.y = -1;
     
     for (int y = yStart; y < yEnd; y++) {
         uint8_t *pixel = getPixel2(largeImage, xStart, y);
         for (int x = xStart; x < xEnd; x++) {
-            float percent = getImageAtPixelPercentage(pixel, x, y, largeImage.imageWidth, largeImage.imageHeight, smallImage);
+            double percent = getImageAtPixelPercentage(pixel, x, y, largeImage.imageWidth, largeImage.imageHeight, smallImage);
             if (percent > highestPercent) {
                 location.x = x; location.y = y;
                 highestPercent = percent;
@@ -558,11 +564,11 @@ extern inline Position detectRelativeImageInImagePercentage(ImageData smallImage
     return makePosition(-1,-1);
 }*/
 /*
-extern inline float getImageAtPixelPercentage(const uint8_t *pixel, int x, int y, int width, int height, ImageData image) {
+extern inline double getImageAtPixelPercentage(const uint8_t *pixel, int x, int y, int width, int height, ImageData image) {
     int pixels = 0;
     if (width - x > image.imageWidth &&
         height - y > image.imageHeight) {
-        float percentage = 0.0;
+        double percentage = 0.0;
         uint8_t *pixel2 = image.imageData;
         for (int y1 = 0; y1 < image.imageHeight; y1++) {
             const uint8_t *pixel1 = pixel + (y1 * width)*4;
@@ -581,27 +587,27 @@ extern inline float getImageAtPixelPercentage(const uint8_t *pixel, int x, int y
 }*/
 
 
-    extern inline float getColorPercentage(const uint8_t *pixel,const uint8_t *pixel2) {
+    extern inline double getColorPercentage(const uint8_t *pixel,const uint8_t *pixel2) {
     //pixel 1 is 255, 255, 255
     //pixel 2 is 0, 0, 0
     //match is 0
 
     //pixel 1 and 2 is 255, 255, 255
     //match is 1.0
-    const float scale = 1.0 / (255.0 * 255.0 * 255.0); // compile-time constant
+    const double scale = 1.0 / (255.0 * 255.0 * 255.0); // compile-time constant
     int m0 = 255 - abs(pixel[0] - pixel2[0]); // NB: use std::abs rather than fabs
     int m1 = 255 - abs(pixel[1] - pixel2[1]); // and keep all of this part
     int m2 = 255 - abs(pixel[2] - pixel2[2]); // in the integer domain
     int m = m0 * m1 * m2;
-    return (float)m * scale;
+    return (double)m * scale;
 }
 
-inline bool colorInPercentage(const uint8_t *pixel,const uint8_t *pixel2, float percentage) {
-    float r = (255-abs(pixel[2] - pixel2[2])) / 255.0;
+inline bool colorInPercentage(const uint8_t *pixel,const uint8_t *pixel2, double percentage) {
+    double r = (255-abs(pixel[2] - pixel2[2])) / 255.0;
     if (r < percentage) return false;
-    float g = (255-abs(pixel[1] - pixel2[1])) / 255.0 * r;
+	double g = (255-abs(pixel[1] - pixel2[1])) / 255.0 * r;
     if (g < percentage) return false;
-    float b = (255-abs(pixel[0] - pixel2[0])) / 255.0 * g;
+	double b = (255-abs(pixel[0] - pixel2[0])) / 255.0 * g;
     if (b < percentage) return false;
     return true;
 }
@@ -609,10 +615,10 @@ inline bool colorInPercentage(const uint8_t *pixel,const uint8_t *pixel2, float 
 
 
 extern inline void normalizePoint(int &x, int &y, int length) {
-    float h = hypot(x, y);
+    double h = hypot(x, y);
     if(length != 0 && h != 0){
-        x = x * (length/h);
-        y = y * (length/h);
+        x = (int)( x * (length/h) );
+        y = (int)(y * (length/h));
     }
 }
 
@@ -637,7 +643,7 @@ extern inline bool detectImageAtPixel(const uint8_t *pixel, int x, int y, int wi
 return false;
 }
 
-extern inline bool detectImageAtPixelPercentage(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, float percentage) {
+extern inline bool detectImageAtPixelPercentage(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, double percentage) {
     if (getColorPercentage(pixel, image.imageData) >= percentage || image.imageData[3] == 0) {
         if (width - x > image.imageWidth &&
             height - y > image.imageHeight) {
@@ -665,12 +671,17 @@ extern inline Position makePosition(int x, int y) {
     p.y = y;
     return p;
 }
-
 extern int getRandomInteger(int minimum, int maximum) {
-    return arc4random_uniform((maximum - minimum) + 1) + minimum;
+	static bool randomSeeded = false;
+	if (!randomSeeded) {
+		srand((unsigned)time(NULL));
+		randomSeeded = true;
+	}
+	return rand() / (RAND_MAX + 1) * (maximum - minimum)+ minimum;
+    //return arc4random_uniform((maximum - minimum) + 1) + minimum;
 }
 
-extern Minion* makeMinionBar( Position topLeft,  Position bottomLeft,  Position topRight,  Position bottomRight, float health) {
+extern Minion* makeMinionBar( Position topLeft,  Position bottomLeft,  Position topRight,  Position bottomRight, double health) {
     Minion* mb = new Minion();
     mb->topLeft = topLeft; mb->bottomLeft = bottomLeft; mb->topRight = topRight; mb->bottomRight = bottomRight;
     mb->health = health;
@@ -746,7 +757,7 @@ extern ImageData makeImageDataFrom(string* path) {
         uint8_t *pixel = imageData.imageData + (y * imageData.imageWidth + x)*4;
     //int position = (y * imageData.imageWidth + x) * 4;
         Pixel p;
-        if ((y * imageData.imageWidth + x) * 4+3 < imageData.imageByteLength) {
+        if ((unsigned)((y * imageData.imageWidth + x) * 4+3) < imageData.imageByteLength) {
         //p.r = imageData.imageData[position + 2];
         //p.g = imageData.imageData[position + 1];
         //p.b = imageData.imageData[position + 0];
@@ -771,7 +782,7 @@ extern ImageData makeImageDataFrom(string* path) {
 
     extern void setPixel( ImageData imageData, int x, int y, int r, int g, int b) {
         uint8_t *pixel = imageData.imageData + (y * imageData.imageWidth + x)*4;
-        if ((y * imageData.imageWidth + x) * 4+3 < imageData.imageByteLength) {
+        if ((unsigned)((y * imageData.imageWidth + x) * 4+3) < imageData.imageByteLength) {
             pixel[2] = r;
             pixel[1] = g;
             pixel[0] = b;

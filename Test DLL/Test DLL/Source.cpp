@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+#include "Utility.h"
+#include "DetectionManager.h"
+
 extern "C"
 {
 	__declspec(dllexport) void DisplayHelloFromDLL()

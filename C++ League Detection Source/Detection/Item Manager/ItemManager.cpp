@@ -8,11 +8,11 @@
 
 #include "ItemManager.h"
 
-ImageData ItemManager::trinketItemImageData = loadImage("Resources/Item Bar/Trinket Active.png");
-ImageData ItemManager::itemImageData = loadImage("Resources/Item Bar/Usable Item.png");
-ImageData ItemManager::potionImageData = loadImage("Resources/Item Bar/Potion.png");
-ImageData ItemManager::usedPotionImageData = loadImage("Resources/Item Bar/Used Potion.png");
-ImageData ItemManager::usedPotionInnerImageData = loadImage("Resources/Item Bar/Used Potion Inner.png");
+ImageData ItemManager::trinketItemImageData;//TODO = loadImage("Resources/Item Bar/Trinket Active.png");
+ImageData ItemManager::itemImageData;//TODO = loadImage("Resources/Item Bar/Usable Item.png");
+ImageData ItemManager::potionImageData;//TODO = loadImage("Resources/Item Bar/Potion.png");
+ImageData ItemManager::usedPotionImageData;//TODO = loadImage("Resources/Item Bar/Used Potion.png");
+ImageData ItemManager::usedPotionInnerImageData;//TODO = loadImage("Resources/Item Bar/Used Potion Inner.png");
 
 ItemManager::ItemManager() {}
 

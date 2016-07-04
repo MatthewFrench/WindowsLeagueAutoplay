@@ -8,22 +8,22 @@
 
 #include "AllyChampionManager.h"
 
-ImageData AllyChampionManager::topLeftImageData = loadImage("Resources/Ally Champion Health Bar/Top Left Corner.png");
+ImageData AllyChampionManager::topLeftImageData;// = loadImage("Resources/Ally Champion Health Bar/Top Left Corner.png");
 
-ImageData AllyChampionManager::bottomLeftImageData = loadImage("Resources/Ally Champion Health Bar/Bottom Left Corner.png");
-ImageData AllyChampionManager::bottomRightImageData = loadImage("Resources/Ally Champion Health Bar/Bottom Right Corner.png");
-ImageData AllyChampionManager::topRightImageData = loadImage("Resources/Ally Champion Health Bar/Top Right Corner.png");
-ImageData AllyChampionManager::healthSegmentImageData = loadImage("Resources/Ally Champion Health Bar/Health Segment.png");
+ImageData AllyChampionManager::bottomLeftImageData;// = loadImage("Resources/Ally Champion Health Bar/Bottom Left Corner.png");
+ImageData AllyChampionManager::bottomRightImageData;// = loadImage("Resources/Ally Champion Health Bar/Bottom Right Corner.png");
+ImageData AllyChampionManager::topRightImageData;// = loadImage("Resources/Ally Champion Health Bar/Top Right Corner.png");
+ImageData AllyChampionManager::healthSegmentImageData;// = loadImage("Resources/Ally Champion Health Bar/Health Segment.png");
 
 AllyChampionManager::AllyChampionManager () {}
 
 //To Validate, at least 2 corners need detected then we detect the health percentage
 void AllyChampionManager::validateChampionBars(ImageData imageData, std::vector<Champion*>* detectedChampionBars) {
 //Remove duplicates
-    for (int i = 0; i < detectedChampionBars->size(); i++) {
+    for (unsigned int i = 0; i < detectedChampionBars->size(); i++) {
         Champion* champ = (*detectedChampionBars)[i];
         int detectedCorners = 1;
-        for (int j = 0; j < detectedChampionBars->size(); j++) {
+        for (unsigned int j = 0; j < detectedChampionBars->size(); j++) {
             if (j != i) {
                 Champion* champ2 = (*detectedChampionBars)[j];
                 if (champ2->topLeft.x == champ->topLeft.x && champ->topLeft.y == champ2-> topLeft.y) {
@@ -45,7 +45,7 @@ void AllyChampionManager::validateChampionBars(ImageData imageData, std::vector<
     }
 
 //Detect health
-    for (int i = 0; i < detectedChampionBars->size(); i++) {
+    for (unsigned int i = 0; i < detectedChampionBars->size(); i++) {
         Champion* champ = (*detectedChampionBars)[i];
         champ->health = 0;
         for (int x = 103; x >= 0; x--) {
@@ -55,7 +55,7 @@ void AllyChampionManager::validateChampionBars(ImageData imageData, std::vector<
                     uint8_t* healthBarColor = getPixel2(healthSegmentImageData, 0, y);
                 uint8_t*  p = getPixel2(imageData, x + champ->topLeft.x, y + champ->topLeft.y);
                 if (getColorPercentage(healthBarColor, p) >= 0.55) {
-                    champ->health = (float)x / 103.0 * 100;
+                    champ->health = (double)x / 103.0 * 100;
                     y = healthSegmentImageData.imageHeight + 1;
                     x = -1;
                 }

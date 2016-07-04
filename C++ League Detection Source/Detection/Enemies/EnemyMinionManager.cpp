@@ -8,25 +8,25 @@
 
 #include "EnemyMinionManager.h"
 
-ImageData EnemyMinionManager::topLeftImageData = loadImage("Resources/Enemy Minion Health Bar/Top Left Corner.png");
-ImageData EnemyMinionManager::bottomLeftImageData = loadImage("Resources/Enemy Minion Health Bar/Bottom Left Corner.png");
-ImageData EnemyMinionManager::bottomRightImageData = loadImage("Resources/Enemy Minion Health Bar/Bottom Right Corner.png");
-ImageData EnemyMinionManager::topRightImageData = loadImage("Resources/Enemy Minion Health Bar/Top Right Corner.png");
-ImageData EnemyMinionManager::healthSegmentImageData = loadImage("Resources/Enemy Minion Health Bar/Health Segment.png");
+ImageData EnemyMinionManager::topLeftImageData;//TODO = loadImage("Resources/Enemy Minion Health Bar/Top Left Corner.png");
+ImageData EnemyMinionManager::bottomLeftImageData;//TODO = loadImage("Resources/Enemy Minion Health Bar/Bottom Left Corner.png");
+ImageData EnemyMinionManager::bottomRightImageData;//TODO = loadImage("Resources/Enemy Minion Health Bar/Bottom Right Corner.png");
+ImageData EnemyMinionManager::topRightImageData;//TODO = loadImage("Resources/Enemy Minion Health Bar/Top Right Corner.png");
+ImageData EnemyMinionManager::healthSegmentImageData;//TODO = loadImage("Resources/Enemy Minion Health Bar/Health Segment.png");
 
 EnemyMinionManager::EnemyMinionManager () {}
 
 //To Validate, at least 2 corners need detected then we detect the health percentage
 
 void EnemyMinionManager::validateMinionBars(ImageData imageData, std::vector<Minion*>* detectedMinionBars) {
-      const float coloredPixelPrecision = 0.96; //0.97
-    const float overalImagePrecision = 0.96; //0.97
-    const float minionHealthMatch = 0.80; //0.87
+      const double coloredPixelPrecision = 0.96; //0.97
+    const double overalImagePrecision = 0.96; //0.97
+    const double minionHealthMatch = 0.80; //0.87
     //Remove duplicates
-    for (int i = 0; i < detectedMinionBars->size(); i++) {
+    for (size_t i = 0; i < detectedMinionBars->size(); i++) {
         Minion* minion = (*detectedMinionBars)[i];
         int detectedCorners = 1;
-        for (int j = 0; j < detectedMinionBars->size(); j++) {
+        for (size_t j = 0; j < detectedMinionBars->size(); j++) {
             if (j != i) {
                 Minion* minion2 = (*detectedMinionBars)[j];
                 if (minion2->topLeft.x == minion->topLeft.x && minion->topLeft.y == minion2-> topLeft.y) {
@@ -49,7 +49,7 @@ void EnemyMinionManager::validateMinionBars(ImageData imageData, std::vector<Min
     }
 
     //Detect health
-    for (int i = 0; i < detectedMinionBars->size(); i++) {
+    for (size_t i = 0; i < detectedMinionBars->size(); i++) {
         Minion* minion = (*detectedMinionBars)[i];
         if (minion->health == 0) {
             for (int x = 61; x >= 0; x--) {
@@ -75,7 +75,7 @@ void EnemyMinionManager::validateMinionBars(ImageData imageData, std::vector<Min
     
     //Detect if ward
     //Ward is 193, 193, 193
-    for (int i = 0; i < detectedMinionBars->size(); i++) {
+    for (size_t i = 0; i < detectedMinionBars->size(); i++) {
         Minion* minion = (*detectedMinionBars)[i];
         bool isWard = false;
         for (int x = 61; x >= 0; x--) {

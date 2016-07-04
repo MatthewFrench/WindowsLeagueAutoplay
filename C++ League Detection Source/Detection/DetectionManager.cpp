@@ -325,8 +325,8 @@ void DetectionManager::processMapShopAndLocation(ImageData *image) {
     }
 }
 void DetectionManager::processShopBottomLeftCorner(ImageData *image) {
-    float leagueGameWidth = image->imageWidth;
-    float leagueGameHeight = image->imageHeight;
+    int leagueGameWidth = image->imageWidth;
+    int leagueGameHeight = image->imageHeight;
     GenericObject* bottomLeftCorner = NULL;
     if (shopTopLeftCorner != NULL) {
         for (int x = shopTopLeftCorner->topLeft.x - 5; x < shopTopLeftCorner->topLeft.x + 5; x++) {
@@ -368,9 +368,9 @@ void DetectionManager::processShopBuyableItems(ImageData *image) {
             }
                     //Remove duplicate items
 
-            for (int i = 0; i < buyableItems->size(); i++) {
+            for (size_t i = 0; i < buyableItems->size(); i++) {
                 GenericObject* item = (*buyableItems)[i];
-                for (int i2 = 0; i2 < buyableItems->size(); i2++) {
+                for (size_t i2 = 0; i2 < buyableItems->size(); i2++) {
                     if (i != i2) {
                         GenericObject* item2 = (*buyableItems)[i2];
                         if (std::abs(item2->topLeft.x - item->topLeft.x) <= 15.0 && std::abs(item2->topLeft.y - item->topLeft.y) <= 15.0) {

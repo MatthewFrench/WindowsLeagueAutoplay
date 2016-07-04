@@ -8,15 +8,15 @@
 
 #include "SelfChampionManager.h"
 
-ImageData SelfChampionManager::topLeftImageData = loadImage("Resources/Self Health Bar/Top Left Corner.png");
+ImageData SelfChampionManager::topLeftImageData;// = loadImage("Resources/Self Health Bar/Top Left Corner.png");
 
-ImageData SelfChampionManager::bottomLeftImageData = loadImage("Resources/Self Health Bar/Bottom Left Corner.png");
-ImageData SelfChampionManager::bottomRightImageData = loadImage("Resources/Self Health Bar/Bottom Right Corner.png");
-ImageData SelfChampionManager::topRightImageData = loadImage("Resources/Self Health Bar/Top Right Corner.png");
-ImageData SelfChampionManager::healthSegmentImageData = loadImage("Resources/Self Health Bar/Health Segment.png");
-ImageData SelfChampionManager::bottomBarLeftSideImageData = loadImage("Resources/Self Health Bar/Bottom Bar Left Side.png");
-ImageData SelfChampionManager::bottomBarRightSideImageData = loadImage("Resources/Self Health Bar/Bottom Bar Right Side.png");
-ImageData SelfChampionManager::bottomBarAverageHealthColorImageData = loadImage("Resources/Self Health Bar/Bottom Bar Average Health Color.png");
+ImageData SelfChampionManager::bottomLeftImageData;// = loadImage("Resources/Self Health Bar/Bottom Left Corner.png");
+ImageData SelfChampionManager::bottomRightImageData;// = loadImage("Resources/Self Health Bar/Bottom Right Corner.png");
+ImageData SelfChampionManager::topRightImageData;// = loadImage("Resources/Self Health Bar/Top Right Corner.png");
+ImageData SelfChampionManager::healthSegmentImageData;// = loadImage("Resources/Self Health Bar/Health Segment.png");
+ImageData SelfChampionManager::bottomBarLeftSideImageData;// = loadImage("Resources/Self Health Bar/Bottom Bar Left Side.png");
+ImageData SelfChampionManager::bottomBarRightSideImageData;// = loadImage("Resources/Self Health Bar/Bottom Bar Right Side.png");
+ImageData SelfChampionManager::bottomBarAverageHealthColorImageData;// = loadImage("Resources/Self Health Bar/Bottom Bar Average Health Color.png");
 
 SelfChampionManager::SelfChampionManager () {}
 
@@ -60,10 +60,10 @@ SelfHealth* SelfChampionManager::detectSelfHealthBarAtPixel(ImageData imageData,
 //To Validate, at least 2 corners need detected then we detect the health percentage
 void SelfChampionManager::validateChampionBars(ImageData imageData, std::vector<Champion*>* detectedChampionBars) {
     //Remove duplicates
-    for (int i = 0; i < detectedChampionBars->size(); i++) {
+    for (size_t i = 0; i < detectedChampionBars->size(); i++) {
         Champion* champ = (*detectedChampionBars)[i];
         int detectedCorners = 1;
-        for (int j = 0; j < detectedChampionBars->size(); j++) {
+        for (size_t j = 0; j < detectedChampionBars->size(); j++) {
             if (j != i) {
                 Champion* champ2 = (*detectedChampionBars)[j];
                 if (champ2->topLeft.x == champ->topLeft.x && champ->topLeft.y == champ2-> topLeft.y) {
@@ -85,7 +85,7 @@ void SelfChampionManager::validateChampionBars(ImageData imageData, std::vector<
     }
     
     //Detect health
-    for (int i = 0; i < detectedChampionBars->size(); i++) {
+    for (size_t i = 0; i < detectedChampionBars->size(); i++) {
         Champion* champ = (*detectedChampionBars)[i];
         champ->health = 0;
         for (int x = 103; x >= 0; x--) {
@@ -110,10 +110,10 @@ void SelfChampionManager::validateChampionBars(ImageData imageData, std::vector<
 void SelfChampionManager::validateSelfHealthBars(ImageData imageData, std::vector<SelfHealth*>* detectedHealthBars) {
 
     //Remove duplicates
-    for (int i = 0; i < detectedHealthBars->size(); i++) {
+    for (size_t i = 0; i < detectedHealthBars->size(); i++) {
         SelfHealth* healthBar = (*detectedHealthBars)[i];
         int detectedCorners = 1;
-        for (int j = 0; j < detectedHealthBars->size(); j++) {
+        for (size_t j = 0; j < detectedHealthBars->size(); j++) {
             if (j != i) {
                 SelfHealth* healthBar2 = (*detectedHealthBars)[j];
                 if (healthBar2->topLeft.x == healthBar->topLeft.x && healthBar->topLeft.y == healthBar2-> topLeft.y) {
@@ -133,7 +133,7 @@ void SelfChampionManager::validateSelfHealthBars(ImageData imageData, std::vecto
     }
     
     //Detect health
-    for (int i = 0; i < detectedHealthBars->size(); i++) {
+    for (size_t i = 0; i < detectedHealthBars->size(); i++) {
         SelfHealth* healthBar = (*detectedHealthBars)[i];
         healthBar->health = 0;
         uint8_t* healthColorPixel = getPixel2(bottomBarAverageHealthColorImageData, 0, 0);

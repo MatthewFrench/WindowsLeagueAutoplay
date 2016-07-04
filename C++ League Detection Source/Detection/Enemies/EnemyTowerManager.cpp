@@ -8,22 +8,22 @@
 
 #include "EnemyTowerManager.h"
 
-ImageData EnemyTowerManager::topLeftImageData = loadImage("Resources/Enemy Tower Health Bar/Top Left Corner.png");
+ImageData EnemyTowerManager::topLeftImageData;//TODO = loadImage("Resources/Enemy Tower Health Bar/Top Left Corner.png");
 
-ImageData EnemyTowerManager::bottomLeftImageData = loadImage("Resources/Enemy Tower Health Bar/Bottom Left Corner.png");
-ImageData EnemyTowerManager::bottomRightImageData = loadImage("Resources/Enemy Tower Health Bar/Bottom Right Corner.png");
-ImageData EnemyTowerManager::topRightImageData = loadImage("Resources/Enemy Tower Health Bar/Top Right Corner.png");
-ImageData EnemyTowerManager::healthSegmentImageData = loadImage("Resources/Enemy Tower Health Bar/Health Segment.png");
+ImageData EnemyTowerManager::bottomLeftImageData;//TODO = loadImage("Resources/Enemy Tower Health Bar/Bottom Left Corner.png");
+ImageData EnemyTowerManager::bottomRightImageData;//TODO = loadImage("Resources/Enemy Tower Health Bar/Bottom Right Corner.png");
+ImageData EnemyTowerManager::topRightImageData;//TODO = loadImage("Resources/Enemy Tower Health Bar/Top Right Corner.png");
+ImageData EnemyTowerManager::healthSegmentImageData;//TODO = loadImage("Resources/Enemy Tower Health Bar/Health Segment.png");
 
 EnemyTowerManager::EnemyTowerManager () {}
 
 //To Validate, at least 2 corners need detected then we detect the health percentage
 void EnemyTowerManager::validateTowerBars(ImageData imageData, std::vector<Tower*>* detectedTowerBars) {
     //Remove duplicates
-    for (int i = 0; i < detectedTowerBars->size(); i++) {
+    for (size_t i = 0; i < detectedTowerBars->size(); i++) {
         Tower* tower = (*detectedTowerBars)[i];
         int detectedCorners = 1;
-        for (int j = 0; j < detectedTowerBars->size(); j++) {
+        for (size_t j = 0; j < detectedTowerBars->size(); j++) {
             if (j != i) {
                 Tower* tower2 = (*detectedTowerBars)[j];
                 if (tower2->topLeft.x == tower->topLeft.x && tower->topLeft.y == tower2-> topLeft.y) {
@@ -45,7 +45,7 @@ void EnemyTowerManager::validateTowerBars(ImageData imageData, std::vector<Tower
     }
     
     //Detect health
-    for (int i = 0; i < detectedTowerBars->size(); i++) {
+    for (size_t i = 0; i < detectedTowerBars->size(); i++) {
         Tower* tower = (*detectedTowerBars)[i];
         tower->health = 0;
         for (int x = 125; x >= 0; x--) {

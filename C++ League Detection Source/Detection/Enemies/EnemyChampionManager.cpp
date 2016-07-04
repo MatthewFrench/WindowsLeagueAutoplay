@@ -10,22 +10,22 @@
 
 //static int Debug_Draw_Red = 255, Debug_Draw_Green = 0, Debug_Draw_Blue = 255;
 //static int Health_Bar_Width = 104, Health_Bar_Height = 9;
-ImageData EnemyChampionManager::topLeftImageData = loadImage("Resources/Enemy Champion Health Bar/Top Left Corner.png");
+ImageData EnemyChampionManager::topLeftImageData;//TODO = loadImage("Resources/Enemy Champion Health Bar/Top Left Corner.png");
 
-ImageData EnemyChampionManager::bottomLeftImageData = loadImage("Resources/Enemy Champion Health Bar/Bottom Left Corner.png");
-ImageData EnemyChampionManager::bottomRightImageData = loadImage("Resources/Enemy Champion Health Bar/Bottom Right Corner.png");
-ImageData EnemyChampionManager::topRightImageData = loadImage("Resources/Enemy Champion Health Bar/Top Right Corner.png");
-ImageData EnemyChampionManager::healthSegmentImageData = loadImage("Resources/Enemy Champion Health Bar/Health Segment.png");
+ImageData EnemyChampionManager::bottomLeftImageData;//TODO = loadImage("Resources/Enemy Champion Health Bar/Bottom Left Corner.png");
+ImageData EnemyChampionManager::bottomRightImageData;//TODO = loadImage("Resources/Enemy Champion Health Bar/Bottom Right Corner.png");
+ImageData EnemyChampionManager::topRightImageData;//TODO = loadImage("Resources/Enemy Champion Health Bar/Top Right Corner.png");
+ImageData EnemyChampionManager::healthSegmentImageData;//TODO = loadImage("Resources/Enemy Champion Health Bar/Health Segment.png");
 
 EnemyChampionManager::EnemyChampionManager () {}
 
 //To Validate, at least 2 corners need detected then we detect the health percentage
 void EnemyChampionManager::validateChampionBars(ImageData imageData, std::vector<Champion*>* detectedChampionBars) {
     //Remove duplicates
-    for (int i = 0; i < detectedChampionBars->size(); i++) {
+    for (size_t i = 0; i < detectedChampionBars->size(); i++) {
         Champion* champ = (*detectedChampionBars)[i];
         int detectedCorners = 1;
-        for (int j = 0; j < detectedChampionBars->size(); j++) {
+        for (size_t j = 0; j < detectedChampionBars->size(); j++) {
             if (j != i) {
                 Champion* champ2 = (*detectedChampionBars)[j];
                 if (champ2->topLeft.x == champ->topLeft.x && champ->topLeft.y == champ2-> topLeft.y) {
@@ -47,7 +47,7 @@ void EnemyChampionManager::validateChampionBars(ImageData imageData, std::vector
     }
 
     //Detect health
-    for (int i = 0; i < detectedChampionBars->size(); i++) {
+    for (size_t i = 0; i < detectedChampionBars->size(); i++) {
         Champion* champ = (*detectedChampionBars)[i];
         champ->health = 0;
         for (int x = 103; x >= 0; x--) {

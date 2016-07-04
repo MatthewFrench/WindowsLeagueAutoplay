@@ -13,10 +13,150 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Detection">
+      <UniqueIdentifier>{492cb1da-0a5c-464f-902d-369b48b83eb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detection\Ability Manager">
+      <UniqueIdentifier>{f97361c1-9f46-41be-9926-329a6656552d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detection\Allies">
+      <UniqueIdentifier>{651c901a-e5f6-4f4f-a500-4a75c0e7aff3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detection\Enemies">
+      <UniqueIdentifier>{26106173-2bc8-4c92-bc70-ce530d570144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detection\Item Manager">
+      <UniqueIdentifier>{badef2ea-4ad7-427c-b7bf-c70bb6aa7234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detection\Map Manager">
+      <UniqueIdentifier>{d56d3b4a-bd44-464c-bc5f-baab85717c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detection\Objects">
+      <UniqueIdentifier>{80abe0e8-2d66-4f0e-9a23-db8acd38d3f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detection\Shop Manager">
+      <UniqueIdentifier>{4d2b597a-8b70-4dea-a1ab-cb1fcd413c15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detection\Surrender Manager">
+      <UniqueIdentifier>{9ade380a-1d08-4d0d-805d-d9023cc7d43c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\DetectionManager.cpp">
+      <Filter>Source Files\Detection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Ability Manager\AbilityManager.cpp">
+      <Filter>Source Files\Detection\Ability Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Allies\AllyChampionManager.cpp">
+      <Filter>Source Files\Detection\Allies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Allies\AllyMinionManager.cpp">
+      <Filter>Source Files\Detection\Allies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Allies\SelfChampionManager.cpp">
+      <Filter>Source Files\Detection\Allies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyChampionManager.cpp">
+      <Filter>Source Files\Detection\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyMinionManager.cpp">
+      <Filter>Source Files\Detection\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyTowerManager.cpp">
+      <Filter>Source Files\Detection\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Item Manager\ItemManager.cpp">
+      <Filter>Source Files\Detection\Item Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Map Manager\MapManager.cpp">
+      <Filter>Source Files\Detection\Map Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Objects\Champion.cpp">
+      <Filter>Source Files\Detection\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Objects\GenericObject.cpp">
+      <Filter>Source Files\Detection\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Objects\Minion.cpp">
+      <Filter>Source Files\Detection\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Objects\SelfHealth.cpp">
+      <Filter>Source Files\Detection\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Objects\Tower.cpp">
+      <Filter>Source Files\Detection\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Shop Manager\ShopManager.cpp">
+      <Filter>Source Files\Detection\Shop Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Surrender Manager\SurrenderManager.cpp">
+      <Filter>Source Files\Detection\Surrender Manager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\DetectionManager.h">
+      <Filter>Source Files\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Utility.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Ability Manager\AbilityManager.h">
+      <Filter>Source Files\Detection\Ability Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Allies\AllyChampionManager.h">
+      <Filter>Source Files\Detection\Allies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Allies\AllyMinionManager.h">
+      <Filter>Source Files\Detection\Allies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Allies\SelfChampionManager.h">
+      <Filter>Source Files\Detection\Allies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyChampionManager.h">
+      <Filter>Source Files\Detection\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyMinionManager.h">
+      <Filter>Source Files\Detection\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyTowerManager.h">
+      <Filter>Source Files\Detection\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Item Manager\ItemManager.h">
+      <Filter>Source Files\Detection\Item Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Map Manager\MapManager.h">
+      <Filter>Source Files\Detection\Map Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\Champion.h">
+      <Filter>Source Files\Detection\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\GenericObject.h">
+      <Filter>Source Files\Detection\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\Minion.h">
+      <Filter>Source Files\Detection\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\Position.h">
+      <Filter>Source Files\Detection\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\SelfHealth.h">
+      <Filter>Source Files\Detection\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\Tower.h">
+      <Filter>Source Files\Detection\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Shop Manager\ShopManager.h">
+      <Filter>Source Files\Detection\Shop Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Surrender Manager\SurrenderManager.h">
+      <Filter>Source Files\Detection\Surrender Manager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

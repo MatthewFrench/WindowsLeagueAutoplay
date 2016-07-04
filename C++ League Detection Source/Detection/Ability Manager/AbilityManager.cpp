@@ -8,12 +8,13 @@
 
 #include "AbilityManager.h"
 
-ImageData AbilityManager::enabledSummonerSpellImageData = loadImage("Resources/Skill Bar/Enabled Summoner Spell.png");
-ImageData AbilityManager::levelDotImageData = loadImage("Resources/Skill Bar/Leveled Dot.png");
-ImageData AbilityManager::levelUpImageData = loadImage("Resources/Skill Bar/Level Up.png");
-ImageData AbilityManager::levelUpDisabledImageData = loadImage("Resources/Skill Bar/Level Up Disabled.png");
-ImageData AbilityManager::abilityEnabledImageData = loadImage("Resources/Skill Bar/Enabled Ability.png");
-ImageData AbilityManager::abilityDisabledImageData = loadImage("Resources/Skill Bar/Disabled Ability.png");
+
+ImageData AbilityManager::enabledSummonerSpellImageData;//TODO = loadImage("Resources/Skill Bar/Enabled Summoner Spell.png");
+ImageData AbilityManager::levelDotImageData;//TODO = loadImage("Resources/Skill Bar/Leveled Dot.png");
+ImageData AbilityManager::levelUpImageData;//TODO = loadImage("Resources/Skill Bar/Level Up.png");
+ImageData AbilityManager::levelUpDisabledImageData;//TODO = loadImage("Resources/Skill Bar/Level Up Disabled.png");
+ImageData AbilityManager::abilityEnabledImageData;//TODO = loadImage("Resources/Skill Bar/Enabled Ability.png");
+ImageData AbilityManager::abilityDisabledImageData;//TODO = loadImage("Resources/Skill Bar/Disabled Ability.png");
 
 AbilityManager::AbilityManager() {
 }
@@ -36,7 +37,7 @@ GenericObject* AbilityManager::detectLevelUpAtPixel(ImageData imageData, uint8_t
     
     return object;
 }
-const float levelDotPrecision = 0.6;
+const double levelDotPrecision = 0.6;
 GenericObject* AbilityManager::detectLevelDotAtPixel(ImageData imageData, uint8_t *pixel, int x, int y) {
     GenericObject* object = NULL;
     
@@ -56,7 +57,7 @@ GenericObject* AbilityManager::detectLevelDotAtPixel(ImageData imageData, uint8_
     
     return object;
 }
-const float abilityEnabledPrecision = 0.7;
+const double abilityEnabledPrecision = 0.7;
 GenericObject* AbilityManager::detectEnabledAbilityAtPixel(ImageData imageData, uint8_t *pixel, int x, int y) {
     GenericObject* object = NULL;
     

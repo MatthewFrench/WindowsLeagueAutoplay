@@ -13,5 +13,5 @@ public:
     SelfHealth();
     Position topLeft, topRight, bottomLeft, bottomRight, characterCenter;
     bool detectedLeftSide, detectedRightSide;
-    float health;
+    double health;
 };

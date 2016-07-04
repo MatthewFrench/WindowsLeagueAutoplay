@@ -1,9 +1,10 @@
-#define cimg_display 0
-#define cimg_use_png
-#include "lib/CImg.h"
+//#define cimg_display 0
+//#define cimg_use_png
+//#include "lib/CImg.h"
 #include "Utility.h"
 #include "Detection/DetectionManager.h"
 
+/*
 using namespace cimg_library; 
 
 double runTestAndOutput(string folder, string pngImageName);
@@ -589,3 +590,4 @@ void printDetected(DetectionManager* detection) {
 		printf("\tSurrender is visible\n");
 	}
 }
+*/

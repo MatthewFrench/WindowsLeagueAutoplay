@@ -8,7 +8,7 @@
 
 #include "SurrenderManager.h"
 
-ImageData SurrenderManager::surrenderImageData = loadImage("Resources/Surrender/Surrender.png");
+ImageData SurrenderManager::surrenderImageData;//TODO = loadImage("Resources/Surrender/Surrender.png");
 
 GenericObject* SurrenderManager::detectSurrenderAtPixel(ImageData imageData, uint8_t *pixel, int x, int y) {
     GenericObject* object = NULL;

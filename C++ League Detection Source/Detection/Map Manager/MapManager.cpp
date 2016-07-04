@@ -15,8 +15,8 @@
 //  Created by Matthew French on 6/11/15.
 //  Copyright © 2015 Matthew French. All rights reserved.
 //
-ImageData MapManager::shopIconImageData = loadImage("Resources/Map/Shop Icon.png");
-ImageData MapManager::mapTopLeftCornerImageData = loadImage("Resources/Map/Map Top Left Corner.png");
+ImageData MapManager::shopIconImageData;//TODO = loadImage("Resources/Map/Shop Icon.png");
+ImageData MapManager::mapTopLeftCornerImageData;//TODO = loadImage("Resources/Map/Map Top Left Corner.png");
 
 MapManager::MapManager() {}
 
@@ -137,8 +137,8 @@ GenericObject* MapManager::detectLocation(ImageData imageData, uint8_t *pixel, i
                 object->topRight.y = topLeftY;
                 object->bottomRight.x = object->topRight.x;
                 object->bottomRight.y = object->bottomLeft.y;
-                object->center.x = ((object->topRight.x - object->topLeft.x) / 2.0 + object->topLeft.x);
-                object->center.y = ((object->bottomLeft.y - object->topLeft.y) / 2.0 + object->topLeft.y);
+                object->center.x = (int)((object->topRight.x - object->topLeft.x) / 2.0 + object->topLeft.x);
+                object->center.y = (int)((object->bottomLeft.y - object->topLeft.y) / 2.0 + object->topLeft.y);
             }
         } else {
             //We have a vertical bar
@@ -167,8 +167,8 @@ GenericObject* MapManager::detectLocation(ImageData imageData, uint8_t *pixel, i
                 object->topRight.y = topLeftY;
                 object->bottomRight.x = object->topRight.x;
                 object->bottomRight.y = object->bottomLeft.y;
-                object->center.x = ((object->topRight.x - object->topLeft.x) / 2.0 + object->topLeft.x);
-                object->center.y = ((object->bottomLeft.y - object->topLeft.y) / 2.0 + object->topLeft.y);
+                object->center.x = (int)((object->topRight.x - object->topLeft.x) / 2.0 + object->topLeft.x);
+                object->center.y = (int)((object->bottomLeft.y - object->topLeft.y) / 2.0 + object->topLeft.y);
             }
         }
     }

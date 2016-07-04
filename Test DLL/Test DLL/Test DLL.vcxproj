@@ -146,7 +146,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Ability Manager\AbilityManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Allies\AllyChampionManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Allies\AllyMinionManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Allies\SelfChampionManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\DetectionManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyChampionManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyMinionManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyTowerManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Item Manager\ItemManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Map Manager\MapManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Objects\Champion.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Objects\GenericObject.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Objects\Minion.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Objects\SelfHealth.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Objects\Tower.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Shop Manager\ShopManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\Detection\Surrender Manager\SurrenderManager.cpp" />
+    <ClCompile Include="..\..\C++ League Detection Source\main.cpp" />
     <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Ability Manager\AbilityManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Allies\AllyChampionManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Allies\AllyMinionManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Allies\SelfChampionManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\DetectionManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyChampionManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyMinionManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Enemies\EnemyTowerManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Item Manager\ItemManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Map Manager\MapManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\Champion.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\GenericObject.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\Minion.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\Position.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\SelfHealth.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Objects\Tower.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Shop Manager\ShopManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Detection\Surrender Manager\SurrenderManager.h" />
+    <ClInclude Include="..\..\C++ League Detection Source\Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

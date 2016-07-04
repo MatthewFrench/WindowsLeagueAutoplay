@@ -13,5 +13,5 @@ public:
     Champion();
     Position topLeft, topRight, bottomLeft, bottomRight, characterCenter;
     bool detectedTopLeft, detectedBottomLeft, detectedTopRight, detectedBottomRight;
-    float health;
+    double health;
 };

@@ -8,29 +8,29 @@
 
 #include "AllyMinionManager.h"
 
-ImageData AllyMinionManager::wardImageData = loadImage("Resources/Ward/Pink Ward.png");
+ImageData AllyMinionManager::wardImageData;// = loadImage("Resources/Ward/Pink Ward.png");
 
-ImageData AllyMinionManager::topLeftImageData = loadImage("Resources/Ally Minion Health Bar/Top Left Corner.png");
+ImageData AllyMinionManager::topLeftImageData;// = loadImage("Resources/Ally Minion Health Bar/Top Left Corner.png");
 
-ImageData AllyMinionManager::bottomLeftImageData = loadImage("Resources/Ally Minion Health Bar/Bottom Left Corner.png");
-ImageData AllyMinionManager::bottomRightImageData = loadImage("Resources/Ally Minion Health Bar/Bottom Right Corner.png");
-ImageData AllyMinionManager::topRightImageData = loadImage("Resources/Ally Minion Health Bar/Top Right Corner.png");
-ImageData AllyMinionManager::healthSegmentImageData = loadImage("Resources/Ally Minion Health Bar/Health Segment.png");
+ImageData AllyMinionManager::bottomLeftImageData;// = loadImage("Resources/Ally Minion Health Bar/Bottom Left Corner.png");
+ImageData AllyMinionManager::bottomRightImageData;// = loadImage("Resources/Ally Minion Health Bar/Bottom Right Corner.png");
+ImageData AllyMinionManager::topRightImageData;// = loadImage("Resources/Ally Minion Health Bar/Top Right Corner.png");
+ImageData AllyMinionManager::healthSegmentImageData;// = loadImage("Resources/Ally Minion Health Bar/Health Segment.png");
 
 AllyMinionManager::AllyMinionManager () {}
 
 //To Validate, at least 2 corners need detected then we detect the health percentage
 
 void AllyMinionManager::validateMinionBars(ImageData imageData, std::vector<Minion*>* detectedMinionBars) {
-      const float coloredPixelPrecision = 0.96; //0.97
-    const float overalImagePrecision = 0.96; //0.97
-        const float allyMinionHealthMatch = 0.80; //0.87
+      const double coloredPixelPrecision = 0.96; //0.97
+    const double overalImagePrecision = 0.96; //0.97
+        const double allyMinionHealthMatch = 0.80; //0.87
     
     //Remove duplicates
-    for (int i = 0; i < detectedMinionBars->size(); i++) {
+    for (size_t i = 0; i < detectedMinionBars->size(); i++) {
         Minion* minion = (*detectedMinionBars)[i];
         int detectedCorners = 1;
-        for (int j = 0; j < detectedMinionBars->size(); j++) {
+        for (size_t j = 0; j < detectedMinionBars->size(); j++) {
             if (j != i) {
                 Minion* minion2 = (*detectedMinionBars)[j];
                 if (minion2->topLeft.x == minion->topLeft.x && minion->topLeft.y == minion2-> topLeft.y) {
@@ -53,7 +53,7 @@ void AllyMinionManager::validateMinionBars(ImageData imageData, std::vector<Mini
     }
 
     //Detect health
-    for (int i = 0; i < detectedMinionBars->size(); i++) {
+    for (size_t i = 0; i < detectedMinionBars->size(); i++) {
         Minion* minion = (*detectedMinionBars)[i];
         if (minion->health == 0) {
             for (int x = 61; x >= 0; x--) {
@@ -79,7 +79,7 @@ void AllyMinionManager::validateMinionBars(ImageData imageData, std::vector<Mini
         
     //Detect if ward
     //Ward is 193, 193, 193
-    for (int i = 0; i < detectedMinionBars->size(); i++) {
+    for (size_t i = 0; i < detectedMinionBars->size(); i++) {
         Minion* minion = (*detectedMinionBars)[i];
         bool isWard = false;
         for (int x = 61; x >= 0; x--) {
