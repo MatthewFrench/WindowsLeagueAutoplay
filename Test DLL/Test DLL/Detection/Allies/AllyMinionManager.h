@@ -18,6 +18,13 @@ public:
     
     static ImageData topLeftImageData, bottomLeftImageData,
     bottomRightImageData, topRightImageData, healthSegmentImageData, wardImageData;
+
+	static void loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadWardImageData(uint8_t * data, int imageWidth, int imageHeight);
     
     static void validateMinionBars(ImageData imageData, std::vector<Minion*>* detectedMinionBars);
 

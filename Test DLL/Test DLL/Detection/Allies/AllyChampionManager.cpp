@@ -17,6 +17,24 @@ ImageData AllyChampionManager::healthSegmentImageData;// = loadImage("Resources/
 
 AllyChampionManager::AllyChampionManager () {}
 
+
+
+void AllyChampionManager::loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	topLeftImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void AllyChampionManager::loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomLeftImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void AllyChampionManager::loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomRightImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void AllyChampionManager::loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	topRightImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void AllyChampionManager::loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	healthSegmentImageData = makeImageData(data, imageWidth, imageHeight);
+}
+
 //To Validate, at least 2 corners need detected then we detect the health percentage
 void AllyChampionManager::validateChampionBars(ImageData imageData, std::vector<Champion*>* detectedChampionBars) {
 //Remove duplicates

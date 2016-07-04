@@ -14,13 +14,24 @@ class SelfChampionManager {
 public:
     
     static ImageData topLeftImageData, bottomLeftImageData,
-    bottomRightImageData, topRightImageData, healthSegmentImageData, bottomBarLeftSideImageData, bottomBarRightSideImageData,
+    bottomRightImageData, topRightImageData, healthSegmentImageData, bottomBarLeftSideImageData, 
+		bottomBarRightSideImageData,
     bottomBarAverageHealthColorImageData;
     
+	static void loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomBarLeftSideImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomBarRightSideImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomBarAverageHealthColorImageData(uint8_t * data, int imageWidth, int imageHeight);
+
     SelfChampionManager();
     static void validateChampionBars(ImageData imageData, std::vector<Champion*>* detectedChampionBars);
     static SelfHealth* detectSelfHealthBarAtPixel(ImageData imageData, uint8_t *pixel, int x, int y);
     static void validateSelfHealthBars(ImageData imageData, std::vector<SelfHealth*>* detectedHealthBars);
+
 
 
     inline static Champion* detectChampionBarAtPixel(ImageData* imageData, uint8_t *pixel, int x, int y) {

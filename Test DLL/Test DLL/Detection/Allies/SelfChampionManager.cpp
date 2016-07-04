@@ -20,6 +20,32 @@ ImageData SelfChampionManager::bottomBarAverageHealthColorImageData;// = loadIma
 
 SelfChampionManager::SelfChampionManager () {}
 
+void SelfChampionManager::loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	topLeftImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void SelfChampionManager::loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomLeftImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void SelfChampionManager::loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomRightImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void SelfChampionManager::loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	topRightImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void SelfChampionManager::loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	healthSegmentImageData = makeImageData(data, imageWidth, imageHeight);
+}
+
+void SelfChampionManager::loadBottomBarLeftSideImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomBarLeftSideImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+void SelfChampionManager::loadBottomBarRightSideImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomBarRightSideImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+void SelfChampionManager::loadBottomBarAverageHealthColorImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomBarAverageHealthColorImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+
 const float SelfHealthBarMaxPercent = 0.75;
 const int SelfHealthBarHeight = 12;
 const int SelfHealthBarWidth = 293;
