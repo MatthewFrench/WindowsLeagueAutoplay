@@ -20,8 +20,8 @@ namespace DesktopDuplication
     /// 
     public class DesktopDuplicator
     {
-        //[DllImport("./C++ DLL League Autoplay.dll", CallingConvention = CallingConvention.Cdecl)]
-        //public static extern double Add(double a, double b);
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void Copy(byte* startPointer, byte* startDestinationPointer, int width, int height);
 
         private Device mDevice;
         private Texture2DDescription mTextureDesc;
@@ -34,6 +34,10 @@ namespace DesktopDuplication
 
         private Bitmap finalImage1, finalImage2;
         private bool isFinalImage1 = false;
+
+        int count = 0;
+        long total = 0;
+
         private Bitmap FinalImage
         {
             get
@@ -302,6 +306,10 @@ namespace DesktopDuplication
                 byte* startDestinationPointer = (byte*)destPtr.ToPointer();
 
                 byte* startPointer = (byte*)sourcePtr.ToPointer();
+
+                Copy(startPointer, startDestinationPointer, mOutputDesc.DesktopBounds.Width, mOutputDesc.DesktopBounds.Height);
+
+                /*
                 int height = mOutputDesc.DesktopBounds.Height;
                 int width = mOutputDesc.DesktopBounds.Width;
                 int channels = 4;
@@ -311,62 +319,25 @@ namespace DesktopDuplication
                 const int a_channel = 3;
 
                 int loc = 0;
-
-                /*
-                int startX = 0;
-                int endX = height * width * channels;
-
-                for (int i = startX; i < endX; i+= channels)
-                {
-                    startDestinationPointer[i] = startPointer[i];
-                    startDestinationPointer[i+1] = startPointer[i+1];
-                    startDestinationPointer[i+2] = startPointer[i+2];
-                    startDestinationPointer[i+3] = startPointer[i+3];
-                }
-                */
-
+               
                 for (int y = 0; y < height; y++)
                 {
                     
-                    byte* upToRow = startPointer + y * width * channels;
-                    byte* destinationUpToRow = startDestinationPointer + y * width * channels;
-                    
                    for (int x = 0; x < width; x++)
                     {
-                        /*
+                    
+                        
                         startDestinationPointer[loc + b_channel] = startPointer[loc + b_channel];
                         startDestinationPointer[loc + g_channel] = startPointer[loc + g_channel];
                         startDestinationPointer[loc + r_channel] = startPointer[loc + r_channel];
                         startDestinationPointer[loc + a_channel] = startPointer[loc + a_channel];
 
                         loc += 4;
-                        */
-
                         
-                        byte* pixel = upToRow + x * channels;
-                        byte* destinationPixel = destinationUpToRow + x * channels;
-
-
-                        destinationPixel[b_channel] = pixel[b_channel];
-                        destinationPixel[g_channel] = pixel[g_channel];
-                        destinationPixel[r_channel] = pixel[r_channel];
-                        destinationPixel[a_channel] = pixel[a_channel];
-                        
-
-                        /*
-                        byte r = pixel[r_channel];
-                        byte g = pixel[g_channel];
-                        byte b = pixel[b_channel];
-                        byte a = pixel[a_channel];
-                        destinationPixel[r_channel] = r;
-                        destinationPixel[g_channel] = g;
-                        destinationPixel[b_channel] = b;
-                        destinationPixel[a_channel] = a;
-                        */
                     }
                     
                 }
-                
+             */
             }
 
             FinalImage.UnlockBits(mapDest);
@@ -394,8 +365,11 @@ namespace DesktopDuplication
 
             Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.Elapsed.Ticks / 10000.0);
             Console.WriteLine("Elapsed fps: {0}", 1000.0 / (performanceWatch.Elapsed.Ticks / 10000.0));
-            
-          
+            count++;
+            total += performanceWatch.Elapsed.Ticks;
+            Console.WriteLine("Average milliseconds: {0}", total / 10000.0 / count);
+            Console.WriteLine("Average fps: {0}", 1000.0 / (total / 10000.0 / count));
+            //Console.WriteLine("Add 1 + 1 = {0}", Add(1,1));
 
 
             /*

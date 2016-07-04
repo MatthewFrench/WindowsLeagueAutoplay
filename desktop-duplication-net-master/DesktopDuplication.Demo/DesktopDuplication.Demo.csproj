@@ -85,7 +85,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /s "$(SolutionDir)..\desktop-duplication-net-master\DesktopDuplication\bin\$(ConfigurationName)" "$(TargetDir)" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(SolutionDir)$(ConfigurationName)\Test DLL.dll" "$(TargetDir)" /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
