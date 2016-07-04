@@ -244,6 +244,204 @@ namespace DesktopDuplication
             //var dllFile = new FileInfo(@".\C++ DLL League Autoplay.dll");
             //Console.WriteLine("Loaded DLL: {0}", dllFile.FullName);
             //var DLL = Assembly.LoadFile(dllFile.FullName);
+            loadDetectionImages();
+        }
+
+        public unsafe byte* getBytesForBitmap(Bitmap bitmap)
+        {
+            System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height);
+
+            BitmapData bitmapData = bitmap.LockBits(boundsRect, ImageLockMode.ReadOnly, FinalImage.PixelFormat);
+            IntPtr bitmapPtr = bitmapData.Scan0;
+
+            IntPtr toPtr = Marshal.AllocHGlobal(sizeof(byte) * bitmap.Width * bitmap.Height * 4);
+
+            IntPtr originalPtr = toPtr;
+
+            for (int y = 0; y < bitmap.Height; y++)
+            {
+                // Copy a single line 
+                Utilities.CopyMemory(toPtr, bitmapPtr, bitmap.Width * 4);
+
+                // Advance pointers
+                bitmapPtr = IntPtr.Add(bitmapPtr, bitmapData.Stride);
+                toPtr = IntPtr.Add(toPtr, bitmapData.Stride);
+            }
+
+            bitmap.UnlockBits(bitmapData);
+
+            return (byte*)originalPtr.ToPointer();
+        }
+
+        public unsafe void loadDetectionImages()
+        {
+            Bitmap image;
+            image = new Bitmap(Image.FromFile("Resources/Skill Bar/Enabled Summoner Spell.png"));
+            AbilityManager_loadEnabledSummonerSpellImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Skill Bar/Leveled Dot.png"));
+            AbilityManager_loadLevelDotImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Skill Bar/Level Up.png"));
+            AbilityManager_loadLevelUpImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Skill Bar/Level Up Disabled.png"));
+            AbilityManager_loadLevelUpDisabledImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Skill Bar/Enabled Ability.png"));
+            AbilityManager_loadAbilityEnabledImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Skill Bar/Disabled Ability.png"));
+            AbilityManager_loadAbilityDisabledImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Ally Champion Health Bar/Top Left Corner.png"));
+            AllyChampionManager_loadTopLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Ally Champion Health Bar/Bottom Left Corner.png"));
+            AllyChampionManager_loadBottomLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Ally Champion Health Bar/Bottom Right Corner.png"));
+            AllyChampionManager_loadBottomRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Ally Champion Health Bar/Top Right Corner.png"));
+            AllyChampionManager_loadTopRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Ally Champion Health Bar/Health Segment.png"));
+            AllyChampionManager_loadHealthSegmentImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Ward/Pink Ward.png"));
+            AllyMinionManager_loadWardImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Ally Minion Health Bar/Top Left Corner.png"));
+            AllyMinionManager_loadTopLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Ally Minion Health Bar/Bottom Left Corner.png"));
+            AllyMinionManager_loadBottomLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Ally Minion Health Bar/Bottom Right Corner.png"));
+            AllyMinionManager_loadBottomRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Ally Minion Health Bar/Top Right Corner.png"));
+            AllyMinionManager_loadTopRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Ally Minion Health Bar/Health Segment.png"));
+            AllyMinionManager_loadHealthSegmentImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Self Health Bar/Top Left Corner.png"));
+            SelfChampionManager_loadTopLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Self Health Bar/Bottom Left Corner.png"));
+            SelfChampionManager_loadBottomLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Self Health Bar/Bottom Right Corner.png"));
+            SelfChampionManager_loadBottomRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Self Health Bar/Top Right Corner.png"));
+            SelfChampionManager_loadTopRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Self Health Bar/Health Segment.png"));
+            SelfChampionManager_loadHealthSegmentImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Self Health Bar/Bottom Bar Left Side.png"));
+            SelfChampionManager_loadBottomBarLeftSideImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Self Health Bar/Bottom Bar Right Side.png"));
+            SelfChampionManager_loadBottomBarRightSideImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Self Health Bar/Bottom Bar Average Health Color.png"));
+            SelfChampionManager_loadBottomBarAverageHealthColorImageData(getBytesForBitmap(image), image.Width, image.Height);
+            
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Champion Health Bar/Top Left Corner.png"));
+            EnemyChampionManager_loadTopLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Champion Health Bar/Bottom Left Corner.png"));
+            EnemyChampionManager_loadBottomLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Champion Health Bar/Bottom Right Corner.png"));
+            EnemyChampionManager_loadBottomRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Champion Health Bar/Top Right Corner.png"));
+            EnemyChampionManager_loadTopRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Champion Health Bar/Health Segment.png"));
+            EnemyChampionManager_loadHealthSegmentImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Minion Health Bar/Top Left Corner.png"));
+            EnemyMinionManager_loadTopLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Minion Health Bar/Bottom Left Corner.png"));
+            EnemyMinionManager_loadBottomLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Minion Health Bar/Bottom Right Corner.png"));
+            EnemyMinionManager_loadBottomRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Minion Health Bar/Top Right Corner.png"));
+            EnemyMinionManager_loadTopRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Minion Health Bar/Health Segment.png"));
+            EnemyMinionManager_loadHealthSegmentImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Tower Health Bar/Top Left Corner.png"));
+            EnemyTowerManager_loadTopLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Tower Health Bar/Bottom Left Corner.png"));
+            EnemyTowerManager_loadBottomLeftImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Tower Health Bar/Bottom Right Corner.png"));
+            EnemyTowerManager_loadBottomRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Tower Health Bar/Top Right Corner.png"));
+            EnemyTowerManager_loadTopRightImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Enemy Tower Health Bar/Health Segment.png"));
+            EnemyTowerManager_loadHealthSegmentImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Item Bar/Trinket Active.png"));
+            ItemManager_loadTrinketItemImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Item Bar/Usable Item.png"));
+            ItemManager_loadItemImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Item Bar/Potion.png"));
+            ItemManager_loadPotionImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Item Bar/Used Potion.png"));
+            ItemManager_loadUsedPotionImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Item Bar/Used Potion Inner.png"));
+            ItemManager_loadUsedPotionInnerImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Map/Shop Icon.png"));
+            MapManager_loadShopIconImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Map/Map Top Left Corner.png"));
+            MapManager_loadMapTopLeftCornerImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Surrender/Surrender.png"));
+            SurrenderManager_loadSurrenderImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Shop/Buyable Item Top Left Corner.png"));
+            ShopManager_loadShopBuyableItemTopLeftCornerImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Shop/Buyable Item Bottom Left Corner.png"));
+            ShopManager_loadShopBuyableItemBottomLeftCornerImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Shop/Buyable Item Top Right Corner.png"));
+            ShopManager_loadShopBuyableItemTopRightCornerImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Shop/Buyable Item Bottom Right Corner.png"));
+            ShopManager_loadShopBuyableItemBottomRightCornerImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Shop/Shop Top Left Corner.png"));
+            ShopManager_loadShopTopLeftCornerImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Shop/Shop Available.png"));
+            ShopManager_loadShopAvailableImageData(getBytesForBitmap(image), image.Width, image.Height);
+
+            image = new Bitmap(Image.FromFile("Resources/Shop/Shop Bottom Left Corner.png"));
+            ShopManager_loadShopBottomLeftCornerImageData(getBytesForBitmap(image), image.Width, image.Height);
+
         }
 
         /// <summary>
@@ -571,7 +769,6 @@ namespace DesktopDuplication
 
             mDevice.ImmediateContext.UnmapSubresource(desktopImageTexture, 0);
             
-
             frame.DesktopImage = FinalImage;
         }
 
