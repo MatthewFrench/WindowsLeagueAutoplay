@@ -7,6 +7,7 @@
 //
 
 #include "AbilityManager.h"
+#include "../../Utility.h"
 
 
 ImageData AbilityManager::enabledSummonerSpellImageData;//TODO = loadImage("Resources/Skill Bar/Enabled Summoner Spell.png");
@@ -17,6 +18,24 @@ ImageData AbilityManager::abilityEnabledImageData;//TODO = loadImage("Resources/
 ImageData AbilityManager::abilityDisabledImageData;//TODO = loadImage("Resources/Skill Bar/Disabled Ability.png");
 
 AbilityManager::AbilityManager() {
+}
+void AbilityManager::loadLevelUpImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	levelUpImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void AbilityManager::loadLevelDotImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	levelDotImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void AbilityManager::loadLevelUpDisabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	levelUpDisabledImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void AbilityManager::loadAbilityEnabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	abilityEnabledImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void AbilityManager::loadAbilityDisabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	abilityDisabledImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void AbilityManager::loadEnabledSummonerSpellImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	enabledSummonerSpellImageData = makeImageData(data, imageWidth, imageHeight);
 }
 
 GenericObject* AbilityManager::detectLevelUpAtPixel(ImageData imageData, uint8_t *pixel, int x, int y) {

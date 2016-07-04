@@ -10,11 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "League Ultimate Caster", "..\Windows League Auto-Key Presser\League Auto-Key Presser\League Ultimate Caster.csproj", "{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopDuplication", "..\desktop-duplication-net-master\DesktopDuplication\DesktopDuplication.csproj", "{222C215B-663F-4BD6-9B3E-8FA99C867B22}"
-	ProjectSection(ProjectDependencies) = postProject
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46} = {912C46C7-448B-44B0-B8AD-890BDEC65A46}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "C++ DLL League Autoplay", "..\C++ DLL League Autoplay\C++ DLL League Autoplay.vcxproj", "{912C46C7-448B-44B0-B8AD-890BDEC65A46}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test DLL", "..\Test DLL\Test DLL\Test DLL.vcxproj", "{C01C30F1-0A75-4C8C-A50A-1EC40630A483}"
 EndProject
@@ -94,21 +89,6 @@ Global
 		{222C215B-663F-4BD6-9B3E-8FA99C867B22}.Release|x64.Build.0 = Release|Any CPU
 		{222C215B-663F-4BD6-9B3E-8FA99C867B22}.Release|x86.ActiveCfg = Release|Any CPU
 		{222C215B-663F-4BD6-9B3E-8FA99C867B22}.Release|x86.Build.0 = Release|Any CPU
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Debug|Any CPU.Build.0 = Debug|Win32
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Debug|ARM.ActiveCfg = Debug|ARM
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Debug|ARM.Build.0 = Debug|ARM
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Debug|x64.ActiveCfg = Debug|x64
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Debug|x64.Build.0 = Debug|x64
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Debug|x86.ActiveCfg = Debug|Win32
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Debug|x86.Build.0 = Debug|Win32
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Release|Any CPU.ActiveCfg = Release|Win32
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Release|ARM.ActiveCfg = Release|ARM
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Release|ARM.Build.0 = Release|ARM
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Release|x64.ActiveCfg = Release|x64
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Release|x64.Build.0 = Release|x64
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Release|x86.ActiveCfg = Release|Win32
-		{912C46C7-448B-44B0-B8AD-890BDEC65A46}.Release|x86.Build.0 = Release|Win32
 		{C01C30F1-0A75-4C8C-A50A-1EC40630A483}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{C01C30F1-0A75-4C8C-A50A-1EC40630A483}.Debug|ARM.ActiveCfg = Debug|Win32
 		{C01C30F1-0A75-4C8C-A50A-1EC40630A483}.Debug|x64.ActiveCfg = Debug|x64

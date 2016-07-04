@@ -18,4 +18,11 @@ public:
     static GenericObject* detectLevelDotAtPixel(ImageData imageData, uint8_t *pixel, int x, int y);
     static GenericObject* detectEnabledAbilityAtPixel(ImageData imageData, uint8_t *pixel, int x, int y);
     static GenericObject* detectEnabledSummonerSpellAtPixel(ImageData imageData, uint8_t *pixel, int x, int y);
+
+	static void loadLevelUpImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadLevelDotImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadLevelUpDisabledImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadAbilityEnabledImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadAbilityDisabledImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadEnabledSummonerSpellImageData(uint8_t * data, int imageWidth, int imageHeight);
 };

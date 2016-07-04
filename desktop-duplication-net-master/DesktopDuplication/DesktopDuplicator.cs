@@ -22,6 +22,10 @@ namespace DesktopDuplication
     {
         [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void Copy(byte* startPointer, byte* startDestinationPointer, int width, int height);
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void initializeDetectionManager();
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void processDetection(byte* dataPointer, int width, int height);
 
         private Device mDevice;
         private Texture2DDescription mTextureDesc;
@@ -59,13 +63,15 @@ namespace DesktopDuplication
                 isFinalImage1 = !isFinalImage1;
             }
         }
-
+        
         /// <summary>
         /// Duplicates the output of the specified monitor.
         /// </summary>
         /// <param name="whichMonitor">The output device to duplicate (i.e. monitor). Begins with zero, which seems to correspond to the primary monitor.</param>
         public DesktopDuplicator(int whichMonitor)
             : this(0, whichMonitor) {
+
+            initializeDetectionManager();
             //var dllFile = new FileInfo(@".\C++ DLL League Autoplay.dll");
             //Console.WriteLine("Loaded DLL: {0}", dllFile.FullName);
             //var DLL = Assembly.LoadFile(dllFile.FullName);
@@ -308,6 +314,8 @@ namespace DesktopDuplication
                 byte* startPointer = (byte*)sourcePtr.ToPointer();
 
                 Copy(startPointer, startDestinationPointer, mOutputDesc.DesktopBounds.Width, mOutputDesc.DesktopBounds.Height);
+
+                processDetection(startPointer, mOutputDesc.DesktopBounds.Width, mOutputDesc.DesktopBounds.Height);
 
                 /*
                 int height = mOutputDesc.DesktopBounds.Height;
