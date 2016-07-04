@@ -27,6 +27,175 @@ namespace DesktopDuplication
         [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void processDetection(byte* dataPointer, int width, int height);
 
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AbilityManager_loadLevelUpImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AbilityManager_loadLevelDotImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AbilityManager_loadLevelUpDisabledImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AbilityManager_loadAbilityEnabledImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AbilityManager_loadAbilityDisabledImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AbilityManager_loadEnabledSummonerSpellImageData(byte* data, int imageWidth, int imageHeight);
+        //Ally image loading code
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AllyChampionManager_loadTopLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AllyChampionManager_loadBottomLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AllyChampionManager_loadBottomRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AllyChampionManager_loadTopRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AllyChampionManager_loadHealthSegmentImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AllyMinionManager_loadTopLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AllyMinionManager_loadBottomLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AllyMinionManager_loadBottomRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AllyMinionManager_loadTopRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AllyMinionManager_loadHealthSegmentImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void AllyMinionManager_loadWardImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void SelfChampionManager_loadTopLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void SelfChampionManager_loadBottomLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void SelfChampionManager_loadBottomRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void SelfChampionManager_loadTopRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void SelfChampionManager_loadHealthSegmentImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void SelfChampionManager_loadBottomBarLeftSideImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void SelfChampionManager_loadBottomBarRightSideImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void SelfChampionManager_loadBottomBarAverageHealthColorImageData(byte* data, int imageWidth, int imageHeight);
+        //Enemy image loading code
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyChampionManager_loadTopLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyChampionManager_loadBottomLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyChampionManager_loadBottomRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyChampionManager_loadTopRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyChampionManager_loadHealthSegmentImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyMinionManager_loadTopLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyMinionManager_loadBottomLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyMinionManager_loadBottomRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyMinionManager_loadTopRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyMinionManager_loadHealthSegmentImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyTowerManager_loadTopLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyTowerManager_loadBottomLeftImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyTowerManager_loadBottomRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyTowerManager_loadTopRightImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void EnemyTowerManager_loadHealthSegmentImageData(byte* data, int imageWidth, int imageHeight);
+        //Item image loading code
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ItemManager_loadTrinketItemImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ItemManager_loadItemImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ItemManager_loadPotionImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ItemManager_loadUsedPotionImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ItemManager_loadUsedPotionInnerImageData(byte* data, int imageWidth, int imageHeight);
+        //Map image loading code
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void MapManager_loadMapTopLeftCornerImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void MapManager_loadShopIconImageData(byte* data, int imageWidth, int imageHeight);
+        //Surrender image loading code
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void SurrenderManager_loadSurrenderImageData(byte* data, int imageWidth, int imageHeight);
+        //Shop image loading code
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ShopManager_loadShopTopLeftCornerImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ShopManager_loadShopAvailableImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ShopManager_loadShopBottomLeftCornerImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ShopManager_loadShopBuyableItemTopLeftCornerImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ShopManager_loadShopBuyableItemBottomLeftCornerImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ShopManager_loadShopBuyableItemTopRightCornerImageData(byte* data, int imageWidth, int imageHeight);
+
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ShopManager_loadShopBuyableItemBottomRightCornerImageData(byte* data, int imageWidth, int imageHeight);
+
         private Device mDevice;
         private Texture2DDescription mTextureDesc;
         private OutputDescription mOutputDesc;

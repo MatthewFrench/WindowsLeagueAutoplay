@@ -150,221 +150,221 @@ extern "C"
 	}
 
 	// Ability image loading code
-	__declspec(dllexport) void AbilityManager_loadLevelUpImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AbilityManager_loadLevelUpImageData(byte * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadLevelUpImageData(data, imageWidth, imageHeight);
 	}
-	__declspec(dllexport) void AbilityManager_loadLevelDotImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AbilityManager_loadLevelDotImageData(byte * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadLevelDotImageData(data, imageWidth, imageHeight);
 	}
-	__declspec(dllexport) void AbilityManager_loadLevelUpDisabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AbilityManager_loadLevelUpDisabledImageData(byte * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadLevelUpDisabledImageData(data, imageWidth, imageHeight);
 	}
-	__declspec(dllexport) void AbilityManager_loadAbilityEnabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AbilityManager_loadAbilityEnabledImageData(byte * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadAbilityEnabledImageData(data, imageWidth, imageHeight);
 	}
-	__declspec(dllexport) void AbilityManager_loadAbilityDisabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AbilityManager_loadAbilityDisabledImageData(byte * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadAbilityDisabledImageData(data, imageWidth, imageHeight);
 	}
-	__declspec(dllexport) void AbilityManager_loadEnabledSummonerSpellImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AbilityManager_loadEnabledSummonerSpellImageData(byte * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadEnabledSummonerSpellImageData(data, imageWidth, imageHeight);
 	}
 	//Ally image loading code
-	__declspec(dllexport) void AllyChampionManager_loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AllyChampionManager_loadTopLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  AllyChampionManager::loadTopLeftImageData(data, imageWidth, imageHeight);
 	}
-	__declspec(dllexport) void AllyChampionManager_loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AllyChampionManager_loadBottomLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  AllyChampionManager::loadBottomLeftImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void AllyChampionManager_loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AllyChampionManager_loadBottomRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  AllyChampionManager::loadBottomRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void AllyChampionManager_loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AllyChampionManager_loadTopRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  AllyChampionManager::loadTopRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void AllyChampionManager_loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AllyChampionManager_loadHealthSegmentImageData(byte * data, int imageWidth, int imageHeight) {
 		  AllyChampionManager::loadHealthSegmentImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void AllyMinionManager_loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AllyMinionManager_loadTopLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  AllyMinionManager::loadTopLeftImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void AllyMinionManager_loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AllyMinionManager_loadBottomLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  AllyMinionManager::loadBottomLeftImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void AllyMinionManager_loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AllyMinionManager_loadBottomRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  AllyMinionManager::loadBottomRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void AllyMinionManager_loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AllyMinionManager_loadTopRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  AllyMinionManager::loadTopRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void AllyMinionManager_loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AllyMinionManager_loadHealthSegmentImageData(byte * data, int imageWidth, int imageHeight) {
 		  AllyMinionManager::loadHealthSegmentImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void AllyMinionManager_loadWardImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AllyMinionManager_loadWardImageData(byte * data, int imageWidth, int imageHeight) {
 		  AllyMinionManager::loadWardImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void SelfChampionManager_loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void SelfChampionManager_loadTopLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  SelfChampionManager::loadTopLeftImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void SelfChampionManager_loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void SelfChampionManager_loadBottomLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  SelfChampionManager::loadBottomLeftImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void SelfChampionManager_loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void SelfChampionManager_loadBottomRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  SelfChampionManager::loadBottomRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void SelfChampionManager_loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void SelfChampionManager_loadTopRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  SelfChampionManager::loadTopRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void SelfChampionManager_loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void SelfChampionManager_loadHealthSegmentImageData(byte * data, int imageWidth, int imageHeight) {
 		  SelfChampionManager::loadHealthSegmentImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void SelfChampionManager_loadBottomBarLeftSideImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void SelfChampionManager_loadBottomBarLeftSideImageData(byte * data, int imageWidth, int imageHeight) {
 		  SelfChampionManager::loadBottomBarLeftSideImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void SelfChampionManager_loadBottomBarRightSideImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void SelfChampionManager_loadBottomBarRightSideImageData(byte * data, int imageWidth, int imageHeight) {
 		  SelfChampionManager::loadBottomBarRightSideImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void SelfChampionManager_loadBottomBarAverageHealthColorImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void SelfChampionManager_loadBottomBarAverageHealthColorImageData(byte * data, int imageWidth, int imageHeight) {
 		  SelfChampionManager::loadBottomBarAverageHealthColorImageData(data, imageWidth, imageHeight);
 	}
 		//Enemy image loading code
 
-	__declspec(dllexport) void EnemyChampionManager_loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyChampionManager_loadTopLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyChampionManager::loadTopLeftImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyChampionManager_loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyChampionManager_loadBottomLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyChampionManager::loadBottomLeftImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyChampionManager_loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyChampionManager_loadBottomRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyChampionManager::loadBottomRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyChampionManager_loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyChampionManager_loadTopRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyChampionManager::loadTopRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyChampionManager_loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyChampionManager_loadHealthSegmentImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyChampionManager::loadHealthSegmentImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyMinionManager_loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyMinionManager_loadTopLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyMinionManager::loadTopLeftImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyMinionManager_loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyMinionManager_loadBottomLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyMinionManager::loadBottomLeftImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyMinionManager_loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyMinionManager_loadBottomRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyMinionManager::loadBottomRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyMinionManager_loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyMinionManager_loadTopRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyMinionManager::loadTopRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyMinionManager_loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyMinionManager_loadHealthSegmentImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyMinionManager::loadHealthSegmentImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyTowerManager_loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyTowerManager_loadTopLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyTowerManager::loadTopLeftImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyTowerManager_loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyTowerManager_loadBottomLeftImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyTowerManager::loadBottomLeftImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyTowerManager_loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyTowerManager_loadBottomRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyTowerManager::loadBottomRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyTowerManager_loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyTowerManager_loadTopRightImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyTowerManager::loadTopRightImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void EnemyTowerManager_loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void EnemyTowerManager_loadHealthSegmentImageData(byte * data, int imageWidth, int imageHeight) {
 		  EnemyTowerManager::loadHealthSegmentImageData(data, imageWidth, imageHeight);
 	}
 		//Item image loading code
 
-	__declspec(dllexport) void ItemManager_loadTrinketItemImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ItemManager_loadTrinketItemImageData(byte * data, int imageWidth, int imageHeight) {
 		  ItemManager::loadTrinketItemImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void ItemManager_loadItemImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ItemManager_loadItemImageData(byte * data, int imageWidth, int imageHeight) {
 		  ItemManager::loadItemImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void ItemManager_loadPotionImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ItemManager_loadPotionImageData(byte * data, int imageWidth, int imageHeight) {
 		  ItemManager::loadPotionImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void ItemManager_loadUsedPotionImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ItemManager_loadUsedPotionImageData(byte * data, int imageWidth, int imageHeight) {
 		  ItemManager::loadUsedPotionImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void ItemManager_loadUsedPotionInnerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ItemManager_loadUsedPotionInnerImageData(byte * data, int imageWidth, int imageHeight) {
 		  ItemManager::loadUsedPotionInnerImageData(data, imageWidth, imageHeight);
 	}
 		//Map image loading code
 
-	__declspec(dllexport) void MapManager_loadMapTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void MapManager_loadMapTopLeftCornerImageData(byte * data, int imageWidth, int imageHeight) {
 		  MapManager::loadMapTopLeftCornerImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void MapManager_loadShopIconImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void MapManager_loadShopIconImageData(byte * data, int imageWidth, int imageHeight) {
 		  MapManager::loadShopIconImageData(data, imageWidth, imageHeight);
 	}
 		//Surrender image loading code
-	__declspec(dllexport) void SurrenderManager_loadSurrenderImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void SurrenderManager_loadSurrenderImageData(byte * data, int imageWidth, int imageHeight) {
 		  SurrenderManager::loadSurrenderImageData(data, imageWidth, imageHeight);
 	}
 		//Shop image loading code
 
-	__declspec(dllexport) void ShopManager_loadShopTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ShopManager_loadShopTopLeftCornerImageData(byte * data, int imageWidth, int imageHeight) {
 		  ShopManager::loadShopTopLeftCornerImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void ShopManager_loadShopAvailableImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ShopManager_loadShopAvailableImageData(byte * data, int imageWidth, int imageHeight) {
 		  ShopManager::loadShopAvailableImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void ShopManager_loadShopBottomLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ShopManager_loadShopBottomLeftCornerImageData(byte * data, int imageWidth, int imageHeight) {
 		  ShopManager::loadShopBottomLeftCornerImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void ShopManager_loadShopBuyableItemTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ShopManager_loadShopBuyableItemTopLeftCornerImageData(byte * data, int imageWidth, int imageHeight) {
 		  ShopManager::loadShopBuyableItemTopLeftCornerImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void ShopManager_loadShopBuyableItemBottomLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ShopManager_loadShopBuyableItemBottomLeftCornerImageData(byte * data, int imageWidth, int imageHeight) {
 		  ShopManager::loadShopBuyableItemBottomLeftCornerImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void ShopManager_loadShopBuyableItemTopRightCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ShopManager_loadShopBuyableItemTopRightCornerImageData(byte * data, int imageWidth, int imageHeight) {
 		  ShopManager::loadShopBuyableItemTopRightCornerImageData(data, imageWidth, imageHeight);
 
 	}
-	__declspec(dllexport) void ShopManager_loadShopBuyableItemBottomRightCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void ShopManager_loadShopBuyableItemBottomRightCornerImageData(byte * data, int imageWidth, int imageHeight) {
 		  ShopManager::loadShopBuyableItemBottomRightCornerImageData(data, imageWidth, imageHeight);
 	}
 
