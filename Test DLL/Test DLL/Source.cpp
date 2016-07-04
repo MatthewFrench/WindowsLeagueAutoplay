@@ -4,6 +4,16 @@
 #include "Utility.h"
 #include "Detection/DetectionManager.h"
 #include "Detection/Ability Manager/AbilityManager.h"
+#include "Detection/Allies/AllyChampionManager.h"
+#include "Detection/Allies/AllyMinionManager.h"
+#include "Detection/Allies/SelfChampionManager.h"
+#include "Detection/Enemies/EnemyChampionManager.h"
+#include "Detection/Enemies/EnemyMinionManager.h"
+#include "Detection/Enemies/EnemyTowerManager.h"
+#include "Detection/Item Manager/ItemManager.h"
+#include "Detection/Map Manager/MapManager.h"
+#include "Detection/Surrender Manager/SurrenderManager.h"
+#include "Detection/Shop Manager/ShopManager.h"
 
 static DetectionManager* detectionManager = nullptr;
 
@@ -139,24 +149,80 @@ extern "C"
 		printDetected(detectionManager);
 	}
 
-	__declspec(dllexport) void loadAbilityManagerLevelUpImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	// Ability image loading code
+	__declspec(dllexport) void AbilityManager_loadLevelUpImageData(uint8_t * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadLevelUpImageData(data, imageWidth, imageHeight);
 	}
-	__declspec(dllexport) void loadAbilityManagerLevelDotImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AbilityManager_loadLevelDotImageData(uint8_t * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadLevelDotImageData(data, imageWidth, imageHeight);
 	}
-	__declspec(dllexport) void loadAbilityManagerLevelUpDisabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AbilityManager_loadLevelUpDisabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadLevelUpDisabledImageData(data, imageWidth, imageHeight);
 	}
-	__declspec(dllexport) void loadAbilityManagerAbilityEnabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AbilityManager_loadAbilityEnabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadAbilityEnabledImageData(data, imageWidth, imageHeight);
 	}
-	__declspec(dllexport) void loadAbilityManagerAbilityDisabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AbilityManager_loadAbilityDisabledImageData(uint8_t * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadAbilityDisabledImageData(data, imageWidth, imageHeight);
 	}
-	__declspec(dllexport) void loadAbilityManagerEnabledSummonerSpellImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	__declspec(dllexport) void AbilityManager_loadEnabledSummonerSpellImageData(uint8_t * data, int imageWidth, int imageHeight) {
 		AbilityManager::loadEnabledSummonerSpellImageData(data, imageWidth, imageHeight);
 	}
+	//Ally image loading code
+	static void AllyChampionManager::loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void AllyChampionManager::loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void AllyChampionManager::loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void AllyChampionManager::loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void AllyChampionManager::loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void AllyMinionManager::loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void AllyMinionManager::loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void AllyMinionManager::loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void AllyMinionManager::loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void AllyMinionManager::loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void AllyMinionManager::loadWardImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void SelfChampionManager::loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void SelfChampionManager::loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void SelfChampionManager::loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void SelfChampionManager::loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void SelfChampionManager::loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void SelfChampionManager::loadBottomBarLeftSideImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void SelfChampionManager::loadBottomBarRightSideImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void SelfChampionManager::loadBottomBarAverageHealthColorImageData(uint8_t * data, int imageWidth, int imageHeight);
+	//Enemy image loading code
+	static void EnemyChampionManager::loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyChampionManager::loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyChampionManager::loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyChampionManager::loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyChampionManager::loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyMinionManager::loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyMinionManager::loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyMinionManager::loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyMinionManager::loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyMinionManager::loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyTowerManager::loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyTowerManager::loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyTowerManager::loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyTowerManager::loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void EnemyTowerManager::loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
+	//Item image loading code
+	static void ItemManager::loadTrinketItemImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void ItemManager::loadItemImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void ItemManager::loadPotionImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void ItemManager::loadUsedPotionImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void ItemManager::loadUsedPotionInnerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	//Map image loading code
+	static void MapManager::loadMapTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void MapManager::loadShopIconImageData(uint8_t * data, int imageWidth, int imageHeight);
+	//Surrender image loading code
+	static void SurrenderManager::loadSurrenderImageData(uint8_t * data, int imageWidth, int imageHeight);
+	//Shop image loading code
+	static void ShopManager::loadShopTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void ShopManager::loadShopAvailableImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void ShopManager::loadShopBottomLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void ShopManager::loadShopBuyableItemTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void ShopManager::loadShopBuyableItemBottomLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void ShopManager::loadShopBuyableItemTopRightCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void ShopManager::loadShopBuyableItemBottomRightCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
 
 	__declspec(dllexport) void DisplayHelloFromDLL()
 	{
