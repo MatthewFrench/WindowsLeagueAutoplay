@@ -16,6 +16,22 @@ ImageData ItemManager::usedPotionInnerImageData;//TODO = loadImage("Resources/It
 
 ItemManager::ItemManager() {}
 
+void ItemManager::loadTrinketItemImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	trinketItemImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+ void ItemManager::loadItemImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 itemImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+ void ItemManager::loadPotionImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 potionImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+ void ItemManager::loadUsedPotionImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 usedPotionImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+ void ItemManager::loadUsedPotionInnerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 usedPotionInnerImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+
 GenericObject* ItemManager::detectTrinketActiveAtPixel(ImageData imageData, uint8_t *pixel, int x, int y) {
     GenericObject* object = NULL;
     if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData.imageWidth, imageData.imageHeight, trinketItemImageData, 0.7) >=  0.7) {

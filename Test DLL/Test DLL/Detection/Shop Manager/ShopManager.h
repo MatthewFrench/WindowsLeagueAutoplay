@@ -11,8 +11,19 @@
 
 class ShopManager {
 public:
-    static ImageData shopTopLeftCornerImageData, shopAvailableImageData, shopBottomLeftCornerImageData, shopBuyableItemTopLeftCornerImageData, shopBuyableItemBottomLeftCornerImageData, shopBuyableItemTopRightCornerImageData, shopBuyableItemBottomRightCornerImageData;
+    static ImageData shopTopLeftCornerImageData, shopAvailableImageData, shopBottomLeftCornerImageData,
+		shopBuyableItemTopLeftCornerImageData, shopBuyableItemBottomLeftCornerImageData, 
+		shopBuyableItemTopRightCornerImageData, shopBuyableItemBottomRightCornerImageData;
     ShopManager();
+
+	static void loadShopTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadShopAvailableImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadShopBottomLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadShopBuyableItemTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadShopBuyableItemBottomLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadShopBuyableItemTopRightCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadShopBuyableItemBottomRightCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+
     static GenericObject* detectShopAvailable(ImageData imageData, uint8_t *pixel, int x, int y);
     inline static GenericObject* detectShopTopLeftCorner(ImageData* imageData, uint8_t *pixel, int x, int y);
     static GenericObject* detectShopBottomLeftCorner(ImageData imageData, uint8_t *pixel, int x, int y);

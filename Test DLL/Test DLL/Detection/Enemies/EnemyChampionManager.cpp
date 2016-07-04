@@ -19,6 +19,22 @@ ImageData EnemyChampionManager::healthSegmentImageData;//TODO = loadImage("Resou
 
 EnemyChampionManager::EnemyChampionManager () {}
 
+void EnemyChampionManager::loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	topLeftImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyChampionManager::loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomLeftImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyChampionManager::loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomRightImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyChampionManager::loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	topRightImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyChampionManager::loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	healthSegmentImageData = makeImageData(data, imageWidth, imageHeight);
+}
+
 //To Validate, at least 2 corners need detected then we detect the health percentage
 void EnemyChampionManager::validateChampionBars(ImageData imageData, std::vector<Champion*>* detectedChampionBars) {
     //Remove duplicates

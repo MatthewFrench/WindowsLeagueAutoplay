@@ -14,6 +14,9 @@ class MapManager {
 public:
     static ImageData mapTopLeftCornerImageData, shopIconImageData;/*, locationTopLeftCornerImageData, locationTopRightCornerImageData, locationBottomLeftCornerImageData, locationBottomRightCornerImageData;*/
     MapManager();
+
+	static void loadMapTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadShopIconImageData(uint8_t * data, int imageWidth, int imageHeight);
     
     static GenericObject* detectMap(ImageData imageData, uint8_t *pixel, int x, int y);
     static GenericObject* detectShop(ImageData imageData, uint8_t *pixel, int x, int y);

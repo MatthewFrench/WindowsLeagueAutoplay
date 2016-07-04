@@ -20,6 +20,13 @@ ImageData MapManager::mapTopLeftCornerImageData;//TODO = loadImage("Resources/Ma
 
 MapManager::MapManager() {}
 
+void MapManager::loadMapTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	mapTopLeftCornerImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+ void MapManager::loadShopIconImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 shopIconImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+
 GenericObject* MapManager::detectMap(ImageData imageData, uint8_t *pixel, int x, int y) {
     GenericObject* object = NULL;
     if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData.imageWidth, imageData.imageHeight, mapTopLeftCornerImageData, 0.7) >=  0.7) {

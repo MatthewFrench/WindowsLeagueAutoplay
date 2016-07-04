@@ -16,6 +16,22 @@ ImageData EnemyMinionManager::healthSegmentImageData;//TODO = loadImage("Resourc
 
 EnemyMinionManager::EnemyMinionManager () {}
 
+void EnemyMinionManager::loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	topLeftImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyMinionManager::loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomLeftImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyMinionManager::loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomRightImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyMinionManager::loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	topRightImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyMinionManager::loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	healthSegmentImageData = makeImageData(data, imageWidth, imageHeight);
+}
+
 //To Validate, at least 2 corners need detected then we detect the health percentage
 
 void EnemyMinionManager::validateMinionBars(ImageData imageData, std::vector<Minion*>* detectedMinionBars) {

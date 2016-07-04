@@ -13,6 +13,12 @@ class ItemManager {
 public:
     static ImageData trinketItemImageData, itemImageData, potionImageData, usedPotionImageData, usedPotionInnerImageData;
     ItemManager();
+
+	static void loadTrinketItemImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadItemImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadPotionImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadUsedPotionImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadUsedPotionInnerImageData(uint8_t * data, int imageWidth, int imageHeight);
     
     static GenericObject* detectTrinketActiveAtPixel(ImageData imageData, uint8_t *pixel, int x, int y);
     static GenericObject* detectItemActiveAtPixel(ImageData imageData, uint8_t *pixel, int x, int y);

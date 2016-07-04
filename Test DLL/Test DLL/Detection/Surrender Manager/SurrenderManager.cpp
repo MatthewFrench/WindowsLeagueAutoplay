@@ -10,6 +10,10 @@
 
 ImageData SurrenderManager::surrenderImageData;//TODO = loadImage("Resources/Surrender/Surrender.png");
 
+ void SurrenderManager::loadSurrenderImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 surrenderImageData = makeImageData(data, imageWidth, imageHeight);
+}
+
 GenericObject* SurrenderManager::detectSurrenderAtPixel(ImageData imageData, uint8_t *pixel, int x, int y) {
     GenericObject* object = NULL;
     if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData.imageWidth, imageData.imageHeight, surrenderImageData, 0.7) >=  0.7) {

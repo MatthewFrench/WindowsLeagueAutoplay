@@ -17,7 +17,11 @@ public:
     EnemyTowerManager();
     static void validateTowerBars(ImageData imageData, std::vector<Tower*>* detectedTowerBars);
 
-
+	static void loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
 
 
     inline static Tower* detectTowerBarAtPixel(ImageData* imageData, uint8_t *pixel, int x, int y) {

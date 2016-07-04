@@ -26,6 +26,28 @@ ImageData ShopManager::shopBottomLeftCornerImageData;//TODO = loadImage("Resourc
 
 ShopManager::ShopManager() {}
 
+void ShopManager::loadShopTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	shopTopLeftCornerImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+ void ShopManager::loadShopAvailableImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 shopAvailableImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+ void ShopManager::loadShopBottomLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 shopBottomLeftCornerImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+ void ShopManager::loadShopBuyableItemTopLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 shopBuyableItemTopLeftCornerImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+ void ShopManager::loadShopBuyableItemBottomLeftCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 shopBuyableItemBottomLeftCornerImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+ void ShopManager::loadShopBuyableItemTopRightCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 shopBuyableItemTopRightCornerImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+ void ShopManager::loadShopBuyableItemBottomRightCornerImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	 shopBuyableItemBottomRightCornerImageData = makeImageData(data, imageWidth, imageHeight);
+ }
+
 GenericObject* ShopManager::detectShopAvailable(ImageData imageData, uint8_t *pixel, int x, int y) {
     GenericObject* object = NULL;
     if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData.imageWidth, imageData.imageHeight, shopAvailableImageData, 0.5) >=  0.5) {

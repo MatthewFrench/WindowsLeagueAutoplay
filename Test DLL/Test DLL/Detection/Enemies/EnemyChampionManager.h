@@ -18,7 +18,11 @@ public:
     EnemyChampionManager();
     static void validateChampionBars(ImageData imageData, std::vector<Champion*>* detectedChampionBars);
 
-
+	static void loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
 
     inline static Champion* detectChampionBarAtPixel(ImageData* imageData, uint8_t *pixel, int x, int y) {
     Champion* champ = NULL;

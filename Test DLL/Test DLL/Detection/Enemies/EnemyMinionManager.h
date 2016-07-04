@@ -21,6 +21,11 @@ public:
     EnemyMinionManager();
     static void validateMinionBars(ImageData imageData, std::vector<Minion*>* detectedChampionBars);
 
+	static void loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
+	static void loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
 
     static constexpr double coloredPixelPrecision = 0.96; //0.97
     static constexpr double overalImagePrecision = 0.96; //0.97
