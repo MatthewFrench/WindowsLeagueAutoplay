@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(518, 301);
             this.Name = "Form1";
             this.Text = "League Autoplay";
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.ResumeLayout(false);
 
         }

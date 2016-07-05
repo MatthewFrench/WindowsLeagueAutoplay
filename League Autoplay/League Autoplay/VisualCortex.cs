@@ -1,36 +1,30 @@
-﻿using System;
+﻿using DesktopDuplication;
+using SharpDX;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using SharpDX;
-using System.Drawing.Imaging;
-using System.IO;
 
-namespace DesktopDuplication.Demo
+namespace League_Autoplay
 {
-    public partial class FormDemo : Form
+    class VisualCortex
     {
-
-
-
-
         int count = 0;
         long total = 0;
-
         Bitmap testImage;
         private DesktopDuplicator desktopDuplicator;
 
-        public FormDemo()
-        {
-            InitializeComponent();
+        Bitmap displayImage;
 
+        public VisualCortex()
+        {
             try
             {
                 desktopDuplicator = new DesktopDuplicator(0);
@@ -39,16 +33,53 @@ namespace DesktopDuplication.Demo
             {
                 MessageBox.Show(ex.ToString());
             }
-
-
-
             initializeDetectionManager();
             loadDetectionImages();
 
 
             string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
             testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\Test Level Up.png")));
+        }
 
+        public void grabScreenAndDetect()
+        {
+            DesktopFrame frame = desktopDuplicator.GetLatestFrame();
+
+            if (frame != null)
+            {
+                DataBox mapSource = desktopDuplicator.getCurrentDataBoxBytes();
+                int width = desktopDuplicator.getFrameWidth();
+                int height = desktopDuplicator.getFrameHeight();
+                //Image processing
+                Stopwatch performanceWatch = new Stopwatch();
+                performanceWatch.Start();
+
+                unsafe
+                {
+                    processDetection((byte*)mapSource.DataPointer, width, height);
+                }
+
+                performanceWatch.Stop();
+
+                Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.Elapsed.Ticks / 10000.0);
+                Console.WriteLine("Elapsed fps: {0}", 1000.0 / (performanceWatch.Elapsed.Ticks / 10000.0));
+                count++;
+                total += performanceWatch.Elapsed.Ticks;
+                Console.WriteLine("Average milliseconds: {0}", total / 10000.0 / count);
+                Console.WriteLine("Average fps: {0}", 1000.0 / (total / 10000.0 / count));
+                //End image processing
+                
+                displayImage = desktopDuplicator.getImageFromDataBox(mapSource);
+
+                desktopDuplicator.releaseCurrentDataBoxBytes();
+                desktopDuplicator.ReleaseFrame();
+
+                System.GC.Collect();
+            }
+        }
+
+        public void runTest()
+        {
             System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, testImage.Width, testImage.Height);
             var bitmapData = testImage.LockBits(boundsRect, ImageLockMode.WriteOnly, testImage.PixelFormat);
             var bitmapPointer = bitmapData.Scan0;
@@ -71,53 +102,6 @@ namespace DesktopDuplication.Demo
             total += performanceWatch.Elapsed.Ticks;
             Console.WriteLine("Average milliseconds: {0}", total / 10000.0 / count);
             Console.WriteLine("Average fps: {0}", 1000.0 / (total / 10000.0 / count));
-            
-        }
-
-
-        private void FormDemo_Shown(object sender, EventArgs e)
-        {
-            
-            while (true)
-            {
-                Application.DoEvents();
-
-                DesktopFrame frame = desktopDuplicator.GetLatestFrame();
-
-                if (frame != null)
-                {
-                    DataBox mapSource = desktopDuplicator.getCurrentDataBoxBytes();
-                    int width = desktopDuplicator.getFrameWidth();
-                    int height = desktopDuplicator.getFrameHeight();
-                    //Image processing
-                    Stopwatch performanceWatch = new Stopwatch();
-                    performanceWatch.Start();
-
-                    unsafe
-                    {
-                        processDetection((byte*)mapSource.DataPointer, width, height);
-                    }
-
-                    performanceWatch.Stop();
-
-                    Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.Elapsed.Ticks / 10000.0);
-                    Console.WriteLine("Elapsed fps: {0}", 1000.0 / (performanceWatch.Elapsed.Ticks / 10000.0));
-                    count++;
-                    total += performanceWatch.Elapsed.Ticks;
-                    Console.WriteLine("Average milliseconds: {0}", total / 10000.0 / count);
-                    Console.WriteLine("Average fps: {0}", 1000.0 / (total / 10000.0 / count));
-                    //End image processing
-
-                    LabelCursor.Location = frame.CursorLocation;
-                    LabelCursor.Visible = frame.CursorVisible;
-                    this.BackgroundImage = desktopDuplicator.getImageFromDataBox(mapSource);
-
-                    desktopDuplicator.releaseCurrentDataBoxBytes();
-                    desktopDuplicator.ReleaseFrame();
-
-                    System.GC.Collect();
-                }
-            }
         }
 
 

@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "League Autoplay", "League Autoplay\League Autoplay.csproj", "{844F3C1A-E62D-4F85-A12D-B40B7F750947}"
+	ProjectSection(ProjectDependencies) = postProject
+		{222C215B-663F-4BD6-9B3E-8FA99C867B22} = {222C215B-663F-4BD6-9B3E-8FA99C867B22}
+		{C01C30F1-0A75-4C8C-A50A-1EC40630A483} = {C01C30F1-0A75-4C8C-A50A-1EC40630A483}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopDuplication.Demo", "..\desktop-duplication-net-master\DesktopDuplication.Demo\DesktopDuplication.Demo.csproj", "{74CC9032-E6E6-4620-B9B7-36251023A1C9}"
 EndProject
