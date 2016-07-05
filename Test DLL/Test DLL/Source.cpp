@@ -139,7 +139,7 @@ extern "C"
 		freopen_s(&fptr, "CONOUT$", "w", stdout);
 		
 		detectionManager = new DetectionManager();
-		printf("Detection Manager Initialized 9:56\n");
+		printf("Detection Manager Initialized 10:02\n");
 	}
 
 	__declspec(dllexport) void processDetection(byte* dataPointer, int32_t width, int32_t height) {
