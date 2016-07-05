@@ -50,6 +50,7 @@ void DetectionManager::processDetection(ImageData *image) {
     spell3LevelDots->clear();
     spell4LevelDots->clear();
 
+
     #pragma omp parallel num_threads(128)
     {
         int perThread = image->imageWidth * image->imageHeight / omp_get_num_threads();
