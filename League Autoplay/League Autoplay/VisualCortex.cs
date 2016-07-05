@@ -21,6 +21,7 @@ namespace League_Autoplay
         Bitmap testImage;
         private DesktopDuplicator desktopDuplicator;
 
+        bool shouldCaptureDisplayImage = false;
         Bitmap displayImage;
 
         public VisualCortex()
@@ -39,6 +40,16 @@ namespace League_Autoplay
 
             string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
             testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\Test Level Up.png")));
+        }
+
+        public Bitmap getDisplayImage()
+        {
+            return displayImage;
+        }
+
+        public void setShouldCaptureDisplayImage(bool b)
+        {
+            shouldCaptureDisplayImage = b;
         }
 
         public void grabScreenAndDetect()
@@ -69,6 +80,7 @@ namespace League_Autoplay
                 Console.WriteLine("Average fps: {0}", 1000.0 / (total / 10000.0 / count));
                 //End image processing
                 
+                if (shouldCaptureDisplayImage)
                 displayImage = desktopDuplicator.getImageFromDataBox(mapSource);
 
                 desktopDuplicator.releaseCurrentDataBoxBytes();
