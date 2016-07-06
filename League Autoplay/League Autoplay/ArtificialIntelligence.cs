@@ -17,7 +17,7 @@ namespace League_Autoplay
         Stopwatch timerPerformanceStopwatch, screenCapturePerformanceStopWatch;
         int timerPerformanceCount = 0;
         double timerPerformanceLength = 0;
-        ATimer logicTimer;
+        ATimer logicTimer = null;
 
         public ArtificialIntelligence(UserInterface userInterface, VisualCortex visualCortex, MotorCortex motorCortex)
         {
@@ -25,14 +25,7 @@ namespace League_Autoplay
             this.visualCortex = visualCortex;
             this.motorCortex = motorCortex;
             TimerResolution.setTimerResolution(1.0);
-            
-            // 0 = 40fps when set to 1ms, 8fps screen, 15fps is 7.5fps
-            // 1 = 65fps when set to 1ms, 8fps screen, 40fps is 8fps
-            // 2 = 1000fps when set to 1ms, 6 fps screen, 60fps is 6.35 fps
-            // 3 = 1000fps when set to 1ms, 7.5 fps screen, 60fps is 7.65 fps, 200fps is 8fps
-            logicTimer = new ATimer(3, 16, new ATimer.ElapsedTimerDelegate(()=>{ logic(); }));
-            logicTimer.Start();
-
+        
             timerPerformanceStopwatch = new Stopwatch();
             timerPerformanceStopwatch.Start();
             screenCapturePerformanceStopWatch = new Stopwatch();
@@ -67,6 +60,7 @@ namespace League_Autoplay
                 {
                     visualCortex.runTest();
                     //visualCortex.grabScreenAndDetect();
+                    grabDetectionData();
                 }).ContinueWith(_ => {
                     //Run on UI thread
                     userInterface.setDisplayImage( visualCortex.getDisplayImage() );
@@ -77,6 +71,23 @@ namespace League_Autoplay
                     userInterface.setScreenPerformanceLabel("" + Math.Round(screenFps, 4) + " fps (" + Math.Round(screenMilliseconds, 4) + " ms)");
                 }, aiContext);
             }
+        }
+        void grabDetectionData()
+        {
+
+        }
+        public void createAITimer(int milliseconds=16)
+        {
+            if (logicTimer != null)
+            {
+                logicTimer.Stop();
+            }
+            // 0 = 40fps when set to 1ms, 8fps screen, 15fps is 7.5fps
+            // 1 = 65fps when set to 1ms, 8fps screen, 40fps is 8fps
+            // 2 = 1000fps when set to 1ms, 6 fps screen, 60fps is 6.35 fps
+            // 3 = 1000fps when set to 1ms, 7.5 fps screen, 60fps is 7.65 fps, 200fps is 8fps
+            logicTimer = new ATimer(3, milliseconds, new ATimer.ElapsedTimerDelegate(() => { logic(); }));
+            logicTimer.Start();
         }
     }
 }

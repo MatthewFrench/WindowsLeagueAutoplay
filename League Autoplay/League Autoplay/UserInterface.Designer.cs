@@ -34,6 +34,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.aiPerformanceLabel = new System.Windows.Forms.Label();
             this.screenPerformanceLabel = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.aiFpsBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.screenCaptureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -92,12 +94,44 @@
             this.screenPerformanceLabel.TabIndex = 5;
             this.screenPerformanceLabel.Text = "000 fps (000 ms)";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 67);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(175, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Set Intelligence Update Speed (fps)";
+            // 
+            // aiFpsBox
+            // 
+            this.aiFpsBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.aiFpsBox.FormattingEnabled = true;
+            this.aiFpsBox.Items.AddRange(new object[] {
+            "10",
+            "15",
+            "20",
+            "30",
+            "60",
+            "120",
+            "144",
+            "200",
+            "500",
+            "1000"});
+            this.aiFpsBox.Location = new System.Drawing.Point(193, 64);
+            this.aiFpsBox.Name = "aiFpsBox";
+            this.aiFpsBox.Size = new System.Drawing.Size(58, 21);
+            this.aiFpsBox.TabIndex = 7;
+            this.aiFpsBox.SelectedIndexChanged += new System.EventHandler(this.aiFpsBox_SelectedIndexChanged);
+            // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(518, 301);
+            this.Controls.Add(this.aiFpsBox);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.screenPerformanceLabel);
             this.Controls.Add(this.aiPerformanceLabel);
             this.Controls.Add(this.label3);
@@ -121,6 +155,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label aiPerformanceLabel;
         private System.Windows.Forms.Label screenPerformanceLabel;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox aiFpsBox;
     }
 }
 

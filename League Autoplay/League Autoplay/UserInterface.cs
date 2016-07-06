@@ -30,6 +30,9 @@ namespace League_Autoplay
             motorCortex = new MotorCortex();
 
             artificialIntelligence = new ArtificialIntelligence(this, visualCortex, motorCortex);
+
+            //Set fps box to 60fps
+            aiFpsBox.SelectedIndex = 4;
         }
         public TaskScheduler getUIContext()
         {
@@ -52,6 +55,14 @@ namespace League_Autoplay
             TaskHelper.RunTask(uiContext, () => {
                 screenPerformanceLabel.Text = text;
             });
+        }
+
+        private void aiFpsBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Set the AI speed
+            int fps = int.Parse(aiFpsBox.Text);
+            int milliseconds = (int)1000.0 / fps;
+            artificialIntelligence.createAITimer(milliseconds);
         }
     }
 }
