@@ -1,0 +1,84 @@
+//
+//  EnemyChampionManager.m
+//  Fluffy Pug
+//
+//  Created by Matthew French on 5/27/15.
+//  Copyright (c) 2015 Matthew French. All rights reserved.
+//
+
+#include "EnemyChampionManager.h"
+
+//static int Debug_Draw_Red = 255, Debug_Draw_Green = 0, Debug_Draw_Blue = 255;
+//static int Health_Bar_Width = 104, Health_Bar_Height = 9;
+ImageData EnemyChampionManager::topLeftImageData;//TODO = loadImage("Resources/Enemy Champion Health Bar/Top Left Corner.png");
+
+ImageData EnemyChampionManager::bottomLeftImageData;//TODO = loadImage("Resources/Enemy Champion Health Bar/Bottom Left Corner.png");
+ImageData EnemyChampionManager::bottomRightImageData;//TODO = loadImage("Resources/Enemy Champion Health Bar/Bottom Right Corner.png");
+ImageData EnemyChampionManager::topRightImageData;//TODO = loadImage("Resources/Enemy Champion Health Bar/Top Right Corner.png");
+ImageData EnemyChampionManager::healthSegmentImageData;//TODO = loadImage("Resources/Enemy Champion Health Bar/Health Segment.png");
+
+EnemyChampionManager::EnemyChampionManager () {}
+
+void EnemyChampionManager::loadTopLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	topLeftImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyChampionManager::loadBottomLeftImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomLeftImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyChampionManager::loadBottomRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	bottomRightImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyChampionManager::loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	topRightImageData = makeImageData(data, imageWidth, imageHeight);
+}
+void EnemyChampionManager::loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight) {
+	healthSegmentImageData = makeImageData(data, imageWidth, imageHeight);
+}
+
+//To Validate, at least 2 corners need detected then we detect the health percentage
+void EnemyChampionManager::validateChampionBars(ImageData imageData, std::vector<Champion*>* detectedChampionBars) {
+    //Remove duplicates
+    for (size_t i = 0; i < detectedChampionBars->size(); i++) {
+        Champion* champ = (*detectedChampionBars)[i];
+        int detectedCorners = 1;
+        for (size_t j = 0; j < detectedChampionBars->size(); j++) {
+            if (j != i) {
+                Champion* champ2 = (*detectedChampionBars)[j];
+                if (champ2->topLeft.x == champ->topLeft.x && champ->topLeft.y == champ2-> topLeft.y) {
+                    detectedChampionBars->erase(detectedChampionBars->begin() + j);
+                    j--;
+                    if (champ2->detectedBottomLeft) champ->detectedBottomLeft = true;
+                    if (champ2->detectedBottomRight) champ->detectedBottomRight = true;
+                    if (champ2->detectedTopLeft) champ->detectedTopLeft = true;
+                    if (champ2->detectedTopRight) champ->detectedTopRight = true;
+                    detectedCorners++;
+                }
+            }
+        }
+        if (detectedCorners < 2) {
+            detectedChampionBars->erase(detectedChampionBars->begin() + i);
+            i--;
+        }
+        champ->characterCenter.x = champ->topLeft.x+66; champ->characterCenter.y = champ->topLeft.y+104;
+    }
+
+    //Detect health
+    for (size_t i = 0; i < detectedChampionBars->size(); i++) {
+        Champion* champ = (*detectedChampionBars)[i];
+        champ->health = 0;
+        for (int x = 103; x >= 0; x--) {
+            for (int y = 0; y < healthSegmentImageData.imageHeight; y++) {
+                if (x + champ->topLeft.x >= 0 && x + champ->topLeft.x < imageData.imageWidth &&
+                    y + champ->topLeft.y >= 0 && y + champ->topLeft.y < imageData.imageHeight) {
+                uint8_t* healthBarColor = getPixel2(healthSegmentImageData, 0, y);
+                uint8_t*  p = getPixel2(imageData, x + champ->topLeft.x, y + champ->topLeft.y);
+                if (getColorPercentage(healthBarColor, p) >= 0.95) {
+                    champ->health = (float)x / 103 * 100;
+                    y = healthSegmentImageData.imageHeight + 1;
+                    x = -1;
+                }
+                }
+            }
+        }
+    }
+}

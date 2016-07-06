@@ -47,3 +47,10 @@ C:\Users\Cats 4 Christ\Documents\GitHub\WindowsLeagueAutoplay\Windows League Aut
 C:\Users\Cats 4 Christ\Documents\GitHub\WindowsLeagueAutoplay\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.csproj.GenerateResource.Cache
 C:\Users\Cats 4 Christ\Documents\GitHub\WindowsLeagueAutoplay\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.exe
 C:\Users\Cats 4 Christ\Documents\GitHub\WindowsLeagueAutoplay\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.pdb
+C:\Users\Matt\Documents\GitHub\WindowsLeagueAutoplay\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.csprojResolveAssemblyReference.cache
+C:\Users\Matt\Documents\GitHub\WindowsLeagueAutoplay\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.csproj.ResolveComReference.cache
+C:\Users\Matt\Documents\GitHub\WindowsLeagueAutoplay\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League_Auto_Key_Presser.Form1.resources
+C:\Users\Matt\Documents\GitHub\WindowsLeagueAutoplay\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League_Auto_Key_Presser.Properties.Resources.resources
+C:\Users\Matt\Documents\GitHub\WindowsLeagueAutoplay\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.csproj.GenerateResource.Cache
+C:\Users\Matt\Documents\GitHub\WindowsLeagueAutoplay\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.exe
+C:\Users\Matt\Documents\GitHub\WindowsLeagueAutoplay\Windows League Auto-Key Presser\League Auto-Key Presser\obj\Release\League Ultimate Caster.pdb

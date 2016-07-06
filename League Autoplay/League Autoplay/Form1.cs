@@ -43,7 +43,8 @@ namespace League_Autoplay
                 grabbingScreen = true;
                 Task t = Task.Run(() =>
                 {
-                    visualCortex.grabScreenAndDetect();
+                    visualCortex.runTest();
+                    //visualCortex.grabScreenAndDetect();
                 }).ContinueWith(_ => {
                     //Run on UI thread
                     screenCaptureBox.Image = visualCortex.getDisplayImage();

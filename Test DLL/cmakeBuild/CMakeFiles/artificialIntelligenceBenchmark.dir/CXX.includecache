@@ -1,0 +1,270 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Ability Manager/AbilityManager.cpp
+AbilityManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Ability Manager/AbilityManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Ability Manager/AbilityManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+vector
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/AllyChampionManager.cpp
+AllyChampionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/AllyChampionManager.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/AllyChampionManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+time.h
+-
+vector
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/AllyMinionManager.cpp
+AllyMinionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/AllyMinionManager.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/AllyMinionManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+vector
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/SelfChampionManager.cpp
+SelfChampionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/SelfChampionManager.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/SelfChampionManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+time.h
+-
+vector
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/DetectionManager.cpp
+DetectionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/DetectionManager.h
+Allies/SelfChampionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/SelfChampionManager.h
+Allies/AllyChampionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/AllyChampionManager.h
+Enemies/EnemyChampionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyChampionManager.h
+Enemies/EnemyMinionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyMinionManager.h
+Allies/AllyMinionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/AllyMinionManager.h
+Enemies/EnemyTowerManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyTowerManager.h
+Ability Manager/AbilityManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Ability Manager/AbilityManager.h
+Item Manager/ItemManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Item Manager/ItemManager.h
+Shop Manager/ShopManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Shop Manager/ShopManager.h
+Map Manager/MapManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Map Manager/MapManager.h
+Surrender Manager/SurrenderManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Surrender Manager/SurrenderManager.h
+omp.h
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/DetectionManager.h
+../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+vector
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyChampionManager.cpp
+EnemyChampionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyChampionManager.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyChampionManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+time.h
+-
+vector
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyMinionManager.cpp
+EnemyMinionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyMinionManager.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyMinionManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+vector
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyTowerManager.cpp
+EnemyTowerManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyTowerManager.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyTowerManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+time.h
+-
+vector
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Item Manager/ItemManager.cpp
+ItemManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Item Manager/ItemManager.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Item Manager/ItemManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+time.h
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Map Manager/MapManager.cpp
+MapManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Map Manager/MapManager.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Map Manager/MapManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+time.h
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Champion.cpp
+Champion.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Champion.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Champion.h
+Position.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Position.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/GenericObject.cpp
+GenericObject.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/GenericObject.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/GenericObject.h
+Position.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Position.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Minion.cpp
+Minion.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Minion.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Minion.h
+Position.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Position.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Position.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/SelfHealth.cpp
+SelfHealth.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/SelfHealth.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/SelfHealth.h
+Position.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Position.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Tower.cpp
+Tower.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Tower.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Tower.h
+Position.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Position.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Shop Manager/ShopManager.cpp
+ShopManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Shop Manager/ShopManager.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Shop Manager/ShopManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+time.h
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Surrender Manager/SurrenderManager.cpp
+SurrenderManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Surrender Manager/SurrenderManager.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Surrender Manager/SurrenderManager.h
+../../Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+time.h
+-
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Source.cpp
+stdio.h
+-
+iostream
+-
+Utility.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+Detection/DetectionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/DetectionManager.h
+Detection/Ability Manager/AbilityManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Ability Manager/AbilityManager.h
+Detection/Allies/AllyChampionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/AllyChampionManager.h
+Detection/Allies/AllyMinionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/AllyMinionManager.h
+Detection/Allies/SelfChampionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Allies/SelfChampionManager.h
+Detection/Enemies/EnemyChampionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyChampionManager.h
+Detection/Enemies/EnemyMinionManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyMinionManager.h
+Detection/Enemies/EnemyTowerManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Enemies/EnemyTowerManager.h
+Detection/Item Manager/ItemManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Item Manager/ItemManager.h
+Detection/Map Manager/MapManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Map Manager/MapManager.h
+Detection/Surrender Manager/SurrenderManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Surrender Manager/SurrenderManager.h
+Detection/Shop Manager/ShopManager.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Shop Manager/ShopManager.h
+
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Utility.h
+Foundation/Foundation.h
+-
+AVFoundation/AVFoundation.h
+-
+AppKit/AppKit.h
+-
+mach/mach.h
+-
+mach/mach_time.h
+-
+unistd.h
+-
+time.h
+-
+Windows.h
+-
+cstdint
+-
+string
+-
+Detection/Objects/Minion.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Minion.h
+Detection/Objects/Champion.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Champion.h
+Detection/Objects/SelfHealth.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/SelfHealth.h
+Detection/Objects/Tower.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Tower.h
+Detection/Objects/GenericObject.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/GenericObject.h
+Detection/Objects/Position.h
+C:/Users/Matt/Documents/GitHub/WindowsLeagueAutoplay/Test DLL/Test DLL/Detection/Objects/Position.h
+

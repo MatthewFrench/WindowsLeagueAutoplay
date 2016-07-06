@@ -62,6 +62,8 @@ namespace League_Autoplay
                 int width = desktopDuplicator.getFrameWidth();
                 int height = desktopDuplicator.getFrameHeight();
                 //Image processing
+
+
                 Stopwatch performanceWatch = new Stopwatch();
                 performanceWatch.Start();
 
