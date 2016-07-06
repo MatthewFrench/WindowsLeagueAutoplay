@@ -33,6 +33,7 @@ namespace League_Autoplay
 
             //Set fps box to 60fps
             aiFpsBox.SelectedIndex = 4;
+            updateDisplayCheckBox.Checked = true;
         }
         public TaskScheduler getUIContext()
         {
@@ -63,6 +64,11 @@ namespace League_Autoplay
             int fps = int.Parse(aiFpsBox.Text);
             int milliseconds = (int)1000.0 / fps;
             artificialIntelligence.createAITimer(milliseconds);
+        }
+
+        private void updateDisplayCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            artificialIntelligence.setUpdateDisplayImage(updateDisplayCheckBox.Checked);
         }
     }
 }

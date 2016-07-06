@@ -36,6 +36,7 @@
             this.screenPerformanceLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.aiFpsBox = new System.Windows.Forms.ComboBox();
+            this.updateDisplayCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.screenCaptureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +53,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(417, 18);
+            this.label1.Location = new System.Drawing.Point(416, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 1;
@@ -124,12 +125,24 @@
             this.aiFpsBox.TabIndex = 7;
             this.aiFpsBox.SelectedIndexChanged += new System.EventHandler(this.aiFpsBox_SelectedIndexChanged);
             // 
+            // updateDisplayCheckBox
+            // 
+            this.updateDisplayCheckBox.AutoSize = true;
+            this.updateDisplayCheckBox.Location = new System.Drawing.Point(372, 179);
+            this.updateDisplayCheckBox.Name = "updateDisplayCheckBox";
+            this.updateDisplayCheckBox.Size = new System.Drawing.Size(130, 17);
+            this.updateDisplayCheckBox.TabIndex = 8;
+            this.updateDisplayCheckBox.Text = "Update Display Image";
+            this.updateDisplayCheckBox.UseVisualStyleBackColor = true;
+            this.updateDisplayCheckBox.CheckedChanged += new System.EventHandler(this.updateDisplayCheckBox_CheckedChanged);
+            // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(518, 301);
+            this.Controls.Add(this.updateDisplayCheckBox);
             this.Controls.Add(this.aiFpsBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.screenPerformanceLabel);
@@ -157,6 +170,7 @@
         private System.Windows.Forms.Label screenPerformanceLabel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox aiFpsBox;
+        private System.Windows.Forms.CheckBox updateDisplayCheckBox;
     }
 }
 

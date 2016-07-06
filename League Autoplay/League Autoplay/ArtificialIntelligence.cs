@@ -18,6 +18,7 @@ namespace League_Autoplay
         int timerPerformanceCount = 0;
         double timerPerformanceLength = 0;
         ATimer logicTimer = null;
+        bool updateDisplayImage = false;
 
         public ArtificialIntelligence(UserInterface userInterface, VisualCortex visualCortex, MotorCortex motorCortex)
         {
@@ -58,12 +59,15 @@ namespace League_Autoplay
                 grabbingScreen = true;
                 Task t = Task.Run(() =>
                 {
-                    visualCortex.runTest();
-                    //visualCortex.grabScreenAndDetect();
-                    grabDetectionData();
+                    //visualCortex.runTest();
+                    visualCortex.grabScreenAndDetect();
+                    updateDetectionData();
                 }).ContinueWith(_ => {
                     //Run on UI thread
-                    userInterface.setDisplayImage( visualCortex.getDisplayImage() );
+                    if (updateDisplayImage)
+                    {
+                        userInterface.setDisplayImage(visualCortex.getDisplayImage());
+                    }
                     grabbingScreen = false;
                     screenCapturePerformanceStopWatch.Stop();
                     double screenMilliseconds = screenCapturePerformanceStopWatch.DurationInMilliseconds();
@@ -72,11 +76,12 @@ namespace League_Autoplay
                 }, aiContext);
             }
         }
-        void grabDetectionData()
+        void updateDetectionData()
         {
+            //Pull the detection data from the C++
 
         }
-        public void createAITimer(int milliseconds=16)
+        public void createAITimer(int milliseconds = 16)
         {
             if (logicTimer != null)
             {
@@ -88,6 +93,11 @@ namespace League_Autoplay
             // 3 = 1000fps when set to 1ms, 7.5 fps screen, 60fps is 7.65 fps, 200fps is 8fps
             logicTimer = new ATimer(3, milliseconds, new ATimer.ElapsedTimerDelegate(() => { logic(); }));
             logicTimer.Start();
+        }
+        public void setUpdateDisplayImage(bool b)
+        {
+            updateDisplayImage = b;
+            visualCortex.setShouldCaptureDisplayImage(b);
         }
     }
 }

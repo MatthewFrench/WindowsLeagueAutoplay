@@ -117,7 +117,7 @@ namespace League_Autoplay
             Console.WriteLine("Average milliseconds: {0}", total / 10000.0 / count);
             Console.WriteLine("Average fps: {0}", 1000.0 / (total / 10000.0 / count));
         }
-
+        
 
         public unsafe void loadDetectionImages()
         {
