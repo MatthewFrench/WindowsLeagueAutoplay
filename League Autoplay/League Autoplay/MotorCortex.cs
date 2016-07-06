@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace League_Autoplay
 {
-    class MotorCortex
+    public class MotorCortex
     {
         static AutoItX3 _autoIT = new AutoItX3();
 
-        MotorCortex()
+        public MotorCortex()
         {
             _autoIT.AutoItSetOption("SendKeyDelay", 0);
         }

@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace League_Autoplay
 {
-    class VisualCortex
+    public class VisualCortex
     {
         int count = 0;
         long total = 0;
