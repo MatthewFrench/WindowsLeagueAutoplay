@@ -8,6 +8,7 @@
 
 #include "Tower.h"
 
+/*
 Tower::Tower () {
     detectedTopLeft = false;
     detectedBottomLeft = false;
@@ -15,3 +16,4 @@ Tower::Tower () {
     detectedBottomRight = false;
     health = 0;
 }
+*/

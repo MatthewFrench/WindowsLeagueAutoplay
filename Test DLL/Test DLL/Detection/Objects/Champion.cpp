@@ -7,7 +7,7 @@
 //
 
 #include "Champion.h"
-
+/*
 Champion::Champion () {
     detectedTopLeft = false;
     detectedBottomLeft = false;
@@ -15,3 +15,4 @@ Champion::Champion () {
     detectedBottomRight = false;
     health = 0;
 }
+*/
