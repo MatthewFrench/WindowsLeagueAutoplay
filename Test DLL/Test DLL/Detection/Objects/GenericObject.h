@@ -8,8 +8,6 @@
 
 #include "Position.h"
 
-class GenericObject {
-public:
-    GenericObject();
+typedef struct GenericObject {
     Position topLeft, topRight, bottomLeft, bottomRight, center;
-};
+} GenericObject;

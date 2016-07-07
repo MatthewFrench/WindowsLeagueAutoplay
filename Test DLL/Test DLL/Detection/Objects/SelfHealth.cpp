@@ -7,9 +7,10 @@
 //
 
 #include "SelfHealth.h"
-
+/*
 SelfHealth::SelfHealth () {
     detectedLeftSide = false;
     detectedRightSide = false;
     health = 0;
 }
+*/

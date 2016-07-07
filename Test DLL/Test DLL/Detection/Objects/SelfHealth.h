@@ -8,10 +8,8 @@
 
 #include "Position.h"
 
-class SelfHealth {
-public:
-    SelfHealth();
+typedef struct SelfHealth {
     Position topLeft, topRight, bottomLeft, bottomRight, characterCenter;
-    bool detectedLeftSide, detectedRightSide;
-    double health;
-};
+    bool detectedLeftSide=false, detectedRightSide=false;
+    double health=0;
+} SelfHealth;

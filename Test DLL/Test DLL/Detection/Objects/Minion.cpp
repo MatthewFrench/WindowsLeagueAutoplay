@@ -7,7 +7,7 @@
 //
 
 #include "Minion.h"
-
+/*
 Minion::Minion () {
     detectedTopLeft = false;
     detectedBottomLeft = false;
@@ -15,3 +15,4 @@ Minion::Minion () {
     detectedBottomRight = false;
     health = 0;
 }
+*/
