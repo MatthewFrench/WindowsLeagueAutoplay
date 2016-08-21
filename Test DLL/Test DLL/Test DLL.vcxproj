@@ -182,6 +182,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DetectionData.h" />
     <ClInclude Include="Detection\Ability Manager\AbilityManager.h" />
     <ClInclude Include="Detection\Allies\AllyChampionManager.h" />
     <ClInclude Include="Detection\Allies\AllyMinionManager.h" />

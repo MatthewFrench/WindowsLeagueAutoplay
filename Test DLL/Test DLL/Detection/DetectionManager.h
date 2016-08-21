@@ -1,5 +1,6 @@
 #include "../Utility.h"
 #include <vector>
+#include "../DetectionData.h"
 
 class DetectionManager {
     std::vector<Minion*>  *allyMinions;
@@ -47,7 +48,7 @@ class DetectionManager {
 public:
     DetectionManager();
     void processDetection(ImageData *image);
-
+	DetectionDataStruct* getDetectionData();
 
     void processAllyMinionDetection(ImageData *image, int x, int y, uint8_t* pixel);
     void processEnemyMinionDetection(ImageData *image, int x, int y, uint8_t* pixel);

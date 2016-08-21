@@ -163,6 +163,103 @@ void DetectionManager::processDetection(ImageData *image) {
     processUsedPotion(image);
 }
 
+DetectionDataStruct* DetectionManager::getDetectionData() {
+	DetectionDataStruct* data = (DetectionDataStruct*)malloc(sizeof(DetectionDataStruct));
+
+	//Record ally minions
+	if (allyMinions->size > 0) {
+		data->numberOfAllyMinions = allyMinions->size;
+		data->allyMinionsArray = (Minion*)malloc(sizeof(Minion) * allyMinions->size);
+		for (int i = 0; i < allyMinions->size; i++) {
+			data->allyMinionsArray[i] = *(allyMinions->at(i));
+		}
+	}
+	//Record enemy minions
+	if (enemyMinions->size > 0) {
+		data->numberOfEnemyMinions = enemyMinions->size;
+		data->enemyMinionsArray = (Minion*)malloc(sizeof(Minion) * enemyMinions->size);
+		for (int i = 0; i < enemyMinions->size; i++) {
+			data->enemyMinionsArray[i] = *(enemyMinions->at(i));
+		}
+	}
+	//Record ally champions
+	if (allyChampions->size > 0) {
+		data->numberOfAllyChampions = allyChampions->size;
+		data->allyChampionsArray = (Champion*)malloc(sizeof(Champion) * allyChampions->size);
+		for (int i = 0; i < allyChampions->size; i++) {
+			data->allyChampionsArray[i] = *(allyChampions->at(i));
+		}
+	}
+	//Record enemy champions
+	if (enemyChampions->size > 0) {
+		data->numberOfEnemyChampions = enemyChampions->size;
+		data->enemyChampionsArray = (Champion*)malloc(sizeof(Champion) * enemyChampions->size);
+		for (int i = 0; i < enemyChampions->size; i++) {
+			data->enemyChampionsArray[i] = *(enemyChampions->at(i));
+		}
+	}
+	//Record self champions
+	if (selfChampions->size > 0) {
+		data->numberOfSelfChampions = selfChampions->size;
+		data->selfChampionsArray = (Champion*)malloc(sizeof(Champion) * selfChampions->size);
+		for (int i = 0; i < selfChampions->size; i++) {
+			data->selfChampionsArray[i] = *(selfChampions->at(i));
+		}
+	}
+	//Record enemy towers
+	if (enemyTowers->size > 0) {
+		data->numberOfEnemyTowers = enemyTowers->size;
+		data->enemyTowersArray = (Tower*)malloc(sizeof(Tower) * enemyTowers->size);
+		for (int i = 0; i < enemyTowers->size; i++) {
+			data->enemyTowersArray[i] = *(enemyTowers->at(i));
+		}
+	}
+
+
+	//Fill out all the data
+	/*
+	bool spell1LevelUpAvailable = false, spell2LevelUpAvailable = false, spell3LevelUpAvailable = false, spell4LevelUpAvailable = false;
+	GenericObject* spell1LevelUp = nullptr, *spell2LevelUp = nullptr, *spell3LevelUp = nullptr, *spell4LevelUp = nullptr;
+	GenericObject *spell1LevelDotsArray = nullptr, *spell2LevelDotsArray = nullptr, *spell3LevelDotsArray = nullptr, *spell4LevelDotsArray = nullptr;
+	int numberOfSpell1Dots=0, numberOfSpell2Dots=0, numberOfSpell3Dots=0, numberOfSpell4Dots=0;
+	bool spell1LevelDotsVisible = false, spell2LevelDotsVisible = false, spell3LevelDotsVisible = false, spell4LevelDotsVisible = false;
+	int currentLevel = 0;
+	bool spell1ActiveAvailable = false, spell2ActiveAvailable = false, spell3ActiveAvailable = false, spell4ActiveAvailable = false;
+	GenericObject* spell1Active = nullptr, *spell2Active = nullptr, *spell3Active = nullptr, *spell4Active = nullptr;
+	bool summonerSpell1ActiveAvailable = false, summonerSpell2ActiveAvailable = false;
+	GenericObject* summonerSpell1Active = nullptr, *summonerSpell2Active = nullptr;
+	bool trinketActiveAvailable = false;
+	GenericObject* trinketActive = nullptr;
+	bool item1ActiveAvailable = false, item2ActiveAvailable = false, item3ActiveAvailable = false, item4ActiveAvailable = false, item5ActiveAvailable = false, item6ActiveAvailable = false;
+	GenericObject* item1Active = nullptr, *item2Active = nullptr, *item3Active = nullptr, *item4Active = nullptr, *item5Active = nullptr, *item6Active = nullptr;
+	bool potionActiveAvailable = false;
+	int potionOnActive = 0;
+	GenericObject* potionActive = nullptr;
+	bool potionBeingUsedShown = false;
+	GenericObject* potionBeingUsed = nullptr;
+	bool shopAvailableShown = false;
+	GenericObject* shopAvailable = nullptr;
+	bool shopTopLeftCornerShown = false;
+	GenericObject* shopTopLeftCorner = nullptr;
+	bool shopBottomLeftCornerShown = false;
+	GenericObject* shopBottomLeftCorner = nullptr;
+	GenericObject *buyableItemsArray = nullptr;
+	int numberOfBuyableItems = 0;
+	bool mapVisible = false;
+	GenericObject* map = nullptr;
+	bool mapShopVisible = false;
+	GenericObject* mapShop = nullptr;
+	bool mapSelfLocationVisible = false;
+	GenericObject* mapSelfLocation = nullptr;
+	bool selfHealthBarVisible = false;
+	SelfHealth* selfHealthBar = nullptr;
+	bool surrenderAvailable = false;
+	GenericObject* surrenderActive = nullptr;
+	*/
+
+	return data;
+}
+
 void DetectionManager::processAllyMinionDetection(ImageData *image, int x, int y, uint8_t* pixel) {
     Minion* minionBar = AllyMinionManager::detectMinionBarAtPixel(image, pixel, x, y);
     if (minionBar != NULL) {

@@ -155,5 +155,8 @@
     <ClInclude Include="Detection\Surrender Manager\SurrenderManager.h">
       <Filter>Source Files\Detection\Surrender Manager</Filter>
     </ClInclude>
+    <ClInclude Include="DetectionData.h">
+      <Filter>Source Files\Detection</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
