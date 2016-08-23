@@ -151,6 +151,10 @@ extern "C"
 		printDetected(detectionManager);
 	}
 
+	__declspec(dllexport) DetectionDataStruct* getDetectionData() {
+		return detectionManager->getDetectionData();
+	}
+
 	// Ability image loading code
 	__declspec(dllexport) void AbilityManager_loadLevelUpImageData(byte * data, int32_t imageWidth, int32_t imageHeight) {
 		AbilityManager::loadLevelUpImageData(data, imageWidth, imageHeight);

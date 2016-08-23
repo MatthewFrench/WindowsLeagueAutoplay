@@ -8,8 +8,13 @@
 
 #include "Position.h"
 
+#ifndef Champion_cpp
+#define Champion_cpp
+
 typedef struct Champion {
     Position topLeft, topRight, bottomLeft, bottomRight, characterCenter;
     bool detectedTopLeft=false, detectedBottomLeft=false, detectedTopRight=false, detectedBottomRight=false;
     double health=0;
 } Champion;
+
+#endif

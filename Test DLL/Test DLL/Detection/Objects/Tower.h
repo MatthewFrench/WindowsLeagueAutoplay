@@ -8,11 +8,17 @@
 
 #include "Position.h"
 
+#ifndef Tower_cpp
+#define Tower_cpp
+
 typedef struct Tower {
 	Position topLeft, topRight, bottomLeft, bottomRight, towerCenter;
-	bool detectedTopLeft = false, detectedBottomLeft=false, detectedTopRight=false, detectedBottomRight=false;
+	bool detectedTopLeft = false, detectedBottomLeft = false, detectedTopRight = false, detectedBottomRight = false;
 	double health = 0;
 } Tower;
+
+#endif
+
 /*
 class Tower {
 public:

@@ -164,53 +164,53 @@ void DetectionManager::processDetection(ImageData *image) {
 }
 
 DetectionDataStruct* DetectionManager::getDetectionData() {
-	DetectionDataStruct* data = (DetectionDataStruct*)malloc(sizeof(DetectionDataStruct));
+	DetectionDataStruct* data = static_cast<DetectionDataStruct*>(malloc(sizeof(DetectionDataStruct)));
 
 	//Record ally minions
-	if (allyMinions->size > 0) {
-		data->numberOfAllyMinions = allyMinions->size;
-		data->allyMinionsArray = (Minion*)malloc(sizeof(Minion) * allyMinions->size);
-		for (int i = 0; i < allyMinions->size; i++) {
+	if (allyMinions->size() > 0) {
+		data->numberOfAllyMinions = static_cast<int>(allyMinions->size());
+		data->allyMinionsArray = static_cast<Minion*>(malloc(sizeof(Minion) * allyMinions->size()));
+		for (int i = 0; i < allyMinions->size(); i++) {
 			data->allyMinionsArray[i] = *(allyMinions->at(i));
 		}
 	}
 	//Record enemy minions
-	if (enemyMinions->size > 0) {
-		data->numberOfEnemyMinions = enemyMinions->size;
-		data->enemyMinionsArray = (Minion*)malloc(sizeof(Minion) * enemyMinions->size);
-		for (int i = 0; i < enemyMinions->size; i++) {
+	if (enemyMinions->size() > 0) {
+		data->numberOfEnemyMinions = static_cast<int>(enemyMinions->size());
+		data->enemyMinionsArray = static_cast<Minion*>(malloc(sizeof(Minion) * enemyMinions->size()));
+		for (int i = 0; i < enemyMinions->size(); i++) {
 			data->enemyMinionsArray[i] = *(enemyMinions->at(i));
 		}
 	}
 	//Record ally champions
-	if (allyChampions->size > 0) {
-		data->numberOfAllyChampions = allyChampions->size;
-		data->allyChampionsArray = (Champion*)malloc(sizeof(Champion) * allyChampions->size);
-		for (int i = 0; i < allyChampions->size; i++) {
+	if (allyChampions->size() > 0) {
+		data->numberOfAllyChampions = static_cast<int>(allyChampions->size());
+		data->allyChampionsArray = static_cast<struct Champion*>(malloc(sizeof(struct Champion) * allyChampions->size()));
+		for (int i = 0; i < allyChampions->size(); i++) {
 			data->allyChampionsArray[i] = *(allyChampions->at(i));
 		}
 	}
 	//Record enemy champions
-	if (enemyChampions->size > 0) {
-		data->numberOfEnemyChampions = enemyChampions->size;
-		data->enemyChampionsArray = (Champion*)malloc(sizeof(Champion) * enemyChampions->size);
-		for (int i = 0; i < enemyChampions->size; i++) {
+	if (enemyChampions->size() > 0) {
+		data->numberOfEnemyChampions = static_cast<int>(enemyChampions->size());
+		data->enemyChampionsArray = static_cast<Champion*>(malloc(sizeof(Champion) * enemyChampions->size()));
+		for (int i = 0; i < enemyChampions->size(); i++) {
 			data->enemyChampionsArray[i] = *(enemyChampions->at(i));
 		}
 	}
 	//Record self champions
-	if (selfChampions->size > 0) {
-		data->numberOfSelfChampions = selfChampions->size;
-		data->selfChampionsArray = (Champion*)malloc(sizeof(Champion) * selfChampions->size);
-		for (int i = 0; i < selfChampions->size; i++) {
+	if (selfChampions->size() > 0) {
+		data->numberOfSelfChampions = static_cast<int>(selfChampions->size());
+		data->selfChampionsArray = static_cast<Champion*>(malloc(sizeof(Champion) * selfChampions->size()));
+		for (int i = 0; i < selfChampions->size(); i++) {
 			data->selfChampionsArray[i] = *(selfChampions->at(i));
 		}
 	}
 	//Record enemy towers
-	if (enemyTowers->size > 0) {
-		data->numberOfEnemyTowers = enemyTowers->size;
-		data->enemyTowersArray = (Tower*)malloc(sizeof(Tower) * enemyTowers->size);
-		for (int i = 0; i < enemyTowers->size; i++) {
+	if (enemyTowers->size() > 0) {
+		data->numberOfEnemyTowers = static_cast<int>(enemyTowers->size());
+		data->enemyTowersArray = static_cast<Tower*>(malloc(sizeof(Tower) * enemyTowers->size()));
+		for (int i = 0; i < enemyTowers->size(); i++) {
 			data->enemyTowersArray[i] = *(enemyTowers->at(i));
 		}
 	}
@@ -218,39 +218,39 @@ DetectionDataStruct* DetectionManager::getDetectionData() {
 	data->spell2LevelUpAvailable = spell2LevelUpAvailable;
 	data->spell3LevelUpAvailable = spell3LevelUpAvailable;
 	data->spell4LevelUpAvailable = spell4LevelUpAvailable;
-	data->spell1LevelUp = (GenericObject*)malloc(sizeof(GenericObject));
+	data->spell1LevelUp = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->spell1LevelUp = *spell1LevelUp;
-	data->spell2LevelUp = (GenericObject*)malloc(sizeof(GenericObject));
+	data->spell2LevelUp = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->spell2LevelUp = *spell2LevelUp;
-	data->spell3LevelUp = (GenericObject*)malloc(sizeof(GenericObject));
+	data->spell3LevelUp = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->spell3LevelUp = *spell3LevelUp;
-	data->spell4LevelUp = (GenericObject*)malloc(sizeof(GenericObject));
+	data->spell4LevelUp = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->spell4LevelUp = *spell4LevelUp;
-	data->numberOfSpell1Dots = spell1LevelDots->size;
-	data->numberOfSpell2Dots = spell2LevelDots->size;
-	data->numberOfSpell3Dots = spell3LevelDots->size;
-	data->numberOfSpell4Dots = spell4LevelDots->size;
-	if (spell1LevelDots->size > 0) {
-		data->spell1LevelDotsArray = (GenericObject*)malloc(sizeof(GenericObject) * spell1LevelDots->size);
-		for (int i = 0; i < spell1LevelDots->size; i++) {
+	data->numberOfSpell1Dots = static_cast<int>(spell1LevelDots->size());
+	data->numberOfSpell2Dots = static_cast<int>(spell2LevelDots->size());
+	data->numberOfSpell3Dots = static_cast<int>(spell3LevelDots->size());
+	data->numberOfSpell4Dots = static_cast<int>(spell4LevelDots->size());
+	if (spell1LevelDots->size() > 0) {
+		data->spell1LevelDotsArray = static_cast<GenericObject*>(malloc(sizeof(GenericObject) * spell1LevelDots->size()));
+		for (int i = 0; i < spell1LevelDots->size(); i++) {
 			data->spell1LevelDotsArray[i] = *(spell1LevelDots->at(i));
 		}
 	}
-	if (spell2LevelDots->size > 0) {
-		data->spell2LevelDotsArray = (GenericObject*)malloc(sizeof(GenericObject) * spell2LevelDots->size);
-		for (int i = 0; i < spell2LevelDots->size; i++) {
+	if (spell2LevelDots->size() > 0) {
+		data->spell2LevelDotsArray = static_cast<GenericObject*>(malloc(sizeof(GenericObject) * spell2LevelDots->size()));
+		for (int i = 0; i < spell2LevelDots->size(); i++) {
 			data->spell2LevelDotsArray[i] = *(spell2LevelDots->at(i));
 		}
 	}
-	if (spell3LevelDots->size > 0) {
-		data->spell3LevelDotsArray = (GenericObject*)malloc(sizeof(GenericObject) * spell3LevelDots->size);
-		for (int i = 0; i < spell3LevelDots->size; i++) {
+	if (spell3LevelDots->size() > 0) {
+		data->spell3LevelDotsArray = static_cast<GenericObject*>(malloc(sizeof(GenericObject) * spell3LevelDots->size()));
+		for (int i = 0; i < spell3LevelDots->size(); i++) {
 			data->spell3LevelDotsArray[i] = *(spell3LevelDots->at(i));
 		}
 	}
-	if (spell4LevelDots->size > 0) {
-		data->spell4LevelDotsArray = (GenericObject*)malloc(sizeof(GenericObject) * spell4LevelDots->size);
-		for (int i = 0; i < spell4LevelDots->size; i++) {
+	if (spell4LevelDots->size() > 0) {
+		data->spell4LevelDotsArray = static_cast<GenericObject*>(malloc(sizeof(GenericObject) * spell4LevelDots->size()));
+		for (int i = 0; i < spell4LevelDots->size(); i++) {
 			data->spell4LevelDotsArray[i] = *(spell4LevelDots->at(i));
 		}
 	}
@@ -265,22 +265,22 @@ DetectionDataStruct* DetectionManager::getDetectionData() {
 	data->spell3ActiveAvailable = spell3ActiveAvailable;
 	data->spell4ActiveAvailable = spell4ActiveAvailable;
 
-	data->spell1Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->spell1Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->spell1Active = *spell1Active;
-	data->spell2Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->spell2Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->spell2Active = *spell2Active;
-	data->spell3Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->spell3Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->spell3Active = *spell3Active;
-	data->spell4Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->spell4Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->spell4Active = *spell4Active;
 	data->summonerSpell1ActiveAvailable = summonerSpell1ActiveAvailable;
 	data->summonerSpell2ActiveAvailable = summonerSpell2ActiveAvailable;
-	data->summonerSpell1Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->summonerSpell1Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->summonerSpell1Active = *summonerSpell1Active;
-	data->summonerSpell2Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->summonerSpell2Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->summonerSpell2Active = *summonerSpell2Active;
 	data->trinketActiveAvailable = trinketActiveAvailable;
-	data->trinketActive = (GenericObject*)malloc(sizeof(GenericObject));
+	data->trinketActive = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->trinketActive = *trinketActive;
 
 	data->item1ActiveAvailable = item1ActiveAvailable;
@@ -289,58 +289,58 @@ DetectionDataStruct* DetectionManager::getDetectionData() {
 	data->item4ActiveAvailable = item4ActiveAvailable;
 	data->item5ActiveAvailable = item5ActiveAvailable;
 	data->item6ActiveAvailable = item6ActiveAvailable;
-	data->item1Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->item1Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->item1Active = *item1Active;
-	data->item2Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->item2Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->item2Active = *item2Active;
-	data->item3Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->item3Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->item3Active = *item3Active;
-	data->item4Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->item4Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->item4Active = *item4Active;
-	data->item5Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->item5Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->item5Active = *item5Active;
-	data->item6Active = (GenericObject*)malloc(sizeof(GenericObject));
+	data->item6Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->item6Active = *item6Active;
 	data->potionActiveAvailable = potionActiveAvailable;
 	data->potionOnActive = potionOnActive;
-	data->potionActive = (GenericObject*)malloc(sizeof(GenericObject));
+	data->potionActive = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->potionActive = *potionActive;
 	data->potionBeingUsedShown = potionBeingUsedShown;
-	data->potionBeingUsed = (GenericObject*)malloc(sizeof(GenericObject));
+	data->potionBeingUsed = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->potionBeingUsed = *potionBeingUsed;
 	data->shopAvailableShown = shopAvailableShown;
-	data->shopAvailable = (GenericObject*)malloc(sizeof(GenericObject));
+	data->shopAvailable = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->shopAvailable = *shopAvailable;
 	data->shopTopLeftCornerShown = shopTopLeftCornerShown;
-	data->shopTopLeftCorner = (GenericObject*)malloc(sizeof(GenericObject));
+	data->shopTopLeftCorner = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->shopTopLeftCorner = *shopTopLeftCorner;
 	data->shopBottomLeftCornerShown = shopBottomLeftCornerShown;
-	data->shopBottomLeftCorner = (GenericObject*)malloc(sizeof(GenericObject));
+	data->shopBottomLeftCorner = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->shopBottomLeftCorner = *shopBottomLeftCorner;
 
 
-	if (buyableItems->size > 0) {
-		data->buyableItemsArray = (GenericObject*)malloc(sizeof(GenericObject) * buyableItems->size);
-		for (int i = 0; i < buyableItems->size; i++) {
+	if (buyableItems->size() > 0) {
+		data->buyableItemsArray = static_cast<GenericObject*>(malloc(sizeof(GenericObject) * buyableItems->size()));
+		for (int i = 0; i < buyableItems->size(); i++) {
 			data->buyableItemsArray[i] = *(buyableItems->at(i));
 		}
 	}
-	data->numberOfBuyableItems = buyableItems->size;
+	data->numberOfBuyableItems = static_cast<int>(buyableItems->size());
 	data->mapVisible = mapVisible;
-	data->map = (GenericObject*)malloc(sizeof(GenericObject));
+	data->map = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->map = *map;
 	data->mapShopVisible = mapShopVisible;
 
-	data->mapShop = (GenericObject*)malloc(sizeof(GenericObject));
+	data->mapShop = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->mapShop = *mapShop;
 	data->mapSelfLocationVisible = mapSelfLocationVisible;
-	data->mapSelfLocation = (GenericObject*)malloc(sizeof(GenericObject));
+	data->mapSelfLocation = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->mapSelfLocation = *mapSelfLocation;
 	data->selfHealthBarVisible = selfHealthBarVisible;
-	data->selfHealthBar = (SelfHealth*)malloc(sizeof(SelfHealth));
+	data->selfHealthBar = static_cast<SelfHealth*>(malloc(sizeof(SelfHealth)));
 	*data->selfHealthBar = *selfHealthBar;
 	data->surrenderAvailable = surrenderAvailable;
-	data->surrenderActive = (GenericObject*)malloc(sizeof(GenericObject));
+	data->surrenderActive = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 	*data->surrenderActive = *surrenderActive;
 
 	return data;

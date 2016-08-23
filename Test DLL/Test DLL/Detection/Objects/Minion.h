@@ -8,8 +8,13 @@
 
 #include "Position.h"
 
+#ifndef Minion_cpp
+#define Minion_cpp
+
 typedef struct Minion {
-    Position topLeft, topRight, bottomLeft, bottomRight, characterCenter;
-    bool detectedTopLeft=false, detectedBottomLeft=false, detectedTopRight=false, detectedBottomRight=false;
-    double health=0;
+	Position topLeft, topRight, bottomLeft, bottomRight, characterCenter;
+	bool detectedTopLeft = false, detectedBottomLeft = false, detectedTopRight = false, detectedBottomRight = false;
+	double health = 0;
 } Minion;
+
+#endif
