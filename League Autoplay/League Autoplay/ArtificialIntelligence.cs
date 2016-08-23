@@ -76,9 +76,10 @@ namespace League_Autoplay
                 }, aiContext);
             }
         }
-        void updateDetectionData()
+        unsafe void updateDetectionData()
         {
             //Pull the detection data from the C++
+            DetectionDataStruct* detectionData = visualCortex.getVisualDetectionData();
 
         }
         public void createAITimer(int milliseconds = 16)

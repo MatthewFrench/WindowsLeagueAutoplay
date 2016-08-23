@@ -92,6 +92,11 @@ namespace League_Autoplay
             }
         }
 
+        public unsafe DetectionDataStruct* getVisualDetectionData()
+        {
+            return getDetectionData();
+        }
+
         public void runTest()
         {
             System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, testImage.Width, testImage.Height);
@@ -308,6 +313,9 @@ namespace League_Autoplay
 
             return (byte*)toPtr.ToPointer();
         }
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.LPStruct)]
+        public static extern unsafe DetectionDataStruct* getDetectionData();
 
         [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void Copy(byte* startPointer, byte* startDestinationPointer, Int32 width, Int32 height);
