@@ -214,48 +214,134 @@ DetectionDataStruct* DetectionManager::getDetectionData() {
 			data->enemyTowersArray[i] = *(enemyTowers->at(i));
 		}
 	}
+	data->spell1LevelUpAvailable = spell1LevelUpAvailable;
+	data->spell2LevelUpAvailable = spell2LevelUpAvailable;
+	data->spell3LevelUpAvailable = spell3LevelUpAvailable;
+	data->spell4LevelUpAvailable = spell4LevelUpAvailable;
+	data->spell1LevelUp = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->spell1LevelUp = *spell1LevelUp;
+	data->spell2LevelUp = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->spell2LevelUp = *spell2LevelUp;
+	data->spell3LevelUp = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->spell3LevelUp = *spell3LevelUp;
+	data->spell4LevelUp = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->spell4LevelUp = *spell4LevelUp;
+	data->numberOfSpell1Dots = spell1LevelDots->size;
+	data->numberOfSpell2Dots = spell2LevelDots->size;
+	data->numberOfSpell3Dots = spell3LevelDots->size;
+	data->numberOfSpell4Dots = spell4LevelDots->size;
+	if (spell1LevelDots->size > 0) {
+		data->spell1LevelDotsArray = (GenericObject*)malloc(sizeof(GenericObject) * spell1LevelDots->size);
+		for (int i = 0; i < spell1LevelDots->size; i++) {
+			data->spell1LevelDotsArray[i] = *(spell1LevelDots->at(i));
+		}
+	}
+	if (spell2LevelDots->size > 0) {
+		data->spell2LevelDotsArray = (GenericObject*)malloc(sizeof(GenericObject) * spell2LevelDots->size);
+		for (int i = 0; i < spell2LevelDots->size; i++) {
+			data->spell2LevelDotsArray[i] = *(spell2LevelDots->at(i));
+		}
+	}
+	if (spell3LevelDots->size > 0) {
+		data->spell3LevelDotsArray = (GenericObject*)malloc(sizeof(GenericObject) * spell3LevelDots->size);
+		for (int i = 0; i < spell3LevelDots->size; i++) {
+			data->spell3LevelDotsArray[i] = *(spell3LevelDots->at(i));
+		}
+	}
+	if (spell4LevelDots->size > 0) {
+		data->spell4LevelDotsArray = (GenericObject*)malloc(sizeof(GenericObject) * spell4LevelDots->size);
+		for (int i = 0; i < spell4LevelDots->size; i++) {
+			data->spell4LevelDotsArray[i] = *(spell4LevelDots->at(i));
+		}
+	}
+
+	data->spell1LevelDotsVisible = spell1LevelDotsVisible;
+	data->spell2LevelDotsVisible = spell2LevelDotsVisible;
+	data->spell3LevelDotsVisible = spell3LevelDotsVisible;
+	data->spell4LevelDotsVisible = spell4LevelDotsVisible;
+	data->currentLevel = currentLevel;
+	data->spell1ActiveAvailable = spell1ActiveAvailable;
+	data->spell2ActiveAvailable = spell2ActiveAvailable;
+	data->spell3ActiveAvailable = spell3ActiveAvailable;
+	data->spell4ActiveAvailable = spell4ActiveAvailable;
+
+	data->spell1Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->spell1Active = *spell1Active;
+	data->spell2Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->spell2Active = *spell2Active;
+	data->spell3Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->spell3Active = *spell3Active;
+	data->spell4Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->spell4Active = *spell4Active;
+	data->summonerSpell1ActiveAvailable = summonerSpell1ActiveAvailable;
+	data->summonerSpell2ActiveAvailable = summonerSpell2ActiveAvailable;
+	data->summonerSpell1Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->summonerSpell1Active = *summonerSpell1Active;
+	data->summonerSpell2Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->summonerSpell2Active = *summonerSpell2Active;
+	data->trinketActiveAvailable = trinketActiveAvailable;
+	data->trinketActive = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->trinketActive = *trinketActive;
+
+	data->item1ActiveAvailable = item1ActiveAvailable;
+	data->item2ActiveAvailable = item2ActiveAvailable;
+	data->item3ActiveAvailable = item3ActiveAvailable;
+	data->item4ActiveAvailable = item4ActiveAvailable;
+	data->item5ActiveAvailable = item5ActiveAvailable;
+	data->item6ActiveAvailable = item6ActiveAvailable;
+	data->item1Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->item1Active = *item1Active;
+	data->item2Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->item2Active = *item2Active;
+	data->item3Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->item3Active = *item3Active;
+	data->item4Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->item4Active = *item4Active;
+	data->item5Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->item5Active = *item5Active;
+	data->item6Active = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->item6Active = *item6Active;
+	data->potionActiveAvailable = potionActiveAvailable;
+	data->potionOnActive = potionOnActive;
+	data->potionActive = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->potionActive = *potionActive;
+	data->potionBeingUsedShown = potionBeingUsedShown;
+	data->potionBeingUsed = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->potionBeingUsed = *potionBeingUsed;
+	data->shopAvailableShown = shopAvailableShown;
+	data->shopAvailable = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->shopAvailable = *shopAvailable;
+	data->shopTopLeftCornerShown = shopTopLeftCornerShown;
+	data->shopTopLeftCorner = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->shopTopLeftCorner = *shopTopLeftCorner;
+	data->shopBottomLeftCornerShown = shopBottomLeftCornerShown;
+	data->shopBottomLeftCorner = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->shopBottomLeftCorner = *shopBottomLeftCorner;
 
 
-	//Fill out all the data
-	/*
-	bool spell1LevelUpAvailable = false, spell2LevelUpAvailable = false, spell3LevelUpAvailable = false, spell4LevelUpAvailable = false;
-	GenericObject* spell1LevelUp = nullptr, *spell2LevelUp = nullptr, *spell3LevelUp = nullptr, *spell4LevelUp = nullptr;
-	GenericObject *spell1LevelDotsArray = nullptr, *spell2LevelDotsArray = nullptr, *spell3LevelDotsArray = nullptr, *spell4LevelDotsArray = nullptr;
-	int numberOfSpell1Dots=0, numberOfSpell2Dots=0, numberOfSpell3Dots=0, numberOfSpell4Dots=0;
-	bool spell1LevelDotsVisible = false, spell2LevelDotsVisible = false, spell3LevelDotsVisible = false, spell4LevelDotsVisible = false;
-	int currentLevel = 0;
-	bool spell1ActiveAvailable = false, spell2ActiveAvailable = false, spell3ActiveAvailable = false, spell4ActiveAvailable = false;
-	GenericObject* spell1Active = nullptr, *spell2Active = nullptr, *spell3Active = nullptr, *spell4Active = nullptr;
-	bool summonerSpell1ActiveAvailable = false, summonerSpell2ActiveAvailable = false;
-	GenericObject* summonerSpell1Active = nullptr, *summonerSpell2Active = nullptr;
-	bool trinketActiveAvailable = false;
-	GenericObject* trinketActive = nullptr;
-	bool item1ActiveAvailable = false, item2ActiveAvailable = false, item3ActiveAvailable = false, item4ActiveAvailable = false, item5ActiveAvailable = false, item6ActiveAvailable = false;
-	GenericObject* item1Active = nullptr, *item2Active = nullptr, *item3Active = nullptr, *item4Active = nullptr, *item5Active = nullptr, *item6Active = nullptr;
-	bool potionActiveAvailable = false;
-	int potionOnActive = 0;
-	GenericObject* potionActive = nullptr;
-	bool potionBeingUsedShown = false;
-	GenericObject* potionBeingUsed = nullptr;
-	bool shopAvailableShown = false;
-	GenericObject* shopAvailable = nullptr;
-	bool shopTopLeftCornerShown = false;
-	GenericObject* shopTopLeftCorner = nullptr;
-	bool shopBottomLeftCornerShown = false;
-	GenericObject* shopBottomLeftCorner = nullptr;
-	GenericObject *buyableItemsArray = nullptr;
-	int numberOfBuyableItems = 0;
-	bool mapVisible = false;
-	GenericObject* map = nullptr;
-	bool mapShopVisible = false;
-	GenericObject* mapShop = nullptr;
-	bool mapSelfLocationVisible = false;
-	GenericObject* mapSelfLocation = nullptr;
-	bool selfHealthBarVisible = false;
-	SelfHealth* selfHealthBar = nullptr;
-	bool surrenderAvailable = false;
-	GenericObject* surrenderActive = nullptr;
-	*/
+	if (buyableItems->size > 0) {
+		data->buyableItemsArray = (GenericObject*)malloc(sizeof(GenericObject) * buyableItems->size);
+		for (int i = 0; i < buyableItems->size; i++) {
+			data->buyableItemsArray[i] = *(buyableItems->at(i));
+		}
+	}
+	data->numberOfBuyableItems = buyableItems->size;
+	data->mapVisible = mapVisible;
+	data->map = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->map = *map;
+	data->mapShopVisible = mapShopVisible;
+
+	data->mapShop = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->mapShop = *mapShop;
+	data->mapSelfLocationVisible = mapSelfLocationVisible;
+	data->mapSelfLocation = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->mapSelfLocation = *mapSelfLocation;
+	data->selfHealthBarVisible = selfHealthBarVisible;
+	data->selfHealthBar = (SelfHealth*)malloc(sizeof(SelfHealth));
+	*data->selfHealthBar = *selfHealthBar;
+	data->surrenderAvailable = surrenderAvailable;
+	data->surrenderActive = (GenericObject*)malloc(sizeof(GenericObject));
+	*data->surrenderActive = *surrenderActive;
 
 	return data;
 }
