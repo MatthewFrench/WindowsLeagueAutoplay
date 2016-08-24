@@ -48,7 +48,7 @@ class DetectionManager {
 public:
     DetectionManager();
     void processDetection(ImageData *image);
-	DetectionDataStruct* getDetectionData();
+	void getDetectionData(DetectionDataStruct* data);
 
     void processAllyMinionDetection(ImageData *image, int x, int y, uint8_t* pixel);
     void processEnemyMinionDetection(ImageData *image, int x, int y, uint8_t* pixel);

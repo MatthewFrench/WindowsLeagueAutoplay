@@ -151,8 +151,8 @@ extern "C"
 		printDetected(detectionManager);
 	}
 
-	__declspec(dllexport) DetectionDataStruct* getDetectionData() {
-		return detectionManager->getDetectionData();
+	__declspec(dllexport) void getDetectionData(DetectionDataStruct* data) {
+		return detectionManager->getDetectionData(data);
 	}
 
 	// Ability image loading code

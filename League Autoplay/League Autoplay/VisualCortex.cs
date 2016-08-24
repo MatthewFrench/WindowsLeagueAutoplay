@@ -67,10 +67,24 @@ namespace League_Autoplay
                 Stopwatch performanceWatch = new Stopwatch();
                 performanceWatch.Start();
 
+
+                //TEST CODE
+                System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, testImage.Width, testImage.Height);
+                var bitmapData = testImage.LockBits(boundsRect, ImageLockMode.WriteOnly, testImage.PixelFormat);
+                var bitmapPointer = bitmapData.Scan0;
+
                 unsafe
                 {
-                    processDetection((byte*)mapSource.DataPointer, width, height);
+                    processDetection((byte*)bitmapPointer.ToPointer(), testImage.Width, testImage.Height);
                 }
+                testImage.UnlockBits(bitmapData);
+                //END TEST CODE
+
+                /*
+                unsafe
+            {
+                processDetection((byte*)mapSource.DataPointer, width, height);
+            }*/
 
                 performanceWatch.Stop();
 
@@ -92,9 +106,66 @@ namespace League_Autoplay
             }
         }
 
-        public unsafe DetectionDataStruct* getVisualDetectionData()
+        public unsafe DetectionDataStruct getVisualDetectionData()
         {
-            return getDetectionData();
+            Console.WriteLine("getVisualDetectionData 1");
+            DetectionDataStruct data = new DetectionDataStruct();
+            Console.WriteLine("getVisualDetectionData 2");
+            getDetectionData(ref data);
+            Console.WriteLine("getVisualDetectionData 3");
+
+
+            return data;
+            /*C++
+             * struct markerStruct {
+    int id;
+};
+
+...
+
+EXPORT_API void detectMarkers( ... , markerStruct *MarkerInfo) {
+    MarkerInfo->id = 3;
+    return;
+}
+             */
+
+            /*C#
+             * [DllImport ("ArucoUnity")] 
+    public static extern void detectMarkers( ... ,
+        [MarshalAs(UnmanagedType.Struct)] ref MarkerStruct markerStruct);
+
+...
+
+[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+public struct MarkerStruct
+{
+    public int Id;
+}
+
+...
+
+detectMarkers (d, W, H, d.Length, ref markerInfo);      
+print( markerInfo.Id );
+             * 
+             */
+
+
+
+            //IntPtr pDataRecord = Marshal.AllocHGlobal(4);
+            //UnManagedLib.GetData(pDataRecord);
+            //UnManagedLib.DataRecord ds = (UnManagedLib.DataRecord)Marshal.PtrToStructure
+            //                (pDataRecord, typeof(UnManagedLib.DataRecord));
+            //Marshal.FreeHGlobal(4);
+
+
+            /*
+            Console.WriteLine("getVisualDetectionData start");
+            IntPtr pointer = getDetectionData();
+            Console.WriteLine("getVisualDetectionData 1");
+            DetectionDataStruct* data = (DetectionDataStruct*)pointer.ToPointer();
+            Console.WriteLine("getVisualDetectionData 2");
+            */
+            //return data;
         }
 
         public void runTest()
@@ -314,8 +385,8 @@ namespace League_Autoplay
             return (byte*)toPtr.ToPointer();
         }
         [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.LPStruct)]
-        public static extern unsafe DetectionDataStruct* getDetectionData();
+        //[return: MarshalAs(UnmanagedType.LPStruct)]
+        public static extern unsafe void getDetectionData(ref DetectionDataStruct data);
 
         [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void Copy(byte* startPointer, byte* startDestinationPointer, Int32 width, Int32 height);

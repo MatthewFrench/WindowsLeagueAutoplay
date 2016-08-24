@@ -79,8 +79,9 @@ namespace League_Autoplay
         unsafe void updateDetectionData()
         {
             //Pull the detection data from the C++
-            DetectionDataStruct* detectionData = visualCortex.getVisualDetectionData();
-
+            Console.WriteLine("Test Starting Detection data test");
+            DetectionDataStruct detectionData = visualCortex.getVisualDetectionData();
+            Console.WriteLine("Test Ending Detection data test");
         }
         public void createAITimer(int milliseconds = 16)
         {
