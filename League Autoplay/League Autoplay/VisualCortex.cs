@@ -105,6 +105,10 @@ namespace League_Autoplay
                 System.GC.Collect();
             }
         }
+        public unsafe void freeVisualDetectionData(ref DetectionDataStruct data)
+        {
+            freeDetectionData(ref data);
+        }
 
         public unsafe DetectionDataStruct getVisualDetectionData()
         {
@@ -387,6 +391,8 @@ print( markerInfo.Id );
         [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
         //[return: MarshalAs(UnmanagedType.LPStruct)]
         public static extern unsafe void getDetectionData(ref DetectionDataStruct data);
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void freeDetectionData(ref DetectionDataStruct data);
 
         [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void Copy(byte* startPointer, byte* startDestinationPointer, Int32 width, Int32 height);

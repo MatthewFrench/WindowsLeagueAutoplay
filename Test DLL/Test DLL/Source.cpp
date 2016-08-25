@@ -154,6 +154,9 @@ extern "C"
 	__declspec(dllexport) void getDetectionData(DetectionDataStruct* data) {
 		return detectionManager->getDetectionData(data);
 	}
+	__declspec(dllexport) void freeDetectionData(DetectionDataStruct* data) {
+		return detectionManager->freeDetectionData(data);
+	}
 
 	// Ability image loading code
 	__declspec(dllexport) void AbilityManager_loadLevelUpImageData(byte * data, int32_t imageWidth, int32_t imageHeight) {

@@ -169,50 +169,62 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	//Record ally minions
 	
 	data->numberOfAllyMinions = static_cast<int>(allyMinions->size());
+	data->allyMinionsArray = nullptr;
 	if (allyMinions->size() > 0) {
 		data->allyMinionsArray = static_cast<Minion*>(malloc(sizeof(Minion) * allyMinions->size()));
 		for (int i = 0; i < allyMinions->size(); i++) {
-			data->allyMinionsArray[i] = *(allyMinions->at(i));
+			memcpy(&(data->allyMinionsArray[i]), allyMinions->at(i), sizeof(Minion));
+			//data->allyMinionsArray[i] = *(allyMinions->at(i));
 		}
 	}
 	//Record enemy minions
+	data->enemyMinionsArray = nullptr;
 	if (enemyMinions->size() > 0) {
 		data->numberOfEnemyMinions = static_cast<int>(enemyMinions->size());
 		data->enemyMinionsArray = static_cast<Minion*>(malloc(sizeof(Minion) * enemyMinions->size()));
 		for (int i = 0; i < enemyMinions->size(); i++) {
-			data->enemyMinionsArray[i] = *(enemyMinions->at(i));
+			memcpy(&(data->enemyMinionsArray[i]), enemyMinions->at(i), sizeof(Minion));
+			//data->enemyMinionsArray[i] = *(enemyMinions->at(i));
 		}
 	}
 	//Record ally champions
+	data->allyChampionsArray = nullptr;
 	if (allyChampions->size() > 0) {
 		data->numberOfAllyChampions = static_cast<int>(allyChampions->size());
 		data->allyChampionsArray = static_cast<struct Champion*>(malloc(sizeof(struct Champion) * allyChampions->size()));
 		for (int i = 0; i < allyChampions->size(); i++) {
-			data->allyChampionsArray[i] = *(allyChampions->at(i));
+			memcpy(&(data->allyChampionsArray[i]), allyChampions->at(i), sizeof(Champion));
+			//data->allyChampionsArray[i] = *(allyChampions->at(i));
 		}
 	}
 	//Record enemy champions
+	data->enemyChampionsArray = nullptr;
 	if (enemyChampions->size() > 0) {
 		data->numberOfEnemyChampions = static_cast<int>(enemyChampions->size());
 		data->enemyChampionsArray = static_cast<Champion*>(malloc(sizeof(Champion) * enemyChampions->size()));
 		for (int i = 0; i < enemyChampions->size(); i++) {
-			data->enemyChampionsArray[i] = *(enemyChampions->at(i));
+			memcpy(&(data->enemyChampionsArray[i]), enemyChampions->at(i), sizeof(Champion));
+			//data->enemyChampionsArray[i] = *(enemyChampions->at(i));
 		}
 	}
 	//Record self champions
+	data->selfChampionsArray = nullptr;
 	if (selfChampions->size() > 0) {
 		data->numberOfSelfChampions = static_cast<int>(selfChampions->size());
 		data->selfChampionsArray = static_cast<Champion*>(malloc(sizeof(Champion) * selfChampions->size()));
 		for (int i = 0; i < selfChampions->size(); i++) {
-			data->selfChampionsArray[i] = *(selfChampions->at(i));
+			memcpy(&(data->selfChampionsArray[i]), selfChampions->at(i), sizeof(Champion));
+			//data->selfChampionsArray[i] = *(selfChampions->at(i));
 		}
 	}
 	//Record enemy towers
+	data->enemyTowersArray = nullptr;
 	if (enemyTowers->size() > 0) {
 		data->numberOfEnemyTowers = static_cast<int>(enemyTowers->size());
 		data->enemyTowersArray = static_cast<Tower*>(malloc(sizeof(Tower) * enemyTowers->size()));
 		for (int i = 0; i < enemyTowers->size(); i++) {
-			data->enemyTowersArray[i] = *(enemyTowers->at(i));
+			memcpy(&(data->enemyTowersArray[i]), enemyTowers->at(i), sizeof(Tower));
+			//data->enemyTowersArray[i] = *(enemyTowers->at(i));
 		}
 	}
 	
@@ -221,50 +233,69 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	data->spell3LevelUpAvailable = spell3LevelUpAvailable;
 	data->spell4LevelUpAvailable = spell4LevelUpAvailable;
 
+	data->spell1LevelUp = nullptr;
+
+	printf("Set spell 1 level up: %p\n", data->spell1LevelUp);
 	if (spell1LevelUp != nullptr) {
 		data->spell1LevelUp = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->spell1LevelUp = *spell1LevelUp;
+		memcpy(data->spell1LevelUp, spell1LevelUp, sizeof(GenericObject));
+		//*data->spell1LevelUp = *spell1LevelUp;
+		printf("Set spell 1 level up realsies: %p\n", data->spell1LevelUp);
 	}
+	data->spell2LevelUp = nullptr;
 	if (spell2LevelUp != nullptr) {
 		data->spell2LevelUp = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->spell2LevelUp = *spell2LevelUp;
+		memcpy(data->spell2LevelUp, spell2LevelUp, sizeof(GenericObject));
+		//*data->spell2LevelUp = *spell2LevelUp;
 	}
+	data->spell3LevelUp = nullptr;
 	if (spell3LevelUp != nullptr) {
 		data->spell3LevelUp = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->spell3LevelUp = *spell3LevelUp;
+		memcpy(data->spell3LevelUp, spell3LevelUp, sizeof(GenericObject));
+		//*data->spell3LevelUp = *spell3LevelUp;
 	}
+	data->spell4LevelUp = nullptr;
 	if (spell4LevelUp != nullptr) {
 		data->spell4LevelUp = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->spell4LevelUp = *spell4LevelUp;
+		memcpy(data->spell4LevelUp, spell4LevelUp, sizeof(GenericObject));
+		//*data->spell4LevelUp = *spell4LevelUp;
 	}
 
 	data->numberOfSpell1Dots = static_cast<int>(spell1LevelDots->size());
 	data->numberOfSpell2Dots = static_cast<int>(spell2LevelDots->size());
 	data->numberOfSpell3Dots = static_cast<int>(spell3LevelDots->size());
 	data->numberOfSpell4Dots = static_cast<int>(spell4LevelDots->size());
-	
+
+	data->spell1LevelDotsArray = nullptr;
 	if (spell1LevelDots->size() > 0) {
 		data->spell1LevelDotsArray = static_cast<GenericObject*>(malloc(sizeof(GenericObject) * spell1LevelDots->size()));
 		for (int i = 0; i < spell1LevelDots->size(); i++) {
-			data->spell1LevelDotsArray[i] = *(spell1LevelDots->at(i));
+			memcpy(&(data->spell1LevelDotsArray[i]), spell1LevelDots->at(i), sizeof(GenericObject));
+			//data->spell1LevelDotsArray[i] = *(spell1LevelDots->at(i));
 		}
 	}
+	data->spell2LevelDotsArray = nullptr;
 	if (spell2LevelDots->size() > 0) {
 		data->spell2LevelDotsArray = static_cast<GenericObject*>(malloc(sizeof(GenericObject) * spell2LevelDots->size()));
 		for (int i = 0; i < spell2LevelDots->size(); i++) {
-			data->spell2LevelDotsArray[i] = *(spell2LevelDots->at(i));
+			memcpy(&(data->spell2LevelDotsArray[i]), spell2LevelDots->at(i), sizeof(GenericObject));
+			//data->spell2LevelDotsArray[i] = *(spell2LevelDots->at(i));
 		}
 	}
+	data->spell3LevelDotsArray = nullptr;
 	if (spell3LevelDots->size() > 0) {
 		data->spell3LevelDotsArray = static_cast<GenericObject*>(malloc(sizeof(GenericObject) * spell3LevelDots->size()));
 		for (int i = 0; i < spell3LevelDots->size(); i++) {
-			data->spell3LevelDotsArray[i] = *(spell3LevelDots->at(i));
+			memcpy(&(data->spell3LevelDotsArray[i]), spell3LevelDots->at(i), sizeof(GenericObject));
+			//data->spell3LevelDotsArray[i] = *(spell3LevelDots->at(i));
 		}
 	}
+	data->spell4LevelDotsArray = nullptr;
 	if (spell4LevelDots->size() > 0) {
 		data->spell4LevelDotsArray = static_cast<GenericObject*>(malloc(sizeof(GenericObject) * spell4LevelDots->size()));
 		for (int i = 0; i < spell4LevelDots->size(); i++) {
-			data->spell4LevelDotsArray[i] = *(spell4LevelDots->at(i));
+			memcpy(&(data->spell4LevelDotsArray[i]), spell4LevelDots->at(i), sizeof(GenericObject));
+			//data->spell4LevelDotsArray[i] = *(spell4LevelDots->at(i));
 		}
 	}
 
@@ -278,38 +309,52 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	data->spell3ActiveAvailable = spell3ActiveAvailable;
 	data->spell4ActiveAvailable = spell4ActiveAvailable;
 
+	data->spell1Active = nullptr;
 	if (spell1Active != nullptr) {
 		data->spell1Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->spell1Active = *spell1Active;
+		memcpy(data->spell1Active, spell1Active, sizeof(GenericObject));
+		//*data->spell1Active = *spell1Active;
 	}
+	data->spell2Active = nullptr;
 	if (spell2Active != nullptr) {
 		data->spell2Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->spell2Active = *spell2Active;
+		memcpy(data->spell2Active, spell2Active, sizeof(GenericObject));
+		//*data->spell2Active = *spell2Active;
 	}
+	data->spell3Active = nullptr;
 	if (spell3Active != nullptr) {
 		data->spell3Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->spell3Active = *spell3Active;
+		memcpy(data->spell3Active, spell3Active, sizeof(GenericObject));
+		//*data->spell3Active = *spell3Active;
 	}
+	data->spell4Active = nullptr;
 	if (spell4Active != nullptr) {
 		data->spell4Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->spell4Active = *spell4Active;
+		memcpy(data->spell4Active, spell4Active, sizeof(GenericObject));
+		//*data->spell4Active = *spell4Active;
 	}
 
 	data->summonerSpell1ActiveAvailable = summonerSpell1ActiveAvailable;
 	data->summonerSpell2ActiveAvailable = summonerSpell2ActiveAvailable;
 
+	data->summonerSpell1Active = nullptr;
 	if (summonerSpell1Active != nullptr) {
 		data->summonerSpell1Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->summonerSpell1Active = *summonerSpell1Active;
+		memcpy(data->summonerSpell1Active, summonerSpell1Active, sizeof(GenericObject));
+		//*data->summonerSpell1Active = *summonerSpell1Active;
 	}
+	data->summonerSpell2Active = nullptr;
 	if (summonerSpell2Active != nullptr) {
 		data->summonerSpell2Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->summonerSpell2Active = *summonerSpell2Active;
+		memcpy(data->summonerSpell2Active, summonerSpell2Active, sizeof(GenericObject));
+		//*data->summonerSpell2Active = *summonerSpell2Active;
 	}
+	data->trinketActive = nullptr;
 	data->trinketActiveAvailable = trinketActiveAvailable;
 	if (trinketActive != nullptr) {
 		data->trinketActive = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->trinketActive = *trinketActive;
+		memcpy(data->trinketActive, trinketActive, sizeof(GenericObject));
+		//*data->trinketActive = *trinketActive;
 	}
 
 	data->item1ActiveAvailable = item1ActiveAvailable;
@@ -319,97 +364,453 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	data->item5ActiveAvailable = item5ActiveAvailable;
 	data->item6ActiveAvailable = item6ActiveAvailable;
 
+	data->item1Active = nullptr;
 	if (item1Active != nullptr) {
 		data->item1Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->item1Active = *item1Active;
+		memcpy(data->item1Active, item1Active, sizeof(GenericObject));
+		//*data->item1Active = *item1Active;
 	}
+	data->item2Active = nullptr;
 	if (item2Active != nullptr) {
 		data->item2Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->item2Active = *item2Active;
+		memcpy(data->item2Active, item2Active, sizeof(GenericObject));
+		//*data->item2Active = *item2Active;
 	}
+	data->item3Active = nullptr;
 	if (item3Active != nullptr) {
 		data->item3Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->item3Active = *item3Active;
+		memcpy(data->item3Active, item3Active, sizeof(GenericObject));
+		//*data->item3Active = *item3Active;
 	}
+	data->item4Active = nullptr;
 	if (item4Active != nullptr) {
 		data->item4Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->item4Active = *item4Active;
+		memcpy(data->item4Active, item4Active, sizeof(GenericObject));
+		//*data->item4Active = *item4Active;
 	}
+	data->item5Active = nullptr;
 	if (item5Active != nullptr) {
 		data->item5Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->item5Active = *item5Active;
+		memcpy(data->item5Active, item5Active, sizeof(GenericObject));
+		//*data->item5Active = *item5Active;
 	}
+	data->item6Active = nullptr;
 	if (item6Active != nullptr) {
 		data->item6Active = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->item6Active = *item6Active;
+		memcpy(data->item6Active, item6Active, sizeof(GenericObject));
+		//*data->item6Active = *item6Active;
 	}
 
 	data->potionActiveAvailable = potionActiveAvailable;
 	data->potionOnActive = potionOnActive;
 
+	data->potionActive = nullptr;
 	if (potionActive != nullptr) {
 		data->potionActive = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->potionActive = *potionActive;
+		memcpy(data->potionActive, potionActive, sizeof(GenericObject));
+		//*data->potionActive = *potionActive;
 	}
 	data->potionBeingUsedShown = potionBeingUsedShown;
+	data->potionBeingUsed = nullptr;
 	if (potionBeingUsed != nullptr) {
 		data->potionBeingUsed = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->potionBeingUsed = *potionBeingUsed;
+		memcpy(data->potionBeingUsed, potionBeingUsed, sizeof(GenericObject));
+		//*data->potionBeingUsed = *potionBeingUsed;
 	}
 	data->shopAvailableShown = shopAvailableShown;
+	data->shopAvailable = nullptr;
 	if (shopAvailable != nullptr) {
 		data->shopAvailable = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->shopAvailable = *shopAvailable;
+		memcpy(data->shopAvailable, shopAvailable, sizeof(GenericObject));
+		//*data->shopAvailable = *shopAvailable;
 	}
 	data->shopTopLeftCornerShown = shopTopLeftCornerShown;
+	data->shopTopLeftCorner = nullptr;
 	if (shopTopLeftCorner != nullptr) {
 		data->shopTopLeftCorner = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->shopTopLeftCorner = *shopTopLeftCorner;
+		memcpy(data->shopTopLeftCorner, shopTopLeftCorner, sizeof(GenericObject));
+		//*data->shopTopLeftCorner = *shopTopLeftCorner;
 	}
 	data->shopBottomLeftCornerShown = shopBottomLeftCornerShown;
+	data->shopBottomLeftCorner = nullptr;
 	if (shopBottomLeftCorner != nullptr) {
 		data->shopBottomLeftCorner = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->shopBottomLeftCorner = *shopBottomLeftCorner;
+		memcpy(data->shopBottomLeftCorner, shopBottomLeftCorner, sizeof(GenericObject));
+		//*data->shopBottomLeftCorner = *shopBottomLeftCorner;
 	}
 
-	
+
+	data->buyableItemsArray = nullptr;
 	if (buyableItems->size() > 0) {
 		data->buyableItemsArray = static_cast<GenericObject*>(malloc(sizeof(GenericObject) * buyableItems->size()));
 		for (int i = 0; i < buyableItems->size(); i++) {
-			data->buyableItemsArray[i] = *(buyableItems->at(i));
+			memcpy(&(data->buyableItemsArray[i]), buyableItems->at(i), sizeof(GenericObject));
+			//data->buyableItemsArray[i] = *(buyableItems->at(i));
 		}
 	}
 	
 	data->numberOfBuyableItems = static_cast<int>(buyableItems->size());
 	data->mapVisible = mapVisible;
+	data->map = nullptr;
 	if (map != nullptr) {
 		data->map = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->map = *map;
+		memcpy(data->map, map, sizeof(GenericObject));
+		//*data->map = *map;
 	}
 	data->mapShopVisible = mapShopVisible;
+	data->mapShop = nullptr;
 	if (mapShop != nullptr) {
 		data->mapShop = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->mapShop = *mapShop;
+		memcpy(data->mapShop, mapShop, sizeof(GenericObject));
+		//*data->mapShop = *mapShop;
 	}
 	data->mapSelfLocationVisible = mapSelfLocationVisible;
+	data->mapSelfLocation = nullptr;
 	if (mapSelfLocation != nullptr) {
 		data->mapSelfLocation = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->mapSelfLocation = *mapSelfLocation;
+		memcpy(data->mapSelfLocation, mapSelfLocation, sizeof(GenericObject));
+		//*data->mapSelfLocation = *mapSelfLocation;
 	}
 	data->selfHealthBarVisible = selfHealthBarVisible;
+	data->selfHealthBar = nullptr;
 	if (selfHealthBar != nullptr) {
 		data->selfHealthBar = static_cast<SelfHealth*>(malloc(sizeof(SelfHealth)));
-		*data->selfHealthBar = *selfHealthBar;
-	}
-	if (selfHealthBar != nullptr) {
-		data->selfHealthBar = static_cast<SelfHealth*>(malloc(sizeof(SelfHealth)));
-		*data->selfHealthBar = *selfHealthBar;
+		memcpy(data->selfHealthBar, selfHealthBar, sizeof(GenericObject));
+		//*data->selfHealthBar = *selfHealthBar;
 	}
 	data->surrenderAvailable = surrenderAvailable;
+	data->surrenderActive = nullptr;
 	if (surrenderActive != nullptr) {
 		data->surrenderActive = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
-		*data->surrenderActive = *surrenderActive;
+		memcpy(data->surrenderActive, surrenderActive, sizeof(GenericObject));
+		//*data->surrenderActive = *surrenderActive;
 	}
+}
+
+
+void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
+
+
+	printf("freeDetectionData\n");
+	printf("freeDetectionData\n");
+	printf("freeDetectionData\n");
+
+	if (data->numberOfAllyMinions > 0) {
+		free(data->allyMinionsArray);
+		data->allyMinionsArray = nullptr;
+	}
+
+
+	printf("1\n");
+
+	if (data->numberOfEnemyMinions > 0) {
+		free(data->enemyMinionsArray);
+		data->enemyMinionsArray = nullptr;
+	}
+
+
+	printf("2\n");
+
+	if (data->numberOfAllyChampions > 0) {
+		free(data->allyChampionsArray);
+		data->allyChampionsArray = nullptr;
+	}
+
+
+	printf("3\n");
+
+	if (data->numberOfEnemyChampions > 0) {
+		free(data->enemyChampionsArray);
+		data->enemyChampionsArray = nullptr;
+	}
+
+
+	printf("4\n");
+
+	if (data->numberOfSelfChampions > 0) {
+		free(data->selfChampionsArray);
+		data->selfChampionsArray = nullptr;
+	}
+
+
+	printf("5\n");
+
+	if (data->numberOfEnemyTowers > 0) {
+		free(data->enemyTowersArray);
+		data->enemyTowersArray = nullptr;
+	}
+
+
+
+	printf("6\n");
+
+	if (data->spell1LevelUp != nullptr) {
+
+		printf("Spell 1 level up available: %d\n", data->spell1LevelUpAvailable);
+		printf("Freeing spell 1 level up: %p\n", data->spell1LevelUp);
+		free(data->spell1LevelUp);
+		data->spell1LevelUp = nullptr;
+	}
+
+
+	printf("7\n");
+
+	if (data->spell2LevelUp != nullptr) {
+		free(data->spell2LevelUp);
+		data->spell2LevelUp = nullptr;
+	}
+
+
+	printf("8\n");
+
+	if (data->spell3LevelUp != nullptr) {
+		free(data->spell3LevelUp);
+		data->spell3LevelUp = nullptr;
+	}
+
+
+	printf("9\n");
+
+	if (data->spell4LevelUp != nullptr) {
+		free(data->spell4LevelUp);
+		data->spell4LevelUp = nullptr;
+	}
+
+
+
+	printf("10\n");
+
+	if (data->numberOfSpell1Dots > 0) {
+		free(data->spell1LevelDotsArray);
+		data->spell1LevelDotsArray = nullptr;
+	}
+
+
+	printf("11\n");
+
+	if (data->numberOfSpell2Dots > 0) {
+		free(data->spell2LevelDotsArray);
+		data->spell2LevelDotsArray = nullptr;
+	}
+
+
+	printf("12\n");
+
+	if (data->numberOfSpell3Dots > 0) {
+		free(data->spell3LevelDotsArray);
+		data->spell3LevelDotsArray = nullptr;
+	}
+
+
+	printf("13\n");
+
+	if (data->numberOfSpell4Dots > 0) {
+		free(data->spell4LevelDotsArray);
+		data->spell4LevelDotsArray = nullptr;
+	}
+
+
+	printf("14\n");
+
+
+	if (data->spell1Active != nullptr) {
+		free(data->spell1Active);
+		data->spell1Active = nullptr;
+	}
+
+
+	printf("15\n");
+
+	if (data->spell2Active != nullptr) {
+		free(data->spell2Active);
+		data->spell2Active = nullptr;
+	}
+
+
+	printf("16\n");
+
+	if (data->spell3Active != nullptr) {
+		free(data->spell3Active);
+		data->spell3Active = nullptr;
+	}
+
+
+	printf("17\n");
+
+	if (data->spell4Active != nullptr) {
+		free(data->spell4Active);
+		data->spell4Active = nullptr;
+	}
+
+
+	printf("18\n");
+
+
+	if (data->summonerSpell1Active != nullptr) {
+		free(data->summonerSpell1Active);
+		data->summonerSpell1Active = nullptr;
+	}
+
+
+	printf("19\n");
+
+	if (data->summonerSpell2Active != nullptr) {
+		free(data->summonerSpell2Active);
+		data->summonerSpell2Active = nullptr;
+	}
+
+
+	printf("20\n");
+
+	if (data->trinketActive != nullptr) {
+		free(data->trinketActive);
+		data->trinketActive = nullptr;
+	}
+
+
+	printf("21\n");
+
+
+	if (data->item1Active != nullptr) {
+		free(data->item1Active);
+		data->item1Active = nullptr;
+	}
+
+
+	printf("22\n");
+
+	if (data->item2Active != nullptr) {
+		free(data->item2Active);
+		data->item2Active = nullptr;
+	}
+
+
+	printf("23\n");
+
+	if (data->item3Active != nullptr) {
+		free(data->item3Active);
+		data->item3Active = nullptr;
+	}
+
+
+	printf("24\n");
+
+	if (data->item4Active != nullptr) {
+		free(data->item4Active);
+		data->item4Active = nullptr;
+	}
+
+
+	printf("25\n");
+
+	if (data->item5Active != nullptr) {
+		free(data->item5Active);
+		data->item5Active = nullptr;
+	}
+
+
+	printf("26\n");
+
+	if (data->item6Active != nullptr) {
+		free(data->item6Active);
+		data->item6Active = nullptr;
+	}
+
+
+	printf("27\n");
+
+
+	if (data->potionActive != nullptr) {
+		free(data->potionActive);
+		data->potionActive = nullptr;
+	}
+
+
+	printf("28\n");
+
+	if (data->potionBeingUsed != nullptr) {
+		free(data->potionBeingUsed);
+		data->potionBeingUsed = nullptr;
+	}
+
+
+	printf("29\n");
+
+	if (data->shopAvailable != nullptr) {
+		free(data->shopAvailable);
+		data->shopAvailable = nullptr;
+	}
+
+
+	printf("30\n");
+
+	if (data->shopTopLeftCorner != nullptr) {
+		free(data->shopTopLeftCorner);
+		data->shopTopLeftCorner = nullptr;
+	}
+
+
+	printf("31\n");
+
+	if (data->shopBottomLeftCorner != nullptr) {
+		free(data->shopBottomLeftCorner);
+		data->shopBottomLeftCorner = nullptr;
+	}
+
+
+	printf("32\n");
+
+
+
+	if (data->numberOfBuyableItems > 0) {
+		free(data->buyableItemsArray);
+		data->buyableItemsArray = nullptr;
+	}
+
+
+	printf("33\n");
+
+
+	if (data->map != nullptr) {
+		free(data->map);
+		data->map = nullptr;
+	}
+
+
+	printf("34\n");
+
+	if (data->mapShop != nullptr) {
+		free(data->mapShop);
+		data->mapShop = nullptr;
+	}
+
+
+	printf("35\n");
+
+	if (data->mapSelfLocation != nullptr) {
+		free(data->mapSelfLocation);
+		data->mapSelfLocation = nullptr;
+	}
+
+
+	printf("36\n");
+
+	if (data->selfHealthBar != nullptr) {
+		free(data->selfHealthBar);
+		data->selfHealthBar = nullptr;
+	}
+
+
+	printf("37\n");
+
+	if (data->surrenderActive != nullptr) {
+		free(data->surrenderActive);
+		data->surrenderActive = nullptr;
+	}
+
+
+	printf("38\n");
+
 }
 
 void DetectionManager::processAllyMinionDetection(ImageData *image, int x, int y, uint8_t* pixel) {

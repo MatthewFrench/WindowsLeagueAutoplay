@@ -81,6 +81,10 @@ namespace League_Autoplay
             //Pull the detection data from the C++
             Console.WriteLine("Test Starting Detection data test");
             DetectionDataStruct detectionData = visualCortex.getVisualDetectionData();
+
+            Console.WriteLine("Reading detection data");
+
+            visualCortex.freeVisualDetectionData(ref detectionData);
             Console.WriteLine("Test Ending Detection data test");
         }
         public void createAITimer(int milliseconds = 16)
