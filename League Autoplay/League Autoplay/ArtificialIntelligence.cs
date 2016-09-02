@@ -21,6 +21,9 @@ namespace League_Autoplay
         ATimer logicTimer = null;
         bool updateDisplayImage = false;
 
+        bool hasDetectionData = false;
+        DetectionDataStruct currentDetectionData;
+
         public ArtificialIntelligence(UserInterface userInterface, VisualCortex visualCortex, MotorCortex motorCortex)
         {
             this.userInterface = userInterface;
@@ -62,7 +65,12 @@ namespace League_Autoplay
                 {
                     //visualCortex.runTest();
                     visualCortex.grabScreenAndDetect();
-                    updateDetectionData();
+
+                    DetectionDataStruct data = visualCortex.getVisualDetectionData();
+                    TaskHelper.RunTask(aiContext, () =>
+                    {
+                        updateDetectionData(data);
+                    });
                 }).ContinueWith(_ => {
                     //Run on UI thread
                     if (updateDisplayImage)
@@ -76,6 +84,9 @@ namespace League_Autoplay
                     userInterface.setScreenPerformanceLabel("" + Math.Round(screenFps, 4) + " fps (" + Math.Round(screenMilliseconds, 4) + " ms)");
                 }, aiContext);
             }
+
+            //Run basic AI algorithm
+
         }
 
         public byte[] ToByteArray(DetectionDataStruct data)
@@ -102,7 +113,7 @@ namespace League_Autoplay
             return arr;
         }
 
-        unsafe void updateDetectionData()
+        unsafe void updateDetectionData(DetectionDataStruct data)
         {
             /*
             Console.WriteLine("\n");
@@ -116,9 +127,19 @@ namespace League_Autoplay
             Console.WriteLine("\n");
             */
             //Pull the detection data from the C++
-            Console.WriteLine("Test Starting Detection data test");
-            DetectionDataStruct detectionData = visualCortex.getVisualDetectionData();
-            
+            //Console.WriteLine("Test Starting Detection data test");
+
+            //visualCortex.freeVisualDetectionData(ref detectionData);
+
+            if (hasDetectionData)
+            {
+                visualCortex.freeVisualDetectionData(ref currentDetectionData);
+                hasDetectionData = false;
+            }
+            currentDetectionData = data;
+            hasDetectionData = true;
+
+            /*
             Console.WriteLine("Reading detection data");
 
             Console.WriteLine("Detected in C#: ");
@@ -265,6 +286,7 @@ namespace League_Autoplay
             {
                 Console.WriteLine("\tSurrender is visible");
             }
+            */
             /*
             Console.WriteLine("\nC# bytes");
             byte[] bytes = ToByteArray(detectionData);
@@ -272,8 +294,8 @@ namespace League_Autoplay
             Console.WriteLine("[ " + BitConverter.ToString(bytes).Replace("-", " ").ToLower() + " ]");
             Console.WriteLine("\n");
             */
-            visualCortex.freeVisualDetectionData(ref detectionData);
-            Console.WriteLine("Test Ending Detection data test");
+            //visualCortex.freeVisualDetectionData(ref detectionData);
+            //Console.WriteLine("Test Ending Detection data test");
         }
         public void createAITimer(int milliseconds = 16)
         {
