@@ -10,8 +10,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "League Autoplay", "League A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopDuplication.Demo", "..\desktop-duplication-net-master\DesktopDuplication.Demo\DesktopDuplication.Demo.csproj", "{74CC9032-E6E6-4620-B9B7-36251023A1C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "League Ultimate Caster", "..\Windows League Auto-Key Presser\League Auto-Key Presser\League Ultimate Caster.csproj", "{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopDuplication", "..\desktop-duplication-net-master\DesktopDuplication\DesktopDuplication.csproj", "{222C215B-663F-4BD6-9B3E-8FA99C867B22}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test DLL", "..\Test DLL\Test DLL\Test DLL.vcxproj", "{C01C30F1-0A75-4C8C-A50A-1EC40630A483}"
@@ -50,18 +48,6 @@ Global
 		{74CC9032-E6E6-4620-B9B7-36251023A1C9}.Release|x64.Build.0 = Release|x64
 		{74CC9032-E6E6-4620-B9B7-36251023A1C9}.Release|x86.ActiveCfg = Release|x86
 		{74CC9032-E6E6-4620-B9B7-36251023A1C9}.Release|x86.Build.0 = Release|x86
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Debug|x64.ActiveCfg = Debug|x64
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Debug|x64.Build.0 = Debug|x64
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Debug|x86.ActiveCfg = Debug|x86
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Debug|x86.Build.0 = Debug|x86
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Release|x64.ActiveCfg = Release|x64
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Release|x64.Build.0 = Release|x64
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Release|x86.ActiveCfg = Release|x86
-		{7F119FC6-C51D-49D0-A4A8-7F91FF0163E5}.Release|x86.Build.0 = Release|x86
 		{222C215B-663F-4BD6-9B3E-8FA99C867B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{222C215B-663F-4BD6-9B3E-8FA99C867B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{222C215B-663F-4BD6-9B3E-8FA99C867B22}.Debug|x64.ActiveCfg = Debug|x64

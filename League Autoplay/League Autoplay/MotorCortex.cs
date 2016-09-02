@@ -1,4 +1,4 @@
-﻿using AutoItX3Lib;
+﻿using AutoIt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,75 +9,77 @@ namespace League_Autoplay
 {
     public class MotorCortex
     {
-        static AutoItX3 _autoIT = new AutoItX3();
+        //static AutoIt.AutoItX _autoIT = new AutoIt.AutoItX();
 
         public MotorCortex()
         {
-            _autoIT.AutoItSetOption("SendKeyDelay", 0);
+            Console.WriteLine("Auto it 1");
+            AutoItX.AutoItSetOption("SendKeyDelay", 0);
+            Console.WriteLine("Auto it 2");
         }
         void typeText(String text)
         {
-            _autoIT.Send(text);
+            AutoItX.Send(text);
         }
         void clickMouse()
         {
-            _autoIT.MouseClick("LEFT", getMouseX(), getMouseY(), 1, 0);
+            AutoItX.MouseClick("LEFT", getMouseX(), getMouseY(), 1, 0);
         }
         void clickMouseAt(int x, int y, int speed=0)
         {
-            _autoIT.MouseClick("LEFT", x, y, 1, speed);
+            AutoItX.MouseClick("LEFT", x, y, 1, speed);
         }
         void clickMouseTwiceAt(int x, int y, int speed = 0)
         {
-            _autoIT.MouseClick("LEFT", x, y, 2, speed);
+            AutoItX.MouseClick("LEFT", x, y, 2, speed);
         }
         void clickMouseRight()
         {
-            _autoIT.MouseClick("RIGHT", getMouseX(), getMouseY(), 1, 0);
+            AutoItX.MouseClick("RIGHT", getMouseX(), getMouseY(), 1, 0);
         }
         void clickMouseRightAt(int x, int y, int speed = 0)
         {
-            _autoIT.MouseClick("RIGHT", x, y, speed);
+            AutoItX.MouseClick("RIGHT", x, y, speed);
         }
         void clickMouseRightTwiceAt(int x, int y, int speed = 0)
         {
-            _autoIT.MouseClick("RIGHT", x, y, 2, speed);
+            AutoItX.MouseClick("RIGHT", x, y, 2, speed);
         }
         void pressMouse()
         {
-            _autoIT.MouseDown();
+            AutoItX.MouseDown();
         }
         void pressMouseRight()
         {
-            _autoIT.MouseDown("RIGHT");
+            AutoItX.MouseDown("RIGHT");
         }
         void releaseMouse()
         {
-            _autoIT.MouseUp();
+            AutoItX.MouseUp();
         }
         void releaseMouseRight()
         {
-            _autoIT.MouseUp("RIGHT");
+            AutoItX.MouseUp("RIGHT");
         }
         void moveMouseTo(int x, int y, int speed = 0)
         {
-            _autoIT.MouseMove(x, y, speed);
+            AutoItX.MouseMove(x, y, speed);
         }
         void dragMouse(int fromX, int fromY, int toX, int toY, int speed = 0)
         {
-            _autoIT.MouseClickDrag("LEFT",fromX, fromY, toX, toY, speed);
+            AutoItX.MouseClickDrag("LEFT",fromX, fromY, toX, toY, speed);
         }
         void dragMouseRight(int fromX, int fromY, int toX, int toY, int speed = 0)
         {
-            _autoIT.MouseClickDrag("RIGHT", fromX, fromY, toX, toY, speed);
+            AutoItX.MouseClickDrag("RIGHT", fromX, fromY, toX, toY, speed);
         }
         int getMouseX()
         {
-            return _autoIT.MouseGetPosX();
+            return AutoItX.MouseGetPos().X;
         }
         int getMouseY()
         {
-            return _autoIT.MouseGetPosY();
+            return AutoItX.MouseGetPos().Y;
         }
     }
 }

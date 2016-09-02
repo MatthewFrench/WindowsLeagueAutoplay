@@ -25,8 +25,9 @@ namespace League_Autoplay
         private void Form1_Shown(object sender, EventArgs e)
         {
             visualCortex = new VisualCortex();
+            Console.WriteLine("Test 1");
             visualCortex.setShouldCaptureDisplayImage(true);
-
+            Console.WriteLine("Test 2");
             motorCortex = new MotorCortex();
 
             artificialIntelligence = new ArtificialIntelligence(this, visualCortex, motorCortex);
