@@ -104,6 +104,7 @@ namespace League_Autoplay
 
         unsafe void updateDetectionData()
         {
+            /*
             Console.WriteLine("\n");
             Console.WriteLine("C# Detection data struct size: " + Marshal.SizeOf(new DetectionDataStruct()));
             Console.WriteLine("C# Tower data struct size: " + Marshal.SizeOf(new Tower()));
@@ -113,7 +114,7 @@ namespace League_Autoplay
             Console.WriteLine("C# GenericObject data struct size: " + Marshal.SizeOf(new GenericObject()));
             Console.WriteLine("C# Champion data struct size: " + Marshal.SizeOf(new Champion()));
             Console.WriteLine("\n");
-
+            */
             //Pull the detection data from the C++
             Console.WriteLine("Test Starting Detection data test");
             DetectionDataStruct detectionData = visualCortex.getVisualDetectionData();
@@ -264,13 +265,13 @@ namespace League_Autoplay
             {
                 Console.WriteLine("\tSurrender is visible");
             }
-
+            /*
             Console.WriteLine("\nC# bytes");
             byte[] bytes = ToByteArray(detectionData);
             Console.WriteLine("Bytes count: " + Marshal.SizeOf(detectionData));
             Console.WriteLine("[ " + BitConverter.ToString(bytes).Replace("-", " ").ToLower() + " ]");
             Console.WriteLine("\n");
-
+            */
             visualCortex.freeVisualDetectionData(ref detectionData);
             Console.WriteLine("Test Ending Detection data test");
         }

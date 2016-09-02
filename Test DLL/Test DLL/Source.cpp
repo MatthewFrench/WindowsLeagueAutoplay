@@ -128,7 +128,7 @@ void printDetected(DetectionManager* detection) {
 	if (detection->getSurrenderAvailable()) {
 		printf("\tSurrender is visible\n");
 	}
-
+	/*
 	printf("\n\n");
 	printf("C++ Detection data struct size: %d\n", sizeof(DetectionDataStruct));
 	printf("C++ Tower data struct size: %d\n", sizeof( Tower));
@@ -138,7 +138,7 @@ void printDetected(DetectionManager* detection) {
 	printf("C++ GenericObject data struct size: %d\n", sizeof( GenericObject));
 	printf("C++ Champion data struct size: %d\n", sizeof( Champion));
 	printf("\n\n");
-
+	*/
 }
 
 void print_bytes(const void *object, size_t size)
@@ -177,10 +177,10 @@ extern "C"
 
 	__declspec(dllexport) void getDetectionData(DetectionDataStruct* data) {
 		detectionManager->getDetectionData(data);
-		print_bytes(data, sizeof(DetectionDataStruct));
+		//print_bytes(data, sizeof(DetectionDataStruct));
 	}
 	__declspec(dllexport) void freeDetectionData(DetectionDataStruct* data) {
-		print_bytes(data, sizeof(DetectionDataStruct));
+		//print_bytes(data, sizeof(DetectionDataStruct));
 		detectionManager->freeDetectionData(data);
 	}
 
