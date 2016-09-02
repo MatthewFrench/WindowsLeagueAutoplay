@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArtificialIntelligence.cs" />
+    <Compile Include="BasicAI.cs" />
     <Compile Include="DetectionData.cs" />
     <Compile Include="High Performance Timer\ATimer.cs" />
     <Compile Include="High Performance Timer\MicroTimer.cs" />
