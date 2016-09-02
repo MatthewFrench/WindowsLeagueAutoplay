@@ -10,9 +10,9 @@
 
 #ifndef GenericObject_cpp
 #define GenericObject_cpp
-
+#pragma pack(1)
 typedef struct GenericObject {
     Position topLeft, topRight, bottomLeft, bottomRight, center;
 } GenericObject;
-
+#pragma pack()
 #endif

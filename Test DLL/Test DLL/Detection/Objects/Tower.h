@@ -10,13 +10,13 @@
 
 #ifndef Tower_cpp
 #define Tower_cpp
-
+#pragma pack(1)
 typedef struct Tower {
 	Position topLeft, topRight, bottomLeft, bottomRight, towerCenter;
 	bool detectedTopLeft = false, detectedBottomLeft = false, detectedTopRight = false, detectedBottomRight = false;
 	double health = 0;
 } Tower;
-
+#pragma pack()
 #endif
 
 /*

@@ -5,6 +5,7 @@
 #include "Detection\Objects\SelfHealth.h"
 
 #pragma once
+#pragma pack(1)
 struct DetectionDataStruct
 {
 	//Everything that says Array is a pointer array
@@ -60,4 +61,4 @@ struct DetectionDataStruct
 	bool surrenderAvailable = false;
 	GenericObject* surrenderActive = nullptr;
 };
-
+#pragma pack()

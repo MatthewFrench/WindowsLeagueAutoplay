@@ -3,6 +3,7 @@ using League_Autoplay.High_Performance_Timer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -76,13 +77,199 @@ namespace League_Autoplay
                 }, aiContext);
             }
         }
+
+        public byte[] ToByteArray(DetectionDataStruct data)
+        {
+            byte[] arr = null;
+            IntPtr ptr = IntPtr.Zero;
+            try
+            {
+                int size = Marshal.SizeOf(data);
+                arr = new byte[size];
+                ptr = Marshal.AllocHGlobal(size);
+                Marshal.StructureToPtr(data, ptr, true);
+                Marshal.Copy(ptr, arr, 0, size);
+            }
+            catch (Exception e)
+            {
+                //MessageBox.Show(e.Message);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(ptr);
+            }
+
+            return arr;
+        }
+
         unsafe void updateDetectionData()
         {
+            Console.WriteLine("\n");
+            Console.WriteLine("C# Detection data struct size: " + Marshal.SizeOf(new DetectionDataStruct()));
+            Console.WriteLine("C# Tower data struct size: " + Marshal.SizeOf(new Tower()));
+            Console.WriteLine("C# SelfHealth data struct size: " + Marshal.SizeOf(new SelfHealth()));
+            Console.WriteLine("C# Position data struct size: " + Marshal.SizeOf(new Position()));
+            Console.WriteLine("C# Minion data struct size: " + Marshal.SizeOf(new Minion()));
+            Console.WriteLine("C# GenericObject data struct size: " + Marshal.SizeOf(new GenericObject()));
+            Console.WriteLine("C# Champion data struct size: " + Marshal.SizeOf(new Champion()));
+            Console.WriteLine("\n");
+
             //Pull the detection data from the C++
             Console.WriteLine("Test Starting Detection data test");
             DetectionDataStruct detectionData = visualCortex.getVisualDetectionData();
-
+            
             Console.WriteLine("Reading detection data");
+
+            Console.WriteLine("Detected in C#: ");
+            if (detectionData.numberOfAllyMinions > 0)
+            {
+                Console.WriteLine("\t"+ detectionData.numberOfAllyMinions + " ally minions");
+            }
+            if (detectionData.numberOfAllyChampions > 0)
+            {
+                Console.WriteLine("\t"+ detectionData.numberOfAllyChampions + " ally champions");
+            }
+            if (detectionData.numberOfSelfChampions > 0)
+            {
+                Console.WriteLine("\t"+ detectionData.numberOfSelfChampions + " self champions");
+            }
+            if (detectionData.numberOfEnemyMinions > 0)
+            {
+                Console.WriteLine("\t"+ detectionData.numberOfEnemyMinions + " enemy minions");
+            }
+            if (detectionData.numberOfEnemyChampions > 0)
+            {
+                Console.WriteLine("\t"+ detectionData.numberOfEnemyChampions + " enemy champions");
+            }
+            if (detectionData.numberOfEnemyTowers > 0)
+            {
+                Console.WriteLine("\t"+ detectionData.numberOfEnemyTowers + " enemy towers");
+            }
+            if (detectionData.selfHealthBarVisible)
+            {
+                Console.WriteLine("\tCan see self health bar");
+                Console.WriteLine("\tSelf health: " + ((SelfHealth*)detectionData.selfHealthBar.ToPointer())->health);
+            }
+            if (detectionData.spell1LevelUpAvailable)
+            {
+                Console.WriteLine("\tLevel up spell 1 available");
+            }
+            if (detectionData.spell2LevelUpAvailable)
+            {
+                Console.WriteLine("\tLevel up spell 2 available");
+            }
+            if (detectionData.spell3LevelUpAvailable)
+            {
+                Console.WriteLine("\tLevel up spell 3 available");
+            }
+            if (detectionData.spell4LevelUpAvailable)
+            {
+                Console.WriteLine("\tLevel up spell 4 available");
+            }
+            if (detectionData.currentLevel > 0)
+            {
+                Console.WriteLine("\tDetected current level: " + detectionData.currentLevel);
+            }
+            if (detectionData.spell1ActiveAvailable)
+            {
+                Console.WriteLine("\tSpell 1 available");
+            }
+            if (detectionData.spell2ActiveAvailable)
+            {
+                Console.WriteLine("\tSpell 2 available");
+            }
+            if (detectionData.spell3ActiveAvailable)
+            {
+                Console.WriteLine("\tSpell 3 available");
+            }
+            if (detectionData.spell4ActiveAvailable)
+            {
+                Console.WriteLine("\tSpell 4 available");
+            }
+            if (detectionData.summonerSpell1ActiveAvailable)
+            {
+                Console.WriteLine("\tSummoner spell 1 available");
+            }
+            if (detectionData.summonerSpell2ActiveAvailable)
+            {
+                Console.WriteLine("\tSummoner spell 2 available");
+            }
+            if (detectionData.trinketActiveAvailable)
+            {
+                Console.WriteLine("\tTrinket active available");
+            }
+            if (detectionData.item1ActiveAvailable)
+            {
+                Console.WriteLine("\tItem 1 active available");
+            }
+            if (detectionData.item2ActiveAvailable)
+            {
+                Console.WriteLine("\tItem 2 active available");
+            }
+            if (detectionData.item3ActiveAvailable)
+            {
+                Console.WriteLine("\tItem 3 active available");
+            }
+            if (detectionData.item4ActiveAvailable)
+            {
+                Console.WriteLine("\tItem 4 active available");
+            }
+            if (detectionData.item5ActiveAvailable)
+            {
+                Console.WriteLine("\tItem 5 active available");
+            }
+            if (detectionData.item6ActiveAvailable)
+            {
+                Console.WriteLine("\tItem 6 active available");
+            }
+            if (detectionData.potionActiveAvailable)
+            {
+                Console.WriteLine("\tPotion active available");
+
+                Console.WriteLine("\t\tPotion in slot " + detectionData.potionOnActive);
+            }
+            if (detectionData.potionBeingUsedShown)
+            {
+                Console.WriteLine("\tPotion being used");
+            }
+            if (detectionData.shopAvailableShown)
+            {
+                Console.WriteLine("\tShop is available");
+            }
+            if (detectionData.shopTopLeftCornerShown)
+            {
+                Console.WriteLine("\tShop top left corner is visible");
+            }
+            if (detectionData.shopBottomLeftCornerShown)
+            {
+                Console.WriteLine("\tShop bottom left corner is visible");
+            }
+            if (detectionData.numberOfBuyableItems > 0)
+            {
+                Console.WriteLine("\tBuyable items: " + detectionData.numberOfBuyableItems);
+            }
+            if (detectionData.mapVisible)
+            {
+                Console.WriteLine("\tMap is visible");
+            }
+            if (detectionData.mapShopVisible)
+            {
+                Console.WriteLine("\tShop on map is visible");
+            }
+            if (detectionData.mapSelfLocationVisible)
+            {
+                Console.WriteLine("\tLocation on map is visible");
+            }
+            if (detectionData.surrenderAvailable)
+            {
+                Console.WriteLine("\tSurrender is visible");
+            }
+
+            Console.WriteLine("\nC# bytes");
+            byte[] bytes = ToByteArray(detectionData);
+            Console.WriteLine("Bytes count: " + Marshal.SizeOf(detectionData));
+            Console.WriteLine("[ " + BitConverter.ToString(bytes).Replace("-", " ").ToLower() + " ]");
+            Console.WriteLine("\n");
 
             visualCortex.freeVisualDetectionData(ref detectionData);
             Console.WriteLine("Test Ending Detection data test");

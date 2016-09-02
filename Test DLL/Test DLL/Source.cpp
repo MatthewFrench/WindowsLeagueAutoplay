@@ -128,6 +128,30 @@ void printDetected(DetectionManager* detection) {
 	if (detection->getSurrenderAvailable()) {
 		printf("\tSurrender is visible\n");
 	}
+
+	printf("\n\n");
+	printf("C++ Detection data struct size: %d\n", sizeof(DetectionDataStruct));
+	printf("C++ Tower data struct size: %d\n", sizeof( Tower));
+	printf("C++ SelfHealth data struct size: %d\n", sizeof( SelfHealth));
+	printf("C++ Position data struct size: %d\n", sizeof( Position));
+	printf("C++ Minion data struct size: %d\n", sizeof( Minion));
+	printf("C++ GenericObject data struct size: %d\n", sizeof( GenericObject));
+	printf("C++ Champion data struct size: %d\n", sizeof( Champion));
+	printf("\n\n");
+
+}
+
+void print_bytes(const void *object, size_t size)
+{
+	const unsigned char * const bytes = (unsigned char *) object;
+	size_t i;
+	printf("Bytes count: %d\n", size);
+	printf("[ ");
+	for (i = 0; i < size; i++)
+	{
+		printf("%02x ", bytes[i]);
+	}
+	printf("]\n");
 }
 
 extern "C"
@@ -152,10 +176,12 @@ extern "C"
 	}
 
 	__declspec(dllexport) void getDetectionData(DetectionDataStruct* data) {
-		return detectionManager->getDetectionData(data);
+		detectionManager->getDetectionData(data);
+		print_bytes(data, sizeof(DetectionDataStruct));
 	}
 	__declspec(dllexport) void freeDetectionData(DetectionDataStruct* data) {
-		return detectionManager->freeDetectionData(data);
+		print_bytes(data, sizeof(DetectionDataStruct));
+		detectionManager->freeDetectionData(data);
 	}
 
 	// Ability image loading code

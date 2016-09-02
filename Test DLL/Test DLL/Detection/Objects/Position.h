@@ -8,9 +8,9 @@
 
 #ifndef Position_cpp
 #define Position_cpp
-
+#pragma pack(1)
 struct Position {
     int x, y;
 };
-
+#pragma pack()
 #endif /* Position_cpp */
