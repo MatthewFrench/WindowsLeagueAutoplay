@@ -32,7 +32,6 @@ namespace League_Autoplay
             TimerResolution.setTimerResolution(1.0);
         
             timerPerformanceStopwatch = new Stopwatch();
-            timerPerformanceStopwatch.Start();
             screenCapturePerformanceStopWatch = new Stopwatch();
         }
         private void logic()
@@ -40,7 +39,6 @@ namespace League_Autoplay
             TaskScheduler aiContext = TaskScheduler.Current;
 
             //Measure timer performance
-            timerPerformanceStopwatch.Stop();
             double aiMilliseconds = timerPerformanceStopwatch.DurationInMilliseconds();
             double aiFps = (1000.0 / aiMilliseconds);
             timerPerformanceCount++;
@@ -53,13 +51,13 @@ namespace League_Autoplay
                 timerPerformanceCount = 0;
                 timerPerformanceLength = 0;
             }
-            timerPerformanceStopwatch.Start();
+            timerPerformanceStopwatch.Reset();
 
             //Only grab the screen when it's done processing. 
             //Do on separate task so we don't freeze the AI.
             if (grabbingScreen == false)
             {
-                screenCapturePerformanceStopWatch.Start();
+                screenCapturePerformanceStopWatch.Reset();
                 grabbingScreen = true;
                 Task t = Task.Run(() =>
                 {
@@ -78,7 +76,6 @@ namespace League_Autoplay
                         userInterface.setDisplayImage(visualCortex.getDisplayImage());
                     }
                     grabbingScreen = false;
-                    screenCapturePerformanceStopWatch.Stop();
                     double screenMilliseconds = screenCapturePerformanceStopWatch.DurationInMilliseconds();
                     double screenFps = (1000.0 / screenMilliseconds);
                     userInterface.setScreenPerformanceLabel("" + Math.Round(screenFps, 4) + " fps (" + Math.Round(screenMilliseconds, 4) + " ms)");

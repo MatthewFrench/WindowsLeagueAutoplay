@@ -33,31 +33,37 @@ namespace League_Autoplay.High_Performance_Timer
                 // high-performance counter not supported
                 throw new Win32Exception();
             }
+            QueryPerformanceCounter(out startTime);
         }
 
         // Start the timer
-        public void Start()
+        public void Reset()
         {
             // lets do the waiting threads there work
             //Thread.Sleep(0);
+
+            startTime = 0;
+            stopTime = 0;
 
             QueryPerformanceCounter(out startTime);
         }
 
         // Stop the timer
-        public void Stop()
-        {
-            QueryPerformanceCounter(out stopTime);
-        }
+        //public void Stop()
+        //{
+        //    QueryPerformanceCounter(out stopTime);
+        //}
 
         // Returns the duration of the timer (in seconds)
         public double DurationInSeconds()
         {
+            QueryPerformanceCounter(out stopTime);
             return (double)(stopTime - startTime) / (double)freq;
         }
 
         public double DurationInMilliseconds()
         {
+            QueryPerformanceCounter(out stopTime);
             return (double)(stopTime - startTime) * 1000.0 / (double)freq;
         }
     }

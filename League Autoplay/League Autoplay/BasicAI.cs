@@ -14,6 +14,8 @@ namespace League_Autoplay
         int lastDecision;
         int moveToLane;
 
+        DetectionDataStruct detectionData;
+
         Stopwatch lastLevelUpStopwatch, lastShopBuyingStopwatch, lastCameraFocusStopwatch, lastPlacedWardStopwatch, 
             lastRunAwayClickStopwatch, lastClickEnemyChampStopwatch, lastMovementClickStopwatch, lastClickAllyMinionStopwatch,
             lastClickEnemyMinionStopwatch, lastClickEnemyTowerStopwatch, lastClickAllyChampionStopwatch, lastMoveMouseStopwatch,
@@ -49,150 +51,136 @@ namespace League_Autoplay
         public void resetAI()
         {
             lastLevelUpStopwatch = new Stopwatch();
-            lastLevelUpStopwatch.Start();
             lastShopBuyStopwatch = new Stopwatch();
-            lastShopBuyStopwatch.Start();
             lastShopOpenTapStopwatch = new Stopwatch();
-            lastShopOpenTapStopwatch.Start();
             lastShopCloseTapStopwatch = new Stopwatch();
-            lastShopCloseTapStopwatch.Start();
             lastShopBuyingStopwatch = new Stopwatch();
-            lastShopBuyingStopwatch.Start();
             lastCameraFocusStopwatch = new Stopwatch();
-            lastCameraFocusStopwatch.Start();
             lastPlacedWardStopwatch = new Stopwatch();
-            lastPlacedWardStopwatch.Start();
             lastRunAwayClickStopwatch = new Stopwatch();
-            lastRunAwayClickStopwatch.Start();
             lastClickEnemyChampStopwatch = new Stopwatch();
-            lastClickEnemyChampStopwatch.Start();
             lastMovementClickStopwatch = new Stopwatch();
-            lastMovementClickStopwatch.Start();
             lastClickAllyMinionStopwatch = new Stopwatch();
-            lastClickAllyMinionStopwatch.Start();
 
             lastClickEnemyMinionStopwatch = new Stopwatch();
-            lastClickEnemyMinionStopwatch.Start();
             lastClickEnemyTowerStopwatch = new Stopwatch();
-            lastClickEnemyTowerStopwatch.Start();
             lastClickAllyChampionStopwatch = new Stopwatch();
-            lastClickAllyChampionStopwatch.Start();
             lastMoveMouseStopwatch = new Stopwatch();
-            lastMoveMouseStopwatch.Start();
             lastRecallTapStopwatch = new Stopwatch();
-            lastRecallTapStopwatch.Start();
             lastSpell1UseStopwatch = new Stopwatch();
-            lastSpell1UseStopwatch.Start();
             lastSpell2UseStopwatch = new Stopwatch();
-            lastSpell2UseStopwatch.Start();
             lastSpell3UseStopwatch = new Stopwatch();
-            lastSpell3UseStopwatch.Start();
             lastSpell4UseStopwatch = new Stopwatch();
-            lastSpell4UseStopwatch.Start();
             lastSummonerSpell1UseStopwatch = new Stopwatch();
-            lastSummonerSpell1UseStopwatch.Start();
             lastSummonerSpell2Use = new Stopwatch();
-            lastSummonerSpell2Use.Start();
             lastItem1UseStopwatch = new Stopwatch();
-            lastItem1UseStopwatch.Start();
             lastItem2UseStopwatch = new Stopwatch();
-            lastItem2UseStopwatch.Start();
             lastItem3UseStopwatch = new Stopwatch();
-            lastItem3UseStopwatch.Start();
             lastItem4UseStopwatch = new Stopwatch();
-            lastItem4UseStopwatch.Start();
             lastItem5UseStopwatch = new Stopwatch();
-            lastItem5UseStopwatch.Start();
             lastItem6UseStopwatch = new Stopwatch();
-            lastItem6UseStopwatch.Start();
 
             activeAutoUseTimeStopwatch = new Stopwatch();
-            activeAutoUseTimeStopwatch.Start();
 
 
             //moveToLane = arc4random_uniform(3) + 1;
             //NSLog(@"Chose lane %d", moveToLane);
 
             moveToLanePathSwitchStopwatch = new Stopwatch();
-            moveToLanePathSwitchStopwatch.Start();
 
             boughtStarterItems = false;
 
             boughtItems = new List<Position>();
             gameCurrentTimeStopwatch = new Stopwatch();
-            gameCurrentTimeStopwatch.Start();
 
             lastSurrenderStopwatch = new Stopwatch();
-            lastSurrenderStopwatch.Start();
         }
 
+        void handleAbilityLevelUps()
+        {
+            int[] abilityLevelUpOrder = { 1, 2, 3, 1, 2, 4, 3, 1, 2, 3, 4, 1, 2, 3, 1, 4, 2, 3 };
+            //Level up an ability as soon as possible but only one ability every 500 milliseconds
+            if (lastLevelUpStopwatch.DurationInMilliseconds() >= 500)  {
+                lastLevelUpStopwatch.Reset();
+                bool leveledUp = false;
+                if (detectionData.currentLevel < 18)
+                {
+                    int preferredLevelUp = abilityLevelUpOrder[detectionData.currentLevel];
+                    if (detectionData.spell1LevelUpAvailable || detectionData.spell2LevelUpAvailable ||
+                        detectionData.spell3LevelUpAvailable || detectionData.spell4LevelUpAvailable)
+                    {
+                        if (preferredLevelUp == 1)
+                        {
+                            levelUpAbility1();
+                            leveledUp = true;
+                        }
+                        else if (preferredLevelUp == 2)
+                        {
+                            levelUpAbility2();
+                            leveledUp = true;
+                        }
+                        else if (preferredLevelUp == 3)
+                        {
+                            levelUpAbility3();
+                            leveledUp = true;
+                        }
+                        else if (preferredLevelUp == 4)
+                        {
+                            levelUpAbility4();
+                            leveledUp = true;
+                        }
+                    }
+                    if (detectionData.spell4LevelUpAvailable)
+                    {
+                        levelUpAbility4();
+                        leveledUp = true;
+                    }
+                    else if (detectionData.spell1LevelUpAvailable)
+                    {
+                        levelUpAbility1();
+                        leveledUp = true;
+                    }
+                    else if (detectionData.spell2LevelUpAvailable)
+                    {
+                        levelUpAbility2();
+                        leveledUp = true;
+                    }
+                    else if (detectionData.spell3LevelUpAvailable)
+                    {
+                        levelUpAbility3();
+                        leveledUp = true;
+                    }
+                }
+                if (leveledUp)
+                {
+                    lastLevelUpStopwatch.Reset();
+                }
+            }
+        }
+        void levelUpAbility1()
+        {
+
+        }
+        void levelUpAbility2()
+        {
+
+        }
+        void levelUpAbility3()
+        {
+
+        }
+        void levelUpAbility4()
+        {
+
+        }
     }
+    
 
 }
 
 /*
  
-void BasicAI::handleAbilityLevelUps()
-{
-    int abilityLevelUpOrder[] = { 1, 2, 3, 1, 2, 4, 3, 1, 2, 3, 4, 1, 2, 3, 1, 4, 2, 3 };
-    //Level up an ability as soon as possible but only one ability every 500 milliseconds
-    if (getTimeInMilliseconds(mach_absolute_time() - lastLevelUp) >= 500)
-    {
-        lastLevelUp = mach_absolute_time();
-        bool leveledUp = false;
-        if (gameState->detectionManager->getCurrentLevel() < 18)
-        {
-            int preferredLevelUp = abilityLevelUpOrder[gameState->detectionManager->getCurrentLevel()];
-            if (gameState->detectionManager->getSpell1LevelUpVisible() || gameState->detectionManager->getSpell2LevelUpVisible() || gameState->detectionManager->getSpell3LevelUpVisible() || gameState->detectionManager->getSpell4LevelUpVisible())
-            {
-                if (preferredLevelUp == 1)
-                {
-                    levelUpAbility1();
-                    leveledUp = true;
-                }
-                else if (preferredLevelUp == 2)
-                {
-                    levelUpAbility2();
-                    leveledUp = true;
-                }
-                else if (preferredLevelUp == 3)
-                {
-                    levelUpAbility3();
-                    leveledUp = true;
-                }
-                else if (preferredLevelUp == 4)
-                {
-                    levelUpAbility4();
-                    leveledUp = true;
-                }
-            }
-            if (gameState->detectionManager->getSpell4LevelUpVisible())
-            {
-                levelUpAbility4();
-                leveledUp = true;
-            }
-            else if (gameState->detectionManager->getSpell1LevelUpVisible())
-            {
-                levelUpAbility1();
-                leveledUp = true;
-            }
-            else if (gameState->detectionManager->getSpell2LevelUpVisible())
-            {
-                levelUpAbility2();
-                leveledUp = true;
-            }
-            else if (gameState->detectionManager->getSpell3LevelUpVisible())
-            {
-                levelUpAbility3();
-                leveledUp = true;
-            }
-        }
-        if (leveledUp)
-        {
-            lastLevelUp = mach_absolute_time();
-        }
-    }
-}
+
 void BasicAI::handleBuyingItems()
 {
     //if (gameState->detectionManager->getShopBottomLeftCornerVisible()) {
