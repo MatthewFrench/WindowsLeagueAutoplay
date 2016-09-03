@@ -33,6 +33,10 @@ namespace League_Autoplay
     {
         public int x, y;
     }
+    public struct PositionDouble
+    {
+        public double x, y;
+    }
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct SelfHealth
     {

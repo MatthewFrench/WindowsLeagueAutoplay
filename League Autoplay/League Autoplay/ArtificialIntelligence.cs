@@ -2,6 +2,7 @@
 using League_Autoplay.High_Performance_Timer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -14,7 +15,7 @@ namespace League_Autoplay
         UserInterface userInterface;
         VisualCortex visualCortex;
         bool grabbingScreen = false;
-        Stopwatch timerPerformanceStopwatch, screenCapturePerformanceStopWatch;
+        High_Performance_Timer.Stopwatch timerPerformanceStopwatch, screenCapturePerformanceStopWatch;
         int timerPerformanceCount = 0;
         double timerPerformanceLength = 0;
         ATimer logicTimer = null;
@@ -23,17 +24,25 @@ namespace League_Autoplay
         bool hasDetectionData = false;
         DetectionDataStruct currentDetectionData;
 
+        BasicAI basicAI;
+
         public ArtificialIntelligence(UserInterface userInterface, VisualCortex visualCortex)
         {
             this.userInterface = userInterface;
             this.visualCortex = visualCortex;
             TimerResolution.setTimerResolution(1.0);
         
-            timerPerformanceStopwatch = new Stopwatch();
-            screenCapturePerformanceStopWatch = new Stopwatch();
+            timerPerformanceStopwatch = new High_Performance_Timer.Stopwatch();
+            screenCapturePerformanceStopWatch = new High_Performance_Timer.Stopwatch();
+
+            basicAI = new BasicAI();
         }
         private void logic()
         {
+            bool leagueOfLegendsOpen = false;
+            Process[] pname = Process.GetProcessesByName("league of legends");
+            if (pname.Length != 0) leagueOfLegendsOpen = true;
+
             TaskScheduler aiContext = TaskScheduler.Current;
 
             //Measure timer performance
@@ -53,7 +62,7 @@ namespace League_Autoplay
 
             //Only grab the screen when it's done processing. 
             //Do on separate task so we don't freeze the AI.
-            if (grabbingScreen == false)
+            if (grabbingScreen == false && leagueOfLegendsOpen)
             {
                 screenCapturePerformanceStopWatch.Reset();
                 grabbingScreen = true;
@@ -81,7 +90,16 @@ namespace League_Autoplay
             }
 
             //Run basic AI algorithm
+            if (leagueOfLegendsOpen)
+            {
+                Console.WriteLine("League of legends open");
+            } else
+            {
+                Console.WriteLine("League of legends not open");
+            }
 
+            if (leagueOfLegendsOpen)
+                basicAI.processAI(currentDetectionData);
         }
 
         public byte[] ToByteArray(DetectionDataStruct data)
