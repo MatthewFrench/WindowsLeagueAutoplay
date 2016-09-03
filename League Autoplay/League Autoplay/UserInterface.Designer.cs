@@ -42,10 +42,13 @@
             // 
             // screenCaptureBox
             // 
+            this.screenCaptureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.screenCaptureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.screenCaptureBox.Location = new System.Drawing.Point(365, 34);
+            this.screenCaptureBox.Location = new System.Drawing.Point(297, 86);
             this.screenCaptureBox.Name = "screenCaptureBox";
-            this.screenCaptureBox.Size = new System.Drawing.Size(141, 139);
+            this.screenCaptureBox.Size = new System.Drawing.Size(209, 203);
             this.screenCaptureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.screenCaptureBox.TabIndex = 0;
             this.screenCaptureBox.TabStop = false;
@@ -53,7 +56,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(416, 18);
+            this.label1.Location = new System.Drawing.Point(376, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 1;
@@ -128,7 +131,7 @@
             // updateDisplayCheckBox
             // 
             this.updateDisplayCheckBox.AutoSize = true;
-            this.updateDisplayCheckBox.Location = new System.Drawing.Point(372, 179);
+            this.updateDisplayCheckBox.Location = new System.Drawing.Point(342, 63);
             this.updateDisplayCheckBox.Name = "updateDisplayCheckBox";
             this.updateDisplayCheckBox.Size = new System.Drawing.Size(130, 17);
             this.updateDisplayCheckBox.TabIndex = 8;

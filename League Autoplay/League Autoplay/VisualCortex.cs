@@ -23,6 +23,7 @@ namespace League_Autoplay
         private DesktopDuplicator desktopDuplicator;
 
         bool shouldCaptureDisplayImage = false;
+        bool recordDisplayImage = false;
         Bitmap displayImage;
 
         High_Performance_Timer.Stopwatch saveStopwatch;
@@ -43,7 +44,7 @@ namespace League_Autoplay
 
 
             string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-            testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\Test Level Up.png")));
+            testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\New Self Test.png")));
         }
 
         public Bitmap getDisplayImage()
@@ -58,6 +59,7 @@ namespace League_Autoplay
 
         public void grabScreen(bool detect)
         {
+            bool test = true;
             DesktopFrame frame = desktopDuplicator.GetLatestFrame();
 
             if (frame != null)
@@ -72,29 +74,34 @@ namespace League_Autoplay
 
                 High_Performance_Timer.Stopwatch performanceWatch = new High_Performance_Timer.Stopwatch();
 
+               
 
-                //TEST CODE
-                /*
-                System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, testImage.Width, testImage.Height);
-                var bitmapData = testImage.LockBits(boundsRect, ImageLockMode.WriteOnly, testImage.PixelFormat);
-                var bitmapPointer = bitmapData.Scan0;
-
-                unsafe
+                if (test)
                 {
-                    processDetection((byte*)bitmapPointer.ToPointer(), testImage.Width, testImage.Height);
-                }
-                testImage.UnlockBits(bitmapData);
-                */
-                //END TEST CODE
 
-                if (detect)
-                {
+                    //TEST CODE
+
+                    System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, testImage.Width, testImage.Height);
+                    var bitmapData = testImage.LockBits(boundsRect, ImageLockMode.WriteOnly, testImage.PixelFormat);
+                    var bitmapPointer = bitmapData.Scan0;
                     unsafe
                     {
-                        processDetection((byte*)mapSource.DataPointer, width, height);
+                        processDetection((byte*)bitmapPointer.ToPointer(), testImage.Width, testImage.Height);
+                    }
+
+                    testImage.UnlockBits(bitmapData);
+                    displayImage = new Bitmap(testImage);
+                } else
+                {
+
+                    if (detect)
+                    {
+                        unsafe
+                        {
+                            processDetection((byte*)mapSource.DataPointer, width, height);
+                        }
                     }
                 }
-
 
                 Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.DurationInMilliseconds());
                 Console.WriteLine("Elapsed fps: {0}", 1000.0 / performanceWatch.DurationInMilliseconds());
@@ -104,12 +111,12 @@ namespace League_Autoplay
                 Console.WriteLine("Average fps: {0}", 1000.0 / (total / count));
                 //End image processing
 
-                if (shouldCaptureDisplayImage)
+                if (shouldCaptureDisplayImage && !test)
                 {
                     displayImage = desktopDuplicator.getImageFromDataBox(mapSource);
-                    if (saveStopwatch.DurationInSeconds() > 1.0)
+                    if (saveStopwatch.DurationInSeconds() > 1.0 && recordDisplayImage)
                     {
-                        displayImage.Save("Recording/AI Record " + width + "x" + height + " " + Environment.TickCount + ".png");
+                        displayImage.Save("Recording/AI Record " + width + "x" + height + " " + Environment.TickCount + ".png",System.Drawing.Imaging.ImageFormat.Png);
                     }
                 }
 

@@ -91,14 +91,6 @@ namespace League_Autoplay
 
             //Run basic AI algorithm
             if (leagueOfLegendsOpen)
-            {
-                Console.WriteLine("League of legends open");
-            } else
-            {
-                Console.WriteLine("League of legends not open");
-            }
-
-            if (leagueOfLegendsOpen)
                 basicAI.processAI(currentDetectionData);
         }
 
