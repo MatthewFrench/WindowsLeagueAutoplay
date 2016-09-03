@@ -1,4 +1,5 @@
-﻿using System;
+﻿using League_Autoplay.High_Performance_Timer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,164 +14,124 @@ namespace League_Autoplay
         int lastDecision;
         int moveToLane;
 
+        Stopwatch lastLevelUpStopwatch, lastShopBuyingStopwatch, lastCameraFocusStopwatch, lastPlacedWardStopwatch, 
+            lastRunAwayClickStopwatch, lastClickEnemyChampStopwatch, lastMovementClickStopwatch, lastClickAllyMinionStopwatch,
+            lastClickEnemyMinionStopwatch, lastClickEnemyTowerStopwatch, lastClickAllyChampionStopwatch, lastMoveMouseStopwatch,
+            lastRecallTapStopwatch, lastSpell1UseStopwatch, lastSpell2UseStopwatch, lastSpell3UseStopwatch, lastSpell4UseStopwatch,
+            lastSummonerSpell1UseStopwatch, lastSummonerSpell2Use, lastItem1UseStopwatch, lastItem2UseStopwatch,
+            lastItem3UseStopwatch, lastItem4UseStopwatch, lastItem5UseStopwatch, lastItem6UseStopwatch, activeAutoUseTimeStopwatch,
+            moveToLanePathSwitchStopwatch, gameCurrentTimeStopwatch, lastSurrenderStopwatch, lastShopBuyStopwatch,
+            lastShopOpenTapStopwatch, lastShopCloseTapStopwatch;
+        
+
+        bool boughtStarterItems;
+        List<Position> boughtItems;
+
+        Position baseLocation;
+
+        float healthGainedPerSecond;
+        int healthGainedTime;
+        float lastHealthAmount;
+        int lastHealthtimePassed;
+
+        //int standStillTime;
+
+        //int lastTimeSawEnemyChamp;
+
+
+
+        public BasicAI()
+        {
+
+            resetAI();
+        }
+
+        public void resetAI()
+        {
+            lastLevelUpStopwatch = new Stopwatch();
+            lastLevelUpStopwatch.Start();
+            lastShopBuyStopwatch = new Stopwatch();
+            lastShopBuyStopwatch.Start();
+            lastShopOpenTapStopwatch = new Stopwatch();
+            lastShopOpenTapStopwatch.Start();
+            lastShopCloseTapStopwatch = new Stopwatch();
+            lastShopCloseTapStopwatch.Start();
+            lastShopBuyingStopwatch = new Stopwatch();
+            lastShopBuyingStopwatch.Start();
+            lastCameraFocusStopwatch = new Stopwatch();
+            lastCameraFocusStopwatch.Start();
+            lastPlacedWardStopwatch = new Stopwatch();
+            lastPlacedWardStopwatch.Start();
+            lastRunAwayClickStopwatch = new Stopwatch();
+            lastRunAwayClickStopwatch.Start();
+            lastClickEnemyChampStopwatch = new Stopwatch();
+            lastClickEnemyChampStopwatch.Start();
+            lastMovementClickStopwatch = new Stopwatch();
+            lastMovementClickStopwatch.Start();
+            lastClickAllyMinionStopwatch = new Stopwatch();
+            lastClickAllyMinionStopwatch.Start();
+
+            lastClickEnemyMinionStopwatch = new Stopwatch();
+            lastClickEnemyMinionStopwatch.Start();
+            lastClickEnemyTowerStopwatch = new Stopwatch();
+            lastClickEnemyTowerStopwatch.Start();
+            lastClickAllyChampionStopwatch = new Stopwatch();
+            lastClickAllyChampionStopwatch.Start();
+            lastMoveMouseStopwatch = new Stopwatch();
+            lastMoveMouseStopwatch.Start();
+            lastRecallTapStopwatch = new Stopwatch();
+            lastRecallTapStopwatch.Start();
+            lastSpell1UseStopwatch = new Stopwatch();
+            lastSpell1UseStopwatch.Start();
+            lastSpell2UseStopwatch = new Stopwatch();
+            lastSpell2UseStopwatch.Start();
+            lastSpell3UseStopwatch = new Stopwatch();
+            lastSpell3UseStopwatch.Start();
+            lastSpell4UseStopwatch = new Stopwatch();
+            lastSpell4UseStopwatch.Start();
+            lastSummonerSpell1UseStopwatch = new Stopwatch();
+            lastSummonerSpell1UseStopwatch.Start();
+            lastSummonerSpell2Use = new Stopwatch();
+            lastSummonerSpell2Use.Start();
+            lastItem1UseStopwatch = new Stopwatch();
+            lastItem1UseStopwatch.Start();
+            lastItem2UseStopwatch = new Stopwatch();
+            lastItem2UseStopwatch.Start();
+            lastItem3UseStopwatch = new Stopwatch();
+            lastItem3UseStopwatch.Start();
+            lastItem4UseStopwatch = new Stopwatch();
+            lastItem4UseStopwatch.Start();
+            lastItem5UseStopwatch = new Stopwatch();
+            lastItem5UseStopwatch.Start();
+            lastItem6UseStopwatch = new Stopwatch();
+            lastItem6UseStopwatch.Start();
+
+            activeAutoUseTimeStopwatch = new Stopwatch();
+            activeAutoUseTimeStopwatch.Start();
+
+
+            //moveToLane = arc4random_uniform(3) + 1;
+            //NSLog(@"Chose lane %d", moveToLane);
+
+            moveToLanePathSwitchStopwatch = new Stopwatch();
+            moveToLanePathSwitchStopwatch.Start();
+
+            boughtStarterItems = false;
+
+            boughtItems = new List<Position>();
+            gameCurrentTimeStopwatch = new Stopwatch();
+            gameCurrentTimeStopwatch.Start();
+
+            lastSurrenderStopwatch = new Stopwatch();
+            lastSurrenderStopwatch.Start();
+        }
 
     }
-}
-/*
- * 
-    static const int ACTION_Run_Away = 0, ACTION_Attack_Enemy_Champion = 1, ACTION_Attack_Enemy_Minion = 2,
-    ACTION_Follow_Ally_Champion = 3, ACTION_Follow_Ally_Minion = 4, ACTION_Move_To_Mid = 5, ACTION_Recall = 6, 
-    ACTION_Attack_Tower = 7, ACTION_Go_Ham = 8, ACTION_Stand_Still = 9;
-    int lastDecision;
-    int moveToLane;
-    
-    BasicAI(LeagueGameState* leagueGameState);
-    void processAI();
-    void resetAI();
-    void handleAbilityLevelUps();
-    void handleBuyingItems();
-    void handleCameraFocus();
-    void handlePlacingWard();
-    void handleMovementAndAttacking();
-    
-    void castSpell1();
-    void castSpell2();
-    void castSpell3();
-    void castSpell4();
-    void useTrinket();
-    void castSummonerSpell1();
-    void castSummonerSpell2();
-    void useItem1();
-    void useItem2();
-    void useItem3();
-    void useItem4();
-    void useItem5();
-    void useItem6();
-    void castRecall();
-};
 
-Champion* getNearestChampion(NSMutableArray* championBars, int x, int y);
-Champion* getLowestHealthChampion(NSMutableArray* championBars, int x, int y);
-Minion* getNearestMinion(NSMutableArray* minionBars, int x, int y);
-Minion* getLowestHealthMinion(NSMutableArray* minionBars, int x, int y);
-Tower* getLowestHealthTower(NSMutableArray* towerBars, int x, int y);
-Tower* getNearestTower(NSMutableArray* towerBars, int x, int y);
- */
+}
 
 /*
- BasicAI::BasicAI(LeagueGameState* leagueGameState) {
-gameState = leagueGameState;
-
-lastLevelUp = mach_absolute_time();
-lastShopBuy = 0;
-lastShopOpenTap = 0;
-lastShopCloseTap = 0;
-lastShopBuying = mach_absolute_time();
-lastCameraFocus = mach_absolute_time();
-lastPlacedWard = mach_absolute_time();
-lastRunAwayClick = mach_absolute_time();
-lastClickEnemyChamp = mach_absolute_time();
-lastMovementClick = mach_absolute_time();
-lastClickAllyMinion = mach_absolute_time();
-
-lastClickEnemyMinion = mach_absolute_time();
-lastClickEnemyTower = mach_absolute_time();
-lastClickAllyChampion = mach_absolute_time();
-lastMoveMouse = mach_absolute_time();
-lastRecallTap = mach_absolute_time();
-lastSpell1Use = mach_absolute_time();
-lastSpell2Use = mach_absolute_time();
-lastSpell3Use = mach_absolute_time();
-lastSpell4Use = mach_absolute_time();
-lastSummonerSpell1Use = mach_absolute_time();
-lastSummonerSpell2Use = mach_absolute_time();
-lastItem1Use = mach_absolute_time();
-lastItem2Use = mach_absolute_time();
-lastItem3Use = mach_absolute_time();
-lastItem4Use = mach_absolute_time();
-lastItem5Use = mach_absolute_time();
-lastItem6Use = mach_absolute_time();
-
-activeAutoUseTime = mach_absolute_time();
-
-
-//moveToLane = arc4random_uniform(3) + 1;
-//NSLog(@"Chose lane %d", moveToLane);
  
-moveToLanePathSwitch = mach_absolute_time();
-
-boughtStarterItems = false;
-    
-    boughtItems = [NSMutableArray new];
-    gameCurrentTime = mach_absolute_time();
-
-lastSurrender = mach_absolute_time();
-}
-void BasicAI::resetAI()
-{
-    baseLocation = CGPointMake(-1, -1);
-
-    boughtStarterItems = false;
-    [boughtItems removeAllObjects];
-    gameCurrentTime = mach_absolute_time();
-lastSurrender = mach_absolute_time();
-
-lastLevelUp = mach_absolute_time();
-lastShopBuy = 0;
-    lastShopOpenTap = 0;
-    lastShopCloseTap = 0;
-    lastShopBuying = mach_absolute_time();
-lastCameraFocus = mach_absolute_time();
-lastPlacedWard = mach_absolute_time();
-lastRunAwayClick = mach_absolute_time();
-lastClickEnemyChamp = mach_absolute_time();
-lastMovementClick = mach_absolute_time();
-lastClickAllyMinion = mach_absolute_time();
-
-lastClickEnemyMinion = mach_absolute_time();
-lastClickEnemyTower = mach_absolute_time();
-lastClickAllyChampion = mach_absolute_time();
-lastMoveMouse = mach_absolute_time();
-lastRecallTap = mach_absolute_time();
-lastSpell1Use = mach_absolute_time();
-lastSpell2Use = mach_absolute_time();
-lastSpell3Use = mach_absolute_time();
-lastSpell4Use = mach_absolute_time();
-lastSummonerSpell1Use = mach_absolute_time();
-lastSummonerSpell2Use = mach_absolute_time();
-lastItem1Use = mach_absolute_time();
-lastItem2Use = mach_absolute_time();
-lastItem3Use = mach_absolute_time();
-lastItem4Use = mach_absolute_time();
-lastItem5Use = mach_absolute_time();
-lastItem6Use = mach_absolute_time();
-
-activeAutoUseTime = mach_absolute_time();
-
-
-//moveToLane = arc4random_uniform(3) + 1;
-//NSLog(@"Chose lane %d", moveToLane);
- 
-moveToLane = 1; //Top lane
-    moveToLanePathSwitch = mach_absolute_time();
-
-
-boughtStarterItems = false;
-    
-    boughtItems = [NSMutableArray new];
-    gameCurrentTime = mach_absolute_time();
-
-lastSurrender = mach_absolute_time();
-
-healthGainedPerSecond = 0;
-    healthGainedTime = mach_absolute_time();
-lastHealthtimePassed = mach_absolute_time();
-lastHealthAmount = 0.0;
-    
-    standStillTime = mach_absolute_time();
-
-lastTimeSawEnemyChamp = mach_absolute_time();
-}
 void BasicAI::handleAbilityLevelUps()
 {
     int abilityLevelUpOrder[] = { 1, 2, 3, 1, 2, 4, 3, 1, 2, 3, 4, 1, 2, 3, 1, 4, 2, 3 };
