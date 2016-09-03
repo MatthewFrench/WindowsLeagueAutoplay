@@ -235,12 +235,10 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 
 	data->spell1LevelUp = nullptr;
 
-	printf("Set spell 1 level up: %p\n", data->spell1LevelUp);
 	if (spell1LevelUp != nullptr) {
 		data->spell1LevelUp = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 		memcpy(data->spell1LevelUp, spell1LevelUp, sizeof(GenericObject));
 		//*data->spell1LevelUp = *spell1LevelUp;
-		printf("Set spell 1 level up realsies: %p\n", data->spell1LevelUp);
 	}
 	data->spell2LevelUp = nullptr;
 	if (spell2LevelUp != nullptr) {
@@ -546,8 +544,6 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 
 	if (data->spell1LevelUp != nullptr) {
 
-		printf("Spell 1 level up available: %d\n", data->spell1LevelUpAvailable);
-		printf("Freeing spell 1 level up: %p\n", data->spell1LevelUp);
 		free(data->spell1LevelUp);
 		data->spell1LevelUp = nullptr;
 	}

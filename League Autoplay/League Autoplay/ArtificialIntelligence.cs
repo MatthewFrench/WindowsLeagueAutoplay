@@ -62,14 +62,14 @@ namespace League_Autoplay
 
             //Only grab the screen when it's done processing. 
             //Do on separate task so we don't freeze the AI.
-            if (grabbingScreen == false && leagueOfLegendsOpen)
+            if (grabbingScreen == false)
             {
                 screenCapturePerformanceStopWatch.Reset();
                 grabbingScreen = true;
                 Task t = Task.Run(() =>
                 {
                     //visualCortex.runTest();
-                    visualCortex.grabScreenAndDetect();
+                    visualCortex.grabScreen(leagueOfLegendsOpen);
 
                     DetectionDataStruct data = visualCortex.getVisualDetectionData();
                     TaskHelper.RunTask(aiContext, () =>

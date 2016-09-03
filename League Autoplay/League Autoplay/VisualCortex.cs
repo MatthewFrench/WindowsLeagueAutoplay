@@ -11,21 +11,25 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using League_Autoplay.High_Performance_Timer;
 
 namespace League_Autoplay
 {
     public class VisualCortex
     {
         int count = 0;
-        long total = 0;
+        double total = 0;
         Bitmap testImage;
         private DesktopDuplicator desktopDuplicator;
 
         bool shouldCaptureDisplayImage = false;
         Bitmap displayImage;
 
+        High_Performance_Timer.Stopwatch saveStopwatch;
+
         public VisualCortex()
         {
+            saveStopwatch = new High_Performance_Timer.Stopwatch();
             try
             {
                 desktopDuplicator = new DesktopDuplicator(0);
@@ -52,7 +56,7 @@ namespace League_Autoplay
             shouldCaptureDisplayImage = b;
         }
 
-        public void grabScreenAndDetect()
+        public void grabScreen(bool detect)
         {
             DesktopFrame frame = desktopDuplicator.GetLatestFrame();
 
@@ -63,12 +67,14 @@ namespace League_Autoplay
                 int height = desktopDuplicator.getFrameHeight();
                 //Image processing
 
+                Console.WriteLine("Detection Width: " + width);
+                Console.WriteLine("Detection Height: " + height);
 
-                Stopwatch performanceWatch = new Stopwatch();
-                performanceWatch.Start();
+                High_Performance_Timer.Stopwatch performanceWatch = new High_Performance_Timer.Stopwatch();
 
 
                 //TEST CODE
+                /*
                 System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, testImage.Width, testImage.Height);
                 var bitmapData = testImage.LockBits(boundsRect, ImageLockMode.WriteOnly, testImage.PixelFormat);
                 var bitmapPointer = bitmapData.Scan0;
@@ -78,26 +84,34 @@ namespace League_Autoplay
                     processDetection((byte*)bitmapPointer.ToPointer(), testImage.Width, testImage.Height);
                 }
                 testImage.UnlockBits(bitmapData);
+                */
                 //END TEST CODE
 
-                /*
-                unsafe
-            {
-                processDetection((byte*)mapSource.DataPointer, width, height);
-            }*/
+                if (detect)
+                {
+                    unsafe
+                    {
+                        processDetection((byte*)mapSource.DataPointer, width, height);
+                    }
+                }
 
-                performanceWatch.Stop();
 
-                Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.Elapsed.Ticks / 10000.0);
-                Console.WriteLine("Elapsed fps: {0}", 1000.0 / (performanceWatch.Elapsed.Ticks / 10000.0));
+                Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.DurationInMilliseconds());
+                Console.WriteLine("Elapsed fps: {0}", 1000.0 / performanceWatch.DurationInMilliseconds());
                 count++;
-                total += performanceWatch.Elapsed.Ticks;
-                Console.WriteLine("Average milliseconds: {0}", total / 10000.0 / count);
-                Console.WriteLine("Average fps: {0}", 1000.0 / (total / 10000.0 / count));
+                total += performanceWatch.DurationInMilliseconds();
+                Console.WriteLine("Average milliseconds: {0}", total / count);
+                Console.WriteLine("Average fps: {0}", 1000.0 / (total / count));
                 //End image processing
-                
+
                 if (shouldCaptureDisplayImage)
-                displayImage = desktopDuplicator.getImageFromDataBox(mapSource);
+                {
+                    displayImage = desktopDuplicator.getImageFromDataBox(mapSource);
+                    if (saveStopwatch.DurationInSeconds() > 1.0)
+                    {
+                        displayImage.Save("Recording/AI Record " + width + "x" + height + " " + Environment.TickCount + ".png");
+                    }
+                }
 
                 desktopDuplicator.releaseCurrentDataBoxBytes();
                 desktopDuplicator.ReleaseFrame();
@@ -112,11 +126,8 @@ namespace League_Autoplay
 
         public unsafe DetectionDataStruct getVisualDetectionData()
         {
-            Console.WriteLine("getVisualDetectionData 1");
             DetectionDataStruct data = new DetectionDataStruct();
-            Console.WriteLine("getVisualDetectionData 2");
             getDetectionData(ref data);
-            Console.WriteLine("getVisualDetectionData 3");
 
 
             return data;
@@ -178,24 +189,22 @@ print( markerInfo.Id );
             var bitmapData = testImage.LockBits(boundsRect, ImageLockMode.WriteOnly, testImage.PixelFormat);
             var bitmapPointer = bitmapData.Scan0;
 
-            Stopwatch performanceWatch = new Stopwatch();
-            performanceWatch.Start();
+            High_Performance_Timer.Stopwatch performanceWatch = new High_Performance_Timer.Stopwatch();
 
             unsafe
             {
                 processDetection((byte*)bitmapPointer.ToPointer(), testImage.Width, testImage.Height);
             }
 
-            performanceWatch.Stop();
 
             testImage.UnlockBits(bitmapData);
 
-            Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.Elapsed.Ticks / 10000.0);
-            Console.WriteLine("Elapsed fps: {0}", 1000.0 / (performanceWatch.Elapsed.Ticks / 10000.0));
+            Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.DurationInMilliseconds());
+            Console.WriteLine("Elapsed fps: {0}", 1000.0 / (performanceWatch.DurationInMilliseconds() / 10000.0));
             count++;
-            total += performanceWatch.Elapsed.Ticks;
-            Console.WriteLine("Average milliseconds: {0}", total / 10000.0 / count);
-            Console.WriteLine("Average fps: {0}", 1000.0 / (total / 10000.0 / count));
+            total += performanceWatch.DurationInMilliseconds();
+            Console.WriteLine("Average milliseconds: {0}", total / count);
+            Console.WriteLine("Average fps: {0}", 1000.0 / (total  / count));
         }
         
 
