@@ -9,14 +9,17 @@ namespace League_Autoplay
 {
     class BasicAI
     {
-        enum Action { RunAway, AttackEnemyChampion, AttackEnemyMinion, FollowAllyChampion, FollowAllyMinion, MoveToMid,
-        Recall, AttackTower, GoHam, StandStill};
+        enum Action
+        {
+            RunAway, AttackEnemyChampion, AttackEnemyMinion, FollowAllyChampion, FollowAllyMinion, MoveToMid,
+            Recall, AttackTower, GoHam, StandStill
+        };
         int lastDecision;
         int moveToLane;
 
         DetectionDataStruct detectionData;
 
-        Stopwatch lastLevelUpStopwatch, lastShopBuyingStopwatch, lastCameraFocusStopwatch, lastPlacedWardStopwatch, 
+        Stopwatch lastLevelUpStopwatch, lastShopBuyingStopwatch, lastCameraFocusStopwatch, lastPlacedWardStopwatch,
             lastRunAwayClickStopwatch, lastClickEnemyChampStopwatch, lastMovementClickStopwatch, lastClickAllyMinionStopwatch,
             lastClickEnemyMinionStopwatch, lastClickEnemyTowerStopwatch, lastClickAllyChampionStopwatch, lastMoveMouseStopwatch,
             lastRecallTapStopwatch, lastSpell1UseStopwatch, lastSpell2UseStopwatch, lastSpell3UseStopwatch, lastSpell4UseStopwatch,
@@ -24,10 +27,10 @@ namespace League_Autoplay
             lastItem3UseStopwatch, lastItem4UseStopwatch, lastItem5UseStopwatch, lastItem6UseStopwatch, activeAutoUseTimeStopwatch,
             moveToLanePathSwitchStopwatch, gameCurrentTimeStopwatch, lastSurrenderStopwatch, lastShopBuyStopwatch,
             lastShopOpenTapStopwatch, lastShopCloseTapStopwatch;
-        
+
 
         bool boughtStarterItems;
-        List<Position> boughtItems;
+        List<GenericObject> boughtItems;
 
         Position baseLocation;
 
@@ -90,7 +93,7 @@ namespace League_Autoplay
 
             boughtStarterItems = false;
 
-            boughtItems = new List<Position>();
+            boughtItems = new List<GenericObject>();
             gameCurrentTimeStopwatch = new Stopwatch();
 
             lastSurrenderStopwatch = new Stopwatch();
@@ -100,7 +103,8 @@ namespace League_Autoplay
         {
             int[] abilityLevelUpOrder = { 1, 2, 3, 1, 2, 4, 3, 1, 2, 3, 4, 1, 2, 3, 1, 4, 2, 3 };
             //Level up an ability as soon as possible but only one ability every 500 milliseconds
-            if (lastLevelUpStopwatch.DurationInMilliseconds() >= 500)  {
+            if (lastLevelUpStopwatch.DurationInMilliseconds() >= 500)
+            {
                 lastLevelUpStopwatch.Reset();
                 bool leveledUp = false;
                 if (detectionData.currentLevel < 18)
@@ -173,108 +177,127 @@ namespace League_Autoplay
         {
 
         }
-    }
-    
 
-}
 
-/*
- 
-
-void BasicAI::handleBuyingItems()
-{
-    //if (gameState->detectionManager->getShopBottomLeftCornerVisible()) {
-    //    NSLog(@"Shop bottom left visible");
-    //}
-    bool closeShop = false;
-    if (getTimeInMilliseconds(mach_absolute_time() - lastShopBuy) >= 1000 * 60 * 8)
-    {
-        if (gameState->detectionManager->getShopAvailable())
+        unsafe void handleBuyingItems()
         {
-
-            if (gameState->detectionManager->getShopTopLeftCornerVisible() && gameState->detectionManager->getShopBottomLeftCornerVisible())
+            //if (gameState->detectionManager->getShopBottomLeftCornerVisible()) {
+            //    NSLog(@"Shop bottom left visible");
+            //}
+            bool closeShop = false;
+            if (lastShopBuyStopwatch.DurationInMilliseconds() >= 1000 * 60 * 8)
             {
-                lastShopBuy = mach_absolute_time();
-                //Buy items
-                int bought = 0;
-                NSMutableArray* itemsToBuy = gameState->detectionManager->getBuyableItems();
-                for (int i = 0; i < [itemsToBuy count]; i++)
+                if (detectionData.shopAvailableShown)
                 {
-                    GenericObject* item = [itemsToBuy objectAtIndex: i];
-                    int clickX = item->center.x;
-                    int clickY = item->center.y;
-                    if (boughtStarterItems && clickY < gameState->detectionManager->getShopTopLeftCorner()->topLeft.y + 200)
+
+                    if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown)
                     {
-                        continue; //Skip buying this item because we already bought starter items. No troll build.
-                    }
-                    //Skip buying this item if we already bought it once
-                    bool skipBuying = false;
-                    for (GenericObject* boughtItem in boughtItems)
-                    {
-                        if (abs(boughtItem->topLeft.y - item->topLeft.y) <= 50 &&
-                            abs(boughtItem->topLeft.x - item->topLeft.x) <= 50)
+                        lastShopBuyStopwatch.Reset();
+                        //Buy items
+                        int bought = 0;
+                        for (int i = 0; i < detectionData.numberOfBuyableItems; i++)
                         {
-                            skipBuying = true;
-                            break;
-                        }
+                            
+                                GenericObject* array = (GenericObject*)detectionData.buyableItemsArray.ToPointer();
+                          
+
+                            GenericObject item = array[i];
+                            int clickX = item.center.x;
+                            int clickY = item.center.y;
+                            if (boughtStarterItems && clickY < ((GenericObject*)detectionData.shopTopLeftCorner.ToPointer())->topLeft.y + 200)
+                            {
+                                continue; //Skip buying this item because we already bought starter items. No troll build.
+                            }
+                            //Skip buying this item if we already bought it once
+                            bool skipBuying = false;
+                    foreach (GenericObject boughtItem in boughtItems)
+                            {
+                                if (Math.Abs(boughtItem.topLeft.y - item.topLeft.y) <= 50 &&
+                                    Math.Abs(boughtItem.topLeft.x - item.topLeft.x) <= 50)
+                                {
+                                    skipBuying = true;
+                                    break;
+                                }
+                            }
+                            if (skipBuying)
+                            {
+                                continue;
+                            }
+                            Task.Delay(1000 * i).ContinueWith(_ =>
+                            {
+                                MotorCortex.moveMouseTo(clickX, clickY);
+                            });
+                            Task.Delay(1000 * i + 200).ContinueWith(_ =>
+                            {
+                                MotorCortex.clickMouseAt(clickX, clickY);
+                            });
+                            Task.Delay(1000 * i + 450).ContinueWith(_ =>
+                            {
+                                MotorCortex.clickMouseTwiceAt(clickX, clickY);
+                            });
+                            Task.Delay(1000 * i + 700).ContinueWith(_ =>
+                            {
+                                MotorCortex.moveMouseTo(0, 0);
+                            });
+                        if (bought < 2)
+                        {
+                            bought++;
+                                boughtItems.Add(item);
                     }
-                    if (skipBuying)
-                    {
-                        continue;
-                    }
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 1000 * i * 1000), dispatch_get_main_queue(), ^{
-                        moveMouse(clickX, clickY);
-                    });
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 1000 * (i * 1000 + 200)), dispatch_get_main_queue(), ^{
-                    tapMouseLeft(clickX, clickY);
-                });
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 1000 * (i * 1000 + 450)), dispatch_get_main_queue(), ^{
-                    doubleTapMouseLeft(clickX, clickY);
-                });
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 1000 * (i * 1000 + 700)), dispatch_get_main_queue(), ^{
-                    moveMouse(0, 0);
-                });
-                if (bought < 2)
-                {
-                    bought++;
-                        [boughtItems addObject:item];
-                    }
-                }
-                if ([itemsToBuy count] > 0 && !boughtStarterItems) {
+}
+                if (boughtItems.Count > 0 && !boughtStarterItems) {
                     boughtStarterItems = true;
                 }
-                lastShopBuying = mach_absolute_time();
+                        lastShopBuyingStopwatch.Reset();
                 //NSLog(@"Bought items");
             } else { //Open up the shop
-                if (getTimeInMilliseconds(mach_absolute_time() - lastShopOpenTap) >= 8000) {
-                    lastShopOpenTap = mach_absolute_time();
+                if (lastShopOpenTapStopwatch.DurationInMilliseconds() >= 8000) {
+                            lastShopOpenTapStopwatch.Reset();
                     tapStopMoving();
                     tapShop();
                     //NSLog(@"Opening shop for initial buy");
                 }
             }
         } else {
-            if (gameState->detectionManager->getShopTopLeftCornerVisible() && gameState->detectionManager->getShopBottomLeftCornerVisible()) {
+            if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown) {
                 closeShop = true;
                 //NSLog(@"Shop not available, closing shop");
             }
         }
     } else {
         //Close shop
-        if (gameState->detectionManager->getShopTopLeftCornerVisible() && gameState->detectionManager->getShopBottomLeftCornerVisible() &&
-            getTimeInMilliseconds(mach_absolute_time() - lastShopBuying) >= 10000) {
+        if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown &&
+            lastShopBuyingStopwatch.DurationInMilliseconds() >= 10000) {
             //Gave a 4 seconds to buy
             closeShop = true;
             //NSLog(@"Closing shop because we already bought.");
         }
     }
     if (closeShop) {
-        if (getTimeInMilliseconds(mach_absolute_time() - lastShopCloseTap) >= 500) {
-            lastShopCloseTap = mach_absolute_time();
+        if (lastShopCloseTapStopwatch.DurationInMilliseconds() >= 500) {
+                    lastShopCloseTapStopwatch.Reset();
             tapShop();
         }
     }
 }
+
+        void tapStopMoving()
+        {
+
+        }
+        void tapShop()
+        {
+
+        }
+
+    }
+
+}
+
+/*
+ 
+
+
 void BasicAI::handleCameraFocus()
 {
     if (getTimeInMilliseconds(mach_absolute_time() - lastCameraFocus) >= 4000)

@@ -15,7 +15,6 @@ namespace League_Autoplay
     {
         ArtificialIntelligence artificialIntelligence;
         VisualCortex visualCortex;
-        MotorCortex motorCortex;
         TaskScheduler uiContext;
         public UserInterface()
         {
@@ -25,12 +24,10 @@ namespace League_Autoplay
         private void Form1_Shown(object sender, EventArgs e)
         {
             visualCortex = new VisualCortex();
-            Console.WriteLine("Test 1");
             visualCortex.setShouldCaptureDisplayImage(true);
-            Console.WriteLine("Test 2");
-            motorCortex = new MotorCortex();
+            MotorCortex.init();
 
-            artificialIntelligence = new ArtificialIntelligence(this, visualCortex, motorCortex);
+            artificialIntelligence = new ArtificialIntelligence(this, visualCortex);
 
             //Set fps box to 60fps
             aiFpsBox.SelectedIndex = 4;

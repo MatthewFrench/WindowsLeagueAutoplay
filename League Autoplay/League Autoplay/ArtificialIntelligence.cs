@@ -13,7 +13,6 @@ namespace League_Autoplay
     {
         UserInterface userInterface;
         VisualCortex visualCortex;
-        MotorCortex motorCortex;
         bool grabbingScreen = false;
         Stopwatch timerPerformanceStopwatch, screenCapturePerformanceStopWatch;
         int timerPerformanceCount = 0;
@@ -24,11 +23,10 @@ namespace League_Autoplay
         bool hasDetectionData = false;
         DetectionDataStruct currentDetectionData;
 
-        public ArtificialIntelligence(UserInterface userInterface, VisualCortex visualCortex, MotorCortex motorCortex)
+        public ArtificialIntelligence(UserInterface userInterface, VisualCortex visualCortex)
         {
             this.userInterface = userInterface;
             this.visualCortex = visualCortex;
-            this.motorCortex = motorCortex;
             TimerResolution.setTimerResolution(1.0);
         
             timerPerformanceStopwatch = new Stopwatch();
