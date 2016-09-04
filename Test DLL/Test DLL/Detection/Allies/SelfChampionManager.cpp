@@ -167,8 +167,10 @@ void SelfChampionManager::validateSelfHealthBars(ImageData imageData, std::vecto
             for (int y = healthBar->topRight.y; y < healthBar->bottomRight.y; y++) {
                 if (x >= 0 && x < imageData.imageWidth &&
                     y >= 0 && y < imageData.imageHeight) {
-                    if (getColorPercentage(healthColorPixel, getPixel2(imageData, x, y)) >= 0.55) {
+                    if (getColorPercentage(healthColorPixel, getPixel2(imageData, x, y)) >= 0.82) {
+
                         healthBar->health = (float)(x - healthBar->topLeft.x) / (SelfHealthBarWidth - 1.0) * 100.0;
+
                         y = healthBar->bottomRight.y+1;
                         x = healthBar->topLeft.x - 1;
                     }
