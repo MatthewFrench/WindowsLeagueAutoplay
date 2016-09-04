@@ -167,10 +167,10 @@ extern "C"
 	}
 
 	__declspec(dllexport) void processDetection(byte* dataPointer, int32_t width, int32_t height) {
-		printf("Processing Detection\n");
+		//printf("Processing Detection\n");
 		ImageData imageData = makeImageData(dataPointer, width, height);
 		detectionManager->processDetection(&imageData);
-		printf("Detection Processed\n");
+		//printf("Detection Processed\n");
 
 		printDetected(detectionManager);
 	}
