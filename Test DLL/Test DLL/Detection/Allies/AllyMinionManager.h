@@ -28,14 +28,14 @@ public:
     
     static void validateMinionBars(ImageData imageData, std::vector<Minion*>* detectedMinionBars);
 
-    static constexpr double coloredPixelPrecision = 0.96; //0.97
-    static constexpr double overalImagePrecision = 0.96; //0.97
+    static constexpr double coloredPixelPrecision = 0.78; //0.97
+    static constexpr double overalImagePrecision = 0.84; //0.97
     inline static Minion* detectMinionBarAtPixel(ImageData* imageData, uint8_t *pixel, int x, int y) {
     Minion* minion = NULL;
     //Look top left corner
-    if (isColor3(pixel, 0, 0, 0)) {
+    if (pixel[0] < 55 && pixel[1] < 55 && pixel[2] < 55) {
         if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData->imageWidth, imageData->imageHeight, topLeftImageData, coloredPixelPrecision) >=  overalImagePrecision) {
-            int barTopLeftX = x + 1;
+			int barTopLeftX = x + 1;
             int barTopLeftY = y + 1;
             minion = new Minion();
             minion->topLeft.x = barTopLeftX;
