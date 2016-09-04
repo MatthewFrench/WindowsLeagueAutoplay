@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ using System.Windows.Forms;
 
 namespace League_Autoplay
 {
+
     public partial class UserInterface : Form
     {
         ArtificialIntelligence artificialIntelligence;
@@ -67,6 +70,17 @@ namespace League_Autoplay
         private void updateDisplayCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             artificialIntelligence.setUpdateDisplayImage(updateDisplayCheckBox.Checked);
+        }
+    }
+
+    public class PictureBoxWithInterpolationMode : PictureBox
+    {
+        public InterpolationMode InterpolationMode { get; set; }
+
+        protected override void OnPaint(PaintEventArgs paintEventArgs)
+        {
+            paintEventArgs.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+            base.OnPaint(paintEventArgs);
         }
     }
 }

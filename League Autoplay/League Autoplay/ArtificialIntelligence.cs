@@ -320,5 +320,6 @@ namespace League_Autoplay
             updateDisplayImage = b;
             visualCortex.setShouldCaptureDisplayImage(b);
         }
+        
     }
 }

@@ -72,81 +72,79 @@ void DetectionManager::processDetection(ImageData *image) {
                 x = 0;
                 y++;
             }
+			
+		//Ally minion detection
+			minionBar = AllyMinionManager::detectMinionBarAtPixel(image, pixel, x, y);
+			if (minionBar != NULL) {
+				#pragma omp critical (addAllyMinion)
+				allyMinions->push_back(minionBar);
+			}
+		//Enemy minion detection
+			minionBar = EnemyMinionManager::detectMinionBarAtPixel(image, pixel, x, y);
+			if (minionBar != NULL) {
+				#pragma omp critical (addEnemyMinion)
+				enemyMinions->push_back(minionBar);
+			}
+		//Enemy champion detection
+			championBar = EnemyChampionManager::detectChampionBarAtPixel(image, pixel, x, y);
+			if (championBar != NULL) {
+				#pragma omp critical (addEnemyChampion)
+				enemyChampions->push_back(championBar);
+			}
+		//Ally champion detection
+			championBar = AllyChampionManager::detectChampionBarAtPixel(image, pixel, x, y);
+			if (championBar != NULL) {
+				#pragma omp critical (addAllyChampion)
+				allyChampions->push_back(championBar);
+			}
+		//Enemy tower detection
+			towerBar = EnemyTowerManager::detectTowerBarAtPixel(image, pixel, x, y);
+			if (towerBar != NULL) {
+				#pragma omp critical (addEnemyTower)
+				enemyTowers->push_back(towerBar);
+			}
+			
+		//Self champion detection
+			championBar = SelfChampionManager::detectChampionBarAtPixel(image, pixel, x, y);
+			if (championBar != NULL) {
+				#pragma omp critical (addSelfChampion)
+				selfChampions->push_back(championBar);
+			}
+			
+			//Shop window detection
+			if (shopTopLeftCorner == NULL) {
+				uint8_t* pixel = getPixel2(*image, x, y);
+				topLeftCorner = ShopManager::detectShopTopLeftCorner(image, pixel, x, y);
+				if (topLeftCorner != NULL) {
+					shopTopLeftCorner = topLeftCorner;
+					shopTopLeftCornerShown = true;
+				}
+			}
+			
 
-//Ally minion detection
-    minionBar = AllyMinionManager::detectMinionBarAtPixel(image, pixel, x, y);
-    if (minionBar != NULL) {
-        #pragma omp critical (addAllyMinion)
-        allyMinions->push_back(minionBar);
-    }
-//Enemy minion detection
-    minionBar = EnemyMinionManager::detectMinionBarAtPixel(image, pixel, x, y);
-    if (minionBar != NULL) {
-        #pragma omp critical (addEnemyMinion)
-        enemyMinions->push_back(minionBar);
-    }
-//Enemy champion detection
-    championBar = EnemyChampionManager::detectChampionBarAtPixel(image, pixel, x, y);
-    if (championBar != NULL) {
-        #pragma omp critical (addEnemyChampion)
-        enemyChampions->push_back(championBar);
-    }
-//Ally champion detection
-    championBar = AllyChampionManager::detectChampionBarAtPixel(image, pixel, x, y);
-    if (championBar != NULL) {
-        #pragma omp critical (addAllyChampion)
-        allyChampions->push_back(championBar);
-    }
-//Enemy tower detection
-    towerBar = EnemyTowerManager::detectTowerBarAtPixel(image, pixel, x, y);
-    if (towerBar != NULL) {
-        #pragma omp critical (addEnemyTower)
-        enemyTowers->push_back(towerBar);
-    }
-//Self champion detection
-    championBar = SelfChampionManager::detectChampionBarAtPixel(image, pixel, x, y);
-    if (championBar != NULL) {
-        #pragma omp critical (addSelfChampion)
-        selfChampions->push_back(championBar);
-    }
-    //Shop window detection
-    if (shopTopLeftCorner == NULL) {
-        uint8_t* pixel = getPixel2(*image, x, y);
-        topLeftCorner = ShopManager::detectShopTopLeftCorner(image, pixel, x, y);
-        if (topLeftCorner != NULL) {
-            shopTopLeftCorner = topLeftCorner;
-            shopTopLeftCornerShown = true;
-        }
-    }
 
-
-
-/*
-            processAllyMinionDetection(image, x, y, pixel);
-            processEnemyMinionDetection(image, x, y, pixel);
-            processAllyChampionDetection(image, x, y, pixel);
-            processEnemyChampionDetection(image, x, y, pixel);
-            processEnemyTowerDetection(image, x, y, pixel);
-            processSelfChampionDetection(image, x, y, pixel);
-            processShop(image, x, y, pixel);
-*/
 
             x += 1;
             pixel += 4;
         }
     }
 
+	printf("\n\n\n\n\n\n\n\n\n\n---------------\n\n\n\n\n\n\n\n\n");
+
 //Post processing
+
+	
     AllyMinionManager::validateMinionBars(*image, allyMinions);
     EnemyMinionManager::validateMinionBars(*image, enemyMinions);
     EnemyChampionManager::validateChampionBars(*image, enemyChampions);
     AllyChampionManager::validateChampionBars(*image, allyChampions);
     EnemyTowerManager::validateTowerBars(*image, enemyTowers);
     SelfChampionManager::validateChampionBars(*image, selfChampions);
-
+	
 
 
 //Super specific or small search area so don't group
+	
     processSpellLevelDots(image);
     processSpellLevelUps(image);
     processSelfHealthBarDetection(image);
@@ -161,6 +159,7 @@ void DetectionManager::processDetection(ImageData *image) {
     processSummonerSpellActives(image);
     processTrinketActive(image);
     processUsedPotion(image);
+	
 }
 
 void DetectionManager::getDetectionData(DetectionDataStruct* data) {

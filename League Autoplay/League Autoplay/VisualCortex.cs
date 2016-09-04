@@ -19,11 +19,11 @@ namespace League_Autoplay
     {
         int count = 0;
         double total = 0;
-        Bitmap testImage;
+        public Bitmap testImage;
         private DesktopDuplicator desktopDuplicator;
 
         bool shouldCaptureDisplayImage = false;
-        bool recordDisplayImage = false;
+        bool recordDisplayImage = true;
         Bitmap displayImage;
 
         High_Performance_Timer.Stopwatch saveStopwatch;
@@ -45,6 +45,13 @@ namespace League_Autoplay
 
             string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
             testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\New Self Test.png")));
+
+            int width = desktopDuplicator.getFrameWidth();
+            int height = desktopDuplicator.getFrameHeight();
+            //Image processing
+
+            Console.WriteLine("Detection Width: " + width);
+            Console.WriteLine("Detection Height: " + height);
         }
 
         public Bitmap getDisplayImage()
@@ -59,7 +66,7 @@ namespace League_Autoplay
 
         public void grabScreen(bool detect)
         {
-            bool test = true;
+            bool test = false;
             DesktopFrame frame = desktopDuplicator.GetLatestFrame();
 
             if (frame != null)
@@ -69,8 +76,8 @@ namespace League_Autoplay
                 int height = desktopDuplicator.getFrameHeight();
                 //Image processing
 
-                Console.WriteLine("Detection Width: " + width);
-                Console.WriteLine("Detection Height: " + height);
+                //Console.WriteLine("Detection Width: " + width);
+                //Console.WriteLine("Detection Height: " + height);
 
                 High_Performance_Timer.Stopwatch performanceWatch = new High_Performance_Timer.Stopwatch();
 
@@ -86,6 +93,7 @@ namespace League_Autoplay
                     var bitmapPointer = bitmapData.Scan0;
                     unsafe
                     {
+                        Console.WriteLine("Test image width: " + testImage.Width + ", height: " + testImage.Height);
                         processDetection((byte*)bitmapPointer.ToPointer(), testImage.Width, testImage.Height);
                     }
 
@@ -103,12 +111,12 @@ namespace League_Autoplay
                     }
                 }
 
-                Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.DurationInMilliseconds());
-                Console.WriteLine("Elapsed fps: {0}", 1000.0 / performanceWatch.DurationInMilliseconds());
+                //Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.DurationInMilliseconds());
+                //Console.WriteLine("Elapsed fps: {0}", 1000.0 / performanceWatch.DurationInMilliseconds());
                 count++;
                 total += performanceWatch.DurationInMilliseconds();
-                Console.WriteLine("Average milliseconds: {0}", total / count);
-                Console.WriteLine("Average fps: {0}", 1000.0 / (total / count));
+                //Console.WriteLine("Average milliseconds: {0}", total / count);
+                //Console.WriteLine("Average fps: {0}", 1000.0 / (total / count));
                 //End image processing
 
                 if (shouldCaptureDisplayImage && !test)
@@ -206,12 +214,12 @@ print( markerInfo.Id );
 
             testImage.UnlockBits(bitmapData);
 
-            Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.DurationInMilliseconds());
-            Console.WriteLine("Elapsed fps: {0}", 1000.0 / (performanceWatch.DurationInMilliseconds() / 10000.0));
+            //Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.DurationInMilliseconds());
+            //Console.WriteLine("Elapsed fps: {0}", 1000.0 / (performanceWatch.DurationInMilliseconds() / 10000.0));
             count++;
             total += performanceWatch.DurationInMilliseconds();
-            Console.WriteLine("Average milliseconds: {0}", total / count);
-            Console.WriteLine("Average fps: {0}", 1000.0 / (total  / count));
+            //Console.WriteLine("Average milliseconds: {0}", total / count);
+            //Console.WriteLine("Average fps: {0}", 1000.0 / (total  / count));
         }
         
 
@@ -221,7 +229,7 @@ print( markerInfo.Id );
 
             Bitmap image;
             image = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Skill Bar\\Enabled Summoner Spell.png")));
-            Console.WriteLine("Image: {0}", image);
+            //Console.WriteLine("Image: {0}", image);
             byte* bytes = getBytesForBitmap(image);
             AbilityManager_loadEnabledSummonerSpellImageData(bytes, image.Width, image.Height);
 

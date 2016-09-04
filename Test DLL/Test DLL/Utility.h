@@ -131,6 +131,7 @@ inline void detectSimilarImageToImage(ImageData smallImage, ImageData largeImage
 inline int getTimeInMilliseconds(int64_t absoluteTime);
 inline double getImageAtPixelPercentageOptimized(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, double minimumPercentage);
 inline double getImageAtPixelPercentageOptimizedExact(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, double minimumPercentage);
+inline double printComparePixels(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, double minimumPercentage);
 inline void detectExactImageToImage(ImageData smallImage, ImageData largeImage, int xStart, int yStart, int xEnd, int yEnd, double &returnPercentage, Position &returnPosition, double minimumPercentage, bool getFirstMatching);
 //inline void detectExactImageToImageToRectangles(ImageData smallImage, ImageData largeImage, CGRect* rects, size_t num_rects, double &returnPercentage, Position &returnPosition, double minimumPercentage, bool getFirstMatching);
 //inline CGRect* getIntersectionRectangles(CGRect baseRect, const CGRect* rects, size_t num_rects, size_t &returnNumRects);
@@ -390,6 +391,54 @@ extern inline void detectExactImageToImageToRectangles(ImageData smallImage, Ima
         }
         return percentage / pixels;
     }
+	extern inline double printComparePixels(const uint8_t *pixel, int x, int y, int width, int height, ImageData image, double minimumPercentage) {
+		int pixels = 0;
+		int maxPixelCount = image.imageWidth * image.imageHeight;
+		int skipPixels = 4 * (width - image.imageWidth);
+		double percentage = 0.0;
+		uint8_t *pixel2 = image.imageData;
+		//int xLimit = image.imageWidth;
+		//int yLimit = image.imageHeight;
+		if (x + image.imageWidth > width || y + image.imageHeight > height) {
+			return 0.0;
+			//xLimit = width - x;
+			//NSLog(@"%d vs %d", x + image.imageWidth, width);
+			//NSLog(@"Add amount pixels: %d", (image.imageWidth - xLimit));
+			//NSLog(@"Old limit: %d vs new limit: %d", image.imageWidth, xLimit);
+		}
+		//if (y + image.imageHeight > height) yLimit = height - y;
+		//int addAmountPixels = (image.imageWidth - xLimit);
+		//int addAmount = addAmountPixels * 4;
+		int perfectPixels = 0;
+		int nonPerfectPixels = 0;
+		for (int y1 = 0; y1 < image.imageHeight; y1++) {
+			//const uint8_t *pixel1 = pixel + y1 * width * 4;
+			for (int x1 = 0; x1 < image.imageWidth; x1++) {
+				if (pixel2[3] != 0) {
+					pixels++;
+					double p = getColorPercentage(pixel, pixel2);
+					printf("Pixel %d, %d - {%d, %d, %d, %d} vs {%d, %d, %d, %d} match: %f\n", x1, y1, pixel[0], pixel[1], pixel[2], pixel[3], pixel2[0], pixel2[1], pixel2[2], pixel2[3], p);
+					percentage += p;
+					if (p < minimumPercentage) {
+						return percentage / maxPixelCount;
+					}
+					if (p == 1.0) {
+						perfectPixels++;
+					}
+					else {
+						nonPerfectPixels++;
+					}
+				}
+				else { maxPixelCount--; }
+				pixel2 += 4;
+				pixel += 4;
+			}
+			//pixel2 += addAmount;
+			//pixels += addAmountPixels;
+			pixel += skipPixels;
+		}
+		return percentage / pixels;
+	}
     extern inline void detectSimilarImageToImage(ImageData smallImage, ImageData largeImage, int xStart, int yStart, int xEnd, int yEnd, double &returnPercentage, Position &returnPosition, double minimumPercentage, bool getFirstMatching) {
     //Minimum percentage is so it matches faster
         double highestPercent = 0.0;
