@@ -28,8 +28,8 @@ public:
     
     static void validateMinionBars(ImageData imageData, std::vector<Minion*>* detectedMinionBars);
 
-    static constexpr double coloredPixelPrecision = 0.78; //0.97
-    static constexpr double overalImagePrecision = 0.84; //0.97
+    static constexpr double coloredPixelPrecision = 0.80; //0.97
+    static constexpr double overalImagePrecision = 0.85; //0.97
     inline static Minion* detectMinionBarAtPixel(ImageData* imageData, uint8_t *pixel, int x, int y) {
     Minion* minion = NULL;
     //Look top left corner

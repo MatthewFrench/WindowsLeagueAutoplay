@@ -27,7 +27,7 @@ public:
 	static void loadTopRightImageData(uint8_t * data, int imageWidth, int imageHeight);
 	static void loadHealthSegmentImageData(uint8_t * data, int imageWidth, int imageHeight);
 
-    static constexpr double coloredPixelPrecision = 0.78; //0.97
+    static constexpr double coloredPixelPrecision = 0.80; //0.97
     static constexpr double overalImagePrecision = 0.85; //0.97
     inline static Minion* detectMinionBarAtPixel(ImageData* imageData, uint8_t *pixel, int x, int y) {
 
