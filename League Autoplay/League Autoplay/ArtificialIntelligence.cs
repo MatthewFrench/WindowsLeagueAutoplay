@@ -144,154 +144,185 @@ namespace League_Autoplay
             currentDetectionData = data;
             hasDetectionData = true;
 
-            /*
-            Console.WriteLine("Reading detection data");
+            
+            //Console.WriteLine("Reading detection data");
 
             Console.WriteLine("Detected in C#: ");
-            if (detectionData.numberOfAllyMinions > 0)
+            if (data.numberOfAllyMinions > 0)
             {
-                Console.WriteLine("\t"+ detectionData.numberOfAllyMinions + " ally minions");
+                Console.WriteLine("\t"+ data.numberOfAllyMinions + " ally minions");
+
+                for (int i = 0; i < data.numberOfAllyMinions; i++)
+                {
+                    Minion* minion = &(((Minion*)data.allyMinionsArray.ToPointer())[i]);
+                    Console.WriteLine("\t\tminion at "+ minion->characterCenter.x + ", "+ minion->characterCenter.y + " with health " + minion->health);
+                }
             }
-            if (detectionData.numberOfAllyChampions > 0)
+            if (data.numberOfAllyChampions > 0)
             {
-                Console.WriteLine("\t"+ detectionData.numberOfAllyChampions + " ally champions");
+                Console.WriteLine("\t"+ data.numberOfAllyChampions + " ally champions");
+                for (int i = 0; i < data.numberOfAllyChampions; i++)
+                {
+                    Champion* champion = &(((Champion*)data.allyChampionsArray.ToPointer())[i]);
+                    Console.WriteLine("\t\tchampion at "+ champion->characterCenter.x + ", "+ champion->characterCenter.y + " with health " + champion->health);
+                }
             }
-            if (detectionData.numberOfSelfChampions > 0)
+            if (data.numberOfSelfChampions > 0)
             {
-                Console.WriteLine("\t"+ detectionData.numberOfSelfChampions + " self champions");
+                Console.WriteLine("\t"+ data.numberOfSelfChampions + " self champions");
+                for (int i = 0; i < data.numberOfSelfChampions; i++)
+                {
+                    Champion* champion = &(((Champion*)data.selfChampionsArray.ToPointer())[i]);
+                    Console.WriteLine("\t\tchampion at "+ champion->characterCenter.x + ", "+ champion->characterCenter.y + " with health " + champion->health);
+                }
             }
-            if (detectionData.numberOfEnemyMinions > 0)
+            if (data.numberOfEnemyMinions > 0)
             {
-                Console.WriteLine("\t"+ detectionData.numberOfEnemyMinions + " enemy minions");
+                Console.WriteLine("\t"+ data.numberOfEnemyMinions + " enemy minions");
+                for (int i = 0; i < data.numberOfEnemyMinions; i++)
+                {
+                    Minion* minion = &(((Minion*)data.enemyMinionsArray.ToPointer())[i]);
+                    Console.WriteLine("\t\tminion at "+ minion->characterCenter.x + ", "+ minion->characterCenter.y + " with health "+ minion->health);
+                }
             }
-            if (detectionData.numberOfEnemyChampions > 0)
+            if (data.numberOfEnemyChampions > 0)
             {
-                Console.WriteLine("\t"+ detectionData.numberOfEnemyChampions + " enemy champions");
+                Console.WriteLine("\t"+ data.numberOfEnemyChampions + " enemy champions");
+                for (int i = 0; i < data.numberOfEnemyChampions; i++)
+                {
+                    Champion* champion = &(((Champion*)data.enemyChampionsArray.ToPointer())[i]);
+                    Console.WriteLine("\t\tchampion at "+ champion->characterCenter.x + ", "+ champion->characterCenter.y + " with health "+ champion->health);
+                }
             }
-            if (detectionData.numberOfEnemyTowers > 0)
+            if (data.numberOfEnemyTowers > 0)
             {
-                Console.WriteLine("\t"+ detectionData.numberOfEnemyTowers + " enemy towers");
+                Console.WriteLine("\t"+ data.numberOfEnemyTowers + " enemy towers");
+                for (int i = 0; i < data.numberOfEnemyTowers; i++)
+                {
+                    Tower* tower = &(((Tower*)data.enemyTowersArray.ToPointer())[i]);
+                    Console.WriteLine("\t\ttower at "+ tower->towerCenter.x + ", "+ tower->towerCenter.y + " with health "+ tower->health);
+                }
             }
-            if (detectionData.selfHealthBarVisible)
+            if (data.selfHealthBarVisible)
             {
                 Console.WriteLine("\tCan see self health bar");
-                Console.WriteLine("\tSelf health: " + ((SelfHealth*)detectionData.selfHealthBar.ToPointer())->health);
+                Console.WriteLine("\tSelf health: " + ((SelfHealth*)data.selfHealthBar.ToPointer())->health);
             }
-            if (detectionData.spell1LevelUpAvailable)
+            if (data.spell1LevelUpAvailable)
             {
                 Console.WriteLine("\tLevel up spell 1 available");
             }
-            if (detectionData.spell2LevelUpAvailable)
+            if (data.spell2LevelUpAvailable)
             {
                 Console.WriteLine("\tLevel up spell 2 available");
             }
-            if (detectionData.spell3LevelUpAvailable)
+            if (data.spell3LevelUpAvailable)
             {
                 Console.WriteLine("\tLevel up spell 3 available");
             }
-            if (detectionData.spell4LevelUpAvailable)
+            if (data.spell4LevelUpAvailable)
             {
                 Console.WriteLine("\tLevel up spell 4 available");
             }
-            if (detectionData.currentLevel > 0)
+            if (data.currentLevel > 0)
             {
-                Console.WriteLine("\tDetected current level: " + detectionData.currentLevel);
+                Console.WriteLine("\tDetected current level: " + data.currentLevel);
             }
-            if (detectionData.spell1ActiveAvailable)
+            if (data.spell1ActiveAvailable)
             {
                 Console.WriteLine("\tSpell 1 available");
             }
-            if (detectionData.spell2ActiveAvailable)
+            if (data.spell2ActiveAvailable)
             {
                 Console.WriteLine("\tSpell 2 available");
             }
-            if (detectionData.spell3ActiveAvailable)
+            if (data.spell3ActiveAvailable)
             {
                 Console.WriteLine("\tSpell 3 available");
             }
-            if (detectionData.spell4ActiveAvailable)
+            if (data.spell4ActiveAvailable)
             {
                 Console.WriteLine("\tSpell 4 available");
             }
-            if (detectionData.summonerSpell1ActiveAvailable)
+            if (data.summonerSpell1ActiveAvailable)
             {
                 Console.WriteLine("\tSummoner spell 1 available");
             }
-            if (detectionData.summonerSpell2ActiveAvailable)
+            if (data.summonerSpell2ActiveAvailable)
             {
                 Console.WriteLine("\tSummoner spell 2 available");
             }
-            if (detectionData.trinketActiveAvailable)
+            if (data.trinketActiveAvailable)
             {
                 Console.WriteLine("\tTrinket active available");
             }
-            if (detectionData.item1ActiveAvailable)
+            if (data.item1ActiveAvailable)
             {
                 Console.WriteLine("\tItem 1 active available");
             }
-            if (detectionData.item2ActiveAvailable)
+            if (data.item2ActiveAvailable)
             {
                 Console.WriteLine("\tItem 2 active available");
             }
-            if (detectionData.item3ActiveAvailable)
+            if (data.item3ActiveAvailable)
             {
                 Console.WriteLine("\tItem 3 active available");
             }
-            if (detectionData.item4ActiveAvailable)
+            if (data.item4ActiveAvailable)
             {
                 Console.WriteLine("\tItem 4 active available");
             }
-            if (detectionData.item5ActiveAvailable)
+            if (data.item5ActiveAvailable)
             {
                 Console.WriteLine("\tItem 5 active available");
             }
-            if (detectionData.item6ActiveAvailable)
+            if (data.item6ActiveAvailable)
             {
                 Console.WriteLine("\tItem 6 active available");
             }
-            if (detectionData.potionActiveAvailable)
+            if (data.potionActiveAvailable)
             {
                 Console.WriteLine("\tPotion active available");
 
-                Console.WriteLine("\t\tPotion in slot " + detectionData.potionOnActive);
+                Console.WriteLine("\t\tPotion in slot " + data.potionOnActive);
             }
-            if (detectionData.potionBeingUsedShown)
+            if (data.potionBeingUsedShown)
             {
                 Console.WriteLine("\tPotion being used");
             }
-            if (detectionData.shopAvailableShown)
+            if (data.shopAvailableShown)
             {
                 Console.WriteLine("\tShop is available");
             }
-            if (detectionData.shopTopLeftCornerShown)
+            if (data.shopTopLeftCornerShown)
             {
                 Console.WriteLine("\tShop top left corner is visible");
             }
-            if (detectionData.shopBottomLeftCornerShown)
+            if (data.shopBottomLeftCornerShown)
             {
                 Console.WriteLine("\tShop bottom left corner is visible");
             }
-            if (detectionData.numberOfBuyableItems > 0)
+            if (data.numberOfBuyableItems > 0)
             {
-                Console.WriteLine("\tBuyable items: " + detectionData.numberOfBuyableItems);
+                Console.WriteLine("\tBuyable items: " + data.numberOfBuyableItems);
             }
-            if (detectionData.mapVisible)
+            if (data.mapVisible)
             {
                 Console.WriteLine("\tMap is visible");
             }
-            if (detectionData.mapShopVisible)
+            if (data.mapShopVisible)
             {
                 Console.WriteLine("\tShop on map is visible");
             }
-            if (detectionData.mapSelfLocationVisible)
+            if (data.mapSelfLocationVisible)
             {
                 Console.WriteLine("\tLocation on map is visible");
             }
-            if (detectionData.surrenderAvailable)
+            if (data.surrenderAvailable)
             {
                 Console.WriteLine("\tSurrender is visible");
             }
-            */
+            
             /*
             Console.WriteLine("\nC# bytes");
             byte[] bytes = ToByteArray(detectionData);

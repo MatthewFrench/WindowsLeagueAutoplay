@@ -22,21 +22,45 @@ void printDetected(DetectionManager* detection) {
 	printf("Detected: \n");
 	if (detection->getAllyMinions()->size() > 0) {
 		printf("\t%zu ally minions\n", detection->getAllyMinions()->size());
+		for (int i = 0; i < detection->getAllyMinions()->size(); i++) {
+			Minion* minion = detection->getAllyMinions()->at(i);
+			printf("\t\tminion at %d, %d with health %f\n", minion->characterCenter.x, minion->characterCenter.y, minion->health);
+		}
 	}
 	if (detection->getAllyChampions()->size() > 0) {
 		printf("\t%zu ally champions\n", detection->getAllyChampions()->size());
+		for (int i = 0; i < detection->getAllyChampions()->size(); i++) {
+			Champion* champion = detection->getAllyChampions()->at(i);
+			printf("\t\champion at %d, %d with health %f\n", champion->characterCenter.x, champion->characterCenter.y, champion->health);
+		}
 	}
 	if (detection->getSelfChampions()->size() > 0) {
 		printf("\t%zu self champions\n", detection->getSelfChampions()->size());
+		for (int i = 0; i < detection->getSelfChampions()->size(); i++) {
+			Champion* champion = detection->getSelfChampions()->at(i);
+			printf("\t\champion at %d, %d with health %f\n", champion->characterCenter.x, champion->characterCenter.y, champion->health);
+		}
 	}
 	if (detection->getEnemyMinions()->size() > 0) {
 		printf("\t%zu enemy minions\n", detection->getEnemyMinions()->size());
+		for (int i = 0; i < detection->getEnemyMinions()->size(); i++) {
+			Minion* minion = detection->getEnemyMinions()->at(i);
+			printf("\t\tminion at %d, %d with health %f\n", minion->characterCenter.x, minion->characterCenter.y, minion->health);
+		}
 	}
 	if (detection->getEnemyChampions()->size() > 0) {
 		printf("\t%zu enemy champions\n", detection->getEnemyChampions()->size());
+		for (int i = 0; i < detection->getEnemyChampions()->size(); i++) {
+			Champion* champion = detection->getEnemyChampions()->at(i);
+			printf("\t\champion at %d, %d with health %f\n", champion->characterCenter.x, champion->characterCenter.y, champion->health);
+		}
 	}
 	if (detection->getEnemyTowers()->size() > 0) {
 		printf("\t%zu enemy towers\n", detection->getEnemyTowers()->size());
+		for (int i = 0; i < detection->getEnemyTowers()->size(); i++) {
+			Tower* tower = detection->getEnemyTowers()->at(i);
+			printf("\t\tower at %d, %d with health %f\n", tower->towerCenter.x, tower->towerCenter.y, tower->health);
+		}
 	}
 	if (detection->getSelfHealthBarVisible()) {
 		printf("\tCan see self health bar\n");
@@ -177,7 +201,6 @@ extern "C"
 
 	__declspec(dllexport) void getDetectionData(DetectionDataStruct* data) {
 		detectionManager->getDetectionData(data);
-		//print_bytes(data, sizeof(DetectionDataStruct));
 	}
 	__declspec(dllexport) void freeDetectionData(DetectionDataStruct* data) {
 		//print_bytes(data, sizeof(DetectionDataStruct));
