@@ -316,13 +316,14 @@ namespace League_Autoplay
                             });
                             Task.Delay(1000 * i + 200).ContinueWith(_ =>
                             {
-                                MotorCortex.clickMouseAt(clickX, clickY);
+                                MotorCortex.clickMouseRightAt(clickX, clickY);
                             });
+                            /*
                             Task.Delay(1000 * i + 450).ContinueWith(_ =>
                             {
                                 MotorCortex.clickMouseTwiceAt(clickX, clickY);
-                            });
-                            Task.Delay(1000 * i + 700).ContinueWith(_ =>
+                            });*/
+                            Task.Delay(1000 * i + 450).ContinueWith(_ =>
                             {
                                 MotorCortex.moveMouseTo(0, 0);
                             });
@@ -342,7 +343,7 @@ namespace League_Autoplay
                     else
                     { //Open up the shop
                         Console.WriteLine("Buy Items Open Shop");
-                        if (lastShopOpenTapStopwatch.DurationInMilliseconds() >= 2000)
+                        if (lastShopOpenTapStopwatch.DurationInMilliseconds() >= 5000)
                         {
                             lastShopOpenTapStopwatch.Reset();
                             tapStopMoving();

@@ -37,7 +37,7 @@ namespace League_Autoplay
         }
         static public void clickMouseRightAt(int x, int y, int speed = 0)
         {
-            AutoItX.MouseClick("RIGHT", x, y, speed);
+            AutoItX.MouseClick("RIGHT", x, y, 1, speed);
         }
         static public void clickMouseRightTwiceAt(int x, int y, int speed = 0)
         {
