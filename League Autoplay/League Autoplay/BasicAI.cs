@@ -822,7 +822,7 @@ namespace League_Autoplay
                 bool enemyTowerNear = detectionData.numberOfEnemyTowers > 0;
                 bool underEnemyTower = false;
                 bool enemyChampionWasNear = lastTimeSawEnemyChampStopwatch.DurationInMilliseconds() <= 1000 * 10; //Ten seconds
-                                                                                                                  //bool inEarlyGame = getTimeInMilliseconds(mach_absolute_time() - gameCurrentTime) <= 1000*60*8; //Plays safe for first 8 minutes
+                if (gameCurrentTimeStopwatch.DurationInSeconds() < 50.0) enemyChampionWasNear = false;                                                                                                 //bool inEarlyGame = getTimeInMilliseconds(mach_absolute_time() - gameCurrentTime) <= 1000*60*8; //Plays safe for first 8 minutes
 
                 Champion* lowestHealthEnemyChampion = getLowestHealthChampion(enemyChampions, detectionData.numberOfEnemyChampions, selfChamp->characterCenter.x, selfChamp->characterCenter.y);
                 Champion* closestEnemyChampion = getNearestChampion(enemyChampions, detectionData.numberOfEnemyChampions, selfChamp->characterCenter.x, selfChamp->characterCenter.y);
@@ -872,6 +872,8 @@ namespace League_Autoplay
                 if (healthGainedPerSecond <= -1.0)
                 { //Losing health rapidly
                     action = Action.RunAway;
+
+                    Console.WriteLine("Running away cause health decreasing fast");
                 }
 
                 //Attack enemy if there are more allies than enemies
@@ -890,6 +892,8 @@ namespace League_Autoplay
                 {
                     //Too many baddies, peace.
                     action = Action.RunAway;
+
+                    Console.WriteLine("Running away cause enemies nearby");
                 }
 
                 if (action == Action.AttackEnemyMinion && enemyTowerNear)
@@ -897,6 +901,8 @@ namespace League_Autoplay
                     if (hypot(lowestHealthEnemyMinion->characterCenter.x - nearestEnemyTower->towerCenter.x, lowestHealthEnemyMinion->characterCenter.y - nearestEnemyTower->towerCenter.y) < 430)
                     {
                         action = Action.RunAway;
+
+                        Console.WriteLine("Running away cause near enemy tower");
 
                         if (allyMinionsNear)
                         {
@@ -929,6 +935,8 @@ namespace League_Autoplay
                     else
                     {
                         action = Action.RunAway;
+
+                        Console.WriteLine("Running away cause under tower and no minions");
                     }
                 }
 
@@ -942,6 +950,8 @@ namespace League_Autoplay
                 if (selfChamp->health < 50 && (enemyMinionsNear || underEnemyTower || enemyChampionsNear || enemyChampionWasNear))
                 {
                     action = Action.RunAway;
+
+                    Console.WriteLine("Running away cause low health 3");
                 }
                 else if (selfChamp->health < 50 && !enemyChampionsNear && !underEnemyTower)
                 {
@@ -952,11 +962,14 @@ namespace League_Autoplay
                     else
                     {
                         action = Action.RunAway;
+                        Console.WriteLine("Running away cause low health 2");
+                        Console.WriteLine("Health: "+ selfChamp->health + ", enemyChampionWasNear: "+ enemyChampionWasNear + "\n");
                     }
                 }
                 else if (selfChamp->health <= 35)
                 {
                     action = Action.RunAway;
+                    Console.WriteLine("Running away cause low health");
                 }
                 if (detectionData.potionActiveAvailable && selfChamp->health < 80)
                 {
@@ -978,6 +991,8 @@ namespace League_Autoplay
                     && detectionData.numberOfEnemyMinions > 2)
                 {
                     action = Action.RunAway;
+
+                    Console.WriteLine("Running away cause not enough allies nearby");
                 }
 
                 //int actionSpeed = 0.25;
