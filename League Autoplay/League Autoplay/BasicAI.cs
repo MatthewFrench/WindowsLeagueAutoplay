@@ -273,7 +273,6 @@ namespace League_Autoplay
             bool closeShop = false;
             if (lastShopBuyStopwatch.DurationInMilliseconds() >= 1000 * 60 * 8 || (boughtStarterItems == false))
             {
-                Console.WriteLine("Buy Items");
                 if (detectionData.shopAvailableShown)
                 {
                     Console.WriteLine("Buy Items Shop available");
@@ -1145,11 +1144,12 @@ namespace League_Autoplay
                         break;
                     case Action.MoveToMid:
                         {
-                            Console.WriteLine("Action: Moving to Mid");
+                            //Console.WriteLine("Action: Moving to Mid");
                             //NSLog(@"\t\tAction: Moving to Mid");
 
                             if (moveToLanePathSwitchStopwatch.DurationInMilliseconds() >= 1000 * 60 * 20)
                             {
+                                Console.WriteLine("Switching lane");
                                 //Switch to a random lane after 20 min
                                 moveToLane = random.Next(3) + 1;
                                 moveToLanePathSwitchStopwatch.Reset();
@@ -1193,10 +1193,10 @@ namespace League_Autoplay
                                     }
                                     MotorCortex.clickMouseRightAt(x, y);
 
-                                    Console.WriteLine("Clicked position to move to");
-                                }// else {
-                                 //    NSLog(@"Map not visible");
-                                 //}
+                                    Console.WriteLine("Clicked position to move to: " + x + ", " + y);
+                                } else {
+                                    Console.WriteLine("Trying to move but map not visible");
+                                }
                             }
                         }
                         break;
