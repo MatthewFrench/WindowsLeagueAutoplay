@@ -69,7 +69,7 @@ namespace League_Autoplay
                 Task t = Task.Run(() =>
                 {
                     //visualCortex.runTest();
-                    visualCortex.grabScreen(leagueOfLegendsOpen);
+                    visualCortex.grabScreen2(leagueOfLegendsOpen);
 
                     DetectionDataStruct data = visualCortex.getVisualDetectionData();
                     TaskHelper.RunTask(aiContext, () =>

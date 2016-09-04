@@ -99,7 +99,7 @@ namespace DesktopDuplication
             {
                 CpuAccessFlags = CpuAccessFlags.Read,
                 BindFlags = BindFlags.None,
-                Format = Format.B8G8R8A8_UNorm,
+                Format = Format.B8G8R8A8_Typeless,
                 Width = this.mOutputDesc.DesktopBounds.Width,
                 Height = this.mOutputDesc.DesktopBounds.Height,
                 OptionFlags = ResourceOptionFlags.None,

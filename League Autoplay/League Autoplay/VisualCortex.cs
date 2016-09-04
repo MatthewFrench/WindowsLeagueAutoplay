@@ -65,7 +65,47 @@ namespace League_Autoplay
             shouldCaptureDisplayImage = b;
         }
 
-        public void grabScreen(bool detect)
+        public void grabScreen2(bool detect)
+        {
+            Bitmap desktopBMP = new Bitmap(
+            System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width,
+            System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height);
+
+            Graphics g = Graphics.FromImage(desktopBMP);
+
+            g.CopyFromScreen(0, 0, 0, 0,
+               new Size(
+               System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width,
+               System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height));
+
+
+            g.Dispose();
+            if (detect)
+            {
+                System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, desktopBMP.Width, desktopBMP.Height);
+                var bitmapData = desktopBMP.LockBits(boundsRect, ImageLockMode.WriteOnly, desktopBMP.PixelFormat);
+                var bitmapPointer = bitmapData.Scan0;
+                unsafe
+                {
+                    processDetection((byte*)bitmapPointer.ToPointer(), desktopBMP.Width, desktopBMP.Height);
+                }
+
+                desktopBMP.UnlockBits(bitmapData);
+            }
+            if (shouldCaptureDisplayImage)
+            {
+                displayImage = desktopBMP;
+            }
+            if (saveStopwatch.DurationInSeconds() > 1.0 && recordDisplayImage)
+            {
+                saveStopwatch.Reset();
+                displayImage.Save("Recording/AI Record " + desktopBMP.Width + "x" + desktopBMP.Height + " " + Environment.TickCount + ".png", System.Drawing.Imaging.ImageFormat.Png);
+            }
+
+            System.GC.Collect();
+        }
+
+        public void grabScreenOld(bool detect)
         {
             DesktopFrame frame = desktopDuplicator.GetLatestFrame();
 
@@ -124,6 +164,7 @@ namespace League_Autoplay
                     displayImage = desktopDuplicator.getImageFromDataBox(mapSource);
                     if (saveStopwatch.DurationInSeconds() > 1.0 && recordDisplayImage)
                     {
+                        saveStopwatch.Reset();
                         displayImage.Save("Recording/AI Record " + width + "x" + height + " " + Environment.TickCount + ".png",System.Drawing.Imaging.ImageFormat.Png);
                     }
                 }
