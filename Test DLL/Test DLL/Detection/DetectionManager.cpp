@@ -472,7 +472,7 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	data->selfHealthBar = nullptr;
 	if (selfHealthBar != nullptr) {
 		data->selfHealthBar = static_cast<SelfHealth*>(malloc(sizeof(SelfHealth)));
-		memcpy(data->selfHealthBar, selfHealthBar, sizeof(GenericObject));
+		memcpy(data->selfHealthBar, selfHealthBar, sizeof(SelfHealth));
 		//*data->selfHealthBar = *selfHealthBar;
 	}
 	data->surrenderAvailable = surrenderAvailable;
