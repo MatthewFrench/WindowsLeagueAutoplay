@@ -45,7 +45,7 @@ namespace League_Autoplay
 
 
             string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-            testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\New Test Minion.png")));
+            testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\New Self Test.png")));
 
             int width = desktopDuplicator.getFrameWidth();
             int height = desktopDuplicator.getFrameHeight();
@@ -67,39 +67,63 @@ namespace League_Autoplay
 
         public void grabScreen2(bool detect)
         {
-            Bitmap desktopBMP = new Bitmap(
-            System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width,
-            System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height);
 
-            Graphics g = Graphics.FromImage(desktopBMP);
-
-            g.CopyFromScreen(0, 0, 0, 0,
-               new Size(
-               System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width,
-               System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height));
-
-
-            g.Dispose();
-            if (detect)
+            if (test)
             {
-                System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, desktopBMP.Width, desktopBMP.Height);
-                var bitmapData = desktopBMP.LockBits(boundsRect, ImageLockMode.WriteOnly, desktopBMP.PixelFormat);
-                var bitmapPointer = bitmapData.Scan0;
-                unsafe
+                if (test)
                 {
-                    processDetection((byte*)bitmapPointer.ToPointer(), desktopBMP.Width, desktopBMP.Height);
-                }
+                    //TEST CODE
+                    System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, testImage.Width, testImage.Height);
+                    var bitmapData = testImage.LockBits(boundsRect, ImageLockMode.WriteOnly, testImage.PixelFormat);
+                    var bitmapPointer = bitmapData.Scan0;
+                    unsafe
+                    {
+                        Console.WriteLine("Test image width: " + testImage.Width + ", height: " + testImage.Height);
+                        processDetection((byte*)bitmapPointer.ToPointer(), testImage.Width, testImage.Height);
+                    }
 
-                desktopBMP.UnlockBits(bitmapData);
+                    testImage.UnlockBits(bitmapData);
+                    displayImage = new Bitmap(testImage);
+                }
             }
-            if (shouldCaptureDisplayImage)
+            else
             {
-                displayImage = desktopBMP;
-            }
-            if (saveStopwatch.DurationInSeconds() > 1.0 && recordDisplayImage)
-            {
-                saveStopwatch.Reset();
-                displayImage.Save("Recording/AI Record " + desktopBMP.Width + "x" + desktopBMP.Height + " " + Environment.TickCount + ".png", System.Drawing.Imaging.ImageFormat.Png);
+
+
+                Bitmap desktopBMP = new Bitmap(
+                System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width,
+                System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height);
+
+                Graphics g = Graphics.FromImage(desktopBMP);
+
+                g.CopyFromScreen(0, 0, 0, 0,
+                   new Size(
+                   System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width,
+                   System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height));
+
+
+                g.Dispose();
+                if (detect)
+                {
+                    System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, desktopBMP.Width, desktopBMP.Height);
+                    var bitmapData = desktopBMP.LockBits(boundsRect, ImageLockMode.WriteOnly, desktopBMP.PixelFormat);
+                    var bitmapPointer = bitmapData.Scan0;
+                    unsafe
+                    {
+                        processDetection((byte*)bitmapPointer.ToPointer(), desktopBMP.Width, desktopBMP.Height);
+                    }
+
+                    desktopBMP.UnlockBits(bitmapData);
+                }
+                if (shouldCaptureDisplayImage)
+                {
+                    displayImage = desktopBMP;
+                }
+                if (saveStopwatch.DurationInSeconds() > 1.0 && recordDisplayImage)
+                {
+                    saveStopwatch.Reset();
+                    displayImage.Save("Recording/AI Record " + desktopBMP.Width + "x" + desktopBMP.Height + " " + Environment.TickCount + ".png", System.Drawing.Imaging.ImageFormat.Png);
+                }
             }
 
             System.GC.Collect();

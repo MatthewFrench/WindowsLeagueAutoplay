@@ -1584,8 +1584,8 @@ void DetectionManager::processSpellLevelUps(ImageData *image) {
 }
 
 void DetectionManager::processSelfHealthBarDetection(ImageData *image) {
-    Position searchStart = makePosition(300, 728);
-    Position searchEnd = makePosition(320, 748);
+    Position searchStart = makePosition(299, 729);
+    Position searchEnd = makePosition(301, 731);
     std::vector<SelfHealth*>* healthBars = new std::vector<SelfHealth*>();
 
     for (int x = searchStart.x; x < searchEnd.x; x++) {
@@ -1599,6 +1599,22 @@ void DetectionManager::processSelfHealthBarDetection(ImageData *image) {
             }
         }
     }
+
+	//Now search for end piece
+	searchStart = makePosition(607, 729);
+	searchEnd = makePosition(609, 731);
+	for (int x = searchStart.x; x < searchEnd.x; x++) {
+		for (int y = searchStart.y; y < searchEnd.y; y++) {
+			uint8_t* pixel = getPixel2(*image, x, y);
+			SelfHealth* healthBar = SelfChampionManager::detectSelfHealthBarAtPixel(*image, pixel, x, y);
+			if (healthBar != NULL) {
+				healthBars->push_back(healthBar);
+				x = searchEnd.x;
+				y = searchEnd.y;
+			}
+		}
+	}
+
     SelfChampionManager::validateSelfHealthBars(*image, healthBars);
     if (healthBars->size() > 0) {
         selfHealthBarVisible = true;

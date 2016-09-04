@@ -91,8 +91,7 @@ namespace League_Autoplay
             //NSLog(@"Chose lane %d", moveToLane);
 
             moveToLanePathSwitchStopwatch = new Stopwatch();
-
-            boughtStarterItems = false;
+            
 
             boughtItems = new List<GenericObject>();
             gameCurrentTimeStopwatch = new Stopwatch();
@@ -107,6 +106,8 @@ namespace League_Autoplay
             boughtStarterItems = false;
             healthGainedPerSecond = 0;
             lastHealthAmount = 0.0;
+
+            lastDecision = Action.StandStill;
         }
 
         void handleAbilityLevelUps()
@@ -270,13 +271,15 @@ namespace League_Autoplay
             //    NSLog(@"Shop bottom left visible");
             //}
             bool closeShop = false;
-            if (lastShopBuyStopwatch.DurationInMilliseconds() >= 1000 * 60 * 8)
+            if (lastShopBuyStopwatch.DurationInMilliseconds() >= 1000 * 60 * 8 || (boughtStarterItems == false))
             {
+                Console.WriteLine("Buy Items");
                 if (detectionData.shopAvailableShown)
                 {
-
+                    Console.WriteLine("Buy Items Shop available");
                     if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown)
                     {
+                        Console.WriteLine("Buy Items Final");
                         lastShopBuyStopwatch.Reset();
                         //Buy items
                         int bought = 0;
@@ -339,7 +342,8 @@ namespace League_Autoplay
                     }
                     else
                     { //Open up the shop
-                        if (lastShopOpenTapStopwatch.DurationInMilliseconds() >= 8000)
+                        Console.WriteLine("Buy Items Open Shop");
+                        if (lastShopOpenTapStopwatch.DurationInMilliseconds() >= 2000)
                         {
                             lastShopOpenTapStopwatch.Reset();
                             tapStopMoving();
@@ -352,6 +356,7 @@ namespace League_Autoplay
                 {
                     if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown)
                     {
+                        Console.WriteLine("Buy Items Shop open but not available");
                         closeShop = true;
                         //NSLog(@"Shop not available, closing shop");
                     }
@@ -363,6 +368,7 @@ namespace League_Autoplay
                 if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown &&
                     lastShopBuyingStopwatch.DurationInMilliseconds() >= 10000)
                 {
+                    Console.WriteLine("Buy Items Shop open but shouldn't be");
                     //Gave a 4 seconds to buy
                     closeShop = true;
                     //NSLog(@"Closing shop because we already bought.");
@@ -372,6 +378,7 @@ namespace League_Autoplay
             {
                 if (lastShopCloseTapStopwatch.DurationInMilliseconds() >= 500)
                 {
+                    Console.WriteLine("Buy Items Closing Shop");
                     lastShopCloseTapStopwatch.Reset();
                     tapShop();
                 }
@@ -979,7 +986,7 @@ namespace League_Autoplay
                 {
                     case Action.RunAway:
                         {
-                            //NSLog(@"\t\tAction: Running Away");
+                            Console.WriteLine("Action: Running Away");
                             if (lastRunAwayClickStopwatch.DurationInMilliseconds() >= 400)
                             {
                                 MotorCortex.clickMouseRightAt(Convert.ToInt32(baseLocation.x), Convert.ToInt32(baseLocation.y));
@@ -1026,6 +1033,7 @@ namespace League_Autoplay
                     case Action.AttackEnemyChampion:
                     case Action.GoHam:
                         {
+                            Console.WriteLine("Action: Attacking Enemy Champion");
                             //NSLog(@"\t\tAction: Attacking enemy champion");
                             int x = lowestHealthEnemyChampion->characterCenter.x;
                             int y = lowestHealthEnemyChampion->characterCenter.y;
@@ -1057,6 +1065,7 @@ namespace League_Autoplay
                         break;
                     case Action.AttackEnemyMinion:
                         {
+                            Console.WriteLine("Action: Attacking Enemy Minion");
                             //NSLog(@"\t\tAction: Attacking Enemy Minion");
                             if (lastClickEnemyMinionStopwatch.DurationInMilliseconds() >= 100)
                             {
@@ -1093,6 +1102,7 @@ namespace League_Autoplay
                         break;
                     case Action.FollowAllyChampion:
                         {
+                            Console.WriteLine("Action: Following Ally Champion");
                             //NSLog(@"\t\tAction: Following Ally Champion");
                             if (lastClickAllyChampionStopwatch.DurationInMilliseconds() >= 100)
                             {
@@ -1106,6 +1116,7 @@ namespace League_Autoplay
                         break;
                     case Action.FollowAllyMinion:
                         {
+                            Console.WriteLine("Action: Following Ally Minion");
                             //NSLog(@"\t\tAction: Following Ally Minion");
                             if (lastClickAllyMinionStopwatch.DurationInMilliseconds() >= 100)
                             {
@@ -1119,6 +1130,7 @@ namespace League_Autoplay
                         break;
                     case Action.MoveToMid:
                         {
+                            Console.WriteLine("Action: Moving to Mid");
                             //NSLog(@"\t\tAction: Moving to Mid");
 
                             if (moveToLanePathSwitchStopwatch.DurationInMilliseconds() >= 1000 * 60 * 20)
@@ -1165,6 +1177,8 @@ namespace League_Autoplay
                                         y = Convert.ToInt32((map->bottomRight.y - map->topLeft.y) * 0.9 + map->topLeft.y);
                                     }
                                     MotorCortex.clickMouseRightAt(x, y);
+
+                                    Console.WriteLine("Clicked position to move to");
                                 }// else {
                                  //    NSLog(@"Map not visible");
                                  //}
@@ -1173,12 +1187,14 @@ namespace League_Autoplay
                         break;
                     case Action.Recall:
                         {
+                            Console.WriteLine("Action: Recalling");
                             //NSLog(@"\t\tAction: Recalling");
                             castRecall();
                         }
                         break;
                     case Action.StandStill:
                         {
+                            Console.WriteLine("Action: Standing Still");
                             if (standStillTimeStopwatch.DurationInMilliseconds() >= 500)
                             {
                                 standStillTimeStopwatch.Reset();

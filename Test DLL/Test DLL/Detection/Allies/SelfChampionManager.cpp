@@ -53,7 +53,7 @@ SelfHealth* SelfChampionManager::detectSelfHealthBarAtPixel(ImageData imageData,
     SelfHealth* healthBar = NULL;
     
     if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData.imageWidth, imageData.imageHeight, bottomBarLeftSideImageData, SelfHealthBarMaxPercent) >=  SelfHealthBarMaxPercent) {
-        int barTopLeftX = x + 15;
+		int barTopLeftX = x + 15;
         int barTopLeftY = y + 3;
         healthBar = new SelfHealth();
         healthBar->topLeft.x = barTopLeftX;
@@ -66,7 +66,7 @@ SelfHealth* SelfChampionManager::detectSelfHealthBarAtPixel(ImageData imageData,
         healthBar->bottomRight.y = barTopLeftY + SelfHealthBarHeight;
         healthBar->detectedLeftSide = true;
     } else if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData.imageWidth, imageData.imageHeight, bottomBarRightSideImageData, SelfHealthBarMaxPercent) >=  SelfHealthBarMaxPercent) {
-        int barTopLeftX = x - SelfHealthBarWidth;
+		int barTopLeftX = x - SelfHealthBarWidth;
         int barTopLeftY = y + 3;
         healthBar = new SelfHealth();
         healthBar->topLeft.x = barTopLeftX;
