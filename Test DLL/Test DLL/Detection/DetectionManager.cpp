@@ -529,9 +529,10 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 		memcpy(data->mapSelfLocation, mapSelfLocation, sizeof(GenericObject));
 		//*data->mapSelfLocation = *mapSelfLocation;
 	}
-	data->selfHealthBarVisible = selfHealthBarVisible;
+	data->selfHealthBarVisible = false;
 	data->selfHealthBar = nullptr;
-	if (selfHealthBarVisible) {
+	if (selfHealthBarVisible && selfHealthBar != nullptr) {
+		data->selfHealthBarVisible = selfHealthBarVisible;
 		data->selfHealthBar = static_cast<SelfHealth*>(malloc(sizeof(SelfHealth)));
 		memcpy(data->selfHealthBar, selfHealthBar, sizeof(SelfHealth));
 		//*data->selfHealthBar = *selfHealthBar;
@@ -1679,7 +1680,7 @@ void DetectionManager::processSelfHealthBarDetection(ImageData *image) {
     SelfChampionManager::validateSelfHealthBars(*image, healthBars);
     if (healthBars->size() > 0) {
         selfHealthBarVisible = true;
-        selfHealthBar = healthBars->front();
+        selfHealthBar = healthBars->at(0);
     } else {
         selfHealthBarVisible = false;
 		selfHealthBar = NULL;
