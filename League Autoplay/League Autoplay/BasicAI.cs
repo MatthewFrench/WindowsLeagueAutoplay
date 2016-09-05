@@ -413,9 +413,11 @@ namespace League_Autoplay
         }
 
 
-        public unsafe void processAI(DetectionDataStruct data)
+        public unsafe void processAI(/*DetectionDataStruct data*/)
         {
-            detectionData = data;
+            //detectionData = data;
+            Console.WriteLine("Processing AI");
+            Console.Out.Flush();
 
             handleAbilityLevelUps();
             handleBuyingItems();

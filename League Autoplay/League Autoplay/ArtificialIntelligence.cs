@@ -95,7 +95,7 @@ namespace League_Autoplay
             {
                 lock (detectionDataLock)
                 {
-                    basicAI.processAI(currentDetectionData);
+                    basicAI.processAI();
                 }
             }
         }
