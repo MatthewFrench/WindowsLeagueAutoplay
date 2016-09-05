@@ -115,6 +115,16 @@ void DetectionManager::processDetection(ImageData *image) {
 	 surrenderAvailable = false;
 	 surrenderActive = NULL;
 
+	 //Detect self health bar. If we can't see the self health bar, don't care about anything else
+	 processSelfHealthBarDetection(image);
+	 if (selfHealthBarVisible == false) {
+		 //Loading screen
+
+		 omp_unset_lock(&detectionlock);
+		 return;
+	 }
+
+
 
     #pragma omp parallel num_threads(128)
     {
@@ -209,10 +219,8 @@ void DetectionManager::processDetection(ImageData *image) {
 
 
 //Super specific or small search area so don't group
-	
     processSpellLevelDots(image);
     processSpellLevelUps(image);
-    processSelfHealthBarDetection(image);
     processItemActives(image);
     processShopAvailable(image);
     processMap(image);
