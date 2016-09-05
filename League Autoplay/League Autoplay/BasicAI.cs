@@ -804,7 +804,11 @@ namespace League_Autoplay
                 Champion* selfChamp = &(((Champion*)detectionData.selfChampionsArray.ToPointer())[0]);
                 if (detectionData.selfHealthBarVisible)
                 {
-                    selfChamp->health = ((SelfHealth*)detectionData.selfHealthBar.ToPointer())->health;
+                    SelfHealth* health = (SelfHealth*)detectionData.selfHealthBar.ToPointer();
+                    if (health != null)
+                    {
+                        selfChamp->health = health->health;
+                    }
                 }
 
                 Champion* enemyChampions = (Champion*)detectionData.enemyChampionsArray.ToPointer();
