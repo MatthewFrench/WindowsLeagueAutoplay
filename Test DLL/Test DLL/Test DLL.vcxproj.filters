@@ -96,6 +96,9 @@
     <ClCompile Include="Detection\Surrender Manager\SurrenderManager.cpp">
       <Filter>Source Files\Detection\Surrender Manager</Filter>
     </ClCompile>
+    <ClCompile Include="AutoQueueManager.cpp">
+      <Filter>Source Files\Detection</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility.h">
@@ -156,6 +159,9 @@
       <Filter>Source Files\Detection\Surrender Manager</Filter>
     </ClInclude>
     <ClInclude Include="DetectionData.h">
+      <Filter>Source Files\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoQueueManager.h">
       <Filter>Source Files\Detection</Filter>
     </ClInclude>
   </ItemGroup>
