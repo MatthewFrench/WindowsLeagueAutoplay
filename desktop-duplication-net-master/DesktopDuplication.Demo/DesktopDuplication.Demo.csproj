@@ -138,12 +138,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DesktopDuplication\DesktopDuplication.csproj">
-      <Project>{222c215b-663f-4bd6-9b3e-8fa99c867b22}</Project>
-      <Name>DesktopDuplication</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

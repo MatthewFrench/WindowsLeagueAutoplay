@@ -1,5 +1,5 @@
-﻿using DesktopDuplication;
-using SharpDX;
+﻿//using DesktopDuplication;
+//using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using League_Autoplay.High_Performance_Timer;
+using SharpDX;
 
 namespace League_Autoplay
 {
@@ -20,11 +21,11 @@ namespace League_Autoplay
         int count = 0;
         double total = 0;
         public Bitmap testImage;
-        private DesktopDuplicator desktopDuplicator;
+        //private DesktopDuplicator desktopDuplicator;
 
         bool test = false;
         bool shouldCaptureDisplayImage = false;
-        bool recordDisplayImage = true;
+        bool recordDisplayImage = false;
         Bitmap displayImage;
 
         High_Performance_Timer.Stopwatch saveStopwatch;
@@ -32,14 +33,14 @@ namespace League_Autoplay
         public VisualCortex()
         {
             saveStopwatch = new High_Performance_Timer.Stopwatch();
-            try
-            {
-                desktopDuplicator = new DesktopDuplicator(0);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            //try
+            //{
+            //    desktopDuplicator = new DesktopDuplicator(0);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString());
+            //}
             initializeDetectionManager();
             loadDetectionImages();
 
@@ -47,12 +48,12 @@ namespace League_Autoplay
             string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
             testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\New Test Minion.png")));
 
-            int width = desktopDuplicator.getFrameWidth();
-            int height = desktopDuplicator.getFrameHeight();
+            //int width = desktopDuplicator.getFrameWidth();
+            //int height = desktopDuplicator.getFrameHeight();
             //Image processing
 
-            Console.WriteLine("Detection Width: " + width);
-            Console.WriteLine("Detection Height: " + height);
+            //Console.WriteLine("Detection Width: " + width);
+            //Console.WriteLine("Detection Height: " + height);
         }
 
         public Bitmap getDisplayImage()
@@ -128,7 +129,7 @@ namespace League_Autoplay
 
             System.GC.Collect();
         }
-
+        /*
         public void grabScreenOld(bool detect)
         {
             DesktopFrame frame = desktopDuplicator.GetLatestFrame();
@@ -198,7 +199,7 @@ namespace League_Autoplay
 
                 System.GC.Collect();
             }
-        }
+        }*/
         public unsafe void freeVisualDetectionData(ref DetectionDataStruct data)
         {
             freeDetectionData(ref data);
