@@ -23,6 +23,7 @@ namespace League_Autoplay
 
         bool hasDetectionData = false;
         DetectionDataStruct currentDetectionData;
+        private Object detectionDataLock = new Object();
 
         BasicAI basicAI;
 
@@ -91,7 +92,12 @@ namespace League_Autoplay
 
             //Run basic AI algorithm
             if (leagueOfLegendsOpen)
-                basicAI.processAI(currentDetectionData);
+            {
+                lock (detectionDataLock)
+                {
+                    basicAI.processAI(currentDetectionData);
+                }
+            }
         }
 
         public byte[] ToByteArray(DetectionDataStruct data)
@@ -136,13 +142,16 @@ namespace League_Autoplay
 
             //visualCortex.freeVisualDetectionData(ref detectionData);
 
-            if (hasDetectionData)
+            lock(detectionDataLock)
             {
-                visualCortex.freeVisualDetectionData(ref currentDetectionData);
-                hasDetectionData = false;
+                if (hasDetectionData)
+                {
+                    visualCortex.freeVisualDetectionData(ref currentDetectionData);
+                    hasDetectionData = false;
+                }
+                currentDetectionData = data;
+                hasDetectionData = true;
             }
-            currentDetectionData = data;
-            hasDetectionData = true;
 
             
             //Console.WriteLine("Reading detection data");
@@ -322,7 +331,9 @@ namespace League_Autoplay
             {
                 Console.WriteLine("\tSurrender is visible");
             }
-            
+
+            Console.Out.Flush();
+
             /*
             Console.WriteLine("\nC# bytes");
             byte[] bytes = ToByteArray(detectionData);
