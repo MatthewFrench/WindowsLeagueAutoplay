@@ -75,7 +75,7 @@ namespace League_Autoplay
                     DetectionDataStruct data = visualCortex.getVisualDetectionData();
                     TaskHelper.RunTask(aiContext, () =>
                     {
-                        updateDetectionData(data);
+                        updateDetectionData(ref data);
                     });
                 }).ContinueWith(_ => {
                     //Run on UI thread
@@ -124,7 +124,7 @@ namespace League_Autoplay
             return arr;
         }
 
-        unsafe void updateDetectionData(DetectionDataStruct data)
+        unsafe void updateDetectionData(ref DetectionDataStruct data)
         {
             /*
             Console.WriteLine("\n");
@@ -151,6 +151,7 @@ namespace League_Autoplay
                 }
                 currentDetectionData = data;
                 hasDetectionData = true;
+                basicAI.updateDetectionData(ref currentDetectionData);
             }
 
             

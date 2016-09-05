@@ -18,6 +18,7 @@ namespace League_Autoplay
         int moveToLane;
 
         DetectionDataStruct detectionData;
+        bool newData = true;
 
         Stopwatch lastLevelUpStopwatch, lastShopBuyingStopwatch, lastCameraFocusStopwatch, lastPlacedWardStopwatch,
             lastRunAwayClickStopwatch, lastClickEnemyChampStopwatch, lastMovementClickStopwatch, lastClickAllyMinionStopwatch,
@@ -48,6 +49,39 @@ namespace League_Autoplay
 
             resetAI();
             random = new Random();
+        }
+
+
+        public void updateDetectionData(ref DetectionDataStruct data)
+        {
+            detectionData = data;
+            newData = true;
+        }
+
+        public unsafe void processAI()
+        {
+            if (newData)
+            {
+                Console.WriteLine("Processing AI");
+            } else
+            {
+                Console.Write("(Old AI Data)");
+            }
+            Console.Out.Flush();
+
+            handleAbilityLevelUps();
+            handleBuyingItems();
+            handleCameraFocus();
+            handlePlacingWard();
+            handleMovementAndAttacking();
+
+            if (lastSurrenderStopwatch.DurationInMilliseconds() >= 1000 && detectionData.surrenderAvailable)
+            {
+                lastSurrenderStopwatch.Reset();
+                GenericObject* surrender = (GenericObject*)detectionData.surrenderActive.ToPointer();
+                MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y);
+            }
+            newData = false;
         }
 
         public void resetAI()
@@ -409,27 +443,6 @@ namespace League_Autoplay
                 MotorCortex.moveMouseTo(champ.characterCenter.x, champ.characterCenter.y);
                 useTrinket();
                 //NSLog(@"Placing ward");
-            }
-        }
-
-
-        public unsafe void processAI(/*DetectionDataStruct data*/)
-        {
-            //detectionData = data;
-            Console.WriteLine("Processing AI");
-            Console.Out.Flush();
-
-            handleAbilityLevelUps();
-            handleBuyingItems();
-            handleCameraFocus();
-            handlePlacingWard();
-            handleMovementAndAttacking();
-
-            if (lastSurrenderStopwatch.DurationInMilliseconds() >= 1000 && detectionData.surrenderAvailable)
-            {
-                lastSurrenderStopwatch.Reset();
-                GenericObject* surrender = (GenericObject*)detectionData.surrenderActive.ToPointer();
-                MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y);
             }
         }
         
