@@ -531,7 +531,7 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	}
 	data->selfHealthBarVisible = selfHealthBarVisible;
 	data->selfHealthBar = nullptr;
-	if (selfHealthBar != nullptr) {
+	if (selfHealthBarVisible) {
 		data->selfHealthBar = static_cast<SelfHealth*>(malloc(sizeof(SelfHealth)));
 		memcpy(data->selfHealthBar, selfHealthBar, sizeof(SelfHealth));
 		//*data->selfHealthBar = *selfHealthBar;
@@ -1682,6 +1682,7 @@ void DetectionManager::processSelfHealthBarDetection(ImageData *image) {
         selfHealthBar = healthBars->front();
     } else {
         selfHealthBarVisible = false;
+		selfHealthBar = NULL;
     }
 
 }
