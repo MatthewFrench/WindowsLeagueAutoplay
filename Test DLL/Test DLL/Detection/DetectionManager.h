@@ -1,6 +1,7 @@
 #include "../Utility.h"
 #include <vector>
 #include "../DetectionData.h"
+#include <omp.h>
 
 class DetectionManager {
     std::vector<Minion*>  *allyMinions;
@@ -44,6 +45,8 @@ class DetectionManager {
     SelfHealth* selfHealthBar=NULL;
     bool surrenderAvailable = false;
     GenericObject* surrenderActive = NULL;
+
+	omp_lock_t detectionlock;
     
 public:
     DetectionManager();

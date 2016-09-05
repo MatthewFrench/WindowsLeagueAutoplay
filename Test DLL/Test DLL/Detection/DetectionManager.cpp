@@ -32,9 +32,13 @@ DetectionManager::DetectionManager() {
     spell2LevelDots = new std::vector<GenericObject*>();
     spell3LevelDots = new std::vector<GenericObject*>();
     spell4LevelDots = new std::vector<GenericObject*>();
+
+	omp_init_lock(&detectionlock);
 }
 
 void DetectionManager::processDetection(ImageData *image) {
+	omp_set_lock(&detectionlock);
+
     //preprocess
     shopTopLeftCorner = NULL;
     shopTopLeftCornerShown = false;
@@ -221,9 +225,13 @@ void DetectionManager::processDetection(ImageData *image) {
     processTrinketActive(image);
     processUsedPotion(image);
 	
+	omp_unset_lock(&detectionlock);
 }
 
 void DetectionManager::getDetectionData(DetectionDataStruct* data) {
+
+	omp_set_lock(&detectionlock);
+
 	//DetectionDataStruct* data = static_cast<DetectionDataStruct*>(malloc(sizeof(DetectionDataStruct)));
 
 	//Record ally minions
@@ -231,7 +239,7 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	data->numberOfAllyMinions = static_cast<int>(allyMinions->size());
 	data->allyMinionsArray = nullptr;
 	if (allyMinions->size() > 0) {
-		data->allyMinionsArray = static_cast<Minion*>(malloc(sizeof(Minion) * allyMinions->size()));
+		data->allyMinionsArray = static_cast<Minion*>(malloc(sizeof(Minion) * data->numberOfAllyMinions));
 		for (int i = 0; i < allyMinions->size(); i++) {
 			memcpy(&(data->allyMinionsArray[i]), allyMinions->at(i), sizeof(Minion));
 			//data->allyMinionsArray[i] = *(allyMinions->at(i));
@@ -241,7 +249,7 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	data->enemyMinionsArray = nullptr;
 	if (enemyMinions->size() > 0) {
 		data->numberOfEnemyMinions = static_cast<int>(enemyMinions->size());
-		data->enemyMinionsArray = static_cast<Minion*>(malloc(sizeof(Minion) * enemyMinions->size()));
+		data->enemyMinionsArray = static_cast<Minion*>(malloc(sizeof(Minion) * data->numberOfEnemyMinions));
 		for (int i = 0; i < enemyMinions->size(); i++) {
 			memcpy(&(data->enemyMinionsArray[i]), enemyMinions->at(i), sizeof(Minion));
 			//data->enemyMinionsArray[i] = *(enemyMinions->at(i));
@@ -251,7 +259,7 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	data->allyChampionsArray = nullptr;
 	if (allyChampions->size() > 0) {
 		data->numberOfAllyChampions = static_cast<int>(allyChampions->size());
-		data->allyChampionsArray = static_cast<struct Champion*>(malloc(sizeof(struct Champion) * allyChampions->size()));
+		data->allyChampionsArray = static_cast<struct Champion*>(malloc(sizeof(struct Champion) * data->numberOfAllyChampions));
 		for (int i = 0; i < allyChampions->size(); i++) {
 			memcpy(&(data->allyChampionsArray[i]), allyChampions->at(i), sizeof(Champion));
 			//data->allyChampionsArray[i] = *(allyChampions->at(i));
@@ -261,7 +269,7 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	data->enemyChampionsArray = nullptr;
 	if (enemyChampions->size() > 0) {
 		data->numberOfEnemyChampions = static_cast<int>(enemyChampions->size());
-		data->enemyChampionsArray = static_cast<Champion*>(malloc(sizeof(Champion) * enemyChampions->size()));
+		data->enemyChampionsArray = static_cast<Champion*>(malloc(sizeof(Champion) * data->numberOfEnemyChampions));
 		for (int i = 0; i < enemyChampions->size(); i++) {
 			memcpy(&(data->enemyChampionsArray[i]), enemyChampions->at(i), sizeof(Champion));
 			//data->enemyChampionsArray[i] = *(enemyChampions->at(i));
@@ -271,7 +279,7 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	data->selfChampionsArray = nullptr;
 	if (selfChampions->size() > 0) {
 		data->numberOfSelfChampions = static_cast<int>(selfChampions->size());
-		data->selfChampionsArray = static_cast<Champion*>(malloc(sizeof(Champion) * selfChampions->size()));
+		data->selfChampionsArray = static_cast<Champion*>(malloc(sizeof(Champion) * data->numberOfSelfChampions));
 		for (int i = 0; i < selfChampions->size(); i++) {
 			memcpy(&(data->selfChampionsArray[i]), selfChampions->at(i), sizeof(Champion));
 			//data->selfChampionsArray[i] = *(selfChampions->at(i));
@@ -281,7 +289,7 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 	data->enemyTowersArray = nullptr;
 	if (enemyTowers->size() > 0) {
 		data->numberOfEnemyTowers = static_cast<int>(enemyTowers->size());
-		data->enemyTowersArray = static_cast<Tower*>(malloc(sizeof(Tower) * enemyTowers->size()));
+		data->enemyTowersArray = static_cast<Tower*>(malloc(sizeof(Tower) * data->numberOfEnemyTowers));
 		for (int i = 0; i < enemyTowers->size(); i++) {
 			memcpy(&(data->enemyTowersArray[i]), enemyTowers->at(i), sizeof(Tower));
 			//data->enemyTowersArray[i] = *(enemyTowers->at(i));
@@ -544,6 +552,9 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 		memcpy(data->surrenderActive, surrenderActive, sizeof(GenericObject));
 		//*data->surrenderActive = *surrenderActive;
 	}
+
+
+	omp_unset_lock(&detectionlock);
 }
 
 
