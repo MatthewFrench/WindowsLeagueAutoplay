@@ -376,7 +376,7 @@ namespace League_Autoplay
             }
             if (closeShop)
             {
-                if (lastShopCloseTapStopwatch.DurationInMilliseconds() >= 500)
+                if (lastShopCloseTapStopwatch.DurationInMilliseconds() >= 3000)
                 {
                     Console.WriteLine("Buy Items Closing Shop");
                     lastShopCloseTapStopwatch.Reset();
@@ -777,11 +777,15 @@ namespace League_Autoplay
             //uint64_t healthGainedTime;
             if (detectionData.selfHealthBarVisible)
             {
-                double currentHealth = ((SelfHealth*)detectionData.selfHealthBar.ToPointer())->health;
-                double gainedHealthInFrame = lastHealthAmount - currentHealth;
-                lastHealthAmount = currentHealth;
-                healthGainedPerSecond += gainedHealthInFrame * lastHealthtimePassedStopwatch.DurationInSeconds();
-                lastHealthtimePassedStopwatch.Reset();
+                SelfHealth* healthBar = (SelfHealth*)detectionData.selfHealthBar.ToPointer();
+                if (healthBar != null)
+                {
+                    double currentHealth = healthBar->health;
+                    double gainedHealthInFrame = lastHealthAmount - currentHealth;
+                    lastHealthAmount = currentHealth;
+                    healthGainedPerSecond += gainedHealthInFrame * lastHealthtimePassedStopwatch.DurationInSeconds();
+                    lastHealthtimePassedStopwatch.Reset();
+                }
             }
 
 

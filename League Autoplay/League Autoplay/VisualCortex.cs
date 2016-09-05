@@ -45,7 +45,7 @@ namespace League_Autoplay
 
 
             string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-            testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\New Self Test.png")));
+            testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\New Test Minion.png")));
 
             int width = desktopDuplicator.getFrameWidth();
             int height = desktopDuplicator.getFrameHeight();

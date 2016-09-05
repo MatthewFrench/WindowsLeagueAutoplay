@@ -50,6 +50,67 @@ void DetectionManager::processDetection(ImageData *image) {
     spell3LevelDots->clear();
     spell4LevelDots->clear();
 
+	spell1LevelUpAvailable = false;
+	spell2LevelUpAvailable = false;
+	spell3LevelUpAvailable = false;
+	spell4LevelUpAvailable = false;
+	spell1LevelUp = NULL;
+	spell2LevelUp = NULL;
+	spell3LevelUp = NULL;
+	spell4LevelUp = NULL;
+	 spell1LevelDotsVisible = false;
+	 spell2LevelDotsVisible = false;
+	 spell3LevelDotsVisible = false;
+	 spell4LevelDotsVisible = false;
+	int currentLevel = 0;
+	spell1ActiveAvailable = false;
+	spell2ActiveAvailable = false;
+	spell3ActiveAvailable = false;
+	spell4ActiveAvailable = false;
+	spell1Active = NULL;
+	spell2Active = NULL;
+	spell3Active = NULL;
+	spell4Active = NULL;
+	summonerSpell1ActiveAvailable = false;
+	summonerSpell2ActiveAvailable = false;
+	summonerSpell1Active = NULL;
+	summonerSpell2Active = NULL;
+	 trinketActiveAvailable = false;
+ trinketActive = NULL;
+ item1ActiveAvailable = false;
+ item2ActiveAvailable = false;
+ item3ActiveAvailable = false;
+ item4ActiveAvailable = false;
+ item5ActiveAvailable = false;
+ item6ActiveAvailable = false;
+ item1Active = NULL;
+ item2Active = NULL;
+ item3Active = NULL;
+ item4Active = NULL;
+ item5Active = NULL;
+ item6Active = NULL;
+	 potionActiveAvailable = false;
+	 potionOnActive = 0;
+	 potionActive = NULL;
+	 potionBeingUsedShown = false;
+	 potionBeingUsed = NULL;
+	 shopAvailableShown = false;
+	 shopAvailable = NULL;
+	 shopTopLeftCornerShown = false;
+	 shopTopLeftCorner = NULL;
+	 shopBottomLeftCornerShown = false;
+	 shopBottomLeftCorner = NULL;
+	 mapVisible = false;
+	 map = NULL;
+	 mapShopVisible = false;
+	 mapShop = NULL;
+	 mapSelfLocationVisible = false;
+	 mapSelfLocation = NULL;
+	 selfHealthBarVisible = false;
+	 selfHealthBar = NULL;
+	 surrenderAvailable = false;
+	 surrenderActive = NULL;
+
 
     #pragma omp parallel num_threads(128)
     {

@@ -72,7 +72,9 @@ void AllyMinionManager::validateMinionBars(ImageData imageData, std::vector<Mini
 	}
 
 	//Detect health
+	
 	for (size_t i = 0; i < detectedMinionBars->size(); i++) {
+		
 		Minion* minion = (*detectedMinionBars)[i];
 		if (minion->health == 0) {
 			for (int x = 61; x >= 0; x--) {
@@ -94,48 +96,88 @@ void AllyMinionManager::validateMinionBars(ImageData imageData, std::vector<Mini
 			detectedMinionBars->erase(detectedMinionBars->begin() + i);
 			i--;
 		}
-	}
-
-	//Detect if ward
-	//Ward is 136, 136, 136
-	for (size_t i = 0; i < detectedMinionBars->size(); i++) {
-		Minion* minion = (*detectedMinionBars)[i];
-		bool isWard = false;
-
-		//19 pixels to the right
-		uint8_t* rightSide1 = getPixel2(imageData, minion->topLeft.x + 21, minion->topLeft.y);
-		uint8_t* rightSide2 = getPixel2(imageData, minion->topLeft.x + 22, minion->topLeft.y);
-		uint8_t* leftSide1 = getPixel2(imageData, minion->topLeft.x, minion->topLeft.y);
-		uint8_t* leftSide2 = getPixel2(imageData, minion->topLeft.x - 1, minion->topLeft.y);
-		if () {
-
-		}
-
-
-		/*
-		for (int x = 61; x >= 0; x--) {
-			for (int yOffset = -3; yOffset <= 1; yOffset++) {
-				if (x + minion->topLeft.x >= 0 && x + minion->topLeft.x < imageData.imageWidth &&
-					yOffset + minion->topLeft.y >= 0 && yOffset + minion->topLeft.y < imageData.imageHeight) {
-					uint8_t*  p = getPixel2(imageData, x + minion->topLeft.x, yOffset + minion->topLeft.y);
-					if (isColor(p, 220, 220, 220, 45)) {
-						isWard = true;
-						x = -1;
-						yOffset = 4;
+		else {
+			int minionBarSize = 1;
+			for (int x = minionBarSize; x <= 61; x++) {
+				for (int y = 0; y < healthSegmentImageData.imageHeight; y++) {
+					if (x + minion->topLeft.x >= 0 && x + minion->topLeft.x < imageData.imageWidth &&
+						y + minion->topLeft.y >= 0 && y + minion->topLeft.y < imageData.imageHeight) {
+						uint8_t* healthBarColor = getPixel2(healthSegmentImageData, 0, y);
+						uint8_t* p = getPixel2(imageData, x + minion->topLeft.x, y + minion->topLeft.y);
+						if (getColorPercentage(healthBarColor, p) < allyMinionHealthMatch) {
+							y = healthSegmentImageData.imageHeight + 1;
+							minionBarSize = x - 1;
+							x = 62;
+						}
 					}
 				}
 			}
-		}
-		//Detect if pink ward
-		if (minion->topLeft.x - 1 >= 0 && minion->topLeft.x - 1 + wardImageData.imageWidth < imageData.imageWidth &&
-			minion->topLeft.y - 1 >= 0 && minion->topLeft.y - 1 + wardImageData.imageHeight < imageData.imageHeight) {
-			if (getImageAtPixelPercentageOptimizedExact(getPixel2(imageData, minion->topLeft.x - 1, minion->topLeft.y - 1), minion->topLeft.x - 1, minion->topLeft.y - 1, imageData.imageWidth, imageData.imageHeight, wardImageData, coloredPixelPrecision) >= overalImagePrecision) {
+
+			//Detect if ward
+			//Ward is 136, 136, 136
+				bool isWard = false;
+
+				if (minionBarSize == 12 || minionBarSize == 13 || minionBarSize == 14 || minionBarSize == 18 || minionBarSize == 17) {
+					//19 pixels to the right
+
+					if (minion->topLeft.x + minionBarSize + 2 < imageData.imageWidth) {
+						int wardNum = 0;
+						for (int y = 0; y < 4; y++) {
+							uint8_t* rightSide1 = getPixel2(imageData, minion->topLeft.x + minionBarSize + 1, minion->topLeft.y + y);
+							uint8_t* rightSide2 = getPixel2(imageData, minion->topLeft.x + minionBarSize + 2, minion->topLeft.y + y);
+							if (rightSide1[0] == 0 && rightSide1[1] == 0 && rightSide1[2] == 0 &&
+								rightSide2[0] == 0 && rightSide2[1] == 0 && rightSide2[2] == 0) {
+								wardNum++;
+								//printf("Ward has two bars on the right\n");
+							}
+						}
+						if (wardNum == 4) isWard = true;
+						
+					}
+					if (imageData, minion->topLeft.x - 2 > 0) {
+						int wardNum = 0;
+						for (int y = 0; y < 4; y++) {
+							uint8_t* leftSide1 = getPixel2(imageData, minion->topLeft.x - 1, minion->topLeft.y + y);
+							uint8_t* leftSide2 = getPixel2(imageData, minion->topLeft.x - 2, minion->topLeft.y + y);
+							if (leftSide1[0] == 0 && leftSide1[1] == 0 && leftSide1[2] == 0 &&
+								leftSide2[0] == 0 && leftSide2[1] == 0 && leftSide2[2] == 0) {
+								wardNum++;
+								//isWard = true;
+								//printf("Ward has two bars on the left\n");
+							}
+						}
+						if (wardNum == 4) isWard = true;
+
+					}
+				}
+
+
+
+				/*
+				for (int x = 61; x >= 0; x--) {
+				for (int yOffset = -3; yOffset <= 1; yOffset++) {
+				if (x + minion->topLeft.x >= 0 && x + minion->topLeft.x < imageData.imageWidth &&
+				yOffset + minion->topLeft.y >= 0 && yOffset + minion->topLeft.y < imageData.imageHeight) {
+				uint8_t*  p = getPixel2(imageData, x + minion->topLeft.x, yOffset + minion->topLeft.y);
+				if (isColor(p, 220, 220, 220, 45)) {
 				isWard = true;
-			}
-		}*/
-		if (isWard) {
-			detectedMinionBars->erase(detectedMinionBars->begin() + i);
-			i--;
+				x = -1;
+				yOffset = 4;
+				}
+				}
+				}
+				}
+				//Detect if pink ward
+				if (minion->topLeft.x - 1 >= 0 && minion->topLeft.x - 1 + wardImageData.imageWidth < imageData.imageWidth &&
+				minion->topLeft.y - 1 >= 0 && minion->topLeft.y - 1 + wardImageData.imageHeight < imageData.imageHeight) {
+				if (getImageAtPixelPercentageOptimizedExact(getPixel2(imageData, minion->topLeft.x - 1, minion->topLeft.y - 1), minion->topLeft.x - 1, minion->topLeft.y - 1, imageData.imageWidth, imageData.imageHeight, wardImageData, coloredPixelPrecision) >= overalImagePrecision) {
+				isWard = true;
+				}
+				}*/
+				if (isWard) {
+					detectedMinionBars->erase(detectedMinionBars->begin() + i);
+					i--;
+				}
 		}
 	}
 }
