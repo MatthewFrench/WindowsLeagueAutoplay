@@ -31,6 +31,7 @@ namespace League_Autoplay
         bool leagueIsInGame = false;
 
         BasicAI basicAI;
+        AutoQueueManager autoQueue;
 
         public ArtificialIntelligence(UserInterface userInterface, VisualCortex visualCortex)
         {
@@ -42,6 +43,7 @@ namespace League_Autoplay
             screenCapturePerformanceStopWatch = new High_Performance_Timer.Stopwatch();
 
             basicAI = new BasicAI();
+            autoQueue = new AutoQueueManager();
         }
         private void logic()
         {
@@ -103,6 +105,11 @@ namespace League_Autoplay
             if (leagueIsInGame == false && leagueOfLegendsOpen)
             {
                 basicAI.resetAI();
+                autoQueue.enteredLeagueOfLegends();
+            }
+            if (leagueIsInGame == true && !leagueOfLegendsOpen)
+            {
+                autoQueue.exitedLeagueOfLegends();
             }
             leagueIsInGame = leagueOfLegendsOpen;
 
@@ -114,10 +121,11 @@ namespace League_Autoplay
                     basicAI.processAI();
                 }
             }
-            else if (leagueOfLegendsClientOpen)
+            else if (leagueOfLegendsClientOpen && currentScreen != null)
             {
                 //Run auto queue
                 //Use autoQueueData
+                autoQueue.runAutoQueue(currentScreen);
             }
         }
 
