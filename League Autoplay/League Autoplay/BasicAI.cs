@@ -16,7 +16,8 @@ namespace League_Autoplay
         "honor me plz!!1", "don't die, k?", "suck my dorans blade", "thanks obama", "that team comp tho", "what do", "hi",
         "hewwo", "I'm a cat meow", "how are you guys?", "tell me a story", "FOR DEMACIA", "FOR NOXUS", "I'm new at this game",
         "pie hehe", "imma build guardian angel first, k?", "my mom tells me im handsome", "k thx", "you rock", "be careful!",
-        "!!!!!", "dgashdgfasbdgasjdfsbkljdsakj", "I need a new keyboard", "/all Good game!", "/all Good luck"};
+        "!!!!!", "dgashdgfasbdgasjdfsbkljdsakj", "I need a new keyboard", "/all Good game!", "/all Good luck", "/all be nice to me",
+        "so kawaii"};
 
         enum Action
         {
@@ -44,7 +45,7 @@ namespace League_Autoplay
             lastItem3UseStopwatch, lastItem4UseStopwatch, lastItem5UseStopwatch, lastItem6UseStopwatch, activeAutoUseTimeStopwatch,
             moveToLanePathSwitchStopwatch, gameCurrentTimeStopwatch, lastSurrenderStopwatch, lastShopBuyStopwatch,
             lastShopOpenTapStopwatch, lastShopCloseTapStopwatch, lastTimeSawEnemyChampStopwatch, standStillTimeStopwatch,
-            healthGainedTimeStopwatch;
+            healthGainedTimeStopwatch, attemptSurrenderStopwatch;
 
 
         bool boughtStarterItems;
@@ -112,7 +113,16 @@ namespace League_Autoplay
                     typeMessageInChat(chosenMessage);
                 }
             }
-            if (typingMessageStopwatch.DurationInSeconds() <= 1.0)
+
+            //Attempt surrender
+            if (detectionData.selfHealthBarVisible && typingMessageStopwatch.DurationInSeconds() > 2.0 &&
+                gameCurrentTimeStopwatch.DurationInMinutes() > 23 && attemptSurrenderStopwatch.DurationInMinutes() >= 4)
+            {
+                attemptSurrenderStopwatch.Reset();
+                typeMessageInChat("/ff");
+            }
+
+            if (typingMessageStopwatch.DurationInSeconds() <= 2.0)
             { // Don't do anything when we are typing
                 return;
             }
@@ -180,15 +190,12 @@ namespace League_Autoplay
                     MotorCortex.typeText("" + character);
                     typingMessageStopwatch.Reset();
                 });
-                if (i == message.Length - 1)
-                {
-                    Task.Delay(400 + 200 * (i + 2)).ContinueWith(_ =>
-                    {
-                        MotorCortex.typeText("{ENTER}");
-                        typingMessageStopwatch.Reset();
-                    });
-                }
             }
+            Task.Delay(400 + 200 * (message.Length + 2)).ContinueWith(_ =>
+            {
+                MotorCortex.typeText("{ENTER}");
+                typingMessageStopwatch.Reset();
+            });
         }
 
         public void resetAI()
@@ -259,6 +266,8 @@ namespace League_Autoplay
             typingMessageStopwatch = new Stopwatch();
 
             firstGameMessage = false;
+
+            attemptSurrenderStopwatch = new Stopwatch();
         }
 
         void handleAbilityLevelUps()
@@ -1175,16 +1184,19 @@ namespace League_Autoplay
                 }
 
                 //Ham code
-                if (enemyChampionsNear 
+                if (enemyChampionsNear
                     && //1 on 1 or team fight
                     detectionData.numberOfEnemyChampions <= detectionData.numberOfAllyChampions + 2
                     && //Not under tower or the enemy is really low
-                    (underEnemyTower == false || lowestHealthEnemyChampion->health <= 0.25)
+                    (underEnemyTower == false || (lowestHealthEnemyChampion->health <= 0.25 && lastHealthAmount >= 0.5))
                     && //We think we can take him
                     lowestHealthEnemyChampion->health <= lastHealthAmount
                     && //Make sure we have a fair amount of minions or the enemy is way lower
                     (detectionData.numberOfEnemyMinions <= detectionData.numberOfAllyMinions ||
-                        lastHealthAmount - lowestHealthEnemyChampion->health >= 0.25))
+                        lastHealthAmount - lowestHealthEnemyChampion->health >= 0.25)
+                    && ((hypot(closestEnemyChampion->characterCenter.x - selfChamp->characterCenter.x, closestEnemyChampion->characterCenter.y - selfChamp->characterCenter.y) < 200
+                     || lowestHealthEnemyChampion->health <= 0.25))
+                        )
                 {
                     action = Action.GoHam;
                 }
@@ -1196,7 +1208,7 @@ namespace League_Autoplay
                 //Attack enemy if they are right next to us
                 if (action != Action.RunAway && detectionData.numberOfEnemyChampions > 0)
                 {
-                    if (hypot(closestEnemyChampion->characterCenter.x - selfChamp->characterCenter.x, closestEnemyChampion->characterCenter.y - selfChamp->characterCenter.y) < 200)
+                    if (hypot(closestEnemyChampion->characterCenter.x - selfChamp->characterCenter.x, closestEnemyChampion->characterCenter.y - selfChamp->characterCenter.y) < 150)
                     {
                         action = Action.GoHam;
                     }
