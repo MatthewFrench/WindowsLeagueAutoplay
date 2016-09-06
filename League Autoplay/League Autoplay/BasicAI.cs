@@ -141,15 +141,18 @@ namespace League_Autoplay
             for (int i = 0; i < message.Length; i++)
             {
                 char character = message[i];
-                Task.Delay(200 * i).ContinueWith(_ =>
+                Task.Delay(200 * (i + 1)).ContinueWith(_ =>
                 {
                     MotorCortex.typeText("" + character);
                     typingMessageStopwatch.Reset();
                 });
                 if (i == message.Length - 1)
                 {
-                    MotorCortex.typeText("{ENTER}");
-                    typingMessageStopwatch.Reset();
+                    Task.Delay(200 * (i + 2)).ContinueWith(_ =>
+                    {
+                        MotorCortex.typeText("{ENTER}");
+                        typingMessageStopwatch.Reset();
+                    });
                 }
             }
         }
