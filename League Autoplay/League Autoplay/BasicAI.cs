@@ -1000,7 +1000,7 @@ namespace League_Autoplay
                 bool allyChampionsNear = detectionData.numberOfAllyChampions > 0;
                 bool enemyTowerNear = detectionData.numberOfEnemyTowers > 0;
                 bool underEnemyTower = false;
-                bool enemyChampionWasNear = lastTimeSawEnemyChampStopwatch.DurationInMilliseconds() <= 1000 * 10; //Ten seconds
+                bool enemyChampionWasNear = lastTimeSawEnemyChampStopwatch.DurationInMilliseconds() <= 1000 * 6; //Ten seconds
                 if (gameCurrentTimeStopwatch.DurationInSeconds() < 50.0) enemyChampionWasNear = false;                                                                                                 //bool inEarlyGame = getTimeInMilliseconds(mach_absolute_time() - gameCurrentTime) <= 1000*60*8; //Plays safe for first 8 minutes
 
                 Champion* lowestHealthEnemyChampion = getLowestHealthChampion(enemyChampions, detectionData.numberOfEnemyChampions, selfChamp->characterCenter.x, selfChamp->characterCenter.y);
