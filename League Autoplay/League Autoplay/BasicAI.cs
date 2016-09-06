@@ -534,7 +534,7 @@ namespace League_Autoplay
                 }
             }
         }
-        void handleCameraFocus()
+        unsafe void handleCameraFocus()
         {
             if (lastCameraFocusStopwatch.DurationInMilliseconds() >= 4000)
             {
@@ -546,6 +546,16 @@ namespace League_Autoplay
                         lastCameraFocusStopwatch.Reset();
                         tapCameraLock();
                         //NSLog(@"Attempting camera lock cause we don't see ourselves");
+                    } else
+                    {
+                        Champion champ = ((Champion*)detectionData.selfChampionsArray.ToPointer())[0];
+                        int centerX = 1024 / 2;
+                        int centerY = 768 / 2;
+                        if (hypot(champ.characterCenter.x - centerX, champ.characterCenter.y - centerY) > 200)
+                        {
+                            lastCameraFocusStopwatch.Reset();
+                            tapCameraLock();
+                        }
                     }
                 }
             }
