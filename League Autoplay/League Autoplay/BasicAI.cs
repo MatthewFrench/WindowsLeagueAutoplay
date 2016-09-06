@@ -158,7 +158,8 @@ namespace League_Autoplay
             }
 
             //Click center of screen
-            MotorCortex.moveMouseTo(1024 / 2, 768 / 2);
+            MotorCortex.moveMouseTo(1024 / 2, 768 / 2, 1);
+            typingMessageStopwatch.Reset();
             Task.Delay(200).ContinueWith(_ =>
             {
                 MotorCortex.clickMouseAt(1024 / 2, 768 / 2);
