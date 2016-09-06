@@ -1427,8 +1427,8 @@ void DetectionManager::processItemActives(ImageData *image) {
 }
 void DetectionManager::processSurrender(ImageData *image) {
 
-	int searchWidth = 30; int searchHeight = 30;
-	Position surrenderPos = makePosition(image->imageWidth - 210, image->imageHeight - 370);
+	int searchWidth = 10; int searchHeight = 10;
+	Position surrenderPos = makePosition(image->imageWidth - 154, image->imageHeight - 337);
 
 	GenericObject* surrender = NULL;
 	for (int x = surrenderPos.x; x < surrenderPos.x + searchWidth; x++) {
