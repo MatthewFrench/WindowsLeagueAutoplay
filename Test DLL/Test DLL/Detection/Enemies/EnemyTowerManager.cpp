@@ -50,11 +50,13 @@ void EnemyTowerManager::validateTowerBars(ImageData imageData, std::vector<Tower
                     if (tower2->detectedTopLeft) tower->detectedTopLeft = true;
                     if (tower2->detectedTopRight) tower->detectedTopRight = true;
                     detectedCorners++;
+					delete tower2;
                 }
             }
         }
         if (detectedCorners < 2) {
             detectedTowerBars->erase(detectedTowerBars->begin() + i);
+			delete tower;
             i--;
         }
         tower->towerCenter.x = tower->topLeft.x+126/2; tower->towerCenter.y = tower->topLeft.y+200;
@@ -80,6 +82,7 @@ void EnemyTowerManager::validateTowerBars(ImageData imageData, std::vector<Tower
         }
         if (tower->health == 0) {
             detectedTowerBars->erase(detectedTowerBars->begin() + i);
+			delete tower;
             i--;
         }
     }

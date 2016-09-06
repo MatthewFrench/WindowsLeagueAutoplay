@@ -52,11 +52,13 @@ void EnemyChampionManager::validateChampionBars(ImageData imageData, std::vector
                     if (champ2->detectedTopLeft) champ->detectedTopLeft = true;
                     if (champ2->detectedTopRight) champ->detectedTopRight = true;
                     detectedCorners++;
+					delete champ2;
                 }
             }
         }
         if (detectedCorners < 2) {
             detectedChampionBars->erase(detectedChampionBars->begin() + i);
+			delete champ;
             i--;
         }
         champ->characterCenter.x = champ->topLeft.x+66; champ->characterCenter.y = champ->topLeft.y+104;

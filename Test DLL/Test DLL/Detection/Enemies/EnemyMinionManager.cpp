@@ -54,11 +54,13 @@ void EnemyMinionManager::validateMinionBars(ImageData imageData, std::vector<Min
                     if (minion2->detectedTopRight) minion->detectedTopRight = true;
                     if (minion2->health > minion->health) minion->health = minion2->health;
                     detectedCorners++;
+					delete minion2;
                 }
             }
         }
         if (detectedCorners < 2) {
             detectedMinionBars->erase(detectedMinionBars->begin() + i);
+			delete minion;
             i--;
         }
         minion->characterCenter.x = minion->topLeft.x+30; minion->characterCenter.y = minion->topLeft.y+32;
@@ -85,6 +87,7 @@ void EnemyMinionManager::validateMinionBars(ImageData imageData, std::vector<Min
         }
         if (minion->health == 0) { //Not a minion
             detectedMinionBars->erase(detectedMinionBars->begin() + i);
+			delete minion;
             i--;
         }
     }
@@ -109,6 +112,7 @@ void EnemyMinionManager::validateMinionBars(ImageData imageData, std::vector<Min
         }
         if (isWard) {
             detectedMinionBars->erase(detectedMinionBars->begin() + i);
+			delete minion;
             i--;
         }
     }
