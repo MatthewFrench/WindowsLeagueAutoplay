@@ -321,7 +321,7 @@ namespace League_Autoplay
             //    NSLog(@"Shop bottom left visible");
             //}
             bool closeShop = false;
-            if (lastShopBuyStopwatch.DurationInMilliseconds() >= 1000 * 60 * 8 || (boughtStarterItems == false))
+            if (lastShopBuyStopwatch.DurationInSeconds() >= 60 * 8 || (boughtStarterItems == false))
             {
                 if (detectionData.shopAvailableShown)
                 {
