@@ -28,6 +28,7 @@ namespace League_Autoplay
         DetectionDataStruct currentDetectionData;
         private Object detectionDataLock = new Object();
         AutoQueueData autoQueueData = null;
+        bool leagueIsInGame = false;
 
         BasicAI basicAI;
 
@@ -93,6 +94,12 @@ namespace League_Autoplay
                     userInterface.setScreenPerformanceLabel("" + Math.Round(screenFps, 4) + " fps (" + Math.Round(screenMilliseconds, 4) + " ms)");
                 }, aiContext);
             }
+
+            if (leagueIsInGame == false && leagueOfLegendsOpen)
+            {
+                basicAI.resetAI();
+            }
+            leagueIsInGame = leagueOfLegendsOpen;
 
             //Run basic AI algorithm
             if (leagueOfLegendsOpen)

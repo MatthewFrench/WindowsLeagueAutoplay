@@ -15,6 +15,12 @@ namespace League_Autoplay
             RunAway, AttackEnemyChampion, AttackEnemyMinion, FollowAllyChampion, FollowAllyMinion, MoveToMid,
             Recall, AttackTower, GoHam, StandStill
         };
+
+        enum FollowState
+        {
+            FollowAnything, FollowOnlyMinions, FollowOnlyChampions, FollowNothing
+        };
+
         Action lastDecision;
         int moveToLane;
 
@@ -43,7 +49,10 @@ namespace League_Autoplay
 
         Random random;
 
+        Position lastOnMapLocation;
 
+        FollowState currentFollowState;
+        Stopwatch followStopwatch;
 
         public BasicAI()
         {
@@ -64,7 +73,8 @@ namespace League_Autoplay
             if (newData)
             {
                 Console.WriteLine("Processing AI");
-            } else
+            }
+            else
             {
                 Console.Write("(Old AI Data)");
             }
@@ -126,7 +136,7 @@ namespace League_Autoplay
             //NSLog(@"Chose lane %d", moveToLane);
 
             moveToLanePathSwitchStopwatch = new Stopwatch();
-            
+
 
             boughtItems = new List<GenericObject>();
             gameCurrentTimeStopwatch = new Stopwatch();
@@ -135,6 +145,8 @@ namespace League_Autoplay
             lastHealthtimePassedStopwatch = new Stopwatch();
             healthGainedTimeStopwatch = new Stopwatch();
 
+            lastOnMapLocation.x = -1;
+            lastOnMapLocation.y = -1;
             baseLocation.x = -1;
             baseLocation.y = -1;
             moveToLane = 1; //Top lane
@@ -143,6 +155,9 @@ namespace League_Autoplay
             lastHealthAmount = 0.0;
 
             lastDecision = Action.StandStill;
+
+            currentFollowState = FollowState.FollowAnything;
+            followStopwatch = new Stopwatch();
         }
 
         void handleAbilityLevelUps()
@@ -310,6 +325,7 @@ namespace League_Autoplay
             {
                 if (detectionData.shopAvailableShown)
                 {
+                    
                     Console.WriteLine("Buy Items Shop available");
                     if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown)
                     {
@@ -351,14 +367,14 @@ namespace League_Autoplay
                             });
                             Task.Delay(1000 * i + 200).ContinueWith(_ =>
                             {
-                                MotorCortex.clickMouseRightAt(clickX, clickY);
+                                MotorCortex.clickMouseAt(clickX, clickY);
                             });
-                            /*
+
                             Task.Delay(1000 * i + 450).ContinueWith(_ =>
                             {
-                                MotorCortex.clickMouseTwiceAt(clickX, clickY);
-                            });*/
-                            Task.Delay(1000 * i + 450).ContinueWith(_ =>
+                                MotorCortex.clickMouseRightAt(clickX, clickY);
+                            });
+                            Task.Delay(1000 * i + 700).ContinueWith(_ =>
                             {
                                 MotorCortex.moveMouseTo(0, 0);
                             });
@@ -381,7 +397,6 @@ namespace League_Autoplay
                         if (lastShopOpenTapStopwatch.DurationInMilliseconds() >= 5000)
                         {
                             lastShopOpenTapStopwatch.Reset();
-                            tapStopMoving();
                             tapShop();
                             //NSLog(@"Opening shop for initial buy");
                         }
@@ -446,7 +461,7 @@ namespace League_Autoplay
                 //NSLog(@"Placing ward");
             }
         }
-        
+
 
         void castSpell1()
         {
@@ -744,16 +759,15 @@ namespace League_Autoplay
             bool earlyGame = gameCurrentTimeStopwatch.DurationInMilliseconds() < 1000 * 60 * 8;
 
             PositionDouble tempBaseLocation;
-            tempBaseLocation.x = 0;
-            tempBaseLocation.y = 0;
+            tempBaseLocation.x = baseLocation.x;
+            tempBaseLocation.y = baseLocation.y;
             if (baseLocation.x == -1 && mapVisible)
             {
                 //Set base location to blue side by default
                 tempBaseLocation.x = (map->bottomRight.x - map->topLeft.x) * 0.1 + map->topLeft.x;
                 tempBaseLocation.y = (map->bottomRight.y - map->topLeft.y) * 0.9 + map->topLeft.y;
-            }
-            if (baseLocation.x == -1)
-            { // Try to set base location
+
+                // Try to set base location
                 if (detectionData.mapSelfLocationVisible)
                 {
                     baseLocation.x = ((GenericObject*)detectionData.mapSelfLocation.ToPointer())->center.x;
@@ -783,10 +797,39 @@ namespace League_Autoplay
                     }
                 }
             }
-            if (baseLocation.x != -1)
+
+            if (detectionData.mapSelfLocationVisible)
             {
-                tempBaseLocation = baseLocation;
+                lastOnMapLocation.x = ((GenericObject*)detectionData.mapSelfLocation.ToPointer())->center.x;
+                lastOnMapLocation.y = ((GenericObject*)detectionData.mapSelfLocation.ToPointer())->center.y;
             }
+
+            //Change follow states
+            if (currentFollowState == FollowState.FollowAnything && followStopwatch.DurationInSeconds() >= 30.0)
+            {
+                followStopwatch.Reset();
+                currentFollowState = FollowState.FollowNothing;
+            }
+            if (currentFollowState == FollowState.FollowNothing && followStopwatch.DurationInSeconds() >= 10.0)
+            {
+                followStopwatch.Reset();
+                currentFollowState = FollowState.FollowOnlyChampions;
+            }
+            if (currentFollowState == FollowState.FollowOnlyChampions && followStopwatch.DurationInSeconds() >= 30.0)
+            {
+                followStopwatch.Reset();
+                currentFollowState = FollowState.FollowOnlyMinions;
+            }
+            if (currentFollowState == FollowState.FollowOnlyMinions && followStopwatch.DurationInSeconds() >= 30.0)
+            {
+                followStopwatch.Reset();
+                currentFollowState = FollowState.FollowAnything;
+            }
+
+            //if (baseLocation.x != -1)
+            //{
+            //    tempBaseLocation = baseLocation;
+            //}
 
             //Calculate health gained per second
             //double healthGainedPerSecond;
@@ -805,8 +848,9 @@ namespace League_Autoplay
             }
 
 
-            bool buyingItems = lastShopBuyStopwatch.DurationInMilliseconds() >= 1000 * 60 * 8 &&
-                detectionData.shopAvailableShown;
+            bool buyingItems = (lastShopBuyStopwatch.DurationInMilliseconds() >= 1000 * 60 * 8 &&
+                detectionData.shopAvailableShown) || (detectionData.shopAvailableShown && boughtStarterItems == false) ||
+                (lastShopBuyingStopwatch.DurationInMilliseconds() < 10000 && detectionData.shopAvailableShown);
 
             if (detectionData.numberOfSelfChampions > 0 && !shopTopLeftCornerVisible && !buyingItems)
             {
@@ -863,12 +907,12 @@ namespace League_Autoplay
                 Action action = Action.MoveToMid;
 
                 //If an ally minion is nearby, lets follow them
-                if (allyMinionsNear)
+                if (allyMinionsNear && (currentFollowState == FollowState.FollowAnything || currentFollowState == FollowState.FollowOnlyMinions))
                 {
                     action = Action.FollowAllyMinion;
                 }
                 //Even better, lets follow an ally champion, see if we can help out
-                if (allyChampionsNear)
+                if (allyChampionsNear && (currentFollowState == FollowState.FollowAnything || currentFollowState == FollowState.FollowOnlyChampions))
                 {
                     //Only follow ally champions if we're not in base
                     if (detectionData.mapSelfLocationVisible)
@@ -928,11 +972,11 @@ namespace League_Autoplay
 
                         Console.WriteLine("Running away cause near enemy tower");
 
-                        if (allyMinionsNear)
+                        if (allyMinionsNear && (currentFollowState == FollowState.FollowAnything || currentFollowState == FollowState.FollowOnlyMinions))
                         {
                             action = Action.FollowAllyMinion;
                         }
-                        if (allyChampionsNear)
+                        if (allyChampionsNear && (currentFollowState == FollowState.FollowAnything || currentFollowState == FollowState.FollowOnlyChampions))
                         {
                             action = Action.FollowAllyChampion;
                         }
@@ -987,7 +1031,7 @@ namespace League_Autoplay
                     {
                         action = Action.RunAway;
                         Console.WriteLine("Running away cause low health 2");
-                        Console.WriteLine("Health: "+ selfChamp->health + ", enemyChampionWasNear: "+ enemyChampionWasNear + "\n");
+                        Console.WriteLine("Health: " + selfChamp->health + ", enemyChampionWasNear: " + enemyChampionWasNear + "\n");
                     }
                 }
                 else if (selfChamp->health <= 35)
@@ -1017,6 +1061,15 @@ namespace League_Autoplay
                     action = Action.RunAway;
 
                     Console.WriteLine("Running away cause not enough allies nearby");
+                }
+
+                //Switch action if in base
+                if (tempBaseLocation.x == -1 || (hypot(lastOnMapLocation.x - tempBaseLocation.x, lastOnMapLocation.y - tempBaseLocation.y) <= 100))
+                {
+                    if (action == Action.FollowAllyChampion || action == Action.FollowAllyMinion)
+                    {
+                        action = Action.MoveToMid;
+                    }
                 }
 
                 //int actionSpeed = 0.25;
@@ -1219,7 +1272,9 @@ namespace League_Autoplay
                                     MotorCortex.clickMouseRightAt(x, y);
 
                                     Console.WriteLine("Clicked position to move to: " + x + ", " + y);
-                                } else {
+                                }
+                                else
+                                {
                                     Console.WriteLine("Trying to move but map not visible");
                                 }
                             }
@@ -1307,6 +1362,14 @@ AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] dele
                     }// else {
                      //    NSLog(@"Map not visible");
                      //}
+                }
+            }
+            else if (buyingItems)
+            {
+                if (standStillTimeStopwatch.DurationInMilliseconds() >= 250)
+                {
+                    standStillTimeStopwatch.Reset();
+                    tapStopMoving();
                 }
             }
             if (healthGainedTimeStopwatch.DurationInMilliseconds() >= 1000)
