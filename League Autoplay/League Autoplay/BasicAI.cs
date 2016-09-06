@@ -1297,8 +1297,8 @@ namespace League_Autoplay
                                     }
                                     if (moveToLane == 3)
                                     {
-                                        x = Convert.ToInt32((map->bottomRight.x - map->topLeft.x) * 0.9 + map->topLeft.x);
-                                        y = Convert.ToInt32((map->bottomRight.y - map->topLeft.y) * 0.9 + map->topLeft.y);
+                                        x = Convert.ToInt32((map->bottomRight.x - map->topLeft.x) * 0.85 + map->topLeft.x);
+                                        y = Convert.ToInt32((map->bottomRight.y - map->topLeft.y) * 0.85 + map->topLeft.y);
                                     }
                                     MotorCortex.clickMouseRightAt(x, y);
 
