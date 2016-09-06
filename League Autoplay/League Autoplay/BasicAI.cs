@@ -1,4 +1,5 @@
-﻿using League_Autoplay.High_Performance_Timer;
+﻿using League_Autoplay.AutoQueue;
+using League_Autoplay.High_Performance_Timer;
 using System;
 using System.Collections.Generic;
 using System.Linq;

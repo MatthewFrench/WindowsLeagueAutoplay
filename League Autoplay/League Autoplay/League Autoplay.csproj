@@ -117,6 +117,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArtificialIntelligence.cs" />
+    <Compile Include="AutoQueue\AutoQueueData.cs" />
+    <Compile Include="AutoQueue\AutoQueueDetection.cs" />
+    <Compile Include="AutoQueue\AutoQueueManager.cs" />
     <Compile Include="BasicAI.cs" />
     <Compile Include="DetectionData.cs" />
     <Compile Include="High Performance Timer\ATimer.cs" />

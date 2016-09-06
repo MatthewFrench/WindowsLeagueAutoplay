@@ -66,9 +66,9 @@ namespace League_Autoplay
             shouldCaptureDisplayImage = b;
         }
 
-        public void grabScreen2(bool detect)
+        public Bitmap grabScreen2(bool detect)
         {
-
+            Bitmap returnValue = null;
             if (test)
             {
                 if (test)
@@ -85,6 +85,7 @@ namespace League_Autoplay
 
                     testImage.UnlockBits(bitmapData);
                     displayImage = new Bitmap(testImage);
+                    returnValue = displayImage;
                 }
             }
             else
@@ -125,81 +126,13 @@ namespace League_Autoplay
                     saveStopwatch.Reset();
                     displayImage.Save("Recording/AI Record " + desktopBMP.Width + "x" + desktopBMP.Height + " " + Environment.TickCount + ".png", System.Drawing.Imaging.ImageFormat.Png);
                 }
+                returnValue = desktopBMP;
             }
 
             System.GC.Collect();
+
+            return returnValue;
         }
-        /*
-        public void grabScreenOld(bool detect)
-        {
-            DesktopFrame frame = desktopDuplicator.GetLatestFrame();
-
-            if (frame != null)
-            {
-                DataBox mapSource = desktopDuplicator.getCurrentDataBoxBytes();
-                int width = desktopDuplicator.getFrameWidth();
-                int height = desktopDuplicator.getFrameHeight();
-                //Image processing
-
-                //Console.WriteLine("Detection Width: " + width);
-                //Console.WriteLine("Detection Height: " + height);
-
-                High_Performance_Timer.Stopwatch performanceWatch = new High_Performance_Timer.Stopwatch();
-
-               
-
-                if (test)
-                {
-
-                    //TEST CODE
-
-                    System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, testImage.Width, testImage.Height);
-                    var bitmapData = testImage.LockBits(boundsRect, ImageLockMode.WriteOnly, testImage.PixelFormat);
-                    var bitmapPointer = bitmapData.Scan0;
-                    unsafe
-                    {
-                        Console.WriteLine("Test image width: " + testImage.Width + ", height: " + testImage.Height);
-                        processDetection((byte*)bitmapPointer.ToPointer(), testImage.Width, testImage.Height);
-                    }
-
-                    testImage.UnlockBits(bitmapData);
-                    displayImage = new Bitmap(testImage);
-                } else
-                {
-
-                    if (detect)
-                    {
-                        unsafe
-                        {
-                            processDetection((byte*)mapSource.DataPointer, width, height);
-                        }
-                    }
-                }
-
-                //Console.WriteLine("Elapsed milliseconds: {0}", performanceWatch.DurationInMilliseconds());
-                //Console.WriteLine("Elapsed fps: {0}", 1000.0 / performanceWatch.DurationInMilliseconds());
-                count++;
-                total += performanceWatch.DurationInMilliseconds();
-                //Console.WriteLine("Average milliseconds: {0}", total / count);
-                //Console.WriteLine("Average fps: {0}", 1000.0 / (total / count));
-                //End image processing
-
-                if (shouldCaptureDisplayImage && !test)
-                {
-                    displayImage = desktopDuplicator.getImageFromDataBox(mapSource);
-                    if (saveStopwatch.DurationInSeconds() > 1.0 && recordDisplayImage)
-                    {
-                        saveStopwatch.Reset();
-                        displayImage.Save("Recording/AI Record " + width + "x" + height + " " + Environment.TickCount + ".png",System.Drawing.Imaging.ImageFormat.Png);
-                    }
-                }
-
-                desktopDuplicator.releaseCurrentDataBoxBytes();
-                desktopDuplicator.ReleaseFrame();
-
-                System.GC.Collect();
-            }
-        }*/
         public unsafe void freeVisualDetectionData(ref DetectionDataStruct data)
         {
             freeDetectionData(ref data);
@@ -209,59 +142,7 @@ namespace League_Autoplay
         {
             DetectionDataStruct data = new DetectionDataStruct();
             getDetectionData(ref data);
-
-
             return data;
-            /*C++
-             * struct markerStruct {
-    int id;
-};
-
-...
-
-EXPORT_API void detectMarkers( ... , markerStruct *MarkerInfo) {
-    MarkerInfo->id = 3;
-    return;
-}
-             */
-
-            /*C#
-             * [DllImport ("ArucoUnity")] 
-    public static extern void detectMarkers( ... ,
-        [MarshalAs(UnmanagedType.Struct)] ref MarkerStruct markerStruct);
-
-...
-
-[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
-public struct MarkerStruct
-{
-    public int Id;
-}
-
-...
-
-detectMarkers (d, W, H, d.Length, ref markerInfo);      
-print( markerInfo.Id );
-             * 
-             */
-
-
-
-            //IntPtr pDataRecord = Marshal.AllocHGlobal(4);
-            //UnManagedLib.GetData(pDataRecord);
-            //UnManagedLib.DataRecord ds = (UnManagedLib.DataRecord)Marshal.PtrToStructure
-            //                (pDataRecord, typeof(UnManagedLib.DataRecord));
-            //Marshal.FreeHGlobal(4);
-
-
-            /*
-            Console.WriteLine("getVisualDetectionData start");
-            IntPtr pointer = getDetectionData();
-            Console.WriteLine("getVisualDetectionData 1");
-            DetectionDataStruct* data = (DetectionDataStruct*)pointer.ToPointer();
-            Console.WriteLine("getVisualDetectionData 2");
-            */
-            //return data;
         }
 
         public void runTest()

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using League_Autoplay.AutoQueue;
 
 namespace League_Autoplay
 {
@@ -20,10 +22,12 @@ namespace League_Autoplay
         double timerPerformanceLength = 0;
         ATimer logicTimer = null;
         bool updateDisplayImage = false;
+        Bitmap currentScreen = null;
 
         bool hasDetectionData = false;
         DetectionDataStruct currentDetectionData;
         private Object detectionDataLock = new Object();
+        AutoQueueData autoQueueData = null;
 
         BasicAI basicAI;
 
@@ -70,12 +74,12 @@ namespace League_Autoplay
                 Task t = Task.Run(() =>
                 {
                     //visualCortex.runTest();
-                    visualCortex.grabScreen2(leagueOfLegendsOpen);
+                    Bitmap screen = visualCortex.grabScreen2(leagueOfLegendsOpen);
 
                     DetectionDataStruct data = visualCortex.getVisualDetectionData();
                     TaskHelper.RunTask(aiContext, () =>
                     {
-                        updateDetectionData(ref data);
+                        updateDetectionData(ref data, screen);
                     });
                 }).ContinueWith(_ => {
                     //Run on UI thread
@@ -97,6 +101,11 @@ namespace League_Autoplay
                 {
                     basicAI.processAI();
                 }
+            }
+            else //if (leagueOfLegendsClientOpen)
+            {
+                //Run auto queue
+                //Use autoQueueData
             }
         }
 
@@ -124,24 +133,8 @@ namespace League_Autoplay
             return arr;
         }
 
-        unsafe void updateDetectionData(ref DetectionDataStruct data)
+        unsafe void updateDetectionData(ref DetectionDataStruct data, Bitmap screen)
         {
-            /*
-            Console.WriteLine("\n");
-            Console.WriteLine("C# Detection data struct size: " + Marshal.SizeOf(new DetectionDataStruct()));
-            Console.WriteLine("C# Tower data struct size: " + Marshal.SizeOf(new Tower()));
-            Console.WriteLine("C# SelfHealth data struct size: " + Marshal.SizeOf(new SelfHealth()));
-            Console.WriteLine("C# Position data struct size: " + Marshal.SizeOf(new Position()));
-            Console.WriteLine("C# Minion data struct size: " + Marshal.SizeOf(new Minion()));
-            Console.WriteLine("C# GenericObject data struct size: " + Marshal.SizeOf(new GenericObject()));
-            Console.WriteLine("C# Champion data struct size: " + Marshal.SizeOf(new Champion()));
-            Console.WriteLine("\n");
-            */
-            //Pull the detection data from the C++
-            //Console.WriteLine("Test Starting Detection data test");
-
-            //visualCortex.freeVisualDetectionData(ref detectionData);
-
             lock(detectionDataLock)
             {
                 if (hasDetectionData)
@@ -151,11 +144,17 @@ namespace League_Autoplay
                 }
                 currentDetectionData = data;
                 hasDetectionData = true;
+                currentScreen = screen;
+
+                
+                if (currentDetectionData.selfHealthBarVisible == false)
+                {
+                    //Detect auto queue data
+                    autoQueueData = AutoQueueDetection.detectAutoQueue();
+                }
+
                 basicAI.updateDetectionData(ref currentDetectionData);
             }
-
-            
-            //Console.WriteLine("Reading detection data");
 
             Console.WriteLine("Detected in C#: ");
             if (data.numberOfAllyMinions > 0)
