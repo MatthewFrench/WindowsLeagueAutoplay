@@ -537,7 +537,7 @@ namespace League_Autoplay
         }
         unsafe void handleCameraFocus()
         {
-            if (lastCameraFocusStopwatch.DurationInMilliseconds() >= 4000)
+            if (lastCameraFocusStopwatch.DurationInMilliseconds() >= 2000)
             {
                 if (detectionData.selfHealthBarVisible && !detectionData.shopTopLeftCornerShown)
                 {
@@ -550,9 +550,9 @@ namespace League_Autoplay
                     } else
                     {
                         Champion champ = ((Champion*)detectionData.selfChampionsArray.ToPointer())[0];
-                        int centerX = 1024 / 2;
-                        int centerY = 768 / 2;
-                        if (hypot(champ.characterCenter.x - centerX, champ.characterCenter.y - centerY) > 200)
+                        int centerX = 536;//1024 / 2;
+                        int centerY = 348;// 768 / 2;
+                        if (hypot(champ.characterCenter.x - centerX, champ.characterCenter.y - centerY) > 250)
                         {
                             lastCameraFocusStopwatch.Reset();
                             tapCameraLock();
