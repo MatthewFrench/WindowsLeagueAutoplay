@@ -465,7 +465,7 @@ namespace League_Autoplay
 
         void castSpell1()
         {
-            if (lastSpell1UseStopwatch.DurationInMilliseconds() >= 80)
+            if (lastSpell1UseStopwatch.DurationInMilliseconds() >= 10)
             {
                 if (detectionData.spell1ActiveAvailable)
                 {
@@ -476,7 +476,7 @@ namespace League_Autoplay
         }
         void castSpell2()
         {
-            if (lastSpell2UseStopwatch.DurationInMilliseconds() >= 80)
+            if (lastSpell2UseStopwatch.DurationInMilliseconds() >= 10)
             {
                 if (detectionData.spell2ActiveAvailable)
                 {
@@ -487,7 +487,7 @@ namespace League_Autoplay
         }
         void castSpell3()
         {
-            if (lastSpell3UseStopwatch.DurationInMilliseconds() >= 80)
+            if (lastSpell3UseStopwatch.DurationInMilliseconds() >= 10)
             {
                 if (detectionData.spell3ActiveAvailable)
                 {
@@ -498,7 +498,7 @@ namespace League_Autoplay
         }
         void castSpell4()
         {
-            if (lastSpell4UseStopwatch.DurationInMilliseconds() >= 80)
+            if (lastSpell4UseStopwatch.DurationInMilliseconds() >= 10)
             {
                 if (detectionData.spell4ActiveAvailable)
                 {
@@ -520,7 +520,7 @@ namespace League_Autoplay
         }
         void castSummonerSpell1()
         {
-            if (lastSummonerSpell1UseStopwatch.DurationInMilliseconds() >= 200)
+            if (lastSummonerSpell1UseStopwatch.DurationInMilliseconds() >= 50)
             {
                 if (detectionData.summonerSpell1ActiveAvailable)
                 {
@@ -531,7 +531,7 @@ namespace League_Autoplay
         }
         void castSummonerSpell2()
         {
-            if (lastSummonerSpell2UseStopwatch.DurationInMilliseconds() >= 200)
+            if (lastSummonerSpell2UseStopwatch.DurationInMilliseconds() >= 50)
             {
                 if (detectionData.summonerSpell2ActiveAvailable)
                 {
@@ -1063,6 +1063,21 @@ namespace League_Autoplay
                     Console.WriteLine("Running away cause not enough allies nearby");
                 }
 
+                //Ham code
+                if (enemyChampionsNear 
+                    && //1 on 1 or team fight
+                    detectionData.numberOfEnemyChampions <= detectionData.numberOfAllyChampions + 2
+                    && //Not under tower or the enemy is really low
+                    (underEnemyTower == false || lowestHealthEnemyChampion->health <= 0.25)
+                    && //We think we can take him
+                    lowestHealthEnemyChampion->health <= lastHealthAmount
+                    && //Make sure we have a fair amount of minions or the enemy is way lower
+                    (detectionData.numberOfEnemyMinions <= detectionData.numberOfAllyMinions ||
+                        lastHealthAmount - lowestHealthEnemyChampion->health >= 0.25))
+                {
+                    action = Action.GoHam;
+                }
+
                 //Switch action if in base
                 if (tempBaseLocation.x == -1 || (hypot(lastOnMapLocation.x - tempBaseLocation.x, lastOnMapLocation.y - tempBaseLocation.y) <= 100))
                 {
@@ -1098,12 +1113,17 @@ namespace League_Autoplay
                                 //enemyX = -enemyX;
                                 //enemyY = -enemyY;
                                 //Panic
-                                if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 1000)
+                                if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 1000 || (lastHealthAmount <= 0.25 && lastMoveMouseStopwatch.DurationInMilliseconds() >= 100))
                                 {
                                     lastMoveMouseStopwatch.Reset();
                                     MotorCortex.moveMouseTo(enemyX + selfChamp->characterCenter.x, enemyY + selfChamp->characterCenter.y);
                                     castSpell4();
                                     castSpell2();
+                                    if (lastHealthAmount <= 0.25)
+                                    {
+                                        castSpell1();
+                                        castSpell3();
+                                    }
                                     useTrinket();
 
                                     Task.Delay(50).ContinueWith(_ =>
@@ -1129,7 +1149,7 @@ namespace League_Autoplay
                             //NSLog(@"\t\tAction: Attacking enemy champion");
                             int x = lowestHealthEnemyChampion->characterCenter.x;
                             int y = lowestHealthEnemyChampion->characterCenter.y;
-                            if (lastClickEnemyChampStopwatch.DurationInMilliseconds() >= 500)
+                            if (lastClickEnemyChampStopwatch.DurationInMilliseconds() >= 250)
                             {
                                 lastClickEnemyChampStopwatch.Reset();
                                 tapAttackMove(lowestHealthEnemyChampion->characterCenter.x, lowestHealthEnemyChampion->characterCenter.y);
@@ -1139,12 +1159,18 @@ namespace League_Autoplay
                                 lastMoveMouseStopwatch.Reset();
                                 MotorCortex.moveMouseTo(x, y);
                             }
-                            castSpell4();
                             castSpell3();
                             castSpell2();
                             castSpell1();
-                            castSummonerSpell1();
-                            castSummonerSpell2();
+                            if (enemyChampionsNear)
+                            {
+                                if (lowestHealthEnemyChampion->health <= 0.25)
+                                {
+                                    castSummonerSpell1();
+                                    castSummonerSpell2();
+                                    castSpell4();
+                                }
+                            }
                             useItem1();
                             useItem2();
                             useItem3();
