@@ -13,7 +13,10 @@ namespace League_Autoplay
         String[] messages = { "We got dis", "gg", "imma honor you guys after", "oh no", "dont surrender plz",
         "is infinity edge a good first item", "sorry", "just a sec my dog just pooped on the floor and it stinks",
         "anyone else take a dump during the loading screen?", "/all good luck you need it", "#halp", "whattheheck",
-        "honor me plz!!1", "don't die, k?"};
+        "honor me plz!!1", "don't die, k?", "suck my dorans blade", "thanks obama", "that team comp tho", "what do", "hi",
+        "hewwo", "I'm a cat meow", "how are you guys?", "tell me a story", "FOR DEMACIA", "FOR NOXUS", "I'm new at this game",
+        "pie hehe", "imma build guardian angel first, k?", "my mom tells me im handsome", "k thx", "you rock", "be careful!",
+        "!!!!!", "dgashdgfasbdgasjdfsbkljdsakj", "I need a new keyboard"};
 
         enum Action
         {
@@ -131,18 +134,27 @@ namespace League_Autoplay
 
         public void typeMessageInChat(String message)
         {
-            if (random.Next(2) == 0)
+            int r = random.Next(3);
+            if (r == 0)
             {
                 int num = random.Next(0, 26); // Zero to 25
                 char let = (char)('a' + num);
-                message.Insert(random.Next(message.Length), let + "");
-            } else if (random.Next(2) == 1)
+                message = message.Insert(random.Next(message.Length), let + "");
+            } else if (r == 1)
             {
                 //Remove one random letter
-                message.Remove(random.Next(message.Length-1), 1);
+                message = message.Remove(random.Next(message.Length-1), 1);
             } else
             {
                 message = message + (char)('1' + random.Next(9));
+            }
+            r = random.Next(20);
+            if (r == 0)
+            {
+                message = message.ToLower();
+            } else if (r == 1)
+            {
+                message = message.ToUpper();
             }
             MotorCortex.typeText("{ENTER}");
             for (int i = 0; i < message.Length; i++)
