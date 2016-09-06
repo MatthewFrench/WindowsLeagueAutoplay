@@ -46,8 +46,13 @@ namespace League_Autoplay
         private void logic()
         {
             bool leagueOfLegendsOpen = false;
+
             Process[] pname = Process.GetProcessesByName("league of legends");
             if (pname.Length != 0) leagueOfLegendsOpen = true;
+
+            bool leagueOfLegendsClientOpen = false;
+            pname = Process.GetProcessesByName("LolClient");
+            if (pname.Length != 0) leagueOfLegendsClientOpen = true;
 
             TaskScheduler aiContext = TaskScheduler.Current;
 
@@ -109,7 +114,7 @@ namespace League_Autoplay
                     basicAI.processAI();
                 }
             }
-            else //if (leagueOfLegendsClientOpen)
+            else if (leagueOfLegendsClientOpen)
             {
                 //Run auto queue
                 //Use autoQueueData

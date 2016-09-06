@@ -1193,6 +1193,14 @@ namespace League_Autoplay
                 {
                     action = Action.GoHam;
                 }
+                //Attack enemy if they are right next to us
+                if (action != Action.RunAway && detectionData.numberOfEnemyChampions > 0)
+                {
+                    if (hypot(closestEnemyChampion->characterCenter.x - selfChamp->characterCenter.x, closestEnemyChampion->characterCenter.y - selfChamp->characterCenter.y) < 200)
+                    {
+                        action = Action.GoHam;
+                    }
+                }
 
                 //Switch action if in base
                 if (tempBaseLocation.x == -1 || (hypot(lastOnMapLocation.x - tempBaseLocation.x, lastOnMapLocation.y - tempBaseLocation.y) <= 100))
