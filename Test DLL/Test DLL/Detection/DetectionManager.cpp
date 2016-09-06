@@ -1111,8 +1111,13 @@ void DetectionManager::processMapShopAndLocation(ImageData *image) {
 	}
 	else {
 		mapShopVisible = false;
-		if (mapShop == NULL) {
-			mapShop = mapSelfLocation;
+		if (mapShop == NULL && mapSelfLocation != NULL) {
+			mapShop = new GenericObject();//mapSelfLocation;
+			mapShop->bottomLeft = mapSelfLocation->bottomLeft;
+			mapShop->bottomRight = mapSelfLocation->bottomRight;
+			mapShop->center = mapSelfLocation->center;
+			mapShop->topLeft = mapSelfLocation->topLeft;
+			mapShop->topRight = mapSelfLocation->topRight;
 		}
 	}
 }
@@ -1794,7 +1799,7 @@ void DetectionManager::processSelfHealthBarDetection(ImageData *image) {
 	}
 
 	for (int i = 0; i < healthBars->size(); i++) {
-		if (healthBars->at(i) == selfHealthBar)
+		if (healthBars->at(i) != selfHealthBar)
 			delete (healthBars->at(i));
 	}
 
