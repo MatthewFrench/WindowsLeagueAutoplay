@@ -54,6 +54,18 @@ namespace League_Autoplay.High_Performance_Timer
         //    QueryPerformanceCounter(out stopTime);
         //}
 
+        public double DurationInHours()
+        {
+            QueryPerformanceCounter(out stopTime);
+            return (double)(stopTime - startTime) / 60.0 / 60.0 / (double)freq;
+        }
+
+        public double DurationInMinutes()
+        {
+            QueryPerformanceCounter(out stopTime);
+            return (double)(stopTime - startTime) / 60.0 / (double)freq;
+        }
+
         // Returns the duration of the timer (in seconds)
         public double DurationInSeconds()
         {

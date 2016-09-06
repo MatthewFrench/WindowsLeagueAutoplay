@@ -10,6 +10,11 @@ namespace League_Autoplay
 {
     class BasicAI
     {
+        String[] messages = { "We got dis", "gg", "imma honor you guys after", "oh no", "dont surrender plz",
+        "is infinity edge a good first item", "sorry", "just a sec my dog just pooped on the floor and it stinks",
+        "anyone else take a dump during the loading screen?", "/all good luck you need it", "#halp", "whattheheck",
+        "honor me plz!!1"};
+
         enum Action
         {
             RunAway, AttackEnemyChampion, AttackEnemyMinion, FollowAllyChampion, FollowAllyMinion, MoveToMid,
@@ -26,6 +31,7 @@ namespace League_Autoplay
 
         DetectionDataStruct detectionData;
         bool newData = true;
+        bool firstGameMessage;
 
         Stopwatch lastLevelUpStopwatch, lastShopBuyingStopwatch, lastCameraFocusStopwatch, lastPlacedWardStopwatch,
             lastRunAwayClickStopwatch, lastClickEnemyChampStopwatch, lastMovementClickStopwatch, lastClickAllyMinionStopwatch,
@@ -54,6 +60,8 @@ namespace League_Autoplay
         FollowState currentFollowState;
         Stopwatch followStopwatch;
 
+        Stopwatch lastTypeMessageStopwatch, typingMessageStopwatch;
+
         public BasicAI()
         {
 
@@ -80,6 +88,32 @@ namespace League_Autoplay
             }
             Console.Out.Flush();
 
+            //lastTypeMessageStopwatch, typingMessageStopwatch
+            if (detectionData.selfHealthBarVisible)
+            {
+                bool typeMessage = false;
+                if (firstGameMessage == false)
+                {
+                    //Say first game message
+                    firstGameMessage = true;
+                    typeMessage = true;
+                }
+                if (lastTypeMessageStopwatch.DurationInMinutes() >= 15 && random.Next(60 * 60 * 5) == 0)
+                {
+                    typeMessage = true;
+                }
+                if (typeMessage)
+                {
+                    typingMessageStopwatch.Reset();
+                    String chosenMessage = messages[random.Next(messages.Length)];
+                    typeMessageInChat(chosenMessage);
+                }
+            }
+            if (typingMessageStopwatch.DurationInSeconds() <= 1.0)
+            { // Don't do anything when we are typing
+                return;
+            }
+
             handleAbilityLevelUps();
             handleBuyingItems();
             handleCameraFocus();
@@ -93,6 +127,31 @@ namespace League_Autoplay
                 MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y);
             }
             newData = false;
+        }
+
+        public void typeMessageInChat(String message)
+        {
+            if (random.Next(2) == 0)
+            {
+                int num = random.Next(0, 26); // Zero to 25
+                char let = (char)('a' + num);
+                message.Insert(random.Next(message.Length), let + "");
+            }
+            MotorCortex.typeText("{ENTER}");
+            for (int i = 0; i < message.Length; i++)
+            {
+                char character = message[i];
+                Task.Delay(200 * i).ContinueWith(_ =>
+                {
+                    MotorCortex.typeText("" + character);
+                    typingMessageStopwatch.Reset();
+                });
+                if (i == message.Length - 1)
+                {
+                    MotorCortex.typeText("{ENTER}");
+                    typingMessageStopwatch.Reset();
+                }
+            }
         }
 
         public void resetAI()
@@ -158,6 +217,11 @@ namespace League_Autoplay
 
             currentFollowState = FollowState.FollowAnything;
             followStopwatch = new Stopwatch();
+
+            lastTypeMessageStopwatch = new Stopwatch();
+            typingMessageStopwatch = new Stopwatch();
+
+            firstGameMessage = false;
         }
 
         void handleAbilityLevelUps()
