@@ -23,7 +23,7 @@ namespace League_Autoplay
         public Bitmap testImage;
         //private DesktopDuplicator desktopDuplicator;
 
-        bool test = true;
+        bool test = false;
         bool shouldCaptureDisplayImage = false;
         bool recordDisplayImage = false;
         Bitmap displayImage;
