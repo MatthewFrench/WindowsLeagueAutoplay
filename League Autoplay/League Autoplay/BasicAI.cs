@@ -16,7 +16,7 @@ namespace League_Autoplay
         "honor me plz!!1", "don't die, k?", "suck my dorans blade", "thanks obama", "that team comp tho", "what do", "hi",
         "hewwo", "I'm a cat meow", "how are you guys?", "tell me a story", "FOR DEMACIA", "FOR NOXUS", "I'm new at this game",
         "pie hehe", "imma build guardian angel first, k?", "my mom tells me im handsome", "k thx", "you rock", "be careful!",
-        "!!!!!", "dgashdgfasbdgasjdfsbkljdsakj", "I need a new keyboard"};
+        "!!!!!", "dgashdgfasbdgasjdfsbkljdsakj", "I need a new keyboard", "/all Good game!", "/all Good luck"};
 
         enum Action
         {
