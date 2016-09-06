@@ -62,8 +62,11 @@ void EnemyMinionManager::validateMinionBars(ImageData imageData, std::vector<Min
             detectedMinionBars->erase(detectedMinionBars->begin() + i);
 			delete minion;
             i--;
-        }
-        minion->characterCenter.x = minion->topLeft.x+30; minion->characterCenter.y = minion->topLeft.y+32;
+		}
+		else {
+
+			minion->characterCenter.x = minion->topLeft.x + 30; minion->characterCenter.y = minion->topLeft.y + 32;
+		}
     }
 
     //Detect health

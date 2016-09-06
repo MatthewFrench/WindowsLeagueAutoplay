@@ -58,8 +58,10 @@ void EnemyTowerManager::validateTowerBars(ImageData imageData, std::vector<Tower
             detectedTowerBars->erase(detectedTowerBars->begin() + i);
 			delete tower;
             i--;
-        }
-        tower->towerCenter.x = tower->topLeft.x+126/2; tower->towerCenter.y = tower->topLeft.y+200;
+		}
+		else {
+			tower->towerCenter.x = tower->topLeft.x + 126 / 2; tower->towerCenter.y = tower->topLeft.y + 200;
+		}
     }
     
     //Detect health

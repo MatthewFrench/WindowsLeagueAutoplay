@@ -60,8 +60,10 @@ void EnemyChampionManager::validateChampionBars(ImageData imageData, std::vector
             detectedChampionBars->erase(detectedChampionBars->begin() + i);
 			delete champ;
             i--;
-        }
-        champ->characterCenter.x = champ->topLeft.x+66; champ->characterCenter.y = champ->topLeft.y+104;
+		}
+		else {
+			champ->characterCenter.x = champ->topLeft.x + 66; champ->characterCenter.y = champ->topLeft.y + 104;
+		}
     }
 
     //Detect health
