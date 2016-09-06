@@ -156,18 +156,32 @@ namespace League_Autoplay
             {
                 message = message.ToUpper();
             }
-            MotorCortex.typeText("{ENTER}");
+
+            //Click center of screen
+            MotorCortex.moveMouseTo(1024 / 2, 768 / 2);
+            Task.Delay(200).ContinueWith(_ =>
+            {
+                MotorCortex.clickMouseAt(1024 / 2, 768 / 2);
+                typingMessageStopwatch.Reset();
+            });
+
+            Task.Delay(400).ContinueWith(_ =>
+            {
+                MotorCortex.typeText("{ENTER}");
+                typingMessageStopwatch.Reset();
+            });
+            
             for (int i = 0; i < message.Length; i++)
             {
                 char character = message[i];
-                Task.Delay(200 * (i + 1)).ContinueWith(_ =>
+                Task.Delay(400 + 200 * (i + 1)).ContinueWith(_ =>
                 {
                     MotorCortex.typeText("" + character);
                     typingMessageStopwatch.Reset();
                 });
                 if (i == message.Length - 1)
                 {
-                    Task.Delay(200 * (i + 2)).ContinueWith(_ =>
+                    Task.Delay(400 + 200 * (i + 2)).ContinueWith(_ =>
                     {
                         MotorCortex.typeText("{ENTER}");
                         typingMessageStopwatch.Reset();
