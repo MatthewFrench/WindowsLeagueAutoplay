@@ -13,7 +13,7 @@ namespace League_Autoplay
         String[] messages = { "We got dis", "gg", "imma honor you guys after", "oh no", "dont surrender plz",
         "is infinity edge a good first item", "sorry", "just a sec my dog just pooped on the floor and it stinks",
         "anyone else take a dump during the loading screen?", "/all good luck you need it", "#halp", "whattheheck",
-        "honor me plz!!1"};
+        "honor me plz!!1", "don't die, k?"};
 
         enum Action
         {
@@ -136,6 +136,13 @@ namespace League_Autoplay
                 int num = random.Next(0, 26); // Zero to 25
                 char let = (char)('a' + num);
                 message.Insert(random.Next(message.Length), let + "");
+            } else if (random.Next(2) == 1)
+            {
+                //Remove one random letter
+                message.Remove(random.Next(message.Length-1), 1);
+            } else
+            {
+                message = message + (char)('1' + random.Next(9));
             }
             MotorCortex.typeText("{ENTER}");
             for (int i = 0; i < message.Length; i++)
