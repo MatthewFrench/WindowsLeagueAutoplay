@@ -114,6 +114,7 @@ void DetectionManager::processDetection(ImageData *image) {
 	 selfHealthBar = NULL;
 	 surrenderAvailable = false;
 	 surrenderActive = NULL;
+	 currentLevel = 0;
 
 	 //Detect self health bar. If we can't see the self health bar, don't care about anything else
 	 processSelfHealthBarDetection(image);

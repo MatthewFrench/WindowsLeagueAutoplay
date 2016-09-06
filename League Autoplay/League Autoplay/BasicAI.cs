@@ -1077,6 +1077,11 @@ namespace League_Autoplay
                 {
                     action = Action.GoHam;
                 }
+                //Already dead so do damage
+                if (enemyChampionsNear && lastHealthAmount <= 0.1)
+                {
+                    action = Action.GoHam;
+                }
 
                 //Switch action if in base
                 if (tempBaseLocation.x == -1 || (hypot(lastOnMapLocation.x - tempBaseLocation.x, lastOnMapLocation.y - tempBaseLocation.y) <= 100))
@@ -1164,7 +1169,7 @@ namespace League_Autoplay
                             castSpell1();
                             if (enemyChampionsNear)
                             {
-                                if (lowestHealthEnemyChampion->health <= 0.25)
+                                if (lowestHealthEnemyChampion->health <= 0.35)
                                 {
                                     castSummonerSpell1();
                                     castSummonerSpell2();
