@@ -181,7 +181,7 @@ namespace League_Autoplay.AutoQueue
                 }
             }
 
-            if (playAgainButtonStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
+            if (playAgainButtonStopwatch.DurationInMilliseconds() >= 5000 || VisualCortex.IsTest)
             {
                 playAgainButtonPosition = AutoQueueDetection.findImageInScreen(screen, playAgainButton, 776, 616, 10, 10, 0.95);
                 if (playAgainButtonPosition.x != -1)
@@ -190,7 +190,7 @@ namespace League_Autoplay.AutoQueue
                     if (!VisualCortex.IsTest)
                     {
                         MotorCortex.clickMouseAt(playAgainButtonPosition.x + 10, playAgainButtonPosition.y + 10);
-                        moveMouseToWithDelay(0, 0, 200);
+                        moveMouseToWithDelay(0, 0, 500);
                     }
                     playAgainButtonStopwatch.Reset();
                     return;
