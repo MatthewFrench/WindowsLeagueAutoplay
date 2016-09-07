@@ -24,6 +24,7 @@ namespace League_Autoplay
         //private DesktopDuplicator desktopDuplicator;
 
         bool test = false;
+        String testImageName = "AnalysisImages\\Resources\\Test Images\\New Play Again Screen Test.png";
         bool shouldCaptureDisplayImage = false;
         bool recordDisplayImage = false;
         Bitmap displayImage;
@@ -46,7 +47,7 @@ namespace League_Autoplay
 
 
             string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-            testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\New Stop Working Test.png")));
+            testImage = new Bitmap(Image.FromFile(Path.Combine(dir, testImageName)));
 
             //int width = desktopDuplicator.getFrameWidth();
             //int height = desktopDuplicator.getFrameHeight();
@@ -85,7 +86,7 @@ namespace League_Autoplay
 
                     testImage.UnlockBits(bitmapData);
                     displayImage = new Bitmap(testImage);
-                    returnValue = displayImage;
+                    returnValue = new Bitmap(testImage);
                 }
             }
             else
@@ -126,7 +127,7 @@ namespace League_Autoplay
                     saveStopwatch.Reset();
                     displayImage.Save("Recording/AI Record " + desktopBMP.Width + "x" + desktopBMP.Height + " " + Environment.TickCount + ".png", System.Drawing.Imaging.ImageFormat.Png);
                 }
-                returnValue = desktopBMP;
+                returnValue = new Bitmap(testImage);
             }
 
             System.GC.Collect();
@@ -167,6 +168,10 @@ namespace League_Autoplay
             total += performanceWatch.DurationInMilliseconds();
             //Console.WriteLine("Average milliseconds: {0}", total / count);
             //Console.WriteLine("Average fps: {0}", 1000.0 / (total  / count));
+        }
+        public bool isTesting()
+        {
+            return test;
         }
         
 

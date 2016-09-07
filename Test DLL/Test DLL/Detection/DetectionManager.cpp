@@ -278,7 +278,7 @@ void DetectionManager::processDetection(ImageData *image) {
 		}
 	}
 
-	printf("\n\n\n\n\n\n\n\n\n\n---------------\n\n\n\n\n\n\n\n\n");
+	//printf("\n\n\n\n\n\n\n\n\n\n---------------\n\n\n\n\n\n\n\n\n");
 
 	//Post processing
 
@@ -662,9 +662,9 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 
 
-	//printf("freeDetectionData\n");
-	//printf("freeDetectionData\n");
-	//printf("freeDetectionData\n");
+	////printf("freeDetectionData\n");
+	////printf("freeDetectionData\n");
+	////printf("freeDetectionData\n");
 
 	if (data->numberOfAllyMinions > 0) {
 		free(data->allyMinionsArray);
@@ -672,7 +672,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("1\n");
+	////printf("1\n");
 
 	if (data->numberOfEnemyMinions > 0) {
 		free(data->enemyMinionsArray);
@@ -680,7 +680,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("2\n");
+	////printf("2\n");
 
 	if (data->numberOfAllyChampions > 0) {
 		free(data->allyChampionsArray);
@@ -688,7 +688,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("3\n");
+	////printf("3\n");
 
 	if (data->numberOfEnemyChampions > 0) {
 		free(data->enemyChampionsArray);
@@ -696,7 +696,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("4\n");
+	////printf("4\n");
 
 	if (data->numberOfSelfChampions > 0) {
 		free(data->selfChampionsArray);
@@ -704,7 +704,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("5\n");
+	////printf("5\n");
 
 	if (data->numberOfEnemyTowers > 0) {
 		free(data->enemyTowersArray);
@@ -713,7 +713,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 
 
 
-	//printf("6\n");
+	////printf("6\n");
 
 	if (data->spell1LevelUp != nullptr) {
 
@@ -722,7 +722,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("7\n");
+	////printf("7\n");
 
 	if (data->spell2LevelUp != nullptr) {
 		free(data->spell2LevelUp);
@@ -730,7 +730,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("8\n");
+	////printf("8\n");
 
 	if (data->spell3LevelUp != nullptr) {
 		free(data->spell3LevelUp);
@@ -738,7 +738,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("9\n");
+	////printf("9\n");
 
 	if (data->spell4LevelUp != nullptr) {
 		free(data->spell4LevelUp);
@@ -747,7 +747,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 
 
 
-	//printf("10\n");
+	////printf("10\n");
 
 	if (data->numberOfSpell1Dots > 0) {
 		free(data->spell1LevelDotsArray);
@@ -755,7 +755,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("11\n");
+	////printf("11\n");
 
 	if (data->numberOfSpell2Dots > 0) {
 		free(data->spell2LevelDotsArray);
@@ -763,7 +763,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("12\n");
+	////printf("12\n");
 
 	if (data->numberOfSpell3Dots > 0) {
 		free(data->spell3LevelDotsArray);
@@ -771,7 +771,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("13\n");
+	////printf("13\n");
 
 	if (data->numberOfSpell4Dots > 0) {
 		free(data->spell4LevelDotsArray);
@@ -779,7 +779,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("14\n");
+	////printf("14\n");
 
 
 	if (data->spell1Active != nullptr) {
@@ -788,7 +788,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("15\n");
+	////printf("15\n");
 
 	if (data->spell2Active != nullptr) {
 		free(data->spell2Active);
@@ -796,7 +796,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("16\n");
+	////printf("16\n");
 
 	if (data->spell3Active != nullptr) {
 		free(data->spell3Active);
@@ -804,7 +804,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("17\n");
+	////printf("17\n");
 
 	if (data->spell4Active != nullptr) {
 		free(data->spell4Active);
@@ -812,7 +812,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("18\n");
+	////printf("18\n");
 
 
 	if (data->summonerSpell1Active != nullptr) {
@@ -821,7 +821,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("19\n");
+	////printf("19\n");
 
 	if (data->summonerSpell2Active != nullptr) {
 		free(data->summonerSpell2Active);
@@ -829,7 +829,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("20\n");
+	////printf("20\n");
 
 	if (data->trinketActive != nullptr) {
 		free(data->trinketActive);
@@ -837,7 +837,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("21\n");
+	////printf("21\n");
 
 
 	if (data->item1Active != nullptr) {
@@ -846,7 +846,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("22\n");
+	////printf("22\n");
 
 	if (data->item2Active != nullptr) {
 		free(data->item2Active);
@@ -854,7 +854,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("23\n");
+	////printf("23\n");
 
 	if (data->item3Active != nullptr) {
 		free(data->item3Active);
@@ -862,7 +862,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("24\n");
+	////printf("24\n");
 
 	if (data->item4Active != nullptr) {
 		free(data->item4Active);
@@ -870,7 +870,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("25\n");
+	////printf("25\n");
 
 	if (data->item5Active != nullptr) {
 		free(data->item5Active);
@@ -878,7 +878,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("26\n");
+	////printf("26\n");
 
 	if (data->item6Active != nullptr) {
 		free(data->item6Active);
@@ -886,7 +886,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("27\n");
+	////printf("27\n");
 
 
 	if (data->potionActive != nullptr) {
@@ -895,7 +895,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("28\n");
+	////printf("28\n");
 
 	if (data->potionBeingUsed != nullptr) {
 		free(data->potionBeingUsed);
@@ -903,7 +903,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("29\n");
+	////printf("29\n");
 
 	if (data->shopAvailable != nullptr) {
 		free(data->shopAvailable);
@@ -911,7 +911,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("30\n");
+	////printf("30\n");
 
 	if (data->shopTopLeftCorner != nullptr) {
 		free(data->shopTopLeftCorner);
@@ -919,7 +919,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("31\n");
+	////printf("31\n");
 
 	if (data->shopBottomLeftCorner != nullptr) {
 		free(data->shopBottomLeftCorner);
@@ -927,7 +927,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("32\n");
+	////printf("32\n");
 
 
 
@@ -937,7 +937,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("33\n");
+	////printf("33\n");
 
 
 	if (data->map != nullptr) {
@@ -946,7 +946,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("34\n");
+	////printf("34\n");
 
 	if (data->mapShop != nullptr) {
 		free(data->mapShop);
@@ -954,7 +954,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("35\n");
+	////printf("35\n");
 
 	if (data->mapSelfLocation != nullptr) {
 		free(data->mapSelfLocation);
@@ -962,7 +962,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("36\n");
+	////printf("36\n");
 
 	if (data->selfHealthBar != nullptr) {
 		free(data->selfHealthBar);
@@ -970,7 +970,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("37\n");
+	////printf("37\n");
 
 	if (data->surrenderActive != nullptr) {
 		free(data->surrenderActive);
@@ -991,7 +991,7 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	}
 
 
-	//printf("38\n");
+	////printf("38\n");
 
 }
 

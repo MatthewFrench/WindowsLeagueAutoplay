@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -26,6 +27,8 @@ namespace League_Autoplay
         }
         private void Form1_Shown(object sender, EventArgs e)
         {
+            Console.WriteLine("Application showing");
+            Debug.WriteLine("Application showing debug");
             visualCortex = new VisualCortex();
             visualCortex.setShouldCaptureDisplayImage(true);
             MotorCortex.init();

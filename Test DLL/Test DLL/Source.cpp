@@ -22,158 +22,158 @@ static DetectionManager* detectionManager = nullptr;
 
 
 void printDetected(DetectionManager* detection) {
-	printf("Detected: \n");
+	//printf("Detected: \n");
 	if (detection->getAllyMinions()->size() > 0) {
-		printf("\t%zu ally minions\n", detection->getAllyMinions()->size());
+		//printf("\t%zu ally minions\n", detection->getAllyMinions()->size());
 		for (int i = 0; i < detection->getAllyMinions()->size(); i++) {
 			Minion* minion = detection->getAllyMinions()->at(i);
-			printf("\t\tminion at %d, %d with health %f\n", minion->characterCenter.x, minion->characterCenter.y, minion->health);
+			//printf("\t\tminion at %d, %d with health %f\n", minion->characterCenter.x, minion->characterCenter.y, minion->health);
 		}
 	}
 	if (detection->getAllyChampions()->size() > 0) {
-		printf("\t%zu ally champions\n", detection->getAllyChampions()->size());
+		//printf("\t%zu ally champions\n", detection->getAllyChampions()->size());
 		for (int i = 0; i < detection->getAllyChampions()->size(); i++) {
 			Champion* champion = detection->getAllyChampions()->at(i);
-			printf("\t\champion at %d, %d with health %f\n", champion->characterCenter.x, champion->characterCenter.y, champion->health);
+			//printf("\t\champion at %d, %d with health %f\n", champion->characterCenter.x, champion->characterCenter.y, champion->health);
 		}
 	}
 	if (detection->getSelfChampions()->size() > 0) {
-		printf("\t%zu self champions\n", detection->getSelfChampions()->size());
+		//printf("\t%zu self champions\n", detection->getSelfChampions()->size());
 		for (int i = 0; i < detection->getSelfChampions()->size(); i++) {
 			Champion* champion = detection->getSelfChampions()->at(i);
-			printf("\t\champion at %d, %d with health %f\n", champion->characterCenter.x, champion->characterCenter.y, champion->health);
+			//printf("\t\champion at %d, %d with health %f\n", champion->characterCenter.x, champion->characterCenter.y, champion->health);
 		}
 	}
 	if (detection->getEnemyMinions()->size() > 0) {
-		printf("\t%zu enemy minions\n", detection->getEnemyMinions()->size());
+		//printf("\t%zu enemy minions\n", detection->getEnemyMinions()->size());
 		for (int i = 0; i < detection->getEnemyMinions()->size(); i++) {
 			Minion* minion = detection->getEnemyMinions()->at(i);
-			printf("\t\tminion at %d, %d with health %f\n", minion->characterCenter.x, minion->characterCenter.y, minion->health);
+			//printf("\t\tminion at %d, %d with health %f\n", minion->characterCenter.x, minion->characterCenter.y, minion->health);
 		}
 	}
 	if (detection->getEnemyChampions()->size() > 0) {
-		printf("\t%zu enemy champions\n", detection->getEnemyChampions()->size());
+		//printf("\t%zu enemy champions\n", detection->getEnemyChampions()->size());
 		for (int i = 0; i < detection->getEnemyChampions()->size(); i++) {
 			Champion* champion = detection->getEnemyChampions()->at(i);
-			printf("\t\champion at %d, %d with health %f\n", champion->characterCenter.x, champion->characterCenter.y, champion->health);
+			//printf("\t\champion at %d, %d with health %f\n", champion->characterCenter.x, champion->characterCenter.y, champion->health);
 		}
 	}
 	if (detection->getEnemyTowers()->size() > 0) {
-		printf("\t%zu enemy towers\n", detection->getEnemyTowers()->size());
+		//printf("\t%zu enemy towers\n", detection->getEnemyTowers()->size());
 		for (int i = 0; i < detection->getEnemyTowers()->size(); i++) {
 			Tower* tower = detection->getEnemyTowers()->at(i);
-			printf("\t\tower at %d, %d with health %f\n", tower->towerCenter.x, tower->towerCenter.y, tower->health);
+			//printf("\t\tower at %d, %d with health %f\n", tower->towerCenter.x, tower->towerCenter.y, tower->health);
 		}
 	}
 	if (detection->getSelfHealthBarVisible()) {
-		printf("\tCan see self health bar\n");
-		printf("\tSelf health: %f\n", detection->getSelfHealthBar()->health);
+		//printf("\tCan see self health bar\n");
+		//printf("\tSelf health: %f\n", detection->getSelfHealthBar()->health);
 	}
 	if (detection->getSpell1LevelUpVisible()) {
-		printf("\tLevel up spell 1 available\n");
+		//printf("\tLevel up spell 1 available\n");
 	}
 	if (detection->getSpell2LevelUpVisible()) {
-		printf("\tLevel up spell 2 available\n");
+		//printf("\tLevel up spell 2 available\n");
 	}
 	if (detection->getSpell3LevelUpVisible()) {
-		printf("\tLevel up spell 3 available\n");
+		//printf("\tLevel up spell 3 available\n");
 	}
 	if (detection->getSpell4LevelUpVisible()) {
-		printf("\tLevel up spell 4 available\n");
+		//printf("\tLevel up spell 4 available\n");
 	}
 	if (detection->getCurrentLevel() > 0) {
-		printf("\tDetected current level: %d\n", detection->getCurrentLevel());
+		//printf("\tDetected current level: %d\n", detection->getCurrentLevel());
 	}
 	if (detection->getSpell1Available()) {
-		printf("\tSpell 1 available\n");
+		//printf("\tSpell 1 available\n");
 	}
 	if (detection->getSpell2Available()) {
-		printf("\tSpell 2 available\n");
+		//printf("\tSpell 2 available\n");
 	}
 	if (detection->getSpell3Available()) {
-		printf("\tSpell 3 available\n");
+		//printf("\tSpell 3 available\n");
 	}
 	if (detection->getSpell4Available()) {
-		printf("\tSpell 4 available\n");
+		//printf("\tSpell 4 available\n");
 	}
 	if (detection->getSummonerSpell1Available()) {
-		printf("\tSummoner spell 1 available\n");
+		//printf("\tSummoner spell 1 available\n");
 	}
 	if (detection->getSummonerSpell2Available()) {
-		printf("\tSummoner spell 2 available\n");
+		//printf("\tSummoner spell 2 available\n");
 	}
 	if (detection->getTrinketActiveAvailable()) {
-		printf("\tTrinket active available\n");
+		//printf("\tTrinket active available\n");
 	}
 	if (detection->getItem1ActiveAvailable()) {
-		printf("\tItem 1 active available\n");
+		//printf("\tItem 1 active available\n");
 	}
 	if (detection->getItem2ActiveAvailable()) {
-		printf("\tItem 2 active available\n");
+		//printf("\tItem 2 active available\n");
 	}
 	if (detection->getItem3ActiveAvailable()) {
-		printf("\tItem 3 active available\n");
+		//printf("\tItem 3 active available\n");
 	}
 	if (detection->getItem4ActiveAvailable()) {
-		printf("\tItem 4 active available\n");
+		//printf("\tItem 4 active available\n");
 	}
 	if (detection->getItem5ActiveAvailable()) {
-		printf("\tItem 5 active available\n");
+		//printf("\tItem 5 active available\n");
 	}
 	if (detection->getItem6ActiveAvailable()) {
-		printf("\tItem 6 active available\n");
+		//printf("\tItem 6 active available\n");
 	}
 	if (detection->getPotionActiveAvailable()) {
-		printf("\tPotion active available\n");
+		//printf("\tPotion active available\n");
 
-		printf("\t\tPotion in slot %d\n", detection->getPotionActiveItemSlot());
+		//printf("\t\tPotion in slot %d\n", detection->getPotionActiveItemSlot());
 	}
 	if (detection->getPotionBeingUsedVisible()) {
-		printf("\tPotion being used\n");
+		//printf("\tPotion being used\n");
 	}
 	if (detection->getShopAvailable()) {
-		printf("\tShop is available\n");
+		//printf("\tShop is available\n");
 	}
 	if (detection->getShopTopLeftCornerVisible()) {
-		printf("\tShop top left corner is visible\n");
+		//printf("\tShop top left corner is visible\n");
 	}
 	if (detection->getShopBottomLeftCornerVisible()) {
-		printf("\tShop bottom left corner is visible\n");
+		//printf("\tShop bottom left corner is visible\n");
 	}
 	if (detection->getBuyableItems()->size() > 0) {
-		printf("\tBuyable items: %zu\n", detection->getBuyableItems()->size());
+		//printf("\tBuyable items: %zu\n", detection->getBuyableItems()->size());
 	}
 	if (detection->getMapVisible()) {
-		printf("\tMap is visible\n");
+		//printf("\tMap is visible\n");
 	}
 	if (detection->getMapShopVisible()) {
-		printf("\tShop on map is visible\n");
+		//printf("\tShop on map is visible\n");
 	}
 	if (detection->getMapLocationVisible()) {
-		printf("\tLocation on map is visible\n");
+		//printf("\tLocation on map is visible\n");
 	}
 	if (detection->getSurrenderAvailable()) {
-		printf("\tSurrender is visible\n");
+		//printf("\tSurrender is visible\n");
 	}
 	if (detection->getContinueAvailable()) {
-		printf("\tContinue is visible\n");
+		//printf("\tContinue is visible\n");
 	}
 	if (detection->getAFKAvailable()) {
-		printf("\tAFK is visible\n");
+		//printf("\tAFK is visible\n");
 	}
 	if (detection->getStoppedWorkingAvailable()) {
-		printf("\tStopped Working is visible\n");
+		//printf("\tStopped Working is visible\n");
 	}
 	/*
-	printf("\n\n");
-	printf("C++ Detection data struct size: %d\n", sizeof(DetectionDataStruct));
-	printf("C++ Tower data struct size: %d\n", sizeof( Tower));
-	printf("C++ SelfHealth data struct size: %d\n", sizeof( SelfHealth));
-	printf("C++ Position data struct size: %d\n", sizeof( Position));
-	printf("C++ Minion data struct size: %d\n", sizeof( Minion));
-	printf("C++ GenericObject data struct size: %d\n", sizeof( GenericObject));
-	printf("C++ Champion data struct size: %d\n", sizeof( Champion));
-	printf("\n\n");
+	//printf("\n\n");
+	//printf("C++ Detection data struct size: %d\n", sizeof(DetectionDataStruct));
+	//printf("C++ Tower data struct size: %d\n", sizeof( Tower));
+	//printf("C++ SelfHealth data struct size: %d\n", sizeof( SelfHealth));
+	//printf("C++ Position data struct size: %d\n", sizeof( Position));
+	//printf("C++ Minion data struct size: %d\n", sizeof( Minion));
+	//printf("C++ GenericObject data struct size: %d\n", sizeof( GenericObject));
+	//printf("C++ Champion data struct size: %d\n", sizeof( Champion));
+	//printf("\n\n");
 	*/
 }
 
@@ -181,32 +181,33 @@ void print_bytes(const void *object, size_t size)
 {
 	const unsigned char * const bytes = (unsigned char *) object;
 	size_t i;
-	printf("Bytes count: %d\n", size);
-	printf("[ ");
+	//printf("Bytes count: %d\n", size);
+	//printf("[ ");
 	for (i = 0; i < size; i++)
 	{
-		printf("%02x ", bytes[i]);
+		//printf("%02x ", bytes[i]);
 	}
-	printf("]\n");
+	//printf("]\n");
 }
 
 extern "C"
 {
 	__declspec(dllexport) void initializeDetectionManager() {
-		
+		/*
 		AllocConsole();
 		FILE *fptr;
 		freopen_s(&fptr, "CONOUT$", "w", stdout);
+		*/
 		
 		detectionManager = new DetectionManager();
-		printf("Detection Manager Initialized 10:02\n");
+		////printf("Detection Manager Initialized 10:02\n");
 	}
 
 	__declspec(dllexport) void processDetection(byte* dataPointer, int32_t width, int32_t height) {
-		//printf("Processing Detection\n");
+		////printf("Processing Detection\n");
 		ImageData imageData = makeImageData(dataPointer, width, height);
 		detectionManager->processDetection(&imageData);
-		//printf("Detection Processed\n");
+		////printf("Detection Processed\n");
 
 		printDetected(detectionManager);
 	}
@@ -452,7 +453,7 @@ extern "C"
 
 	__declspec(dllexport) void DisplayHelloFromDLL()
 	{
-		printf("Hello from DLL !\n");
+		//printf("Hello from DLL !\n");
 	}
 	__declspec(dllexport) double Add(double a, double b)
 	{

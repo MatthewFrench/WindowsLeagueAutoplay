@@ -27,7 +27,6 @@ namespace League_Autoplay
         bool hasDetectionData = false;
         DetectionDataStruct currentDetectionData;
         private Object detectionDataLock = new Object();
-        AutoQueueData autoQueueData = null;
         bool leagueIsInGame = false;
 
         BasicAI basicAI;
@@ -47,6 +46,7 @@ namespace League_Autoplay
         }
         private void logic()
         {
+
             bool leagueOfLegendsOpen = false;
 
             Process[] pname = Process.GetProcessesByName("league of legends");
@@ -81,15 +81,18 @@ namespace League_Autoplay
                 grabbingScreen = true;
                 Task t = Task.Run(() =>
                 {
+                    Console.WriteLine("Grabbing screen");
                     //visualCortex.runTest();
                     Bitmap screen = visualCortex.grabScreen2(leagueOfLegendsOpen);
 
                     DetectionDataStruct data = visualCortex.getVisualDetectionData();
                     TaskHelper.RunTask(aiContext, () =>
                     {
+                        Console.WriteLine("Updating detection data");
                         updateDetectionData(ref data, screen);
                     });
                 }).ContinueWith(_ => {
+                    Console.WriteLine("Writing on UI thread");
                     //Run on UI thread
                     if (updateDisplayImage)
                     {
@@ -121,10 +124,9 @@ namespace League_Autoplay
                     basicAI.processAI();
                 }
             }
-            else if (leagueOfLegendsClientOpen && currentScreen != null)
+            else if ((leagueOfLegendsClientOpen || visualCortex.isTesting()) && currentScreen != null)
             {
                 //Run auto queue
-                //Use autoQueueData
                 autoQueue.runAutoQueue(currentScreen);
             }
         }
@@ -166,12 +168,12 @@ namespace League_Autoplay
                 hasDetectionData = true;
                 currentScreen = screen;
 
-                
+                /*
                 if (currentDetectionData.selfHealthBarVisible == false)
                 {
                     //Detect auto queue data
                     autoQueueData = AutoQueueDetection.detectAutoQueue();
-                }
+                }*/
 
                 basicAI.updateDetectionData(ref currentDetectionData);
             }
