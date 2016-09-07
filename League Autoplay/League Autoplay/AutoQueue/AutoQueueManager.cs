@@ -43,7 +43,7 @@ namespace League_Autoplay.AutoQueue
         {
 
             //Loop through pixels on the screen and look for any of those four buttons.
-            if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 0 || test)
+            if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 500 || test)
             {
                 //Console.WriteLine("Scanning for accept match button");
                 acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 366, 393, 10, 10, 0.95);
