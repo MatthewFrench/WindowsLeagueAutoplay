@@ -355,6 +355,14 @@ namespace League_Autoplay
             {
                 Console.WriteLine("\tContinue is visible");
             }
+            if (data.afkAvailable)
+            {
+                Console.WriteLine("\tAFK is visible");
+            }
+            if (data.stoppedWorkingAvailable)
+            {
+                Console.WriteLine("\tStopped Working is visible");
+            }
 
             Console.Out.Flush();
 

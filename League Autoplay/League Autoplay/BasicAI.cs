@@ -45,7 +45,7 @@ namespace League_Autoplay
             lastItem3UseStopwatch, lastItem4UseStopwatch, lastItem5UseStopwatch, lastItem6UseStopwatch, activeAutoUseTimeStopwatch,
             moveToLanePathSwitchStopwatch, gameCurrentTimeStopwatch, lastSurrenderStopwatch, lastShopBuyStopwatch,
             lastShopOpenTapStopwatch, lastShopCloseTapStopwatch, lastTimeSawEnemyChampStopwatch, standStillTimeStopwatch,
-            healthGainedTimeStopwatch, attemptSurrenderStopwatch, continueClickStopwatch;
+            healthGainedTimeStopwatch, attemptSurrenderStopwatch, continueClickStopwatch, afkClickStopwatch, stoppedWorkingStopwatch;
 
 
         bool boughtStarterItems;
@@ -119,7 +119,7 @@ namespace League_Autoplay
                 gameCurrentTimeStopwatch.DurationInMinutes() > 23 && attemptSurrenderStopwatch.DurationInMinutes() >= 4)
             {
                 attemptSurrenderStopwatch.Reset();
-                typeMessageInChat("/ff");
+                typeMessageInChat("/ff", false);
             }
 
             if (typingMessageStopwatch.DurationInSeconds() <= 2.0)
@@ -148,59 +148,79 @@ namespace League_Autoplay
                 MotorCortex.clickMouseAt(continueObject->center.x, continueObject->center.y);
             }
 
+            //Handle afk and stopped working button
+            if (detectionData.afkAvailable && afkClickStopwatch.DurationInMilliseconds() >= 1000)
+            {
+                afkClickStopwatch.Reset();
+                GenericObject* afkObject = (GenericObject*)detectionData.afkActive.ToPointer();
+                MotorCortex.clickMouseAt(afkObject->center.x, afkObject->center.y);
+            }
+            if (detectionData.stoppedWorkingAvailable && stoppedWorkingStopwatch.DurationInMilliseconds() >= 1000)
+            {
+                stoppedWorkingStopwatch.Reset();
+                GenericObject* stoppedWorkingObject = (GenericObject*)detectionData.stoppedWorkingActive.ToPointer();
+                MotorCortex.clickMouseAt(stoppedWorkingObject->center.x, stoppedWorkingObject->center.y);
+            }
+
             newData = false;
         }
 
-        public void typeMessageInChat(String message)
+        public void typeMessageInChat(String message, bool addRandomStuff = true)
         {
-            int r = random.Next(3);
-            if (r == 0)
+            if (addRandomStuff)
             {
-                int num = random.Next(0, 26); // Zero to 25
-                char let = (char)('a' + num);
-                message = message.Insert(random.Next(message.Length), let + "");
-            } else if (r == 1)
-            {
-                //Remove one random letter
-                message = message.Remove(random.Next(message.Length-1), 1);
-            } else
-            {
-                message = message + (char)('1' + random.Next(9));
-            }
-            r = random.Next(20);
-            if (r == 0)
-            {
-                message = message.ToLower();
-            } else if (r == 1)
-            {
-                message = message.ToUpper();
+                int r = random.Next(3);
+                if (r == 0)
+                { //Insert random letter
+                    int num = random.Next(0, 26); // Zero to 25
+                    char let = (char)('a' + num);
+                    message = message.Insert(random.Next(message.Length), let + "");
+                }
+                else if (r == 1)
+                { //Randomly remove a letter
+                    //Remove one random letter
+                    message = message.Remove(random.Next(message.Length - 1), 1);
+                }
+                r = random.Next(20);
+                if (r == 0)
+                {
+                    message = message.ToLower();
+                }
+                else if (r == 1)
+                {
+                    message = message.ToUpper();
+                }
             }
 
             //Click center of screen
             MotorCortex.moveMouseTo(1024 / 2, 768 / 2, 1);
             typingMessageStopwatch.Reset();
-            Task.Delay(200).ContinueWith(_ =>
+
+            int offset = 200;
+            Task.Delay(offset).ContinueWith(_ =>
             {
                 MotorCortex.clickMouseAt(1024 / 2, 768 / 2);
                 typingMessageStopwatch.Reset();
             });
-
-            Task.Delay(400).ContinueWith(_ =>
+            offset += 1000;
+            Task.Delay(offset).ContinueWith(_ =>
             {
                 MotorCortex.typeText("{ENTER}");
                 typingMessageStopwatch.Reset();
             });
-            
+            offset += 200;
             for (int i = 0; i < message.Length; i++)
             {
                 char character = message[i];
-                Task.Delay(400 + 200 * (i + 1)).ContinueWith(_ =>
+                Task.Delay(offset).ContinueWith(_ =>
                 {
                     MotorCortex.typeText("" + character, true);
                     typingMessageStopwatch.Reset();
                 });
+                offset += 200;
             }
-            Task.Delay(400 + 200 * (message.Length + 2)).ContinueWith(_ =>
+            offset += 200;
+            Task.Delay(offset).ContinueWith(_ =>
             {
                 MotorCortex.typeText("{ENTER}");
                 typingMessageStopwatch.Reset();
@@ -278,6 +298,8 @@ namespace League_Autoplay
 
             attemptSurrenderStopwatch = new Stopwatch();
             continueClickStopwatch = new Stopwatch();
+            afkClickStopwatch = new Stopwatch();
+            stoppedWorkingStopwatch = new Stopwatch();
         }
 
         void handleAbilityLevelUps()

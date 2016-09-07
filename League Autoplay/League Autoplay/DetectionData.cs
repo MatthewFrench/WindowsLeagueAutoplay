@@ -141,5 +141,11 @@ namespace League_Autoplay
         [MarshalAs(UnmanagedType.U1)]
         public bool continueAvailable;
         public IntPtr continueActive;
+        [MarshalAs(UnmanagedType.U1)]
+        public bool afkAvailable;
+        public IntPtr afkActive;
+        [MarshalAs(UnmanagedType.U1)]
+        public bool stoppedWorkingAvailable;
+        public IntPtr stoppedWorkingActive;
     }
 }

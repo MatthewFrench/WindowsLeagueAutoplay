@@ -62,5 +62,9 @@ struct DetectionDataStruct
 	GenericObject* surrenderActive = nullptr;
 	bool continueAvailable = false;
 	GenericObject* continueActive = nullptr;
+	bool afkAvailable = false;
+	GenericObject* afkActive = nullptr;
+	bool stoppedWorkingAvailable = false;
+	GenericObject* stoppedWorkingActive = nullptr;
 };
 #pragma pack()

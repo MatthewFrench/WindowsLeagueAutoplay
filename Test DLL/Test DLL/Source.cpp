@@ -14,6 +14,8 @@
 #include "Detection/Map Manager/MapManager.h"
 #include "Detection/Surrender Manager/SurrenderManager.h"
 #include "ContinueManager.h"
+#include "AFKManager.h"
+#include "StoppedWorkingManager.h"
 #include "Detection/Shop Manager/ShopManager.h"
 
 static DetectionManager* detectionManager = nullptr;
@@ -155,6 +157,12 @@ void printDetected(DetectionManager* detection) {
 	}
 	if (detection->getContinueAvailable()) {
 		printf("\tContinue is visible\n");
+	}
+	if (detection->getAFKAvailable()) {
+		printf("\tAFK is visible\n");
+	}
+	if (detection->getStoppedWorkingAvailable()) {
+		printf("\tStopped Working is visible\n");
 	}
 	/*
 	printf("\n\n");
@@ -403,6 +411,14 @@ extern "C"
 	//Continue image loading code
 	__declspec(dllexport) void ContinueManager_loadContinueImageData(byte * data, int32_t imageWidth, int32_t imageHeight) {
 		ContinueManager::loadContinueImageData(data, imageWidth, imageHeight);
+	}
+	//AFK image loading code
+	__declspec(dllexport) void AFKManager_loadAFKImageData(byte * data, int32_t imageWidth, int32_t imageHeight) {
+		AFKManager::loadAFKImageData(data, imageWidth, imageHeight);
+	}
+	//Stopped Working image loading code
+	__declspec(dllexport) void StoppedWorkingManager_loadStoppedWorkingImageData(byte * data, int32_t imageWidth, int32_t imageHeight) {
+		StoppedWorkingManager::loadStoppedWorkingImageData(data, imageWidth, imageHeight);
 	}
 		//Shop image loading code
 

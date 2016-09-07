@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Detection\Continue Manager">
       <UniqueIdentifier>{deb5924d-5374-43dc-9a72-ff800e38a5d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Detection\AFK Manager">
+      <UniqueIdentifier>{45e61518-b366-462c-8361-a8da06060d1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detection\Stopped Working Manager">
+      <UniqueIdentifier>{adbd8ac6-a037-46aa-9a4a-d94d15a90c86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -104,6 +110,12 @@
     </ClCompile>
     <ClCompile Include="ContinueManager.cpp">
       <Filter>Source Files\Detection\Continue Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="AFKManager.cpp">
+      <Filter>Source Files\Detection\AFK Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="StoppedWorkingManager.cpp">
+      <Filter>Source Files\Detection\Stopped Working Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +184,12 @@
     </ClInclude>
     <ClInclude Include="ContinueManager.h">
       <Filter>Source Files\Detection\Continue Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="AFKManager.h">
+      <Filter>Source Files\Detection\AFK Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="StoppedWorkingManager.h">
+      <Filter>Source Files\Detection\Stopped Working Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

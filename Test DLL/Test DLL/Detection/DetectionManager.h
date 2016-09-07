@@ -47,6 +47,10 @@ class DetectionManager {
     GenericObject* surrenderActive = NULL;
 	bool continueAvailable = false;
 	GenericObject* continueActive = NULL;
+	bool afkAvailable = false;
+	GenericObject* afkActive = NULL;
+	bool stoppedWorkingAvailable = false;
+	GenericObject* stoppedWorkingActive = NULL;
 
 	omp_lock_t detectionlock;
     
@@ -79,6 +83,8 @@ public:
     void processMap(ImageData *image);
     void processMapShopAndLocation(ImageData *image);
 	void DetectionManager::processContinue(ImageData *image);
+	void DetectionManager::processAFK(ImageData *image);
+	void DetectionManager::processStoppedWorking(ImageData *image);
     
     std::vector<Minion*>* getAllyMinions();
     std::vector<Minion*>* getEnemyMinions();
@@ -148,5 +154,9 @@ public:
     GenericObject* getSurrender();
 	bool getContinueAvailable();
 	GenericObject* getContinue();
+	bool getAFKAvailable();
+	GenericObject* getAFK();
+	bool getStoppedWorkingAvailable();
+	GenericObject* getStoppedWorking();
     int getPotionActiveItemSlot();
 };

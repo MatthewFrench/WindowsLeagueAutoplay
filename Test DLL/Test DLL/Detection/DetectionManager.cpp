@@ -19,6 +19,8 @@
 #include "Map Manager/MapManager.h"
 #include "Surrender Manager/SurrenderManager.h"
 #include "../ContinueManager.h"
+#include "../AFKManager.h"
+#include "../StoppedWorkingManager.h"
 #include <omp.h>
 
 DetectionManager::DetectionManager() {
@@ -179,10 +181,15 @@ void DetectionManager::processDetection(ImageData *image) {
 	continueAvailable= false;
 	if (continueActive != nullptr) delete continueActive;
 	continueActive = NULL;
+	if (afkActive != nullptr) delete afkActive;
+	afkActive = NULL;
+	if (stoppedWorkingActive != nullptr) delete stoppedWorkingActive;
+	stoppedWorkingActive = NULL;
 	currentLevel = 0;
 
 	//Detect self health bar. If we can't see the self health bar, don't care about anything else
 	processSelfHealthBarDetection(image);
+	processStoppedWorking(image);
 	if (selfHealthBarVisible == false) {
 		//Loading screen or end game screen
 		processContinue(image);
@@ -295,6 +302,7 @@ void DetectionManager::processDetection(ImageData *image) {
 	processShopBottomLeftCorner(image);
 	processShopBuyableItems(image);
 	processSurrender(image);
+	processAFK(image);
 	processSpellActives(image);
 	processSummonerSpellActives(image);
 	processTrinketActive(image);
@@ -633,6 +641,18 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 		data->continueActive = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
 		memcpy(data->continueActive, continueActive, sizeof(GenericObject));
 	}
+	data->afkAvailable = afkAvailable;
+	data->afkActive = nullptr;
+	if (afkActive != nullptr) {
+		data->afkActive = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
+		memcpy(data->afkActive, afkActive, sizeof(GenericObject));
+	}
+	data->stoppedWorkingAvailable = stoppedWorkingAvailable;
+	data->stoppedWorkingActive = nullptr;
+	if (stoppedWorkingActive != nullptr) {
+		data->stoppedWorkingActive = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
+		memcpy(data->stoppedWorkingActive, stoppedWorkingActive, sizeof(GenericObject));
+	}
 
 
 	omp_unset_lock(&detectionlock);
@@ -960,6 +980,14 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	if (data->continueActive != nullptr) {
 		free(data->continueActive);
 		data->continueActive = nullptr;
+	}
+	if (data->afkActive != nullptr) {
+		free(data->afkActive);
+		data->afkActive = nullptr;
+	}
+	if (data->stoppedWorkingActive != nullptr) {
+		free(data->stoppedWorkingActive);
+		data->stoppedWorkingActive = nullptr;
 	}
 
 
@@ -1491,6 +1519,56 @@ void DetectionManager::processContinue(ImageData *image) {
 		continueAvailable = false;
 	}
 }
+void DetectionManager::processAFK(ImageData *image) {
+
+	int searchWidth = 10; int searchHeight = 10;
+	Position pos = makePosition(420, 410);
+
+	GenericObject* afkObject = NULL;
+	for (int x = pos.x; x < pos.x + searchWidth; x++) {
+		for (int y = pos.y; y < pos.y + searchHeight; y++) {
+			uint8_t* pixel = getPixel2(*image, x, y);
+			afkObject = AFKManager::detectAFKAtPixel(*image, pixel, x, y);
+			if (afkObject != NULL) {
+				x = image->imageWidth;
+				y = image->imageHeight;
+			}
+		}
+	}
+
+	if (afkObject != NULL) {
+		afkAvailable = true;
+		afkActive = afkObject;
+	}
+	else {
+		afkAvailable = false;
+	}
+}
+void DetectionManager::processStoppedWorking(ImageData *image) {
+
+	int searchWidth = 10; int searchHeight = 10;
+	Position pos = makePosition(551, 405);
+
+	GenericObject* stoppedWorkingObject = NULL;
+	for (int x = pos.x; x < pos.x + searchWidth; x++) {
+		for (int y = pos.y; y < pos.y + searchHeight; y++) {
+			uint8_t* pixel = getPixel2(*image, x, y);
+			stoppedWorkingObject = StoppedWorkingManager::detectStoppedWorkingAtPixel(*image, pixel, x, y);
+			if (stoppedWorkingObject != NULL) {
+				x = image->imageWidth;
+				y = image->imageHeight;
+			}
+		}
+	}
+
+	if (stoppedWorkingObject != NULL) {
+		stoppedWorkingAvailable = true;
+		stoppedWorkingActive = stoppedWorkingObject;
+	}
+	else {
+		stoppedWorkingActive = false;
+	}
+}
 void DetectionManager::processTrinketActive(ImageData *image) {
 
 	int searchWidth = 10; int searchHeight = 10;
@@ -1866,6 +1944,18 @@ bool DetectionManager::getContinueAvailable() {
 }
 GenericObject* DetectionManager::getContinue() {
 	return continueActive;
+}
+bool DetectionManager::getAFKAvailable() {
+	return afkAvailable;
+}
+GenericObject* DetectionManager::getAFK() {
+	return afkActive;
+}
+bool DetectionManager::getStoppedWorkingAvailable() {
+	return stoppedWorkingAvailable;
+}
+GenericObject* DetectionManager::getStoppedWorking() {
+	return stoppedWorkingActive;
 }
 std::vector<Minion*>* DetectionManager::getAllyMinions() {
 	return allyMinions;
