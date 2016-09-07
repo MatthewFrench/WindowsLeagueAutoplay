@@ -159,7 +159,7 @@ namespace League_Autoplay
             {
                 stoppedWorkingStopwatch.Reset();
                 GenericObject* stoppedWorkingObject = (GenericObject*)detectionData.stoppedWorkingActive.ToPointer();
-                MotorCortex.clickMouseAt(stoppedWorkingObject->center.x, stoppedWorkingObject->center.y);
+                MotorCortex.clickMouseAt(stoppedWorkingObject->center.x + 20, stoppedWorkingObject->center.y);
             }
 
             newData = false;

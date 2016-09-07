@@ -8,7 +8,7 @@ void StoppedWorkingManager::loadStoppedWorkingImageData(uint8_t * data, int imag
 
 GenericObject* StoppedWorkingManager::detectStoppedWorkingAtPixel(ImageData imageData, uint8_t *pixel, int x, int y) {
 	GenericObject* object = NULL;
-	if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData.imageWidth, imageData.imageHeight, continueImageData, 0.9) >= 0.9) {
+	if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData.imageWidth, imageData.imageHeight, continueImageData, 0.96) >= 0.96) {
 		object = new GenericObject();
 		object->topLeft.x = x;
 		object->topLeft.y = y;
