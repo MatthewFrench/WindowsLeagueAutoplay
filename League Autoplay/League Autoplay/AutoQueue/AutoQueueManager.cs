@@ -13,7 +13,7 @@ namespace League_Autoplay.AutoQueue
 {
     public class AutoQueueManager
     {
-        bool test = true;
+        bool test = false;
 
         Bitmap acceptMatchButton, dontSendButton, randomChampButton, reconnectButton, playAgainButton;
         Position acceptMatchButtonPosition, dontSendButtonPosition, randomChampButtonPosition, reconnectButtonPosition, playAgainButtonPosition;
