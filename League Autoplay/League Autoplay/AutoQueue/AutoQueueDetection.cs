@@ -68,8 +68,10 @@ namespace League_Autoplay.AutoQueue
             byte* onScreenPixel = getPixel2(screenData, screenImage.Width, xOnScreen, yOnScreen);
 
             //GenericObject * object = NULL;
-            if (getImageAtPixelPercentageOptimizedExact(onScreenPixel, xOnScreen, yOnScreen, screenImage.Width, screenImage.Height, findImage, findImageData, matchingPercent) >= matchingPercent)
+            double percent;
+            if ((percent = getImageAtPixelPercentageOptimizedExact(onScreenPixel, xOnScreen, yOnScreen, screenImage.Width, screenImage.Height, findImage, findImageData, matchingPercent)) >= matchingPercent)
             {
+                Console.WriteLine("Found image with percent match: " + percent);
                 return true;
             }
 

@@ -41,12 +41,14 @@ namespace League_Autoplay.AutoQueue
         {
 
             //Loop through pixels on the screen and look for any of those four buttons.
-            if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 500)
+            if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 0)
             {
+                Console.WriteLine("Scanning for accept match button");
                 acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 366, 393, 10, 10, 0.95);
+                //acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 0, 0, 1024, 768, 0.5);
                 if (acceptMatchButtonPosition.x != -1)
                 {
-                    Console.WriteLine("\tFound accept match button");
+                    Console.WriteLine("\tFound accept match button at " + acceptMatchButtonPosition.x + ", " + acceptMatchButtonPosition.y);
                     MotorCortex.clickMouseAt(acceptMatchButtonPosition.x + 10, acceptMatchButtonPosition.y = 10);
                     moveMouseDelayed();
                     acceptMatchClickStopwatch.Reset();

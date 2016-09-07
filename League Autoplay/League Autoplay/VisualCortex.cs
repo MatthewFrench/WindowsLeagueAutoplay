@@ -24,7 +24,7 @@ namespace League_Autoplay
         //private DesktopDuplicator desktopDuplicator;
 
         bool test = false;
-        String testImageName = "AnalysisImages\\Resources\\Test Images\\New Victory Screen Test.png";
+        String testImageName = "AnalysisImages\\Resources\\Test Images\\New Match Screen Test.png";
         bool shouldCaptureDisplayImage = false;
         bool recordDisplayImage = false;
         Bitmap displayImage;
