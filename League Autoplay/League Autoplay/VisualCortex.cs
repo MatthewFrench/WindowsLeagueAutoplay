@@ -47,7 +47,10 @@ namespace League_Autoplay
 
 
             string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-            testImage = new Bitmap(Image.FromFile(Path.Combine(dir, testImageName)));
+            if (test)
+            {
+                testImage = new Bitmap(Image.FromFile(Path.Combine(dir, testImageName)));
+            }
 
             //int width = desktopDuplicator.getFrameWidth();
             //int height = desktopDuplicator.getFrameHeight();
@@ -127,7 +130,7 @@ namespace League_Autoplay
                     saveStopwatch.Reset();
                     displayImage.Save("Recording/AI Record " + desktopBMP.Width + "x" + desktopBMP.Height + " " + Environment.TickCount + ".png", System.Drawing.Imaging.ImageFormat.Png);
                 }
-                returnValue = new Bitmap(testImage);
+                returnValue = new Bitmap(desktopBMP);
             }
 
             System.GC.Collect();

@@ -68,18 +68,33 @@ namespace League_Autoplay.AutoQueue
             byte* onScreenPixel = getPixel2(screenData, screenImage.Width, xOnScreen, yOnScreen);
 
             //GenericObject * object = NULL;
-            double percent;
-            if ((percent = getImageAtPixelPercentageOptimizedExact(onScreenPixel, xOnScreen, yOnScreen, screenImage.Width, screenImage.Height, findImage, findImageData, matchingPercent)) >= matchingPercent)
+            //double percent;
+            if ( getImageAtPixelPercentageOptimizedExact(onScreenPixel, xOnScreen, yOnScreen, screenImage.Width, screenImage.Height, findImage, findImageData, matchingPercent) >= matchingPercent)
             {
-                Console.WriteLine("Found image with percent match: " + percent);
+                //Console.WriteLine("Found image with percent match: " + percent);
                 return true;
             }
 
             return false;
         }
 
+        //public static Bitmap matchingBitmap = new Bitmap(1024, 768, PixelFormat.Format24bppRgb);
+
         unsafe static double getImageAtPixelPercentageOptimizedExact(byte* onScreenpixel, int xOnScreen, int yOnScreen, int screenWidth, int screenHeight, Bitmap findImage, byte* findImageData, double minimumPercentage)
         {
+            /*
+            if (xOnScreen == 369 && yOnScreen == 396)
+            {
+                for (int x = 0; x < 1024; x++)
+                {
+                    for (int y = 0; y < 768; y++)
+                    {
+                        matchingBitmap.SetPixel(0, 0, Color.White);
+                    }
+                }
+                Console.WriteLine("Scanning pixel: ");
+            }*/
+
             int pixels = 0;
             int maxPixelCount = findImage.Width * findImage.Height;
             int skipPixels = 4 * (screenWidth - findImage.Width);
@@ -91,6 +106,12 @@ namespace League_Autoplay.AutoQueue
             {
                 return 0.0;
             }
+            /*
+            if (xOnScreen == 369 && yOnScreen == 396)
+            {
+
+                Console.WriteLine("Scanning part 2: ");
+            }*/
 
             int perfectPixels = 0;
             int nonPerfectPixels = 0;
@@ -102,10 +123,27 @@ namespace League_Autoplay.AutoQueue
                     {
                         pixels++;
                         double p = getColorPercentage(pixel, pixel2);
+                        /*
+                        if (xOnScreen == 369 && yOnScreen == 396)
+                        {
+                            Console.WriteLine("Pixel comparison: " + p);
+                            Console.WriteLine("Pixel x: " + x1 + ",y: " + y1 + "{"+pixel[0] + "," + pixel[1] + "," + pixel[2]+ "} vs " + "{" + pixel2[0] + ","+ pixel2[1] + "," + pixel2[2] + "}");
+                            
+                            matchingBitmap.SetPixel(xOnScreen + x1, yOnScreen + y1, Color.FromArgb(pixel[2],pixel[1],pixel[0]));
+                             
+                        }
+                    */
 
-                        percentage += p;
+                       percentage += p;
                         if (p < minimumPercentage)
                         {
+                            /*
+                            if (xOnScreen == 369 && yOnScreen == 396)
+                            {
+
+                                Console.WriteLine("Color percent is less than required so returning. Percent: " + percentage + ", maxPixelCount: " + maxPixelCount);
+                                Console.WriteLine("Returning: " + percentage / maxPixelCount);
+                            }*/
                             return percentage / maxPixelCount;
                         }
                         if (p == 1.0)
@@ -123,6 +161,18 @@ namespace League_Autoplay.AutoQueue
                 }
                 pixel += skipPixels;
             }
+            /*
+            if (xOnScreen == 369 && yOnScreen == 396)
+            {
+
+                Console.WriteLine("Scanning part 3: with match: " + (percentage / pixels));
+                Console.WriteLine("Image comparison: " + pixels + " pixels, " + percentage + "%");
+            }
+
+            if (percentage / pixels == 1.0)
+            {
+                Console.WriteLine("Perfect image comparison: " + pixels + " pixels, " + percentage + "%");
+            } */
             return percentage / pixels;
         }
         unsafe static double getColorPercentage(byte* pixel, byte* pixel2)

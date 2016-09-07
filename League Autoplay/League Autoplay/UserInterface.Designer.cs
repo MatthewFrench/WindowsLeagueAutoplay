@@ -37,7 +37,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.aiFpsBox = new System.Windows.Forms.ComboBox();
             this.updateDisplayCheckBox = new System.Windows.Forms.CheckBox();
+            this.debugBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.screenCaptureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.debugBox)).BeginInit();
             this.SuspendLayout();
             // 
             // screenCaptureBox
@@ -139,12 +141,26 @@
             this.updateDisplayCheckBox.UseVisualStyleBackColor = true;
             this.updateDisplayCheckBox.CheckedChanged += new System.EventHandler(this.updateDisplayCheckBox_CheckedChanged);
             // 
+            // debugBox
+            // 
+            this.debugBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.debugBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.debugBox.Location = new System.Drawing.Point(82, 91);
+            this.debugBox.Name = "debugBox";
+            this.debugBox.Size = new System.Drawing.Size(209, 203);
+            this.debugBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.debugBox.TabIndex = 9;
+            this.debugBox.TabStop = false;
+            // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(518, 301);
+            this.Controls.Add(this.debugBox);
             this.Controls.Add(this.updateDisplayCheckBox);
             this.Controls.Add(this.aiFpsBox);
             this.Controls.Add(this.label4);
@@ -158,6 +174,7 @@
             this.Text = "League Autoplay";
             this.Shown += new System.EventHandler(this.Form1_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.screenCaptureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.debugBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -174,6 +191,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox aiFpsBox;
         private System.Windows.Forms.CheckBox updateDisplayCheckBox;
+        private System.Windows.Forms.PictureBox debugBox;
     }
 }
 

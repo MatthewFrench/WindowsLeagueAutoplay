@@ -49,6 +49,12 @@ namespace League_Autoplay
                 screenCaptureBox.Image = b;
             });
         }
+        public void setDebugImage(Bitmap b)
+        {
+            TaskHelper.RunTask(uiContext, () => {
+                debugBox.Image = b;
+            });
+        }
         public void setAIPerformanceLabel(String text)
         {
             TaskHelper.RunTask(uiContext, () => {

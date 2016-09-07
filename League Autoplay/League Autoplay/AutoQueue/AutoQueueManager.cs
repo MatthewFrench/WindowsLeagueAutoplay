@@ -13,6 +13,8 @@ namespace League_Autoplay.AutoQueue
 {
     public class AutoQueueManager
     {
+        bool test = true;
+
         Bitmap acceptMatchButton, dontSendButton, randomChampButton, reconnectButton, playAgainButton;
         Position acceptMatchButtonPosition, dontSendButtonPosition, randomChampButtonPosition, reconnectButtonPosition, playAgainButtonPosition;
         Stopwatch acceptMatchClickStopwatch, dontSendClickStopwatch, randomChampClickStopwatch, reconnectButtonClickStopwatch, playAgainButtonStopwatch;
@@ -41,68 +43,84 @@ namespace League_Autoplay.AutoQueue
         {
 
             //Loop through pixels on the screen and look for any of those four buttons.
-            if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 0)
+            if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 0 || test)
             {
-                Console.WriteLine("Scanning for accept match button");
+                //Console.WriteLine("Scanning for accept match button");
                 acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 366, 393, 10, 10, 0.95);
                 //acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 0, 0, 1024, 768, 0.5);
                 if (acceptMatchButtonPosition.x != -1)
                 {
                     Console.WriteLine("\tFound accept match button at " + acceptMatchButtonPosition.x + ", " + acceptMatchButtonPosition.y);
-                    MotorCortex.clickMouseAt(acceptMatchButtonPosition.x + 10, acceptMatchButtonPosition.y = 10);
-                    moveMouseDelayed();
-                    acceptMatchClickStopwatch.Reset();
-                    return;
+                    if (!test)
+                    {
+                        MotorCortex.clickMouseAt(acceptMatchButtonPosition.x + 10, acceptMatchButtonPosition.y = 10);
+                        moveMouseDelayed();
+                    }
                 }
+                acceptMatchClickStopwatch.Reset();
+                return;
             }
 
-            if (dontSendClickStopwatch.DurationInMilliseconds() >= 500)
+
+            if (dontSendClickStopwatch.DurationInMilliseconds() >= 500 || test)
             {
                 dontSendButtonPosition = AutoQueueDetection.findImageInScreen(screen, dontSendButton, 465, 535, 10, 10, 0.95);
                 if (dontSendButtonPosition.x != -1)
                 {
                     Console.WriteLine("\tFound dont send button");
-                    MotorCortex.clickMouseAt(dontSendButtonPosition.x + 10, dontSendButtonPosition.y = 10);
-                    moveMouseDelayed();
+                    if (!test)
+                    {
+                        MotorCortex.clickMouseAt(dontSendButtonPosition.x + 10, dontSendButtonPosition.y = 10);
+                        moveMouseDelayed();
+                    }
                     dontSendClickStopwatch.Reset();
                     return;
                 }
             }
 
-            if (randomChampClickStopwatch.DurationInMilliseconds() >= 500)
+            if (randomChampClickStopwatch.DurationInMilliseconds() >= 500 || test)
             {
                 randomChampButtonPosition = AutoQueueDetection.findImageInScreen(screen, randomChampButton, 235, 186, 10, 10, 0.95);
                 if (randomChampButtonPosition.x != -1)
                 {
                     Console.WriteLine("\tFound random champ button");
-                    MotorCortex.clickMouseAt(randomChampButtonPosition.x + 10, randomChampButtonPosition.y = 10);
-                    moveMouseDelayed();
+                    if (!test)
+                    {
+                        MotorCortex.clickMouseAt(randomChampButtonPosition.x + 10, randomChampButtonPosition.y = 10);
+                        moveMouseDelayed();
+                    }
                     randomChampClickStopwatch.Reset();
                     return;
                 }
             }
 
-            if (reconnectButtonClickStopwatch.DurationInMilliseconds() >= 500)
+            if (reconnectButtonClickStopwatch.DurationInMilliseconds() >= 500 || test)
             {
                 reconnectButtonPosition = AutoQueueDetection.findImageInScreen(screen, reconnectButton, 438, 394, 10, 10, 0.95);
                 if (reconnectButtonPosition.x != -1)
                 {
                     Console.WriteLine("\tFound reconnect button");
-                    MotorCortex.clickMouseAt(reconnectButtonPosition.x + 10, reconnectButtonPosition.y = 10);
-                    moveMouseDelayed();
+                    if (!test)
+                    {
+                        MotorCortex.clickMouseAt(reconnectButtonPosition.x + 10, reconnectButtonPosition.y = 10);
+                        moveMouseDelayed();
+                    }
                     reconnectButtonClickStopwatch.Reset();
                     return;
                 }
             }
 
-            if (playAgainButtonStopwatch.DurationInMilliseconds() >= 500)
+            if (playAgainButtonStopwatch.DurationInMilliseconds() >= 500 || test)
             {
                 playAgainButtonPosition = AutoQueueDetection.findImageInScreen(screen, playAgainButton, 776, 616, 10, 10, 0.95);
                 if (playAgainButtonPosition.x != -1)
                 {
                     Console.WriteLine("\tFound play again button");
-                    MotorCortex.clickMouseAt(playAgainButtonPosition.x + 10, playAgainButtonPosition.y = 10);
-                    moveMouseDelayed();
+                    if (!test)
+                    {
+                        MotorCortex.clickMouseAt(playAgainButtonPosition.x + 10, playAgainButtonPosition.y = 10);
+                        moveMouseDelayed();
+                    }
                     playAgainButtonStopwatch.Reset();
                     return;
                 }

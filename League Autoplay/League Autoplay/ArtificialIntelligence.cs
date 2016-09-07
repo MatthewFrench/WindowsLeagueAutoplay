@@ -131,6 +131,7 @@ namespace League_Autoplay
                 Console.WriteLine("League of legends client open and scanning for auto queue");
                 //Run auto queue
                 autoQueue.runAutoQueue(currentScreen);
+               // userInterface.setDebugImage(new Bitmap(AutoQueueDetection.matchingBitmap));
             }
         }
 
