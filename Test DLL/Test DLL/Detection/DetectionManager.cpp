@@ -1497,7 +1497,7 @@ void DetectionManager::processSurrender(ImageData *image) {
 void DetectionManager::processContinue(ImageData *image) {
 
 	int searchWidth = 10; int searchHeight = 10;
-	Position pos = makePosition(435, 462);
+	Position pos = makePosition(441, 464);
 
 	GenericObject* continueObject = NULL;
 	for (int x = pos.x; x < pos.x + searchWidth; x++) {

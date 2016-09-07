@@ -8,7 +8,7 @@ void ContinueManager::loadContinueImageData(uint8_t * data, int imageWidth, int 
 
 GenericObject* ContinueManager::detectContinueAtPixel(ImageData imageData, uint8_t *pixel, int x, int y) {
 	GenericObject* object = NULL;
-	if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData.imageWidth, imageData.imageHeight, continueImageData, 0.7) >= 0.7) {
+	if (getImageAtPixelPercentageOptimizedExact(pixel, x, y, imageData.imageWidth, imageData.imageHeight, continueImageData, 0.6) >= 0.6) {
 		object = new GenericObject();
 		object->topLeft.x = x;
 		object->topLeft.y = y;
