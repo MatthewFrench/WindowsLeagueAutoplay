@@ -78,7 +78,7 @@ namespace League_Autoplay.AutoQueue
                 }
             }
 
-            if (randomChampClickStopwatch.DurationInMilliseconds() >= 500 || test)
+            if (randomChampClickStopwatch.DurationInMilliseconds() >= 2000 || test)
             {
                 randomChampButtonPosition = AutoQueueDetection.findImageInScreen(screen, randomChampButton, 235, 186, 10, 10, 0.95);
                 if (randomChampButtonPosition.x != -1)
@@ -88,6 +88,28 @@ namespace League_Autoplay.AutoQueue
                     {
                         MotorCortex.clickMouseAt(randomChampButtonPosition.x + 10, randomChampButtonPosition.y + 10);
                         moveMouseToWithDelay(0, 0, 200);
+
+                        //Click Enter
+                        Task.Delay(200).ContinueWith(_ =>
+                        {
+                            MotorCortex.typeText("{ENTER}");
+                        });
+                        Task.Delay(400).ContinueWith(_ =>
+                        {
+                            MotorCortex.typeText("T", true);
+                        });
+                        Task.Delay(600).ContinueWith(_ =>
+                        {
+                            MotorCortex.typeText("o", true);
+                        });
+                        Task.Delay(800).ContinueWith(_ =>
+                        {
+                            MotorCortex.typeText("p", true);
+                        });
+                        Task.Delay(1000).ContinueWith(_ =>
+                        {
+                            MotorCortex.typeText("{ENTER}");
+                        });
                     }
                     randomChampClickStopwatch.Reset();
                     return;
