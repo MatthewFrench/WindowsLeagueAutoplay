@@ -114,6 +114,8 @@
             this.aiFpsBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.aiFpsBox.FormattingEnabled = true;
             this.aiFpsBox.Items.AddRange(new object[] {
+            "2",
+            "5",
             "10",
             "15",
             "20",
