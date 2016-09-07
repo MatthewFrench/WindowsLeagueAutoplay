@@ -46,6 +46,7 @@ namespace League_Autoplay.AutoQueue
                 acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 366, 393, 10, 10, 0.95);
                 if (acceptMatchButtonPosition.x != -1)
                 {
+                    Console.WriteLine("\tFound accept match button");
                     MotorCortex.clickMouseAt(acceptMatchButtonPosition.x + 10, acceptMatchButtonPosition.y = 10);
                     moveMouseDelayed();
                     acceptMatchClickStopwatch.Reset();
@@ -58,6 +59,7 @@ namespace League_Autoplay.AutoQueue
                 dontSendButtonPosition = AutoQueueDetection.findImageInScreen(screen, dontSendButton, 465, 535, 10, 10, 0.95);
                 if (dontSendButtonPosition.x != -1)
                 {
+                    Console.WriteLine("\tFound dont send button");
                     MotorCortex.clickMouseAt(dontSendButtonPosition.x + 10, dontSendButtonPosition.y = 10);
                     moveMouseDelayed();
                     dontSendClickStopwatch.Reset();
@@ -70,6 +72,7 @@ namespace League_Autoplay.AutoQueue
                 randomChampButtonPosition = AutoQueueDetection.findImageInScreen(screen, randomChampButton, 235, 186, 10, 10, 0.95);
                 if (randomChampButtonPosition.x != -1)
                 {
+                    Console.WriteLine("\tFound random champ button");
                     MotorCortex.clickMouseAt(randomChampButtonPosition.x + 10, randomChampButtonPosition.y = 10);
                     moveMouseDelayed();
                     randomChampClickStopwatch.Reset();
@@ -82,6 +85,7 @@ namespace League_Autoplay.AutoQueue
                 reconnectButtonPosition = AutoQueueDetection.findImageInScreen(screen, reconnectButton, 438, 394, 10, 10, 0.95);
                 if (reconnectButtonPosition.x != -1)
                 {
+                    Console.WriteLine("\tFound reconnect button");
                     MotorCortex.clickMouseAt(reconnectButtonPosition.x + 10, reconnectButtonPosition.y = 10);
                     moveMouseDelayed();
                     reconnectButtonClickStopwatch.Reset();
@@ -94,6 +98,7 @@ namespace League_Autoplay.AutoQueue
                 playAgainButtonPosition = AutoQueueDetection.findImageInScreen(screen, playAgainButton, 776, 616, 10, 10, 0.95);
                 if (playAgainButtonPosition.x != -1)
                 {
+                    Console.WriteLine("\tFound play again button");
                     MotorCortex.clickMouseAt(playAgainButtonPosition.x + 10, playAgainButtonPosition.y = 10);
                     moveMouseDelayed();
                     playAgainButtonStopwatch.Reset();

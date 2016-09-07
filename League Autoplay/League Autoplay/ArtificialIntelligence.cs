@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using System.Drawing;
 using League_Autoplay.AutoQueue;
 
+using System.IO;
+using Microsoft.Win32.SafeHandles;
+
 namespace League_Autoplay
 {
     public class ArtificialIntelligence
@@ -34,6 +37,8 @@ namespace League_Autoplay
 
         public ArtificialIntelligence(UserInterface userInterface, VisualCortex visualCortex)
         {
+            
+
             this.userInterface = userInterface;
             this.visualCortex = visualCortex;
             TimerResolution.setTimerResolution(1.0);
@@ -81,18 +86,15 @@ namespace League_Autoplay
                 grabbingScreen = true;
                 Task t = Task.Run(() =>
                 {
-                    Debug.WriteLine("Grabbing screen");
                     //visualCortex.runTest();
                     Bitmap screen = visualCortex.grabScreen2(leagueOfLegendsOpen);
 
                     DetectionDataStruct data = visualCortex.getVisualDetectionData();
                     TaskHelper.RunTask(aiContext, () =>
                     {
-                        Debug.WriteLine("Updating detection data");
                         updateDetectionData(ref data, screen);
                     });
                 }).ContinueWith(_ => {
-                    Debug.WriteLine("Writing on UI thread");
                     //Run on UI thread
                     if (updateDisplayImage)
                     {
@@ -126,6 +128,7 @@ namespace League_Autoplay
             }
             else if ((leagueOfLegendsClientOpen || visualCortex.isTesting()) && currentScreen != null)
             {
+                Console.WriteLine("League of legends client open and scanning for auto queue");
                 //Run auto queue
                 autoQueue.runAutoQueue(currentScreen);
             }
@@ -178,206 +181,206 @@ namespace League_Autoplay
                 basicAI.updateDetectionData(ref currentDetectionData);
             }
 
-            Debug.WriteLine("Detected in C#: ");
+            Console.WriteLine("Detected in C#: ");
             if (data.numberOfAllyMinions > 0)
             {
-                Debug.WriteLine("\t"+ data.numberOfAllyMinions + " ally minions");
+                Console.WriteLine("\t"+ data.numberOfAllyMinions + " ally minions");
 
                 for (int i = 0; i < data.numberOfAllyMinions; i++)
                 {
                     Minion* minion = &(((Minion*)data.allyMinionsArray.ToPointer())[i]);
-                    Debug.WriteLine("\t\tminion at "+ minion->characterCenter.x + ", "+ minion->characterCenter.y + " with health " + minion->health);
+                    Console.WriteLine("\t\tminion at "+ minion->characterCenter.x + ", "+ minion->characterCenter.y + " with health " + minion->health);
                 }
             }
             if (data.numberOfAllyChampions > 0)
             {
-                Debug.WriteLine("\t"+ data.numberOfAllyChampions + " ally champions");
+                Console.WriteLine("\t"+ data.numberOfAllyChampions + " ally champions");
                 for (int i = 0; i < data.numberOfAllyChampions; i++)
                 {
                     Champion* champion = &(((Champion*)data.allyChampionsArray.ToPointer())[i]);
-                    Debug.WriteLine("\t\tchampion at "+ champion->characterCenter.x + ", "+ champion->characterCenter.y + " with health " + champion->health);
+                    Console.WriteLine("\t\tchampion at "+ champion->characterCenter.x + ", "+ champion->characterCenter.y + " with health " + champion->health);
                 }
             }
             if (data.numberOfSelfChampions > 0)
             {
-                Debug.WriteLine("\t"+ data.numberOfSelfChampions + " self champions");
+                Console.WriteLine("\t"+ data.numberOfSelfChampions + " self champions");
                 for (int i = 0; i < data.numberOfSelfChampions; i++)
                 {
                     Champion* champion = &(((Champion*)data.selfChampionsArray.ToPointer())[i]);
-                    Debug.WriteLine("\t\tchampion at "+ champion->characterCenter.x + ", "+ champion->characterCenter.y + " with health " + champion->health);
+                    Console.WriteLine("\t\tchampion at "+ champion->characterCenter.x + ", "+ champion->characterCenter.y + " with health " + champion->health);
                 }
             }
             if (data.numberOfEnemyMinions > 0)
             {
-                Debug.WriteLine("\t"+ data.numberOfEnemyMinions + " enemy minions");
+                Console.WriteLine("\t"+ data.numberOfEnemyMinions + " enemy minions");
                 for (int i = 0; i < data.numberOfEnemyMinions; i++)
                 {
                     Minion* minion = &(((Minion*)data.enemyMinionsArray.ToPointer())[i]);
-                    Debug.WriteLine("\t\tminion at "+ minion->characterCenter.x + ", "+ minion->characterCenter.y + " with health "+ minion->health);
+                    Console.WriteLine("\t\tminion at "+ minion->characterCenter.x + ", "+ minion->characterCenter.y + " with health "+ minion->health);
                 }
             }
             if (data.numberOfEnemyChampions > 0)
             {
-                Debug.WriteLine("\t"+ data.numberOfEnemyChampions + " enemy champions");
+                Console.WriteLine("\t"+ data.numberOfEnemyChampions + " enemy champions");
                 for (int i = 0; i < data.numberOfEnemyChampions; i++)
                 {
                     Champion* champion = &(((Champion*)data.enemyChampionsArray.ToPointer())[i]);
-                    Debug.WriteLine("\t\tchampion at "+ champion->characterCenter.x + ", "+ champion->characterCenter.y + " with health "+ champion->health);
+                    Console.WriteLine("\t\tchampion at "+ champion->characterCenter.x + ", "+ champion->characterCenter.y + " with health "+ champion->health);
                 }
             }
             if (data.numberOfEnemyTowers > 0)
             {
-                Debug.WriteLine("\t"+ data.numberOfEnemyTowers + " enemy towers");
+                Console.WriteLine("\t"+ data.numberOfEnemyTowers + " enemy towers");
                 for (int i = 0; i < data.numberOfEnemyTowers; i++)
                 {
                     Tower* tower = &(((Tower*)data.enemyTowersArray.ToPointer())[i]);
-                    Debug.WriteLine("\t\ttower at "+ tower->towerCenter.x + ", "+ tower->towerCenter.y + " with health "+ tower->health);
+                    Console.WriteLine("\t\ttower at "+ tower->towerCenter.x + ", "+ tower->towerCenter.y + " with health "+ tower->health);
                 }
             }
             if (data.selfHealthBarVisible)
             {
-                Debug.WriteLine("\tCan see self health bar");
-                Debug.WriteLine("\tSelf health: " + ((SelfHealth*)data.selfHealthBar.ToPointer())->health);
+                Console.WriteLine("\tCan see self health bar");
+                Console.WriteLine("\tSelf health: " + ((SelfHealth*)data.selfHealthBar.ToPointer())->health);
             }
             if (data.spell1LevelUpAvailable)
             {
-                Debug.WriteLine("\tLevel up spell 1 available");
+                Console.WriteLine("\tLevel up spell 1 available");
             }
             if (data.spell2LevelUpAvailable)
             {
-                Debug.WriteLine("\tLevel up spell 2 available");
+                Console.WriteLine("\tLevel up spell 2 available");
             }
             if (data.spell3LevelUpAvailable)
             {
-                Debug.WriteLine("\tLevel up spell 3 available");
+                Console.WriteLine("\tLevel up spell 3 available");
             }
             if (data.spell4LevelUpAvailable)
             {
-                Debug.WriteLine("\tLevel up spell 4 available");
+                Console.WriteLine("\tLevel up spell 4 available");
             }
             if (data.currentLevel > 0)
             {
-                Debug.WriteLine("\tDetected current level: " + data.currentLevel);
+                Console.WriteLine("\tDetected current level: " + data.currentLevel);
             }
             if (data.spell1ActiveAvailable)
             {
-                Debug.WriteLine("\tSpell 1 available");
+                Console.WriteLine("\tSpell 1 available");
             }
             if (data.spell2ActiveAvailable)
             {
-                Debug.WriteLine("\tSpell 2 available");
+                Console.WriteLine("\tSpell 2 available");
             }
             if (data.spell3ActiveAvailable)
             {
-                Debug.WriteLine("\tSpell 3 available");
+                Console.WriteLine("\tSpell 3 available");
             }
             if (data.spell4ActiveAvailable)
             {
-                Debug.WriteLine("\tSpell 4 available");
+                Console.WriteLine("\tSpell 4 available");
             }
             if (data.summonerSpell1ActiveAvailable)
             {
-                Debug.WriteLine("\tSummoner spell 1 available");
+                Console.WriteLine("\tSummoner spell 1 available");
             }
             if (data.summonerSpell2ActiveAvailable)
             {
-                Debug.WriteLine("\tSummoner spell 2 available");
+                Console.WriteLine("\tSummoner spell 2 available");
             }
             if (data.trinketActiveAvailable)
             {
-                Debug.WriteLine("\tTrinket active available");
+                Console.WriteLine("\tTrinket active available");
             }
             if (data.item1ActiveAvailable)
             {
-                Debug.WriteLine("\tItem 1 active available");
+                Console.WriteLine("\tItem 1 active available");
             }
             if (data.item2ActiveAvailable)
             {
-                Debug.WriteLine("\tItem 2 active available");
+                Console.WriteLine("\tItem 2 active available");
             }
             if (data.item3ActiveAvailable)
             {
-                Debug.WriteLine("\tItem 3 active available");
+                Console.WriteLine("\tItem 3 active available");
             }
             if (data.item4ActiveAvailable)
             {
-                Debug.WriteLine("\tItem 4 active available");
+                Console.WriteLine("\tItem 4 active available");
             }
             if (data.item5ActiveAvailable)
             {
-                Debug.WriteLine("\tItem 5 active available");
+                Console.WriteLine("\tItem 5 active available");
             }
             if (data.item6ActiveAvailable)
             {
-                Debug.WriteLine("\tItem 6 active available");
+                Console.WriteLine("\tItem 6 active available");
             }
             if (data.potionActiveAvailable)
             {
-                Debug.WriteLine("\tPotion active available");
+                Console.WriteLine("\tPotion active available");
 
-                Debug.WriteLine("\t\tPotion in slot " + data.potionOnActive);
+                Console.WriteLine("\t\tPotion in slot " + data.potionOnActive);
             }
             if (data.potionBeingUsedShown)
             {
-                Debug.WriteLine("\tPotion being used");
+                Console.WriteLine("\tPotion being used");
             }
             if (data.shopAvailableShown)
             {
-                Debug.WriteLine("\tShop is available");
+                Console.WriteLine("\tShop is available");
             }
             if (data.shopTopLeftCornerShown)
             {
-                Debug.WriteLine("\tShop top left corner is visible");
+                Console.WriteLine("\tShop top left corner is visible");
             }
             if (data.shopBottomLeftCornerShown)
             {
-                Debug.WriteLine("\tShop bottom left corner is visible");
+                Console.WriteLine("\tShop bottom left corner is visible");
             }
             if (data.numberOfBuyableItems > 0)
             {
-                Debug.WriteLine("\tBuyable items: " + data.numberOfBuyableItems);
+                Console.WriteLine("\tBuyable items: " + data.numberOfBuyableItems);
             }
             if (data.mapVisible)
             {
-                Debug.WriteLine("\tMap is visible");
+                Console.WriteLine("\tMap is visible");
             }
             if (data.mapShopVisible)
             {
-                Debug.WriteLine("\tShop on map is visible");
+                Console.WriteLine("\tShop on map is visible");
             }
             if (data.mapSelfLocationVisible)
             {
-                Debug.WriteLine("\tLocation on map is visible");
+                Console.WriteLine("\tLocation on map is visible");
             }
             if (data.surrenderAvailable)
             {
-                Debug.WriteLine("\tSurrender is visible");
+                Console.WriteLine("\tSurrender is visible");
             }
             if (data.continueAvailable)
             {
                 GenericObject* active = (GenericObject*)data.continueActive.ToPointer();
-                Debug.WriteLine("\tContinue is visible at " + active->topLeft.x + ", " + active->topLeft.y);
+                Console.WriteLine("\tContinue is visible at " + active->topLeft.x + ", " + active->topLeft.y);
             }
             if (data.afkAvailable)
             {
-                Debug.WriteLine("\tAFK is visible");
+                Console.WriteLine("\tAFK is visible");
             }
             if (data.stoppedWorkingAvailable)
             {
-                Debug.WriteLine("\tStopped Working is visible");
+                Console.WriteLine("\tStopped Working is visible");
             }
 
-            Debug.Flush();
+            Console.Out.Flush();
 
             /*
-            Debug.WriteLine("\nC# bytes");
+            Console.WriteLine("\nC# bytes");
             byte[] bytes = ToByteArray(detectionData);
-            Debug.WriteLine("Bytes count: " + Marshal.SizeOf(detectionData));
-            Debug.WriteLine("[ " + BitConverter.ToString(bytes).Replace("-", " ").ToLower() + " ]");
-            Debug.WriteLine("\n");
+            Console.WriteLine("Bytes count: " + Marshal.SizeOf(detectionData));
+            Console.WriteLine("[ " + BitConverter.ToString(bytes).Replace("-", " ").ToLower() + " ]");
+            Console.WriteLine("\n");
             */
             //visualCortex.freeVisualDetectionData(ref detectionData);
-            //Debug.WriteLine("Test Ending Detection data test");
+            //Console.WriteLine("Test Ending Detection data test");
         }
         public void createAITimer(int milliseconds = 16)
         {
