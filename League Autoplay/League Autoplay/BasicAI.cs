@@ -17,7 +17,7 @@ namespace League_Autoplay
         "hewwo", "I'm a cat meow", "how are you guys?", "tell me a story", "FOR DEMACIA", "FOR NOXUS", "I'm new at this game",
         "pie hehe", "imma build guardian angel first, k?", "my mom tells me im handsome", "k thx", "you rock", "be careful!",
         "!!!!!", "dgashdgfasbdgasjdfsbkljdsakj", "I need a new keyboard", "/all Good game!", "/all Good luck", "/all be nice to me",
-        "so kawaii"};
+        "so kawaii", "im trying", ":("};
 
         enum Action
         {
@@ -1343,9 +1343,9 @@ namespace League_Autoplay
                             castSpell3();
                             castSpell2();
                             castSpell1();
-                            if (enemyChampionsNear)
+                            if (enemyChampionsNear || action == Action.GoHam)
                             {
-                                if (lowestHealthEnemyChampion->health <= 0.35)
+                                if (lowestHealthEnemyChampion->health <= 0.35 || action == Action.GoHam)
                                 {
                                     castSummonerSpell1();
                                     castSummonerSpell2();
