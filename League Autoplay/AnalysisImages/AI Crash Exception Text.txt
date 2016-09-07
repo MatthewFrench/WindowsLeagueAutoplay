@@ -1,0 +1,3 @@
+Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at League_Autoplay.BasicAI.processAI() in C:\Users\Matt\Documents\GitHub\WindowsLeagueAutoplay\League Autoplay\League Autoplay\BasicAI.cs:line 156
+   at League_Autoplay.ArtificialIntelligence.logic() in C:\Users\Matt\Documents\GitHub\WindowsLeagueAutoplay\League Autoplay\League Autoplay\ArtificialIntelligence.cs:line 126
