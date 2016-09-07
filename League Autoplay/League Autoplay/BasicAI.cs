@@ -208,7 +208,7 @@ namespace League_Autoplay
                 MotorCortex.typeText("{ENTER}");
                 typingMessageStopwatch.Reset();
             });
-            offset += 200;
+            offset += 300;
             for (int i = 0; i < message.Length; i++)
             {
                 char character = message[i];
@@ -217,9 +217,9 @@ namespace League_Autoplay
                     MotorCortex.typeText("" + character, true);
                     typingMessageStopwatch.Reset();
                 });
-                offset += 200;
+                offset += 300;
             }
-            offset += 200;
+            offset += 300;
             Task.Delay(offset).ContinueWith(_ =>
             {
                 MotorCortex.typeText("{ENTER}");
