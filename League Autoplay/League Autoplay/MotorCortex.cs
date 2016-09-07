@@ -15,9 +15,15 @@ namespace League_Autoplay
         {
             AutoItX.AutoItSetOption("SendKeyDelay", 0);
         }
-        static public void typeText(String text)
+        static public void typeText(String text, bool justText=false)
         {
-            AutoItX.Send(text);
+            if (!justText)
+            {
+                AutoItX.Send(text);
+            } else
+            {
+                AutoItX.Send(text, 1);
+            }
         }
         static public void clickMouse()
         {

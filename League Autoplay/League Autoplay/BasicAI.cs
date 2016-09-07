@@ -196,7 +196,7 @@ namespace League_Autoplay
                 char character = message[i];
                 Task.Delay(400 + 200 * (i + 1)).ContinueWith(_ =>
                 {
-                    MotorCortex.typeText("" + character);
+                    MotorCortex.typeText("" + character, true);
                     typingMessageStopwatch.Reset();
                 });
             }
