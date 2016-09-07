@@ -170,13 +170,13 @@ namespace League_Autoplay
             if (addRandomStuff)
             {
                 int r = random.Next(3);
-                if (r == 0)
+                if (r == 0 && message.Length > 5)
                 { //Insert random letter
                     int num = random.Next(0, 26); // Zero to 25
                     char let = (char)('a' + num);
                     message = message.Insert(random.Next(message.Length), let + "");
                 }
-                else if (r == 1)
+                else if (r == 1 && message.Length > 5)
                 { //Randomly remove a letter
                     //Remove one random letter
                     message = message.Remove(random.Next(message.Length - 1), 1);
