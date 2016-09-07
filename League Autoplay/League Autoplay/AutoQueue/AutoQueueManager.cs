@@ -13,11 +13,10 @@ namespace League_Autoplay.AutoQueue
 {
     public class AutoQueueManager
     {
-        bool test = false;
 
-        Bitmap acceptMatchButton, dontSendButton, randomChampButton, reconnectButton, playAgainButton;
-        Position acceptMatchButtonPosition, dontSendButtonPosition, randomChampButtonPosition, reconnectButtonPosition, playAgainButtonPosition;
-        Stopwatch acceptMatchClickStopwatch, dontSendClickStopwatch, randomChampClickStopwatch, reconnectButtonClickStopwatch, playAgainButtonStopwatch;
+        Bitmap acceptMatchButton, dontSendButton, randomChampButton, reconnectButton, playAgainButton, lockInButton;
+        Position acceptMatchButtonPosition, dontSendButtonPosition, randomChampButtonPosition, reconnectButtonPosition, playAgainButtonPosition, lockInButtonPosition;
+        Stopwatch acceptMatchClickStopwatch, dontSendClickStopwatch, randomChampClickStopwatch, reconnectButtonClickStopwatch, playAgainButtonStopwatch, lockInButtonStopwatch;
 
         public AutoQueueManager()
         {
@@ -27,12 +26,14 @@ namespace League_Autoplay.AutoQueue
             randomChampButton = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Auto Queue Images\\Random Champ Button.png")));
             reconnectButton = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Auto Queue Images\\Reconnect Button.png")));
             playAgainButton = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Auto Queue Images\\Play Again Button.png")));
+            lockInButton = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Auto Queue Images\\Lock In Button.png")));
 
             acceptMatchClickStopwatch = new Stopwatch();
             dontSendClickStopwatch = new Stopwatch();
             randomChampClickStopwatch = new Stopwatch();
             reconnectButtonClickStopwatch = new Stopwatch();
             playAgainButtonStopwatch = new Stopwatch();
+            lockInButtonStopwatch = new Stopwatch();
         }
 
         public void reset()
@@ -43,7 +44,54 @@ namespace League_Autoplay.AutoQueue
         {
 
             //Loop through pixels on the screen and look for any of those four buttons.
-            if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 500 || test)
+
+            if (lockInButtonStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
+            {
+                //Console.WriteLine("Scanning for lock in button");
+                lockInButtonPosition = AutoQueueDetection.findImageInScreen(screen, lockInButton, 660, 441, 10, 10, 0.95);
+                //acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 0, 0, 1024, 768, 0.5);
+                if (lockInButtonPosition.x != -1)
+                {
+                    Console.WriteLine("\tFound lock in button at " + lockInButtonPosition.x + ", " + lockInButtonPosition.y);
+                    if (!VisualCortex.IsTest)
+                    {
+                        MotorCortex.clickMouseAt(lockInButtonPosition.x + 10, lockInButtonPosition.y + 10);
+                        
+
+                        int x = lockInButtonPosition.x - 419;
+                        int y = lockInButtonPosition.y + 191;
+
+                        moveMouseToWithDelay(x, y, 200);
+
+                        //Click Enter
+                        Task.Delay(400).ContinueWith(_ =>
+                        {
+                            MotorCortex.clickMouseAt(x, y);
+                        });
+                        Task.Delay(600).ContinueWith(_ =>
+                        {
+                            MotorCortex.typeText("T", true);
+                        });
+                        Task.Delay(800).ContinueWith(_ =>
+                        {
+                            MotorCortex.typeText("o", true);
+                        });
+                        Task.Delay(1000).ContinueWith(_ =>
+                        {
+                            MotorCortex.typeText("p", true);
+                        });
+                        Task.Delay(1200).ContinueWith(_ =>
+                        {
+                            MotorCortex.typeText("{ENTER}");
+                        });
+                        
+                    }
+                }
+                lockInButtonStopwatch.Reset();
+                return;
+            }
+
+            if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
             {
                 //Console.WriteLine("Scanning for accept match button");
                 acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 366, 393, 10, 10, 0.95);
@@ -51,7 +99,7 @@ namespace League_Autoplay.AutoQueue
                 if (acceptMatchButtonPosition.x != -1)
                 {
                     Console.WriteLine("\tFound accept match button at " + acceptMatchButtonPosition.x + ", " + acceptMatchButtonPosition.y);
-                    if (!test)
+                    if (!VisualCortex.IsTest)
                     {
                         MotorCortex.clickMouseAt(acceptMatchButtonPosition.x + 10, acceptMatchButtonPosition.y + 10);
                         moveMouseToWithDelay(0, 0, 200);
@@ -62,13 +110,13 @@ namespace League_Autoplay.AutoQueue
             }
 
 
-            if (dontSendClickStopwatch.DurationInMilliseconds() >= 500 || test)
+            if (dontSendClickStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
             {
                 dontSendButtonPosition = AutoQueueDetection.findImageInScreen(screen, dontSendButton, 465, 535, 10, 10, 0.95);
                 if (dontSendButtonPosition.x != -1)
                 {
                     Console.WriteLine("\tFound dont send button");
-                    if (!test)
+                    if (!VisualCortex.IsTest)
                     {
                         MotorCortex.clickMouseAt(dontSendButtonPosition.x + 10, dontSendButtonPosition.y + 10);
                         moveMouseToWithDelay(0, 0, 200);
@@ -78,17 +126,17 @@ namespace League_Autoplay.AutoQueue
                 }
             }
 
-            if (randomChampClickStopwatch.DurationInMilliseconds() >= 2000 || test)
+            if (randomChampClickStopwatch.DurationInMilliseconds() >= 2000 || VisualCortex.IsTest)
             {
                 randomChampButtonPosition = AutoQueueDetection.findImageInScreen(screen, randomChampButton, 235, 186, 10, 10, 0.95);
                 if (randomChampButtonPosition.x != -1)
                 {
                     Console.WriteLine("\tFound random champ button");
-                    if (!test)
+                    if (!VisualCortex.IsTest)
                     {
                         MotorCortex.clickMouseAt(randomChampButtonPosition.x + 10, randomChampButtonPosition.y + 10);
                         moveMouseToWithDelay(0, 0, 200);
-
+                        /*
                         //Click Enter
                         Task.Delay(200).ContinueWith(_ =>
                         {
@@ -110,19 +158,20 @@ namespace League_Autoplay.AutoQueue
                         {
                             MotorCortex.typeText("{ENTER}");
                         });
+                        */
                     }
                     randomChampClickStopwatch.Reset();
                     return;
                 }
             }
 
-            if (reconnectButtonClickStopwatch.DurationInMilliseconds() >= 500 || test)
+            if (reconnectButtonClickStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
             {
                 reconnectButtonPosition = AutoQueueDetection.findImageInScreen(screen, reconnectButton, 438, 394, 10, 10, 0.95);
                 if (reconnectButtonPosition.x != -1)
                 {
                     Console.WriteLine("\tFound reconnect button");
-                    if (!test)
+                    if (!VisualCortex.IsTest)
                     {
                         MotorCortex.clickMouseAt(reconnectButtonPosition.x + 10, reconnectButtonPosition.y + 10);
                         moveMouseToWithDelay(0, 0, 200);
@@ -132,13 +181,13 @@ namespace League_Autoplay.AutoQueue
                 }
             }
 
-            if (playAgainButtonStopwatch.DurationInMilliseconds() >= 500 || test)
+            if (playAgainButtonStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
             {
                 playAgainButtonPosition = AutoQueueDetection.findImageInScreen(screen, playAgainButton, 776, 616, 10, 10, 0.95);
                 if (playAgainButtonPosition.x != -1)
                 {
                     Console.WriteLine("\tFound play again button");
-                    if (!test)
+                    if (!VisualCortex.IsTest)
                     {
                         MotorCortex.clickMouseAt(playAgainButtonPosition.x + 10, playAgainButtonPosition.y + 10);
                         moveMouseToWithDelay(0, 0, 200);

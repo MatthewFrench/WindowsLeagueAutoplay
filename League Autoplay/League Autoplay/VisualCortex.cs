@@ -23,8 +23,8 @@ namespace League_Autoplay
         public Bitmap testImage;
         //private DesktopDuplicator desktopDuplicator;
 
-        bool test = false;
-        String testImageName = "AnalysisImages\\Resources\\Test Images\\New Match Screen Test.png";
+        public static bool IsTest = false;
+        String testImageName = "AnalysisImages\\Resources\\Test Images\\New Lock In Screen Test.png";
         bool shouldCaptureDisplayImage = false;
         bool recordDisplayImage = false;
         Bitmap displayImage;
@@ -47,7 +47,7 @@ namespace League_Autoplay
 
 
             string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-            if (test)
+            if (IsTest)
             {
                 testImage = new Bitmap(Image.FromFile(Path.Combine(dir, testImageName)));
             }
@@ -73,9 +73,9 @@ namespace League_Autoplay
         public Bitmap grabScreen2(bool detect)
         {
             Bitmap returnValue = null;
-            if (test)
+            if (IsTest)
             {
-                if (test)
+                if (IsTest)
                 {
                     //TEST CODE
                     System.Drawing.Rectangle boundsRect = new System.Drawing.Rectangle(0, 0, testImage.Width, testImage.Height);
@@ -171,10 +171,6 @@ namespace League_Autoplay
             total += performanceWatch.DurationInMilliseconds();
             //Console.WriteLine("Average milliseconds: {0}", total / count);
             //Console.WriteLine("Average fps: {0}", 1000.0 / (total  / count));
-        }
-        public bool isTesting()
-        {
-            return test;
         }
         
 

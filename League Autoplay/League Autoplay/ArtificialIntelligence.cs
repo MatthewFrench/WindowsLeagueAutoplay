@@ -126,7 +126,7 @@ namespace League_Autoplay
                     basicAI.processAI();
                 }
             }
-            else if ((leagueOfLegendsClientOpen || visualCortex.isTesting()) && currentScreen != null)
+            else if ((leagueOfLegendsClientOpen || VisualCortex.IsTest) && currentScreen != null)
             {
                 //Console.WriteLine("League of legends client open and scanning for auto queue");
                 //Run auto queue
