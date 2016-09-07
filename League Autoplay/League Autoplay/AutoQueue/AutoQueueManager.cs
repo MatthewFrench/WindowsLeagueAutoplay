@@ -89,7 +89,6 @@ namespace League_Autoplay.AutoQueue
 
 
             //Loop through pixels on the screen and look for any of those four buttons.
-
             if (lockInButtonStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
             {
                 //Console.WriteLine("Scanning for lock in button");
@@ -133,13 +132,13 @@ namespace League_Autoplay.AutoQueue
                     }
                 }
                 lockInButtonStopwatch.Reset();
-                return;
+                if (!VisualCortex.IsTest) return;
             }
-
             if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
             {
                 //Console.WriteLine("Scanning for accept match button");
-                acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 366, 393, 10, 10, 0.95);
+                acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 366, 393, 10, 10, 0.70);
+                if (VisualCortex.IsTest) Console.WriteLine("Searching for accept button");
                 //acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 0, 0, 1024, 768, 0.5);
                 if (acceptMatchButtonPosition.x != -1)
                 {
@@ -151,9 +150,8 @@ namespace League_Autoplay.AutoQueue
                     }
                 }
                 acceptMatchClickStopwatch.Reset();
-                return;
+                if (!VisualCortex.IsTest) return;
             }
-
             if (randomChampClickStopwatch.DurationInMilliseconds() >= 2000 || VisualCortex.IsTest)
             {
                 randomChampButtonPosition = AutoQueueDetection.findImageInScreen(screen, randomChampButton, 235, 186, 10, 10, 0.95);
@@ -189,10 +187,9 @@ namespace League_Autoplay.AutoQueue
                         */
                     }
                     randomChampClickStopwatch.Reset();
-                    return;
+                    if (!VisualCortex.IsTest) return;
                 }
             }
-
             if (reconnectButtonClickStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
             {
                 reconnectButtonPosition = AutoQueueDetection.findImageInScreen(screen, reconnectButton, 438, 394, 10, 10, 0.95);
@@ -205,10 +202,9 @@ namespace League_Autoplay.AutoQueue
                         moveMouseToWithDelay(0, 0, 200);
                     }
                     reconnectButtonClickStopwatch.Reset();
-                    return;
+                    if (!VisualCortex.IsTest) return;
                 }
             }
-
             if ((playAgainButtonStopwatch.DurationInMilliseconds() >= 5000 && sleeping == false) || VisualCortex.IsTest)
             {
                 playAgainButtonPosition = AutoQueueDetection.findImageInScreen(screen, playAgainButton, 776, 616, 10, 10, 0.95);
@@ -221,7 +217,7 @@ namespace League_Autoplay.AutoQueue
                         moveMouseToWithDelay(0, 0, 500);
                     }
                     playAgainButtonStopwatch.Reset();
-                    return;
+                    if (!VisualCortex.IsTest) return;
                 }
             }
         }
