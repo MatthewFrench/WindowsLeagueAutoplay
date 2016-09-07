@@ -133,6 +133,7 @@ namespace League_Autoplay
                 autoQueue.runAutoQueue(currentScreen);
                // userInterface.setDebugImage(new Bitmap(AutoQueueDetection.matchingBitmap));
             }
+            if (currentScreen != null) autoQueue.runErrorCheck(currentScreen);
         }
 
         public byte[] ToByteArray(DetectionDataStruct data)

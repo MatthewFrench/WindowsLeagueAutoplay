@@ -17,6 +17,9 @@ namespace League_Autoplay.AutoQueue
         Bitmap acceptMatchButton, dontSendButton, randomChampButton, reconnectButton, playAgainButton, lockInButton;
         Position acceptMatchButtonPosition, dontSendButtonPosition, randomChampButtonPosition, reconnectButtonPosition, playAgainButtonPosition, lockInButtonPosition;
         Stopwatch acceptMatchClickStopwatch, dontSendClickStopwatch, randomChampClickStopwatch, reconnectButtonClickStopwatch, playAgainButtonStopwatch, lockInButtonStopwatch;
+        Stopwatch errorCheckScanStopwatch;
+        Stopwatch sleepStopwatch;
+        bool sleeping = false;
 
         public AutoQueueManager()
         {
@@ -34,14 +37,56 @@ namespace League_Autoplay.AutoQueue
             reconnectButtonClickStopwatch = new Stopwatch();
             playAgainButtonStopwatch = new Stopwatch();
             lockInButtonStopwatch = new Stopwatch();
+            errorCheckScanStopwatch = new Stopwatch();
+            sleepStopwatch = new Stopwatch();
+            sleeping = false;
         }
 
         public void reset()
         {
 
         }
+
+        public void runErrorCheck(Bitmap screen)
+        {
+            if (errorCheckScanStopwatch.DurationInSeconds() <= 5.0) return;
+            errorCheckScanStopwatch.Reset();
+
+            if (dontSendClickStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
+            {
+                dontSendButtonPosition = AutoQueueDetection.findImageInScreen(screen, dontSendButton, 465, 535, 10, 10, 0.95);
+                if (dontSendButtonPosition.x != -1)
+                {
+                    Console.WriteLine("\tFound dont send button");
+                    if (!VisualCortex.IsTest)
+                    {
+                        MotorCortex.clickMouseAt(dontSendButtonPosition.x + 10, dontSendButtonPosition.y + 10);
+                        moveMouseToWithDelay(0, 0, 200);
+                    }
+                    dontSendClickStopwatch.Reset();
+                    return;
+                }
+            }
+        }
+
         public void runAutoQueue(Bitmap screen)
         {
+            //Handle sleeping
+            if (sleeping) {
+                if (sleepStopwatch.DurationInMinutes() >= 30)
+                {  //Sleep for 30 minutes then play
+                    sleeping = false;
+                    sleepStopwatch.Reset();
+                }
+            } else
+            {
+                if (sleepStopwatch.DurationInHours() >= 2)
+                {  //Play for 2 hours then sleep
+                    sleeping = true;
+                    sleepStopwatch.Reset();
+                }
+            }
+
 
             //Loop through pixels on the screen and look for any of those four buttons.
 
@@ -109,23 +154,6 @@ namespace League_Autoplay.AutoQueue
                 return;
             }
 
-
-            if (dontSendClickStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
-            {
-                dontSendButtonPosition = AutoQueueDetection.findImageInScreen(screen, dontSendButton, 465, 535, 10, 10, 0.95);
-                if (dontSendButtonPosition.x != -1)
-                {
-                    Console.WriteLine("\tFound dont send button");
-                    if (!VisualCortex.IsTest)
-                    {
-                        MotorCortex.clickMouseAt(dontSendButtonPosition.x + 10, dontSendButtonPosition.y + 10);
-                        moveMouseToWithDelay(0, 0, 200);
-                    }
-                    dontSendClickStopwatch.Reset();
-                    return;
-                }
-            }
-
             if (randomChampClickStopwatch.DurationInMilliseconds() >= 2000 || VisualCortex.IsTest)
             {
                 randomChampButtonPosition = AutoQueueDetection.findImageInScreen(screen, randomChampButton, 235, 186, 10, 10, 0.95);
@@ -181,7 +209,7 @@ namespace League_Autoplay.AutoQueue
                 }
             }
 
-            if (playAgainButtonStopwatch.DurationInMilliseconds() >= 5000 || VisualCortex.IsTest)
+            if ((playAgainButtonStopwatch.DurationInMilliseconds() >= 5000 && sleeping == false) || VisualCortex.IsTest)
             {
                 playAgainButtonPosition = AutoQueueDetection.findImageInScreen(screen, playAgainButton, 776, 616, 10, 10, 0.95);
                 if (playAgainButtonPosition.x != -1)
