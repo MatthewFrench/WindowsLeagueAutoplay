@@ -53,8 +53,8 @@ namespace League_Autoplay.AutoQueue
                     Console.WriteLine("\tFound accept match button at " + acceptMatchButtonPosition.x + ", " + acceptMatchButtonPosition.y);
                     if (!test)
                     {
-                        MotorCortex.clickMouseAt(acceptMatchButtonPosition.x + 10, acceptMatchButtonPosition.y = 10);
-                        moveMouseDelayed();
+                        MotorCortex.clickMouseAt(acceptMatchButtonPosition.x + 10, acceptMatchButtonPosition.y + 10);
+                        moveMouseToWithDelay(0, 0, 200);
                     }
                 }
                 acceptMatchClickStopwatch.Reset();
@@ -70,8 +70,8 @@ namespace League_Autoplay.AutoQueue
                     Console.WriteLine("\tFound dont send button");
                     if (!test)
                     {
-                        MotorCortex.clickMouseAt(dontSendButtonPosition.x + 10, dontSendButtonPosition.y = 10);
-                        moveMouseDelayed();
+                        MotorCortex.clickMouseAt(dontSendButtonPosition.x + 10, dontSendButtonPosition.y + 10);
+                        moveMouseToWithDelay(0, 0, 200);
                     }
                     dontSendClickStopwatch.Reset();
                     return;
@@ -86,8 +86,8 @@ namespace League_Autoplay.AutoQueue
                     Console.WriteLine("\tFound random champ button");
                     if (!test)
                     {
-                        MotorCortex.clickMouseAt(randomChampButtonPosition.x + 10, randomChampButtonPosition.y = 10);
-                        moveMouseDelayed();
+                        MotorCortex.clickMouseAt(randomChampButtonPosition.x + 10, randomChampButtonPosition.y + 10);
+                        moveMouseToWithDelay(0, 0, 200);
                     }
                     randomChampClickStopwatch.Reset();
                     return;
@@ -102,8 +102,8 @@ namespace League_Autoplay.AutoQueue
                     Console.WriteLine("\tFound reconnect button");
                     if (!test)
                     {
-                        MotorCortex.clickMouseAt(reconnectButtonPosition.x + 10, reconnectButtonPosition.y = 10);
-                        moveMouseDelayed();
+                        MotorCortex.clickMouseAt(reconnectButtonPosition.x + 10, reconnectButtonPosition.y + 10);
+                        moveMouseToWithDelay(0, 0, 200);
                     }
                     reconnectButtonClickStopwatch.Reset();
                     return;
@@ -118,8 +118,8 @@ namespace League_Autoplay.AutoQueue
                     Console.WriteLine("\tFound play again button");
                     if (!test)
                     {
-                        MotorCortex.clickMouseAt(playAgainButtonPosition.x + 10, playAgainButtonPosition.y = 10);
-                        moveMouseDelayed();
+                        MotorCortex.clickMouseAt(playAgainButtonPosition.x + 10, playAgainButtonPosition.y + 10);
+                        moveMouseToWithDelay(0, 0, 200);
                     }
                     playAgainButtonStopwatch.Reset();
                     return;
@@ -134,11 +134,18 @@ namespace League_Autoplay.AutoQueue
         {
             MotorCortex.moveMouseTo(0, 0, 1);
         }
-        public void moveMouseDelayed()
+        public void clickMouseAtWithDelay(int x, int y, int delay)
         {
-            Task.Delay(200).ContinueWith(_ =>
+            Task.Delay(delay).ContinueWith(_ =>
             {
-                MotorCortex.moveMouseTo(0, 0, 1);
+                MotorCortex.clickMouseAt(x, y, 1);
+            });
+        }
+        public void moveMouseToWithDelay(int x, int y, int delay)
+        {
+            Task.Delay(delay).ContinueWith(_ =>
+            {
+                MotorCortex.moveMouseTo(x, y, 1);
             });
         }
     }
