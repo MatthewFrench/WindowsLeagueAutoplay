@@ -351,6 +351,10 @@ namespace League_Autoplay
             {
                 Console.WriteLine("\tSurrender is visible");
             }
+            if (data.continueAvailable)
+            {
+                Console.WriteLine("\tContinue is visible");
+            }
 
             Console.Out.Flush();
 

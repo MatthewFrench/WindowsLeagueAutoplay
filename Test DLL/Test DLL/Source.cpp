@@ -13,6 +13,7 @@
 #include "Detection/Item Manager/ItemManager.h"
 #include "Detection/Map Manager/MapManager.h"
 #include "Detection/Surrender Manager/SurrenderManager.h"
+#include "ContinueManager.h"
 #include "Detection/Shop Manager/ShopManager.h"
 
 static DetectionManager* detectionManager = nullptr;
@@ -151,6 +152,9 @@ void printDetected(DetectionManager* detection) {
 	}
 	if (detection->getSurrenderAvailable()) {
 		printf("\tSurrender is visible\n");
+	}
+	if (detection->getContinueAvailable()) {
+		printf("\tContinue is visible\n");
 	}
 	/*
 	printf("\n\n");
@@ -395,6 +399,10 @@ extern "C"
 		//Surrender image loading code
 	__declspec(dllexport) void SurrenderManager_loadSurrenderImageData(byte * data, int32_t imageWidth, int32_t imageHeight) {
 		  SurrenderManager::loadSurrenderImageData(data, imageWidth, imageHeight);
+	}
+	//Continue image loading code
+	__declspec(dllexport) void ContinueManager_loadContinueImageData(byte * data, int32_t imageWidth, int32_t imageHeight) {
+		ContinueManager::loadContinueImageData(data, imageWidth, imageHeight);
 	}
 		//Shop image loading code
 

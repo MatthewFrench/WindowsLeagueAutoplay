@@ -45,7 +45,7 @@ namespace League_Autoplay
             lastItem3UseStopwatch, lastItem4UseStopwatch, lastItem5UseStopwatch, lastItem6UseStopwatch, activeAutoUseTimeStopwatch,
             moveToLanePathSwitchStopwatch, gameCurrentTimeStopwatch, lastSurrenderStopwatch, lastShopBuyStopwatch,
             lastShopOpenTapStopwatch, lastShopCloseTapStopwatch, lastTimeSawEnemyChampStopwatch, standStillTimeStopwatch,
-            healthGainedTimeStopwatch, attemptSurrenderStopwatch;
+            healthGainedTimeStopwatch, attemptSurrenderStopwatch, continueClickStopwatch;
 
 
         bool boughtStarterItems;
@@ -139,6 +139,15 @@ namespace League_Autoplay
                 GenericObject* surrender = (GenericObject*)detectionData.surrenderActive.ToPointer();
                 MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y);
             }
+
+            //Handle continue button
+            if (!detectionData.selfHealthBarVisible && detectionData.continueAvailable && continueClickStopwatch.DurationInMilliseconds() >= 1000)
+            {
+                continueClickStopwatch.Reset();
+                GenericObject* continueObject = (GenericObject*)detectionData.continueActive.ToPointer();
+                MotorCortex.clickMouseAt(continueObject->center.x, continueObject->center.y);
+            }
+
             newData = false;
         }
 
@@ -268,6 +277,7 @@ namespace League_Autoplay
             firstGameMessage = false;
 
             attemptSurrenderStopwatch = new Stopwatch();
+            continueClickStopwatch = new Stopwatch();
         }
 
         void handleAbilityLevelUps()
@@ -1192,10 +1202,10 @@ namespace League_Autoplay
                     && //We think we can take him
                     lowestHealthEnemyChampion->health <= lastHealthAmount
                     && //Make sure we have a fair amount of minions or the enemy is way lower
-                    (detectionData.numberOfEnemyMinions <= detectionData.numberOfAllyMinions ||
+                    (detectionData.numberOfEnemyMinions <= detectionData.numberOfAllyMinions + 1 ||
                         lastHealthAmount - lowestHealthEnemyChampion->health >= 0.25)
-                    && ((hypot(closestEnemyChampion->characterCenter.x - selfChamp->characterCenter.x, closestEnemyChampion->characterCenter.y - selfChamp->characterCenter.y) < 200
-                     || lowestHealthEnemyChampion->health <= 0.25))
+                    && ((hypot(closestEnemyChampion->characterCenter.x - selfChamp->characterCenter.x, closestEnemyChampion->characterCenter.y - selfChamp->characterCenter.y) < 300
+                     || lowestHealthEnemyChampion->health <= 0.25 || detectionData.numberOfEnemyMinions <= 2))
                         )
                 {
                     action = Action.GoHam;

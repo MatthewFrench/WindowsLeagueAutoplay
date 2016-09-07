@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Detection\Surrender Manager">
       <UniqueIdentifier>{de28ce3e-e0f2-4814-a1f5-358d85e0f0eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Detection\Continue Manager">
+      <UniqueIdentifier>{deb5924d-5374-43dc-9a72-ff800e38a5d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -98,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="AutoQueueManager.cpp">
       <Filter>Source Files\Detection</Filter>
+    </ClCompile>
+    <ClCompile Include="ContinueManager.cpp">
+      <Filter>Source Files\Detection\Continue Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="AutoQueueManager.h">
       <Filter>Source Files\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="ContinueManager.h">
+      <Filter>Source Files\Detection\Continue Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

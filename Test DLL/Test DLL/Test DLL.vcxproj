@@ -177,6 +177,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AutoQueueManager.cpp" />
+    <ClCompile Include="ContinueManager.cpp" />
     <ClCompile Include="Detection\Ability Manager\AbilityManager.cpp" />
     <ClCompile Include="Detection\Allies\AllyChampionManager.cpp" />
     <ClCompile Include="Detection\Allies\AllyMinionManager.cpp" />
@@ -198,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutoQueueManager.h" />
+    <ClInclude Include="ContinueManager.h" />
     <ClInclude Include="DetectionData.h" />
     <ClInclude Include="Detection\Ability Manager\AbilityManager.h" />
     <ClInclude Include="Detection\Allies\AllyChampionManager.h" />

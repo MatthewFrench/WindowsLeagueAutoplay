@@ -18,6 +18,7 @@
 #include "Shop Manager/ShopManager.h"
 #include "Map Manager/MapManager.h"
 #include "Surrender Manager/SurrenderManager.h"
+#include "../ContinueManager.h"
 #include <omp.h>
 
 DetectionManager::DetectionManager() {
@@ -175,12 +176,16 @@ void DetectionManager::processDetection(ImageData *image) {
 	surrenderAvailable = false;
 	if (surrenderActive != nullptr) delete surrenderActive;
 	surrenderActive = NULL;
+	continueAvailable= false;
+	if (continueActive != nullptr) delete continueActive;
+	continueActive = NULL;
 	currentLevel = 0;
 
 	//Detect self health bar. If we can't see the self health bar, don't care about anything else
 	processSelfHealthBarDetection(image);
 	if (selfHealthBarVisible == false) {
-		//Loading screen
+		//Loading screen or end game screen
+		processContinue(image);
 
 		omp_unset_lock(&detectionlock);
 		return;
@@ -622,6 +627,12 @@ void DetectionManager::getDetectionData(DetectionDataStruct* data) {
 		memcpy(data->surrenderActive, surrenderActive, sizeof(GenericObject));
 		//*data->surrenderActive = *surrenderActive;
 	}
+	data->continueAvailable = continueAvailable;
+	data->continueActive = nullptr;
+	if (continueActive != nullptr) {
+		data->continueActive = static_cast<GenericObject*>(malloc(sizeof(GenericObject)));
+		memcpy(data->continueActive, continueActive, sizeof(GenericObject));
+	}
 
 
 	omp_unset_lock(&detectionlock);
@@ -944,6 +955,11 @@ void DetectionManager::freeDetectionData(DetectionDataStruct* data) {
 	if (data->surrenderActive != nullptr) {
 		free(data->surrenderActive);
 		data->surrenderActive = nullptr;
+	}
+
+	if (data->continueActive != nullptr) {
+		free(data->continueActive);
+		data->continueActive = nullptr;
 	}
 
 
@@ -1450,6 +1466,31 @@ void DetectionManager::processSurrender(ImageData *image) {
 		surrenderAvailable = false;
 	}
 }
+void DetectionManager::processContinue(ImageData *image) {
+
+	int searchWidth = 10; int searchHeight = 10;
+	Position pos = makePosition(435, 462);
+
+	GenericObject* continueObject = NULL;
+	for (int x = pos.x; x < pos.x + searchWidth; x++) {
+		for (int y = pos.y; y < pos.y + searchHeight; y++) {
+			uint8_t* pixel = getPixel2(*image, x, y);
+			continueObject = ContinueManager::detectContinueAtPixel(*image, pixel, x, y);
+			if (continueObject != NULL) {
+				x = image->imageWidth;
+				y = image->imageHeight;
+			}
+		}
+	}
+
+	if (continueObject != NULL) {
+		continueAvailable = true;
+		continueActive = continueObject;
+	}
+	else {
+		continueAvailable = false;
+	}
+}
 void DetectionManager::processTrinketActive(ImageData *image) {
 
 	int searchWidth = 10; int searchHeight = 10;
@@ -1819,6 +1860,12 @@ bool DetectionManager::getSurrenderAvailable() {
 }
 GenericObject* DetectionManager::getSurrender() {
 	return surrenderActive;
+}
+bool DetectionManager::getContinueAvailable() {
+	return continueAvailable;
+}
+GenericObject* DetectionManager::getContinue() {
+	return continueActive;
 }
 std::vector<Minion*>* DetectionManager::getAllyMinions() {
 	return allyMinions;

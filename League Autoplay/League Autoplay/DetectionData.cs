@@ -138,5 +138,8 @@ namespace League_Autoplay
         [MarshalAs(UnmanagedType.U1)]
         public bool surrenderAvailable;
         public IntPtr surrenderActive;
+        [MarshalAs(UnmanagedType.U1)]
+        public bool continueAvailable;
+        public IntPtr continueActive;
     }
 }

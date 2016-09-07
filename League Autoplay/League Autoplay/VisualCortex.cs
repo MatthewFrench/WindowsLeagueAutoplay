@@ -46,7 +46,7 @@ namespace League_Autoplay
 
 
             string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-            testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\New Surrender Test.png")));
+            testImage = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Test Images\\New Continue Test.png")));
 
             //int width = desktopDuplicator.getFrameWidth();
             //int height = desktopDuplicator.getFrameHeight();
@@ -322,6 +322,9 @@ namespace League_Autoplay
             image = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Surrender\\Surrender.png")));
             SurrenderManager_loadSurrenderImageData(getBytesForBitmap(image), image.Width, image.Height);
 
+            image = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Continue\\Continue.png")));
+            ContinueManager_loadContinueImageData(getBytesForBitmap(image), image.Width, image.Height);
+
             image = new Bitmap(Image.FromFile(Path.Combine(dir, "AnalysisImages\\Resources\\Shop\\Buyable Item Top Left Corner.png")));
             ShopManager_loadShopBuyableItemTopLeftCornerImageData(getBytesForBitmap(image), image.Width, image.Height);
 
@@ -518,6 +521,9 @@ namespace League_Autoplay
         //Surrender image loading code
         [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void SurrenderManager_loadSurrenderImageData(byte* data, Int32 imageWidth, Int32 imageHeight);
+        //Continue image loading code
+        [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void ContinueManager_loadContinueImageData(byte* data, Int32 imageWidth, Int32 imageHeight);
         //Shop image loading code
 
         [DllImport("Test DLL.dll", CallingConvention = CallingConvention.Cdecl)]

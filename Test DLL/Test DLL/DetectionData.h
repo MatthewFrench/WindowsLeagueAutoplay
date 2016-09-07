@@ -60,5 +60,7 @@ struct DetectionDataStruct
 	SelfHealth* selfHealthBar = nullptr;
 	bool surrenderAvailable = false;
 	GenericObject* surrenderActive = nullptr;
+	bool continueAvailable = false;
+	GenericObject* continueActive = nullptr;
 };
 #pragma pack()
