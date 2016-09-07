@@ -128,7 +128,7 @@ namespace League_Autoplay
             }
             else if ((leagueOfLegendsClientOpen || visualCortex.isTesting()) && currentScreen != null)
             {
-                Console.WriteLine("League of legends client open and scanning for auto queue");
+                //Console.WriteLine("League of legends client open and scanning for auto queue");
                 //Run auto queue
                 autoQueue.runAutoQueue(currentScreen);
                // userInterface.setDebugImage(new Bitmap(AutoQueueDetection.matchingBitmap));
@@ -182,7 +182,7 @@ namespace League_Autoplay
                 basicAI.updateDetectionData(ref currentDetectionData);
             }
 
-            Console.WriteLine("Detected in C#: ");
+            //Console.WriteLine("Detected in C#: ");
             if (data.numberOfAllyMinions > 0)
             {
                 Console.WriteLine("\t"+ data.numberOfAllyMinions + " ally minions");
