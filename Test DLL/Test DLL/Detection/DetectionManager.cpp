@@ -107,7 +107,7 @@ void DetectionManager::processDetection(ImageData *image) {
 	spell2LevelDotsVisible = false;
 	spell3LevelDotsVisible = false;
 	spell4LevelDotsVisible = false;
-	int currentLevel = 0;
+	currentLevel = 0;
 	spell1ActiveAvailable = false;
 	spell2ActiveAvailable = false;
 	spell3ActiveAvailable = false;
