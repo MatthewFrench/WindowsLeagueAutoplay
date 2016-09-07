@@ -45,7 +45,8 @@ namespace League_Autoplay
             lastItem3UseStopwatch, lastItem4UseStopwatch, lastItem5UseStopwatch, lastItem6UseStopwatch, activeAutoUseTimeStopwatch,
             moveToLanePathSwitchStopwatch, gameCurrentTimeStopwatch, lastSurrenderStopwatch, lastShopBuyStopwatch,
             lastShopOpenTapStopwatch, lastShopCloseTapStopwatch, lastTimeSawEnemyChampStopwatch, standStillTimeStopwatch,
-            healthGainedTimeStopwatch, attemptSurrenderStopwatch, continueClickStopwatch, afkClickStopwatch, stoppedWorkingStopwatch;
+            healthGainedTimeStopwatch, attemptSurrenderStopwatch, continueClickStopwatch, afkClickStopwatch, stoppedWorkingStopwatch,
+            cantSeeSelfMoveMouseStopwatch;
 
 
         bool boughtStarterItems;
@@ -160,6 +161,16 @@ namespace League_Autoplay
                 stoppedWorkingStopwatch.Reset();
                 GenericObject* stoppedWorkingObject = (GenericObject*)detectionData.stoppedWorkingActive.ToPointer();
                 MotorCortex.clickMouseAt(stoppedWorkingObject->center.x + 20, stoppedWorkingObject->center.y);
+            }
+
+            //If can't see self champion or self healthbar move mouse to top left
+            if (detectionData.selfHealthBarVisible == false || detectionData.numberOfSelfChampions == 0)
+            {
+                if (cantSeeSelfMoveMouseStopwatch.DurationInSeconds() >= 5)
+                {
+                    cantSeeSelfMoveMouseStopwatch.Reset();
+                    MotorCortex.moveMouseTo(0, 0, 1);
+                }
             }
 
             newData = false;
@@ -300,6 +311,8 @@ namespace League_Autoplay
             continueClickStopwatch = new Stopwatch();
             afkClickStopwatch = new Stopwatch();
             stoppedWorkingStopwatch = new Stopwatch();
+
+            cantSeeSelfMoveMouseStopwatch = new Stopwatch();
         }
 
         void handleAbilityLevelUps()
@@ -1419,7 +1432,7 @@ namespace League_Autoplay
                             //Console.WriteLine("Action: Moving to Mid");
                             //NSLog(@"\t\tAction: Moving to Mid");
 
-                            if (moveToLanePathSwitchStopwatch.DurationInMilliseconds() >= 1000 * 60 * 20)
+                            if (gameCurrentTimeStopwatch.DurationInMinutes() >= 15 && moveToLanePathSwitchStopwatch.DurationInMinutes() >= 3)
                             {
                                 Console.WriteLine("Switching lane");
                                 //Switch to a random lane after 20 min
