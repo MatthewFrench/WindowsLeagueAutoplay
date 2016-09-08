@@ -92,11 +92,31 @@ void EnemyMinionManager::validateMinionBars(ImageData imageData, std::vector<Min
             detectedMinionBars->erase(detectedMinionBars->begin() + i);
 			delete minion;
             i--;
-        }
+		}
+		else {
+			bool isWard = false;
+			if (minion->topLeft.y - 3 >= 0) {
+				uint8_t* top1 = getPixel2(imageData, minion->topLeft.x, minion->topLeft.y - 2);
+				uint8_t* top2 = getPixel2(imageData, minion->topLeft.x, minion->topLeft.y - 3);
+				if (top1[0] == 136 && top1[1] == 136 && top1[2] == 136 &&
+					top2[0] == 136 && top2[1] == 136 && top2[2] == 136) {
+					isWard = true;
+				}
+			}
+			if (isWard) {
+				detectedMinionBars->erase(detectedMinionBars->begin() + i);
+				delete minion;
+				i--;
+			}
+		}
     }
     
     //Detect if ward
+	//If there is ward white on top, ignore
+	//Reksai tunnel detection
+
     //Ward is 193, 193, 193
+	/*
     for (size_t i = 0; i < detectedMinionBars->size(); i++) {
         Minion* minion = (*detectedMinionBars)[i];
         bool isWard = false;
@@ -119,4 +139,5 @@ void EnemyMinionManager::validateMinionBars(ImageData imageData, std::vector<Min
             i--;
         }
     }
+	*/
 }

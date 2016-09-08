@@ -1,4 +1,5 @@
-﻿using System;
+﻿using League_Autoplay.High_Performance_Timer;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -48,6 +49,7 @@ namespace League_Autoplay
         [STAThread]
         static void Main()
         {
+
             AllocConsole();
 
             var hOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -57,6 +59,8 @@ namespace League_Autoplay
                 SetStdHandle(STD_OUTPUT_HANDLE, hRealOut);
                 Console.SetOut(new StreamWriter(Console.OpenStandardOutput(), Console.OutputEncoding) { AutoFlush = true });
             }
+
+            TimerResolution.setTimerResolution(1.0);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

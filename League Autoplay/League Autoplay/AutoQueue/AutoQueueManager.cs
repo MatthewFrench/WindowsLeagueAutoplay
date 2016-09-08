@@ -19,6 +19,9 @@ namespace League_Autoplay.AutoQueue
         Stopwatch acceptMatchClickStopwatch, dontSendClickStopwatch, randomChampClickStopwatch, reconnectButtonClickStopwatch, playAgainButtonStopwatch, lockInButtonStopwatch;
         Stopwatch errorCheckScanStopwatch;
         Stopwatch sleepStopwatch;
+
+        Stopwatch printStatus;
+
         bool sleeping = false;
 
         public AutoQueueManager()
@@ -40,6 +43,8 @@ namespace League_Autoplay.AutoQueue
             errorCheckScanStopwatch = new Stopwatch();
             sleepStopwatch = new Stopwatch();
             sleeping = false;
+
+            printStatus = new Stopwatch();
         }
 
         public void reset()
@@ -85,6 +90,15 @@ namespace League_Autoplay.AutoQueue
                     sleeping = true;
                     sleepStopwatch.Reset();
                 }
+            }
+
+            if (printStatus.DurationInMinutes() >= 1.0)
+            {
+                printStatus.Reset();
+                String output = string.Format("{0:HH:mm:ss tt}", DateTime.Now) + "Auto Queue Status: " + (sleeping ? "Sleeping" : "Awake");
+                if (sleeping) output += " with " + (30 - sleepStopwatch.DurationInMinutes()) + " minutes left";
+                if (!sleeping) output += " with " + (120 - sleepStopwatch.DurationInMinutes()) + " minutes left";
+                Console.WriteLine(output);
             }
 
 

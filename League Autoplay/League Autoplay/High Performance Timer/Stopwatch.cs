@@ -6,11 +6,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+//using DiagnosticStopwatch = System.Diagnostics.Stopwatch;
 
 namespace League_Autoplay.High_Performance_Timer
 {
     public class Stopwatch
     {
+        
         [DllImport("Kernel32.dll")]
         private static extern bool QueryPerformanceCounter(
             out long lpPerformanceCount);
@@ -21,10 +23,17 @@ namespace League_Autoplay.High_Performance_Timer
 
         private long startTime, stopTime;
         private long freq;
+        private double freqDouble;
+        
+        //DiagnosticStopwatch watch;
+        //double ticksPerMillisecond;
 
         // Constructor
         public Stopwatch()
         {
+            //watch = new DiagnosticStopwatch();
+            //watch.Start();
+            
             startTime = 0;
             stopTime = 0;
 
@@ -34,6 +43,8 @@ namespace League_Autoplay.High_Performance_Timer
                 throw new Win32Exception();
             }
             QueryPerformanceCounter(out startTime);
+            freqDouble = Convert.ToDouble(freq);
+            //ticksPerMillisecond = Convert.ToDouble(TimeSpan.TicksPerMillisecond);
         }
 
         // Start the timer
@@ -46,6 +57,7 @@ namespace League_Autoplay.High_Performance_Timer
             stopTime = 0;
 
             QueryPerformanceCounter(out startTime);
+            //watch.Restart();
         }
 
         // Stop the timer
@@ -56,27 +68,33 @@ namespace League_Autoplay.High_Performance_Timer
 
         public double DurationInHours()
         {
+            //return Convert.ToDouble(watch.ElapsedTicks) / ticksPerMillisecond / 1000.0 / 60.0 / 60.0;
             QueryPerformanceCounter(out stopTime);
-            return (double)(stopTime - startTime) / 60.0 / 60.0 / (double)freq;
+            return (double)(stopTime - startTime) / 60.0 / 60.0 / freqDouble;
         }
 
         public double DurationInMinutes()
         {
+            //Console.WriteLine("Returning: " + (Convert.ToDouble(watch.ElapsedTicks) / ticksPerMillisecond / 1000.0 / 60.0) + " vs " + watch.Elapsed.Minutes);
+            //return Convert.ToDouble(watch.ElapsedTicks) / ticksPerMillisecond / 1000.0 / 60.0;
             QueryPerformanceCounter(out stopTime);
-            return (double)(stopTime - startTime) / 60.0 / (double)freq;
+            return (double)(stopTime - startTime) / 60.0 / freqDouble;
         }
 
         // Returns the duration of the timer (in seconds)
         public double DurationInSeconds()
         {
+            //return Convert.ToDouble(watch.ElapsedTicks) / ticksPerMillisecond / 1000.0;
             QueryPerformanceCounter(out stopTime);
-            return (double)(stopTime - startTime) / (double)freq;
+            return (double)(stopTime - startTime) / freqDouble;
         }
 
         public double DurationInMilliseconds()
         {
+            
+            //return Convert.ToDouble(watch.ElapsedTicks) / ticksPerMillisecond;
             QueryPerformanceCounter(out stopTime);
-            return (double)(stopTime - startTime) * 1000.0 / (double)freq;
+            return (double)(stopTime - startTime) * 1000.0 / freqDouble;
         }
     }
 }

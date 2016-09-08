@@ -155,6 +155,19 @@ void AllyMinionManager::validateMinionBars(ImageData imageData, std::vector<Mini
 
 				}
 			}
+			else {
+				//If there is ward white on top, ignore
+				//Reksai tunnel detection
+				if (minion->topLeft.y - 3 >= 0) {
+					uint8_t* top1 = getPixel2(imageData, minion->topLeft.x, minion->topLeft.y - 2);
+					uint8_t* top2 = getPixel2(imageData, minion->topLeft.x, minion->topLeft.y - 3);
+					if (top1[0] == 136 && top1[1] == 136 && top1[2] == 136 &&
+						top2[0] == 136 && top2[1] == 136 && top2[2] == 136) {
+						isWard = true;
+					}
+				}
+
+			}
 
 
 			if (isWard) {

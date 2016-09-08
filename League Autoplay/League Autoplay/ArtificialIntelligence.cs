@@ -41,7 +41,7 @@ namespace League_Autoplay
         public ArtificialIntelligence(UserInterface userInterface, VisualCortex visualCortex)
         {
 
-            TimerResolution.setTimerResolution(1.0);
+            
             
             if (logicTimer != null)
             {

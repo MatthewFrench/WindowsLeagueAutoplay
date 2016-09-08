@@ -72,7 +72,7 @@ namespace League_Autoplay
         {
 
             resetAI();
-            random = new Random();
+            random = new Random(Environment.TickCount);
         }
 
 
@@ -90,7 +90,7 @@ namespace League_Autoplay
             }
             else
             {
-                Console.Write("(Old AI Data)");
+                Console.Write("|");
             }
             Console.Out.Flush();
 
