@@ -68,6 +68,8 @@ namespace League_Autoplay
 
         Stopwatch lastTypeMessageStopwatch, typingMessageStopwatch;
 
+        Stopwatch notMovingTimer;
+
         public BasicAI()
         {
 
@@ -140,6 +142,7 @@ namespace League_Autoplay
                 lastSurrenderStopwatch.Reset();
                 GenericObject* surrender = (GenericObject*)detectionData.surrenderActive.ToPointer();
                 MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y);
+                didAction();
             }
 
             //Handle continue button
@@ -148,6 +151,7 @@ namespace League_Autoplay
                 continueClickStopwatch.Reset();
                 GenericObject* continueObject = (GenericObject*)detectionData.continueActive.ToPointer();
                 MotorCortex.clickMouseAt(continueObject->center.x, continueObject->center.y);
+                didAction();
             }
 
             //Handle afk and stopped working button
@@ -180,11 +184,18 @@ namespace League_Autoplay
                 Console.WriteLine(string.Format("{0:HH:mm:ss tt}", DateTime.Now) + " Game Time: " + gameCurrentTimeStopwatch.DurationInMinutes());
             }
 
+            //Click center of screen if afk
+            if (notMovingTimer.DurationInMinutes() >= 1.0) {
+                notMovingTimer.Reset();
+                MotorCortex.clickMouseAt(1024/2, 768/2);
+            }
+
             newData = false;
         }
 
         public void typeMessageInChat(String message, bool addRandomStuff = true)
         {
+            didAction();
             if (addRandomStuff)
             {
                 int r = random.Next(3);
@@ -242,6 +253,7 @@ namespace League_Autoplay
             {
                 MotorCortex.typeText("{ENTER}");
                 typingMessageStopwatch.Reset();
+                didAction();
             });
         }
 
@@ -321,6 +333,8 @@ namespace League_Autoplay
             stoppedWorkingStopwatch = new Stopwatch();
 
             cantSeeSelfMoveMouseStopwatch = new Stopwatch();
+
+            notMovingTimer = new Stopwatch();
         }
 
         void handleAbilityLevelUps()
@@ -385,31 +399,41 @@ namespace League_Autoplay
                 }
             }
         }
+        void didAction()
+        {
+            notMovingTimer.Reset();
+        }
         void levelUpAbility1()
         {
             MotorCortex.typeText("^q");
+            didAction();
         }
         void levelUpAbility2()
         {
             MotorCortex.typeText("^w");
+            didAction();
         }
         void levelUpAbility3()
         {
             MotorCortex.typeText("^e");
+            didAction();
         }
         void levelUpAbility4()
         {
             MotorCortex.typeText("^r");
+            didAction();
         }
 
 
         void tapStopMoving()
         {
             MotorCortex.typeText("^q");
+            didAction();
         }
         void tapShop()
         {
             MotorCortex.typeText("p");
+            didAction();
         }
         void tapCameraLock()
         {
@@ -418,18 +442,22 @@ namespace League_Autoplay
         void tapSpell1()
         {
             MotorCortex.typeText("q");
+            didAction();
         }
         void tapSpell2()
         {
             MotorCortex.typeText("w");
+            didAction();
         }
         void tapSpell3()
         {
             MotorCortex.typeText("e");
+            didAction();
         }
         void tapSpell4()
         {
             MotorCortex.typeText("r");
+            didAction();
         }
         void tapWard()
         {
@@ -438,43 +466,53 @@ namespace League_Autoplay
         void tapSummonerSpell1()
         {
             MotorCortex.typeText("d");
+            didAction();
         }
         void tapSummonerSpell2()
         {
             MotorCortex.typeText("f");
+            didAction();
         }
         void tapActive1()
         {
             MotorCortex.typeText("1");
+            didAction();
         }
         void tapActive2()
         {
             MotorCortex.typeText("2");
+            didAction();
         }
         void tapActive3()
         {
             MotorCortex.typeText("3");
+            didAction();
         }
         void tapActive5()
         {
             MotorCortex.typeText("5");
+            didAction();
         }
         void tapActive6()
         {
             MotorCortex.typeText("6");
+            didAction();
         }
         void tapActive7()
         {
             MotorCortex.typeText("7");
+            didAction();
         }
         void tapRecall()
         {
             MotorCortex.typeText("b");
+            didAction();
         }
         void tapAttackMove(int x, int y)
         {
             MotorCortex.moveMouseTo(x, y);
             MotorCortex.typeText("a");
+            didAction();
         }
 
 
@@ -492,6 +530,7 @@ namespace League_Autoplay
                     Console.WriteLine("Buy Items Shop available");
                     if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown)
                     {
+                        didAction();
                         Console.WriteLine("Buy Items Final");
                         lastShopBuyStopwatch.Reset();
                         //Buy items
@@ -1283,6 +1322,7 @@ namespace League_Autoplay
                     case Action.RunAway:
                         {
                             Console.WriteLine("Action: Running Away");
+                            didAction();
                             if (lastRunAwayClickStopwatch.DurationInMilliseconds() >= 400)
                             {
                                 MotorCortex.clickMouseRightAt(Convert.ToInt32(baseLocation.x), Convert.ToInt32(baseLocation.y));
@@ -1334,6 +1374,7 @@ namespace League_Autoplay
                     case Action.AttackEnemyChampion:
                     case Action.GoHam:
                         {
+                            didAction();
                             Console.WriteLine("Action: Attacking Enemy Champion");
                             //NSLog(@"\t\tAction: Attacking enemy champion");
                             int x = lowestHealthEnemyChampion->characterCenter.x;
@@ -1372,6 +1413,7 @@ namespace League_Autoplay
                         break;
                     case Action.AttackEnemyMinion:
                         {
+                            didAction();
                             Console.WriteLine("Action: Attacking Enemy Minion");
                             //NSLog(@"\t\tAction: Attacking Enemy Minion");
                             if (lastClickEnemyMinionStopwatch.DurationInMilliseconds() >= 100)
@@ -1391,6 +1433,7 @@ namespace League_Autoplay
                         break;
                     case Action.AttackTower:
                         {
+                            didAction();
                             //NSLog(@"\t\tAction: Attacking Tower");
                             if (lastClickEnemyTowerStopwatch.DurationInMilliseconds() >= 100)
                             {
@@ -1409,6 +1452,7 @@ namespace League_Autoplay
                         break;
                     case Action.FollowAllyChampion:
                         {
+                            didAction();
                             Console.WriteLine("Action: Following Ally Champion");
                             //NSLog(@"\t\tAction: Following Ally Champion");
                             if (lastClickAllyChampionStopwatch.DurationInMilliseconds() >= 100)
@@ -1423,6 +1467,7 @@ namespace League_Autoplay
                         break;
                     case Action.FollowAllyMinion:
                         {
+                            didAction();
                             Console.WriteLine("Action: Following Ally Minion");
                             //NSLog(@"\t\tAction: Following Ally Minion");
                             if (lastClickAllyMinionStopwatch.DurationInMilliseconds() >= 100)
@@ -1437,6 +1482,7 @@ namespace League_Autoplay
                         break;
                     case Action.MoveToMid:
                         {
+                            didAction();
                             //Console.WriteLine("Action: Moving to Mid");
                             //NSLog(@"\t\tAction: Moving to Mid");
 
@@ -1498,6 +1544,7 @@ namespace League_Autoplay
                         break;
                     case Action.Recall:
                         {
+                            didAction();
                             Console.WriteLine("Action: Recalling");
                             //NSLog(@"\t\tAction: Recalling");
                             castRecall();
@@ -1560,6 +1607,7 @@ AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] dele
                     //NSLog(@"Time to move");
                     if (mapVisible)
                     {
+                        didAction();
                         //NSLog(@"Initating click");
                         lastMovementClickStopwatch.Reset();
                         int x = map->center.x;
@@ -1586,6 +1634,7 @@ AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] dele
                 {
                     standStillTimeStopwatch.Reset();
                     tapStopMoving();
+                    didAction();
                 }
             }
             if (healthGainedTimeStopwatch.DurationInMilliseconds() >= 1000)
