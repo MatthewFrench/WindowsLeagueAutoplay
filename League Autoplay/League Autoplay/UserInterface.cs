@@ -73,7 +73,7 @@ namespace League_Autoplay
             //Set the AI speed
             int fps = int.Parse(aiFpsBox.Text);
             int milliseconds = (int)1000.0 / fps;
-            artificialIntelligence.createAITimer(milliseconds);
+            artificialIntelligence.setFPS(milliseconds);
         }
 
         private void updateDisplayCheckBox_CheckedChanged(object sender, EventArgs e)

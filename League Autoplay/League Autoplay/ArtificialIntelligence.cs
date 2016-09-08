@@ -35,22 +35,42 @@ namespace League_Autoplay
         BasicAI basicAI;
         AutoQueueManager autoQueue;
 
+        High_Performance_Timer.Stopwatch fpsLimitStopwatch = new High_Performance_Timer.Stopwatch();
+        int fpsLimit = 16;
+
         public ArtificialIntelligence(UserInterface userInterface, VisualCortex visualCortex)
         {
+
+            TimerResolution.setTimerResolution(1.0);
             
+            if (logicTimer != null)
+            {
+                logicTimer.Stop();
+            }
+            // 0 = 40fps when set to 1ms, 8fps screen, 15fps is 7.5fps
+            // 1 = 65fps when set to 1ms, 8fps screen, 40fps is 8fps
+            // 2 = 1000fps when set to 1ms, 6 fps screen, 60fps is 6.35 fps
+            // 3 = 1000fps when set to 1ms, 7.5 fps screen, 60fps is 7.65 fps, 200fps is 8fps
+            logicTimer = new ATimer(3, 1, new ATimer.ElapsedTimerDelegate(() => { logic(); }));
+           
+            
+
 
             this.userInterface = userInterface;
             this.visualCortex = visualCortex;
-            TimerResolution.setTimerResolution(1.0);
         
             timerPerformanceStopwatch = new High_Performance_Timer.Stopwatch();
             screenCapturePerformanceStopWatch = new High_Performance_Timer.Stopwatch();
 
             basicAI = new BasicAI();
             autoQueue = new AutoQueueManager();
+
+            logicTimer.Start();
         }
         private void logic()
         {
+            if (fpsLimitStopwatch.DurationInMilliseconds() < fpsLimit) return;
+            fpsLimitStopwatch.Reset();
 
             bool leagueOfLegendsOpen = false;
 
@@ -384,8 +404,10 @@ namespace League_Autoplay
             //visualCortex.freeVisualDetectionData(ref detectionData);
             //Console.WriteLine("Test Ending Detection data test");
         }
-        public void createAITimer(int milliseconds = 16)
+        public void setFPS(int milliseconds = 16)
         {
+            fpsLimit = milliseconds;
+            /*
             if (logicTimer != null)
             {
                 logicTimer.Stop();
@@ -396,6 +418,7 @@ namespace League_Autoplay
             // 3 = 1000fps when set to 1ms, 7.5 fps screen, 60fps is 7.65 fps, 200fps is 8fps
             logicTimer = new ATimer(3, milliseconds, new ATimer.ElapsedTimerDelegate(() => { logic(); }));
             logicTimer.Start();
+            */
         }
         public void setUpdateDisplayImage(bool b)
         {
