@@ -187,7 +187,7 @@ namespace League_Autoplay
             //Click center of screen if afk
             if (notMovingTimer.DurationInMinutes() >= 1.0) {
                 notMovingTimer.Reset();
-                MotorCortex.clickMouseAt(1024/2, 768/2);
+                MotorCortex.clickMouseRightAt(1024/2, 768/2);
             }
 
             newData = false;
