@@ -48,6 +48,7 @@ namespace League_Autoplay
             healthGainedTimeStopwatch, attemptSurrenderStopwatch, continueClickStopwatch, afkClickStopwatch, stoppedWorkingStopwatch,
             cantSeeSelfMoveMouseStopwatch;
 
+        Stopwatch printGameTime;
 
         bool boughtStarterItems;
         List<GenericObject> boughtItems;
@@ -173,6 +174,12 @@ namespace League_Autoplay
                 }
             }
 
+            if (printGameTime.DurationInMinutes() >= 1.0)
+            {
+                printGameTime.Reset();
+                Console.WriteLine(string.Format("{0:HH:mm:ss tt}", DateTime.Now) + " Game Time: " + gameCurrentTimeStopwatch.DurationInMinutes());
+            }
+
             newData = false;
         }
 
@@ -279,6 +286,7 @@ namespace League_Autoplay
             //NSLog(@"Chose lane %d", moveToLane);
 
             moveToLanePathSwitchStopwatch = new Stopwatch();
+            printGameTime = new Stopwatch();
 
 
             boughtItems = new List<GenericObject>();
@@ -1432,11 +1440,12 @@ namespace League_Autoplay
                             //Console.WriteLine("Action: Moving to Mid");
                             //NSLog(@"\t\tAction: Moving to Mid");
 
-                            if (gameCurrentTimeStopwatch.DurationInMinutes() >= 15 && moveToLanePathSwitchStopwatch.DurationInMinutes() >= 3)
+                            if (gameCurrentTimeStopwatch.DurationInMinutes() >= 15 && moveToLanePathSwitchStopwatch.DurationInMinutes() >= 2)
                             {
                                 Console.WriteLine("Switching lane");
                                 //Switch to a random lane after 20 min
-                                moveToLane = random.Next(3) + 1;
+                                moveToLane += 1;
+                                if (moveToLane > 3) moveToLane = 1;
                                 moveToLanePathSwitchStopwatch.Reset();
                                 /*
                                 AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
