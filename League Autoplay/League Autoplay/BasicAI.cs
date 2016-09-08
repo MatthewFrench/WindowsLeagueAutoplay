@@ -1278,7 +1278,7 @@ namespace League_Autoplay
                 //Ham code
                 if (enemyChampionsNear
                     && //1 on 1 or team fight
-                    detectionData.numberOfEnemyChampions <= detectionData.numberOfAllyChampions + 2
+                    detectionData.numberOfEnemyChampions <= detectionData.numberOfAllyChampions + 1
                     && //Not under tower or the enemy is really low
                     (underEnemyTower == false || (lowestHealthEnemyChampion->health <= 0.25 && lastHealthAmount >= 0.5))
                     && //We think we can take him
@@ -1286,8 +1286,8 @@ namespace League_Autoplay
                     && //Make sure we have a fair amount of minions or the enemy is way lower
                     (detectionData.numberOfEnemyMinions <= detectionData.numberOfAllyMinions + 1 ||
                         lastHealthAmount - lowestHealthEnemyChampion->health >= 0.25)
-                    && ((hypot(closestEnemyChampion->characterCenter.x - selfChamp->characterCenter.x, closestEnemyChampion->characterCenter.y - selfChamp->characterCenter.y) < 300
-                     || lowestHealthEnemyChampion->health <= 0.25 || detectionData.numberOfEnemyMinions <= 2))
+                    && ((hypot(closestEnemyChampion->characterCenter.x - selfChamp->characterCenter.x, closestEnemyChampion->characterCenter.y - selfChamp->characterCenter.y) < 250
+                     || (lowestHealthEnemyChampion->health <= 0.25 && detectionData.numberOfEnemyMinions <= 2)))
                         )
                 {
                     action = Action.GoHam;
