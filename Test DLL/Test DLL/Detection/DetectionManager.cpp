@@ -183,8 +183,10 @@ void DetectionManager::processDetection(ImageData *image) {
 	continueActive = NULL;
 	if (afkActive != nullptr) delete afkActive;
 	afkActive = NULL;
+	afkAvailable = false;
 	if (stoppedWorkingActive != nullptr) delete stoppedWorkingActive;
 	stoppedWorkingActive = NULL;
+	stoppedWorkingAvailable = false;
 	currentLevel = 0;
 
 	//Detect self health bar. If we can't see the self health bar, don't care about anything else
