@@ -121,11 +121,7 @@
             "20",
             "30",
             "60",
-            "120",
-            "144",
-            "200",
-            "500",
-            "1000"});
+            "120"});
             this.aiFpsBox.Location = new System.Drawing.Point(193, 64);
             this.aiFpsBox.Name = "aiFpsBox";
             this.aiFpsBox.Size = new System.Drawing.Size(58, 21);

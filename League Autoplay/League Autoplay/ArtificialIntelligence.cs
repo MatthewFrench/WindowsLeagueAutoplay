@@ -51,7 +51,7 @@ namespace League_Autoplay
             // 1 = 65fps when set to 1ms, 8fps screen, 40fps is 8fps
             // 2 = 1000fps when set to 1ms, 6 fps screen, 60fps is 6.35 fps
             // 3 = 1000fps when set to 1ms, 7.5 fps screen, 60fps is 7.65 fps, 200fps is 8fps
-            logicTimer = new ATimer(3, 1, new ATimer.ElapsedTimerDelegate(() => { logic(); }));
+            logicTimer = new ATimer(3, 1000/120, new ATimer.ElapsedTimerDelegate(() => { logic(); }));
            
             
 
