@@ -88,7 +88,7 @@ namespace League_Autoplay
         {
             if (newData)
             {
-                Console.WriteLine("Processing AI");
+                Console.Write("{P}");
             }
             else
             {
