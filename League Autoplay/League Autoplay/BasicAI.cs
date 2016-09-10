@@ -1537,7 +1537,7 @@ namespace League_Autoplay
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Trying to move but map not visible");
+                                    //Console.WriteLine("Trying to move but map not visible");
                                 }
                             }
                         }
