@@ -110,6 +110,7 @@ namespace League_Autoplay.AutoQueue
                 //acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 0, 0, 1024, 768, 0.5);
                 if (lockInButtonPosition.x != -1)
                 {
+                    lockInButtonStopwatch.Reset();
                     Console.WriteLine("\tFound lock in button at " + lockInButtonPosition.x + ", " + lockInButtonPosition.y);
                     if (!VisualCortex.IsTest)
                     {
@@ -145,7 +146,6 @@ namespace League_Autoplay.AutoQueue
                         
                     }
                 }
-                lockInButtonStopwatch.Reset();
                 if (!VisualCortex.IsTest) return;
             }
             if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
@@ -156,6 +156,7 @@ namespace League_Autoplay.AutoQueue
                 //acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 0, 0, 1024, 768, 0.5);
                 if (acceptMatchButtonPosition.x != -1)
                 {
+                    acceptMatchClickStopwatch.Reset();
                     Console.WriteLine("\tFound accept match button at " + acceptMatchButtonPosition.x + ", " + acceptMatchButtonPosition.y);
                     if (!VisualCortex.IsTest)
                     {
@@ -163,7 +164,6 @@ namespace League_Autoplay.AutoQueue
                         moveMouseToWithDelay(0, 0, 200);
                     }
                 }
-                acceptMatchClickStopwatch.Reset();
                 if (!VisualCortex.IsTest) return;
             }
             if (randomChampClickStopwatch.DurationInMilliseconds() >= 2000 || VisualCortex.IsTest)
@@ -171,9 +171,12 @@ namespace League_Autoplay.AutoQueue
                 randomChampButtonPosition = AutoQueueDetection.findImageInScreen(screen, randomChampButton, 235, 186, 10, 10, 0.95);
                 if (randomChampButtonPosition.x != -1)
                 {
+
+                    randomChampClickStopwatch.Reset();
                     Console.WriteLine("\tFound random champ button");
                     if (!VisualCortex.IsTest)
                     {
+
                         MotorCortex.clickMouseAt(randomChampButtonPosition.x + 10, randomChampButtonPosition.y + 10);
                         moveMouseToWithDelay(0, 0, 200);
                         /*
@@ -200,7 +203,6 @@ namespace League_Autoplay.AutoQueue
                         });
                         */
                     }
-                    randomChampClickStopwatch.Reset();
                     if (!VisualCortex.IsTest) return;
                 }
             }
@@ -209,13 +211,13 @@ namespace League_Autoplay.AutoQueue
                 reconnectButtonPosition = AutoQueueDetection.findImageInScreen(screen, reconnectButton, 438, 394, 10, 10, 0.95);
                 if (reconnectButtonPosition.x != -1)
                 {
+                    reconnectButtonClickStopwatch.Reset();
                     Console.WriteLine("\tFound reconnect button");
                     if (!VisualCortex.IsTest)
                     {
                         MotorCortex.clickMouseAt(reconnectButtonPosition.x + 10, reconnectButtonPosition.y + 10);
                         moveMouseToWithDelay(0, 0, 200);
                     }
-                    reconnectButtonClickStopwatch.Reset();
                     if (!VisualCortex.IsTest) return;
                 }
             }
@@ -224,13 +226,13 @@ namespace League_Autoplay.AutoQueue
                 playAgainButtonPosition = AutoQueueDetection.findImageInScreen(screen, playAgainButton, 776, 616, 10, 10, 0.95);
                 if (playAgainButtonPosition.x != -1)
                 {
+                    playAgainButtonStopwatch.Reset();
                     Console.WriteLine("\tFound play again button");
                     if (!VisualCortex.IsTest)
                     {
                         MotorCortex.clickMouseAt(playAgainButtonPosition.x + 10, playAgainButtonPosition.y + 10);
                         moveMouseToWithDelay(0, 0, 500);
                     }
-                    playAgainButtonStopwatch.Reset();
                     if (!VisualCortex.IsTest) return;
                 }
             }
