@@ -145,12 +145,12 @@ namespace League_Autoplay.AutoQueue
                         });
                         
                     }
+
+                    if (!VisualCortex.IsTest) return;
                 }
-                if (!VisualCortex.IsTest) return;
             }
             if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
             {
-                //Console.WriteLine("Scanning for accept match button");
                 acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 366, 393, 10, 10, 0.70);
                 if (VisualCortex.IsTest) Console.WriteLine("Searching for accept button");
                 //acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 0, 0, 1024, 768, 0.5);
@@ -163,8 +163,8 @@ namespace League_Autoplay.AutoQueue
                         MotorCortex.clickMouseAt(acceptMatchButtonPosition.x + 10, acceptMatchButtonPosition.y + 10);
                         moveMouseToWithDelay(0, 0, 200);
                     }
+                    if (!VisualCortex.IsTest) return;
                 }
-                if (!VisualCortex.IsTest) return;
             }
             if (randomChampClickStopwatch.DurationInMilliseconds() >= 2000 || VisualCortex.IsTest)
             {
