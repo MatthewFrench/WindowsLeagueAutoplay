@@ -103,7 +103,7 @@ namespace League_Autoplay.AutoQueue
 
 
             //Loop through pixels on the screen and look for any of those four buttons.
-            if (lockInButtonStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
+            if (lockInButtonStopwatch.DurationInMilliseconds() >= 5000 || VisualCortex.IsTest)
             {
                 //Console.WriteLine("Scanning for lock in button");
                 lockInButtonPosition = AutoQueueDetection.findImageInScreen(screen, lockInButton, 660, 441, 10, 10, 0.95);
