@@ -15,13 +15,9 @@ namespace League_Autoplay
         {
             AutoItX.AutoItSetOption("SendKeyDelay", 0);
         }
-        static public void pressEnterKey()
+        static public void tapEnterKey()
         {
-            AutoItX.Send("{ENTERDOWN}");
-        }
-        static public void releaseEnterKey()
-        {
-            AutoItX.Send("{ENTERUP}");
+            AutoItX.Send("{ENTER}");
         }
         static public void pressControlKey()
         {

@@ -234,11 +234,7 @@ namespace League_Autoplay
             offset += 1000;
             Task.Delay(offset).ContinueWith(_ =>
             {
-                MotorCortex.pressEnterKey();
-                Task.Delay(100).ContinueWith(_2 =>
-                {
-                    MotorCortex.releaseEnterKey();
-                });
+                MotorCortex.tapEnterKey();
                 typingMessageStopwatch.Reset();
             });
             offset += 300;
@@ -255,11 +251,7 @@ namespace League_Autoplay
             offset += 300;
             Task.Delay(offset).ContinueWith(_ =>
             {
-                MotorCortex.pressEnterKey();
-                Task.Delay(100).ContinueWith(_2 =>
-                {
-                    MotorCortex.releaseEnterKey();
-                });
+                MotorCortex.tapEnterKey();
                 typingMessageStopwatch.Reset();
                 didAction();
             });

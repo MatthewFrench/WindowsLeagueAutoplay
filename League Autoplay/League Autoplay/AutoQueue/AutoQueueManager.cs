@@ -140,8 +140,7 @@ namespace League_Autoplay.AutoQueue
                         });
                         Task.Delay(1200).ContinueWith(_ =>
                         {
-                            MotorCortex.pressEnterKey();
-                            MotorCortex.releaseEnterKey();
+                            MotorCortex.tapEnterKey();
                         });
                         
                     }
