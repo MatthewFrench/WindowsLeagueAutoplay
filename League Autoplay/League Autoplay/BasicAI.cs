@@ -137,7 +137,8 @@ namespace League_Autoplay
             handlePlacingWard();
             handleMovementAndAttacking();
 
-            if (lastSurrenderStopwatch.DurationInMilliseconds() >= 1000 && detectionData.surrenderAvailable)
+            //Don't surrender in the first 10 minutes. Don't want remake
+            if (lastSurrenderStopwatch.DurationInMilliseconds() >= 1000 && detectionData.surrenderAvailable && gameCurrentTimeStopwatch.DurationInMinutes() >= 10)
             {
                 lastSurrenderStopwatch.Reset();
                 GenericObject* surrender = (GenericObject*)detectionData.surrenderActive.ToPointer();
