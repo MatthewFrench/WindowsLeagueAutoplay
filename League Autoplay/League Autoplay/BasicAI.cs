@@ -234,7 +234,11 @@ namespace League_Autoplay
             offset += 1000;
             Task.Delay(offset).ContinueWith(_ =>
             {
-                MotorCortex.typeText("{ENTER}");
+                MotorCortex.pressEnterKey();
+                Task.Delay(100).ContinueWith(_2 =>
+                {
+                    MotorCortex.releaseEnterKey();
+                });
                 typingMessageStopwatch.Reset();
             });
             offset += 300;
@@ -243,7 +247,7 @@ namespace League_Autoplay
                 char character = message[i];
                 Task.Delay(offset).ContinueWith(_ =>
                 {
-                    MotorCortex.typeText("" + character, true);
+                    MotorCortex.typeText("" + character);
                     typingMessageStopwatch.Reset();
                 });
                 offset += 300;
@@ -251,7 +255,11 @@ namespace League_Autoplay
             offset += 300;
             Task.Delay(offset).ContinueWith(_ =>
             {
-                MotorCortex.typeText("{ENTER}");
+                MotorCortex.pressEnterKey();
+                Task.Delay(100).ContinueWith(_2 =>
+                {
+                    MotorCortex.releaseEnterKey();
+                });
                 typingMessageStopwatch.Reset();
                 didAction();
             });
@@ -405,29 +413,61 @@ namespace League_Autoplay
         }
         void levelUpAbility1()
         {
-            MotorCortex.typeText("^q");
+            MotorCortex.pressControlKey();
+            Task.Delay(50).ContinueWith(_2 =>
+            {
+                MotorCortex.typeText("q");
+            });
+            Task.Delay(100).ContinueWith(_2 =>
+            {
+                MotorCortex.releaseControlKey();
+            });
             didAction();
         }
         void levelUpAbility2()
         {
-            MotorCortex.typeText("^w");
+            MotorCortex.pressControlKey();
+            Task.Delay(50).ContinueWith(_2 =>
+            {
+                MotorCortex.typeText("w");
+            });
+            Task.Delay(100).ContinueWith(_2 =>
+            {
+                MotorCortex.releaseControlKey();
+            });
             didAction();
         }
         void levelUpAbility3()
         {
-            MotorCortex.typeText("^e");
+            MotorCortex.pressControlKey();
+            Task.Delay(50).ContinueWith(_2 =>
+            {
+                MotorCortex.typeText("e");
+            });
+            Task.Delay(100).ContinueWith(_2 =>
+            {
+                MotorCortex.releaseControlKey();
+            });
             didAction();
         }
         void levelUpAbility4()
         {
-            MotorCortex.typeText("^r");
+            MotorCortex.pressControlKey();
+            Task.Delay(50).ContinueWith(_2 =>
+            {
+                MotorCortex.typeText("r");
+            });
+            Task.Delay(100).ContinueWith(_2 =>
+            {
+                MotorCortex.releaseControlKey();
+            });
             didAction();
         }
 
 
         void tapStopMoving()
         {
-            MotorCortex.typeText("^q");
+            MotorCortex.typeText("s");
             didAction();
         }
         void tapShop()

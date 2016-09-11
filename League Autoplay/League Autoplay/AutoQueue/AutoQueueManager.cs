@@ -128,19 +128,20 @@ namespace League_Autoplay.AutoQueue
                         });
                         Task.Delay(600).ContinueWith(_ =>
                         {
-                            MotorCortex.typeText("T", true);
+                            MotorCortex.typeText("T");
                         });
                         Task.Delay(800).ContinueWith(_ =>
                         {
-                            MotorCortex.typeText("o", true);
+                            MotorCortex.typeText("o");
                         });
                         Task.Delay(1000).ContinueWith(_ =>
                         {
-                            MotorCortex.typeText("p", true);
+                            MotorCortex.typeText("p");
                         });
                         Task.Delay(1200).ContinueWith(_ =>
                         {
-                            MotorCortex.typeText("{ENTER}");
+                            MotorCortex.pressEnterKey();
+                            MotorCortex.releaseEnterKey();
                         });
                         
                     }

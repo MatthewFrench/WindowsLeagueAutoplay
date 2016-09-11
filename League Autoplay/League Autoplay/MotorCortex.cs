@@ -15,15 +15,25 @@ namespace League_Autoplay
         {
             AutoItX.AutoItSetOption("SendKeyDelay", 0);
         }
-        static public void typeText(String text, bool justText=false)
+        static public void pressEnterKey()
         {
-            if (!justText)
-            {
-                AutoItX.Send(text);
-            } else
-            {
-                AutoItX.Send(text, 1);
-            }
+            AutoItX.Send("{ENTERDOWN}");
+        }
+        static public void releaseEnterKey()
+        {
+            AutoItX.Send("{ENTERUP}");
+        }
+        static public void pressControlKey()
+        {
+            AutoItX.Send("{CTRLDOWN}");
+        }
+        static public void releaseControlKey()
+        {
+            AutoItX.Send("{CTRLUP}");
+        }
+        static public void typeText(String text)
+        {
+            AutoItX.Send(text, 1);
         }
         static public void clickMouse()
         {
