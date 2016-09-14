@@ -27,6 +27,14 @@ namespace League_Autoplay
         {
             AutoItX.Send("{CTRLUP}");
         }
+        static public void releaseShiftKey()
+        {
+            AutoItX.Send("{SHIFTUP}");
+        }
+        static public void pressTabKey()
+        {
+            AutoItX.Send("{TAB}");
+        }
         static public void typeText(String text)
         {
             AutoItX.Send(text, 1);

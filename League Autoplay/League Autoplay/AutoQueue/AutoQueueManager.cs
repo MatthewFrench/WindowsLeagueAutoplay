@@ -239,11 +239,16 @@ namespace League_Autoplay.AutoQueue
         }
         public void enteredLeagueOfLegends()
         {
-
+            MotorCortex.releaseControlKey();
+            MotorCortex.releaseShiftKey();
+            MotorCortex.pressTabKey();
         }
         public void exitedLeagueOfLegends()
         {
             MotorCortex.moveMouseTo(0, 0, 1);
+            MotorCortex.releaseControlKey();
+            MotorCortex.releaseShiftKey();
+            MotorCortex.pressTabKey();
         }
         public void clickMouseAtWithDelay(int x, int y, int delay)
         {
