@@ -153,6 +153,9 @@ namespace League_Autoplay
                 GenericObject* continueObject = (GenericObject*)detectionData.continueActive.ToPointer();
                 MotorCortex.clickMouseAt(continueObject->center.x, continueObject->center.y);
                 didAction();
+                MotorCortex.releaseControlKey();
+                MotorCortex.releaseShiftKey();
+                MotorCortex.pressTabKey();
             }
 
             //Handle afk and stopped working button
