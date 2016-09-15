@@ -1549,7 +1549,7 @@ namespace League_Autoplay
                             //Console.WriteLine("Action: Moving to Mid");
                             //NSLog(@"\t\tAction: Moving to Mid");
 
-                            if (gameCurrentTimeStopwatch.DurationInMinutes() >= 15 && moveToLanePathSwitchStopwatch.DurationInMinutes() >= 2)
+                            if (gameCurrentTimeStopwatch.DurationInMinutes() >= 10 && moveToLanePathSwitchStopwatch.DurationInMinutes() >= 1)
                             {
                                 Console.WriteLine("Switching lane");
                                 //Switch to a random lane after 20 min
