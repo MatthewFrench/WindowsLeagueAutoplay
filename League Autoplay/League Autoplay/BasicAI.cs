@@ -40,6 +40,7 @@ namespace League_Autoplay
         DetectionDataStruct detectionData;
         bool newData = true;
         bool firstGameMessage;
+        bool firstSawSelf;
 
         Stopwatch lastLevelUpStopwatch, lastShopBuyingStopwatch, lastCameraFocusStopwatch, lastPlacedWardStopwatch,
             lastRunAwayClickStopwatch, lastClickEnemyChampStopwatch, lastMovementClickStopwatch, lastClickAllyMinionStopwatch,
@@ -103,6 +104,11 @@ namespace League_Autoplay
             //lastTypeMessageStopwatch, typingMessageStopwatch
             if (detectionData.selfHealthBarVisible)
             {
+                if (firstSawSelf == false)
+                {
+                    firstSawSelf = true;
+                    gameCurrentTimeStopwatch.Reset();
+                }
                 bool typeMessage = false;
                 if (firstGameMessage == false)
                 {
@@ -283,6 +289,7 @@ namespace League_Autoplay
 
         public void resetAI()
         {
+            firstSawSelf = false;
             lastLevelUpStopwatch = new Stopwatch();
             lastShopBuyStopwatch = new Stopwatch();
             lastShopOpenTapStopwatch = new Stopwatch();
@@ -720,7 +727,7 @@ namespace League_Autoplay
         }
         unsafe void handlePlacingWard()
         {
-            if (detectionData.numberOfSelfChampions > 0 && detectionData.trinketActiveAvailable &&
+            if (gameCurrentTimeStopwatch.DurationInMinutes() >= 6 && detectionData.numberOfSelfChampions > 0 && detectionData.trinketActiveAvailable &&
                 lastPlacedWardStopwatch.DurationInMilliseconds() >= 1500)
             {
                 Champion champ = ((Champion*)detectionData.selfChampionsArray.ToPointer())[0];
