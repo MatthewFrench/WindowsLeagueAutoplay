@@ -1394,8 +1394,12 @@ namespace League_Autoplay
                     }
                 }
 
-                if ((gameCurrentTimeStopwatch.DurationInMinutes() <= 10 && lastHealthAmount < 0.5 && enemyChampionsNear) ||
-                    (gameCurrentTimeStopwatch.DurationInMinutes() <= 5 && lastHealthAmount < 0.75 && enemyChampionsNear))
+                if ((gameCurrentTimeStopwatch.DurationInMinutes() <= 10 && lastHealthAmount < 0.5 && detectionData.numberOfEnemyChampions >= 1) ||
+                    (gameCurrentTimeStopwatch.DurationInMinutes() <= 5 && lastHealthAmount < 0.75 && detectionData.numberOfEnemyChampions >= 1))
+                {
+                    action = Action.RunAway;
+                }
+                if (gameCurrentTimeStopwatch.DurationInMinutes() <= 10 && detectionData.numberOfEnemyChampions >= 2)
                 {
                     action = Action.RunAway;
                 }
