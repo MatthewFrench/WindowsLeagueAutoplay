@@ -136,7 +136,7 @@ namespace League_Autoplay
                 typeMessageInChat("/ff", false);
             }
 
-            if (typingMessageStopwatch.DurationInSeconds() <= 2.0)
+            if (typingMessageStopwatch.DurationInSeconds() <= 4.0)
             { // Don't do anything when we are typing
                 return;
             }
@@ -265,7 +265,7 @@ namespace League_Autoplay
                 MotorCortex.clickMouseAt(1024 / 2, 768 / 2);
                 typingMessageStopwatch.Reset();
 
-                Task.Delay(1000).ContinueWith(_2 =>
+                Task.Delay(200).ContinueWith(_2 =>
                 {
                     MotorCortex.tapEnterKey();
                     typingMessageStopwatch.Reset();
@@ -283,7 +283,7 @@ namespace League_Autoplay
             Console.WriteLine("Typing message with letters left: " + message);
             if (message.Length == 0)
             {
-                Task.Delay(300).ContinueWith(_ =>
+                Task.Delay(100).ContinueWith(_ =>
                 {
                     MotorCortex.tapEnterKey();
                     typingMessageStopwatch.Reset();
@@ -294,7 +294,7 @@ namespace League_Autoplay
             String letter = message.Substring(0, 1);
             String newMessage = message.Substring(1);
 
-            Task.Delay(300).ContinueWith(_ =>
+            Task.Delay(200).ContinueWith(_ =>
             {
                 MotorCortex.typeText(letter);
                 typeNextLetter(newMessage);
