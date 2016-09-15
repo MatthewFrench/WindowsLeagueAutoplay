@@ -156,8 +156,8 @@ namespace League_Autoplay.AutoQueue
             {
                 printStatus.Reset();
                 String output = string.Format("{0:HH:mm:ss tt}", DateTime.Now) + "Auto Queue Status: " + (sleeping ? "Sleeping" : "Awake");
-                if (sleeping) output += " with " + (30 - sleepStopwatch.DurationInMinutes()) + " minutes left";
-                if (!sleeping) output += " with " + (120 - sleepStopwatch.DurationInMinutes()) + " minutes left";
+                if (sleeping) output += " with " + (sleepAwakeTime - sleepStopwatch.DurationInHours()) * 60.0 + " minutes left";
+                if (!sleeping) output += " with " + (sleepAwakeTime - sleepStopwatch.DurationInHours()) * 60.0 + " minutes left";
                 Console.WriteLine(output);
             }
         }
