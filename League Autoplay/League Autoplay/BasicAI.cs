@@ -51,7 +51,9 @@ namespace League_Autoplay
             moveToLanePathSwitchStopwatch, gameCurrentTimeStopwatch, lastSurrenderStopwatch, lastShopBuyStopwatch,
             lastShopOpenTapStopwatch, lastShopCloseTapStopwatch, lastTimeSawEnemyChampStopwatch, standStillTimeStopwatch,
             healthGainedTimeStopwatch, attemptSurrenderStopwatch, continueClickStopwatch, afkClickStopwatch, stoppedWorkingStopwatch,
-            cantSeeSelfMoveMouseStopwatch;
+            cantSeeSelfMoveMouseStopwatch, fuzzyLaneMovementStopwatch;
+
+        double fuzzyLaneMovementX = 0.0, fuzzyLaneMovementY = 0.0;
 
         Stopwatch printGameTime;
 
@@ -338,6 +340,7 @@ namespace League_Autoplay
 
             activeAutoUseTimeStopwatch = new Stopwatch();
             lastTimeSawEnemyChampStopwatch = new Stopwatch();
+            fuzzyLaneMovementStopwatch = new Stopwatch();
 
 
             //moveToLane = arc4random_uniform(3) + 1;
@@ -455,10 +458,15 @@ namespace League_Autoplay
             Task.Delay(50).ContinueWith(_2 =>
             {
                 MotorCortex.typeText("q");
-            });
-            Task.Delay(100).ContinueWith(_2 =>
-            {
-                MotorCortex.releaseControlKey();
+
+                Task.Delay(50).ContinueWith(_3 =>
+                {
+                    MotorCortex.releaseControlKey();
+                    Task.Delay(50).ContinueWith(_4 =>
+                    {
+                        MotorCortex.releaseControlKey();
+                    });
+                });
             });
             didAction();
         }
@@ -468,10 +476,14 @@ namespace League_Autoplay
             Task.Delay(50).ContinueWith(_2 =>
             {
                 MotorCortex.typeText("w");
-            });
-            Task.Delay(100).ContinueWith(_2 =>
-            {
-                MotorCortex.releaseControlKey();
+                Task.Delay(50).ContinueWith(_3 =>
+                {
+                    MotorCortex.releaseControlKey();
+                    Task.Delay(50).ContinueWith(_4 =>
+                    {
+                        MotorCortex.releaseControlKey();
+                    });
+                });
             });
             didAction();
         }
@@ -481,10 +493,14 @@ namespace League_Autoplay
             Task.Delay(50).ContinueWith(_2 =>
             {
                 MotorCortex.typeText("e");
-            });
-            Task.Delay(100).ContinueWith(_2 =>
-            {
-                MotorCortex.releaseControlKey();
+                Task.Delay(50).ContinueWith(_3 =>
+                {
+                    MotorCortex.releaseControlKey();
+                    Task.Delay(50).ContinueWith(_4 =>
+                    {
+                        MotorCortex.releaseControlKey();
+                    });
+                });
             });
             didAction();
         }
@@ -494,10 +510,14 @@ namespace League_Autoplay
             Task.Delay(50).ContinueWith(_2 =>
             {
                 MotorCortex.typeText("r");
-            });
-            Task.Delay(100).ContinueWith(_2 =>
-            {
-                MotorCortex.releaseControlKey();
+                Task.Delay(50).ContinueWith(_3 =>
+                {
+                    MotorCortex.releaseControlKey();
+                    Task.Delay(50).ContinueWith(_4 =>
+                    {
+                        MotorCortex.releaseControlKey();
+                    });
+                });
             });
             didAction();
         }
@@ -1606,6 +1626,14 @@ namespace League_Autoplay
                                 //NSLog(@"Time to move");
                                 if (mapVisible)
                                 {
+                                    //Fuzzy movement
+                                    if (fuzzyLaneMovementStopwatch.DurationInSeconds() >= 2)
+                                    {
+                                        fuzzyLaneMovementStopwatch.Reset();
+                                        fuzzyLaneMovementX = random.NextDouble() * 2.0 - 1.0;
+                                        fuzzyLaneMovementY = random.NextDouble() * 2.0 - 1.0;
+                                    }
+
                                     //NSLog(@"Initating click");
                                     lastMovementClickStopwatch.Reset();
                                     int x = map->center.x;
@@ -1617,10 +1645,12 @@ namespace League_Autoplay
                                     }
                                     if (moveToLane == 3)
                                     {
-                                        x = Convert.ToInt32((map->bottomRight.x - map->topLeft.x) * 0.85 + map->topLeft.x);
-                                        y = Convert.ToInt32((map->bottomRight.y - map->topLeft.y) * 0.85 + map->topLeft.y);
+                                        x = Convert.ToInt32((map->bottomRight.x - map->topLeft.x) * 0.8 + map->topLeft.x);
+                                        y = Convert.ToInt32((map->bottomRight.y - map->topLeft.y) * 0.8 + map->topLeft.y);
                                     }
-                                    MotorCortex.clickMouseRightAt(x, y);
+                                    int fuzzyOffsetX = (int)( Math.Round(10.0 * fuzzyLaneMovementX) );
+                                    int fuzzyOffsetY = (int)(Math.Round(10.0 * fuzzyLaneMovementY));
+                                    MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY);
 
                                     Console.WriteLine("Clicked position to move to: " + x + ", " + y);
                                 }
