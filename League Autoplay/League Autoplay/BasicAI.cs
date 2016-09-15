@@ -223,8 +223,10 @@ namespace League_Autoplay
 
                     //Capitalize a random letter
                     int num = random.Next(0, message.Length);
-                    String letter = message.Substring(num, 1).ToUpper();
-                    message = message.Substring(0, num - 1) + letter + message.Substring(num + 1, message.Length - (num + 1));
+
+                    StringBuilder sb = new StringBuilder(message);
+                    sb[num] = Char.ToUpper(sb[num]);
+                    message = sb.ToString();
                 }
                 else if (r == 1)
                 { //Randomly remove a letter
