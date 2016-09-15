@@ -199,9 +199,10 @@ namespace League_Autoplay
             }
 
             //Click center of screen if afk
-            if (notMovingTimer.DurationInMinutes() >= 1.0) {
+            if (notMovingTimer.DurationInMinutes() >= 1.0)
+            {
                 notMovingTimer.Reset();
-                MotorCortex.clickMouseRightAt(1024/2, 768/2);
+                MotorCortex.clickMouseRightAt(1024 / 2, 768 / 2);
             }
 
             newData = false;
@@ -251,39 +252,50 @@ namespace League_Autoplay
                 }
             }
 
+            Console.WriteLine("Typing message: " + message);
+
             //Click center of screen
             MotorCortex.moveMouseTo(1024 / 2, 768 / 2, 1);
             typingMessageStopwatch.Reset();
 
-            int offset = 200;
-            Task.Delay(offset).ContinueWith(_ =>
+            Task.Delay(200).ContinueWith(_ =>
             {
                 MotorCortex.clickMouseAt(1024 / 2, 768 / 2);
                 typingMessageStopwatch.Reset();
-            });
-            offset += 1000;
-            Task.Delay(offset).ContinueWith(_ =>
-            {
-                MotorCortex.tapEnterKey();
-                typingMessageStopwatch.Reset();
-            });
-            offset += 300;
-            for (int i = 0; i < message.Length; i++)
-            {
-                char character = message[i];
-                Task.Delay(offset).ContinueWith(_ =>
+
+                Task.Delay(1000).ContinueWith(_2 =>
                 {
-                    MotorCortex.typeText("" + character);
+                    MotorCortex.tapEnterKey();
                     typingMessageStopwatch.Reset();
+
+                    typeNextLetter(message);
+
                 });
-                offset += 300;
-            }
-            offset += 300;
-            Task.Delay(offset).ContinueWith(_ =>
+
+            });
+
+        }
+
+        void typeNextLetter(String message)
+        {
+            if (message.Length == 0)
             {
-                MotorCortex.tapEnterKey();
+                Task.Delay(300).ContinueWith(_ =>
+                {
+                    MotorCortex.tapEnterKey();
+                    typingMessageStopwatch.Reset();
+                    didAction();
+                });
+                return;
+            }
+            String letter = message.Substring(1, 1);
+            String newMessage = message.Substring(1);
+
+            Task.Delay(300).ContinueWith(_ =>
+            {
+                MotorCortex.typeText(letter);
+                typeNextLetter(newMessage);
                 typingMessageStopwatch.Reset();
-                didAction();
             });
         }
 
@@ -589,7 +601,7 @@ namespace League_Autoplay
             {
                 if (detectionData.shopAvailableShown)
                 {
-                    
+
                     Console.WriteLine("Buy Items Shop available");
                     if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown)
                     {
@@ -711,7 +723,8 @@ namespace League_Autoplay
                         lastCameraFocusStopwatch.Reset();
                         tapCameraLock();
                         //NSLog(@"Attempting camera lock cause we don't see ourselves");
-                    } else
+                    }
+                    else
                     {
                         Champion champ = ((Champion*)detectionData.selfChampionsArray.ToPointer())[0];
                         int centerX = 536;//1024 / 2;
