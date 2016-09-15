@@ -1378,6 +1378,12 @@ namespace League_Autoplay
                     }
                 }
 
+                if ((gameCurrentTimeStopwatch.DurationInMinutes() <= 10 && lastHealthAmount < 0.5 && enemyChampionsNear) ||
+                    (gameCurrentTimeStopwatch.DurationInMinutes() <= 5 && lastHealthAmount < 0.75 && enemyChampionsNear))
+                {
+                    action = Action.RunAway;
+                }
+
                 //int actionSpeed = 0.25;
                 lastDecision = action;
                 switch (action)
