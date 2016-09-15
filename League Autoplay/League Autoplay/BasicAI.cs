@@ -12,12 +12,16 @@ namespace League_Autoplay
     {
         String[] messages = { "We got dis", "gg", "imma honor you guys after", "oh no", "dont surrender plz",
         "is infinity edge a good first item", "sorry", "just a sec my dog just pooped on the floor and it stinks",
-        "anyone else take a dump during the loading screen?", "/all good luck you need it", "#halp", "whattheheck",
-        "honor me plz!!1", "don't die, k?", "suck my dorans blade", "thanks obama", "that team comp tho", "what do", "hi",
+        "anyone else take a dump during the loading screen?", "good luck you need it", "#halp", "whattheheck",
+        "honor me plz!!1", "don't die, k?", "lick my dorans blade", "thanks obama", "that team comp tho", "what do", "hi",
         "hewwo", "I'm a cat meow", "how are you guys?", "tell me a story", "FOR DEMACIA", "FOR NOXUS", "I'm new at this game",
         "pie hehe", "imma build guardian angel first, k?", "my mom tells me im handsome", "k thx", "you rock", "be careful!",
-        "!!!!!", "dgashdgfasbdgasjdfsbkljdsakj", "I need a new keyboard", "/all Good game!", "/all Good luck", "/all be nice to me",
-        "so kawaii", "im trying", ":("};
+        "!!!!!", "dgashdgfasbdgasjdfsbkljdsakj", "I need a new keyboard", "Good game!", "Good luck", "be nice to me",
+        "so kawaii", "im trying", ":(", "hi", "gg", "What's up?", "Hi peoples", "Hello peoples", "What's up peoples?", "Where my people at",
+        "Can I get a hello?", "HOW IS YOU DOIN", "I rock", "Harambe died for us", "IPHONES are the best phones ever", "Gonna pwn so hard", "let me tell you a story",
+        "this is going to go good", "What does the fox say?", "Che che che che che", "Bwahahahahah", "Whaddup my miggars?", "Teemo is death", "Teemo is die",
+        "I need a girlfriend", "I need a gf", "You guys are too loud", "Thanks", "Thanks for that", "Geesh", "Oh my", "Let it gooooooo", "C:", ":C", ";)", "C;",
+        "I see you", "You can't see me", "why do I even try", "You guys are great", "I like the skin", "omg"};
 
         enum Action
         {
@@ -203,16 +207,24 @@ namespace League_Autoplay
             if (addRandomStuff)
             {
                 int r = random.Next(3);
-                if (r == 0 && message.Length > 5)
+                if (r == 0)
                 { //Insert random letter
-                    int num = random.Next(0, 26); // Zero to 25
-                    char let = (char)('a' + num);
-                    message = message.Insert(random.Next(message.Length), let + "");
+
+                    //int num = random.Next(0, 26); // Zero to 25
+                    //char let = (char)('a' + num);
+                    //message = message.Insert(random.Next(message.Length), let + "");
+
+                    //Capitalize a random letter
+                    int num = random.Next(0, message.Length);
+                    String letter = message.Substring(num, 1).ToUpper();
+                    message = message.Substring(0, num - 1) + letter + message.Substring(num + 1, message.Length - (num + 1));
                 }
-                else if (r == 1 && message.Length > 5)
+                else if (r == 1)
                 { //Randomly remove a letter
                     //Remove one random letter
-                    message = message.Remove(random.Next(message.Length - 1), 1);
+                    //message = message.Remove(random.Next(message.Length - 1), 1);
+                    //Say in all chat
+                    message = "/all " + message;
                 }
                 r = random.Next(20);
                 if (r == 0)
@@ -222,6 +234,14 @@ namespace League_Autoplay
                 else if (r == 1)
                 {
                     message = message.ToUpper();
+                }
+                else if (r == 2 && message.Length > 8)
+                {
+                    //Add a letter to the end
+
+                    int num = random.Next(0, 26); // Zero to 25
+                    char let = (char)('a' + num);
+                    message = message + let;
                 }
             }
 
@@ -1004,7 +1024,7 @@ namespace League_Autoplay
             GenericObject* map = (GenericObject*)detectionData.map.ToPointer();
             //GenericObject* mapShop = gameState->detectionManager->getMapShop();
 
-            bool earlyGame = gameCurrentTimeStopwatch.DurationInMilliseconds() < 1000 * 60 * 8;
+            bool earlyGame = gameCurrentTimeStopwatch.DurationInMinutes() < 20;
 
             PositionDouble tempBaseLocation;
             tempBaseLocation.x = baseLocation.x;
@@ -1312,7 +1332,7 @@ namespace League_Autoplay
                 }
 
                 //Ham code
-                if (enemyChampionsNear
+                if (gameCurrentTimeStopwatch.DurationInMinutes() >= 15 && enemyChampionsNear
                     && //1 on 1 or team fight
                     detectionData.numberOfEnemyChampions <= detectionData.numberOfAllyChampions + 1
                     && //Not under tower or the enemy is really low
@@ -1329,12 +1349,12 @@ namespace League_Autoplay
                     action = Action.GoHam;
                 }
                 //Already dead so do damage
-                if (enemyChampionsNear && lastHealthAmount <= 0.1)
+                if (gameCurrentTimeStopwatch.DurationInMinutes() >= 14 && enemyChampionsNear && lastHealthAmount <= 0.1)
                 {
                     action = Action.GoHam;
                 }
                 //Attack enemy if they are right next to us
-                if (action != Action.RunAway && detectionData.numberOfEnemyChampions > 0)
+                if (gameCurrentTimeStopwatch.DurationInMinutes() >= 14 && action != Action.RunAway && detectionData.numberOfEnemyChampions > 0)
                 {
                     if (hypot(closestEnemyChampion->characterCenter.x - selfChamp->characterCenter.x, closestEnemyChampion->characterCenter.y - selfChamp->characterCenter.y) < 150)
                     {

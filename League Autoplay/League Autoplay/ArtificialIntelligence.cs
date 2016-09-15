@@ -154,6 +154,7 @@ namespace League_Autoplay
                // userInterface.setDebugImage(new Bitmap(AutoQueueDetection.matchingBitmap));
             }
             if (currentScreen != null) autoQueue.runErrorCheck(currentScreen);
+            autoQueue.runSleepLogic();
         }
 
         public byte[] ToByteArray(DetectionDataStruct data)

@@ -22,6 +22,9 @@ namespace League_Autoplay.AutoQueue
 
         Stopwatch printStatus;
 
+        int sleepCount = 0;
+        double sleepAwakeTime = 3;
+
         bool sleeping = false;
 
         public AutoQueueManager()
@@ -45,12 +48,14 @@ namespace League_Autoplay.AutoQueue
             sleeping = false;
 
             printStatus = new Stopwatch();
+
+            sleepCount = 0;
         }
 
-        public void reset()
-        {
-
-        }
+        //public void reset()
+        //{
+        //
+        //}
 
         public void runErrorCheck(Bitmap screen)
         {
@@ -74,23 +79,78 @@ namespace League_Autoplay.AutoQueue
             }
         }
 
-        public void runAutoQueue(Bitmap screen)
+        public void nextSleepTime()
+        {
+            if (sleepCount == 0)
+            {
+                sleepCount++;
+                sleeping = true;
+                sleepAwakeTime = 1.0;
+            } else if (sleepCount == 1)
+            {
+                sleepCount++;
+                sleeping = false;
+                sleepAwakeTime = 3.0;
+            } else if (sleepCount == 2)
+            {
+                sleepCount++;
+                sleeping = true;
+                sleepAwakeTime = 1.0;
+            }
+            else if (sleepCount == 3)
+            {
+                sleepCount++;
+                sleeping = false;
+                sleepAwakeTime = 3.0;
+            }
+            else if (sleepCount == 4)
+            {
+                sleepCount++;
+                sleeping = true;
+                sleepAwakeTime = 1.0;
+            }
+            else if (sleepCount == 5)
+            {
+                sleepCount++;
+                sleeping = false;
+                sleepAwakeTime = 3.0;
+            }
+            else if (sleepCount == 6)
+            {
+                sleepCount++;
+                sleeping = true;
+                sleepAwakeTime = 8.0;
+            }
+            else if (sleepCount == 7)
+            {
+                sleepCount = 0;
+                sleeping = false;
+                sleepAwakeTime = 3.0;
+            }
+        }
+
+        public void runSleepLogic()
         {
             //Handle sleeping
-            if (sleeping) {
-                if (sleepStopwatch.DurationInMinutes() >= 30)
-                {  //Sleep for 30 minutes then play
-                    sleeping = false;
-                    sleepStopwatch.Reset();
-                }
-            } else
+            if (sleeping)
             {
-                if (sleepStopwatch.DurationInHours() >= 2)
-                {  //Play for 2 hours then sleep
-                    sleeping = true;
+                if (sleepStopwatch.DurationInHours() >= sleepAwakeTime)
+                {  //Sleep for 30 minutes then play
+                    //sleeping = false;
+                    nextSleepTime();
                     sleepStopwatch.Reset();
                 }
             }
+            else
+            {
+                if (sleepStopwatch.DurationInHours() >= sleepAwakeTime)
+                {  //Play for 2 hours then sleep
+                    //sleeping = true;
+                    nextSleepTime();
+                    sleepStopwatch.Reset();
+                }
+            }
+
 
             if (printStatus.DurationInMinutes() >= 1.0)
             {
@@ -100,8 +160,10 @@ namespace League_Autoplay.AutoQueue
                 if (!sleeping) output += " with " + (120 - sleepStopwatch.DurationInMinutes()) + " minutes left";
                 Console.WriteLine(output);
             }
+        }
 
-
+        public void runAutoQueue(Bitmap screen)
+        {
             //Loop through pixels on the screen and look for any of those four buttons.
             if (lockInButtonStopwatch.DurationInMilliseconds() >= 5000 || VisualCortex.IsTest)
             {
