@@ -278,6 +278,7 @@ namespace League_Autoplay
 
         void typeNextLetter(String message)
         {
+            Console.WriteLine("Typing message with letters left: " + message);
             if (message.Length == 0)
             {
                 Task.Delay(300).ContinueWith(_ =>
@@ -288,7 +289,7 @@ namespace League_Autoplay
                 });
                 return;
             }
-            String letter = message.Substring(1, 1);
+            String letter = message.Substring(0, 1);
             String newMessage = message.Substring(1);
 
             Task.Delay(300).ContinueWith(_ =>
