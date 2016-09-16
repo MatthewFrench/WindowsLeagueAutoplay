@@ -1443,7 +1443,7 @@ namespace League_Autoplay
                                 MotorCortex.clickMouseRightAt(Convert.ToInt32(baseLocation.x), Convert.ToInt32(baseLocation.y));
                                 lastRunAwayClickStopwatch.Reset();
                             }
-                            if (runAwayPanicStopwatch.DurationInSeconds() >= 2.0)
+                            if (runAwayPanicStopwatch.DurationInSeconds() >= 10.0)
                             {
 
                                 bool enemyChampWayTooClose = false;
@@ -1636,15 +1636,15 @@ namespace League_Autoplay
                             if (lastMovementClickStopwatch.DurationInMilliseconds() >= 500)
                             {
                                 //NSLog(@"Time to move");
+                                //Fuzzy movement
+                                if (fuzzyLaneMovementStopwatch.DurationInSeconds() >= 1)
+                                {
+                                    fuzzyLaneMovementStopwatch.Reset();
+                                    fuzzyLaneMovementX = random.NextDouble() * 2.0 - 1.0;
+                                    fuzzyLaneMovementY = random.NextDouble() * 2.0 - 1.0;
+                                }
                                 if (mapVisible)
                                 {
-                                    //Fuzzy movement
-                                    if (fuzzyLaneMovementStopwatch.DurationInSeconds() >= 2)
-                                    {
-                                        fuzzyLaneMovementStopwatch.Reset();
-                                        fuzzyLaneMovementX = random.NextDouble() * 2.0 - 1.0;
-                                        fuzzyLaneMovementY = random.NextDouble() * 2.0 - 1.0;
-                                    }
 
                                     //NSLog(@"Initating click");
                                     lastMovementClickStopwatch.Reset();

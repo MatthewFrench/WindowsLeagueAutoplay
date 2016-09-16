@@ -204,7 +204,14 @@ namespace League_Autoplay
                 basicAI.updateDetectionData(ref currentDetectionData);
             }
 
-            Console.WriteLine("Detected in C#: ");
+            bool leagueOfLegendsOpen = false;
+
+            Process[] pname = Process.GetProcessesByName("league of legends");
+            if (pname.Length != 0) leagueOfLegendsOpen = true;
+
+            if (leagueOfLegendsOpen) Console.WriteLine("Detected in C#: ");
+
+
             if (data.numberOfAllyMinions > 0)
             {
                 Console.WriteLine("\t"+ data.numberOfAllyMinions + " ally minions");
