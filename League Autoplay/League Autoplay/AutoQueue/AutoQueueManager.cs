@@ -214,7 +214,7 @@ namespace League_Autoplay.AutoQueue
             if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
             {
                 acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 366, 393, 10, 10, 0.70);
-                if (VisualCortex.IsTest) Console.WriteLine("Searching for accept button");
+                //if (VisualCortex.IsTest) Console.WriteLine("Searching for accept button");
                 //acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 0, 0, 1024, 768, 0.5);
                 if (acceptMatchButtonPosition.x != -1)
                 {
@@ -285,7 +285,8 @@ namespace League_Autoplay.AutoQueue
             }
             if ((playAgainButtonStopwatch.DurationInMilliseconds() >= 5000 && sleeping == false) || VisualCortex.IsTest)
             {
-                playAgainButtonPosition = AutoQueueDetection.findImageInScreen(screen, playAgainButton, 776, 616, 10, 10, 0.95);
+                //Console.WriteLine("Scanning for play again button");
+                playAgainButtonPosition = AutoQueueDetection.findImageInScreen(screen, playAgainButton, 776, 616, 10, 10, 0.9);
                 if (playAgainButtonPosition.x != -1)
                 {
                     playAgainButtonStopwatch.Reset();
