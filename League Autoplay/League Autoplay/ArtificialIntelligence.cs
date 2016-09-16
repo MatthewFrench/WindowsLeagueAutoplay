@@ -204,7 +204,7 @@ namespace League_Autoplay
                 basicAI.updateDetectionData(ref currentDetectionData);
             }
 
-            //Console.WriteLine("Detected in C#: ");
+            Console.WriteLine("Detected in C#: ");
             if (data.numberOfAllyMinions > 0)
             {
                 Console.WriteLine("\t"+ data.numberOfAllyMinions + " ally minions");

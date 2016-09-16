@@ -1426,6 +1426,7 @@ namespace League_Autoplay
 
                 //int actionSpeed = 0.25;
                 lastDecision = action;
+                Console.WriteLine("");
                 switch (action)
                 {
                     case Action.RunAway:
@@ -1543,7 +1544,7 @@ namespace League_Autoplay
                     case Action.AttackTower:
                         {
                             didAction();
-                            //NSLog(@"\t\tAction: Attacking Tower");
+                            Console.WriteLine("\t\tAction: Attacking Tower");
                             if (lastClickEnemyTowerStopwatch.DurationInMilliseconds() >= 100)
                             {
                                 lastClickEnemyTowerStopwatch.Reset();
@@ -1592,7 +1593,7 @@ namespace League_Autoplay
                     case Action.MoveToMid:
                         {
                             didAction();
-                            //Console.WriteLine("Action: Moving to Mid");
+                            Console.WriteLine("Action: Moving to Mid");
                             //NSLog(@"\t\tAction: Moving to Mid");
 
                             if (gameCurrentTimeStopwatch.DurationInMinutes() >= 10 && moveToLanePathSwitchStopwatch.DurationInMinutes() >= 1)
