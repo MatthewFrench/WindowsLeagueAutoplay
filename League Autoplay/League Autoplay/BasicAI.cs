@@ -51,7 +51,7 @@ namespace League_Autoplay
             moveToLanePathSwitchStopwatch, gameCurrentTimeStopwatch, lastSurrenderStopwatch, lastShopBuyStopwatch,
             lastShopOpenTapStopwatch, lastShopCloseTapStopwatch, lastTimeSawEnemyChampStopwatch, standStillTimeStopwatch,
             healthGainedTimeStopwatch, attemptSurrenderStopwatch, continueClickStopwatch, afkClickStopwatch, stoppedWorkingStopwatch,
-            cantSeeSelfMoveMouseStopwatch, fuzzyLaneMovementStopwatch;
+            cantSeeSelfMoveMouseStopwatch, fuzzyLaneMovementStopwatch, runAwayPanicStopwatch;
 
         double fuzzyLaneMovementX = 0.0, fuzzyLaneMovementY = 0.0;
 
@@ -337,6 +337,7 @@ namespace League_Autoplay
             lastItem5UseStopwatch = new Stopwatch();
             lastItem6UseStopwatch = new Stopwatch();
             standStillTimeStopwatch = new Stopwatch();
+            runAwayPanicStopwatch = new Stopwatch();
 
             activeAutoUseTimeStopwatch = new Stopwatch();
             lastTimeSawEnemyChampStopwatch = new Stopwatch();
@@ -1438,48 +1439,54 @@ namespace League_Autoplay
                                 MotorCortex.clickMouseRightAt(Convert.ToInt32(baseLocation.x), Convert.ToInt32(baseLocation.y));
                                 lastRunAwayClickStopwatch.Reset();
                             }
-                            bool enemyChampWayTooClose = false;
-                            if (closestEnemyChampion != null)
+                            if (runAwayPanicStopwatch.DurationInSeconds() >= 2.0)
                             {
-                                enemyChampWayTooClose = (hypot(selfChamp->characterCenter.x - closestEnemyChampion->characterCenter.x, selfChamp->characterCenter.y - closestEnemyChampion->characterCenter.y) < 200);
-                            }
 
-                            if ((selfChamp->health < 40 && enemyChampionsNear) || enemyChampWayTooClose)
-                            {
-                                int enemyX = (closestEnemyChampion->characterCenter.x - selfChamp->characterCenter.x);
-                                int enemyY = (closestEnemyChampion->characterCenter.y - selfChamp->characterCenter.y);
-                                normalizePoint(ref enemyX, ref enemyY, 300);
-                                //enemyX = -enemyX;
-                                //enemyY = -enemyY;
-                                //Panic
-                                if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 1000 || (lastHealthAmount <= 0.25 && lastMoveMouseStopwatch.DurationInMilliseconds() >= 100))
+                                bool enemyChampWayTooClose = false;
+                                if (closestEnemyChampion != null)
                                 {
-                                    lastMoveMouseStopwatch.Reset();
-                                    MotorCortex.moveMouseTo(enemyX + selfChamp->characterCenter.x, enemyY + selfChamp->characterCenter.y);
-                                    castSpell4();
-                                    castSpell2();
-                                    if (lastHealthAmount <= 0.25)
-                                    {
-                                        castSpell1();
-                                        castSpell3();
-                                    }
-                                    useTrinket();
+                                    enemyChampWayTooClose = (hypot(selfChamp->characterCenter.x - closestEnemyChampion->characterCenter.x, selfChamp->characterCenter.y - closestEnemyChampion->characterCenter.y) < 200);
+                                }
 
-                                    Task.Delay(50).ContinueWith(_ =>
+                                if ((selfChamp->health < 40 && enemyChampionsNear) || enemyChampWayTooClose)
+                                {
+                                    runAwayPanicStopwatch.Reset();
+                                    int enemyX = (closestEnemyChampion->characterCenter.x - selfChamp->characterCenter.x);
+                                    int enemyY = (closestEnemyChampion->characterCenter.y - selfChamp->characterCenter.y);
+                                    normalizePoint(ref enemyX, ref enemyY, 300);
+                                    //enemyX = -enemyX;
+                                    //enemyY = -enemyY;
+                                    //Panic
+                                    if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 1000 || (lastHealthAmount <= 0.25 && lastMoveMouseStopwatch.DurationInMilliseconds() >= 100))
                                     {
-                                        MotorCortex.moveMouseTo(selfChamp->characterCenter.x - enemyX, selfChamp->characterCenter.y - enemyY);
-                                        castSummonerSpell1();
-                                        castSummonerSpell2();
-                                        useItem1();
-                                        useItem2();
-                                        useItem3();
-                                        useItem4();
-                                        useItem5();
-                                        useItem6();
-                                    });
+                                        lastMoveMouseStopwatch.Reset();
+                                        MotorCortex.moveMouseTo(enemyX + selfChamp->characterCenter.x, enemyY + selfChamp->characterCenter.y);
+                                        castSpell4();
+                                        castSpell2();
+                                        if (lastHealthAmount <= 0.25)
+                                        {
+                                            castSpell1();
+                                            castSpell3();
+                                        }
+                                        useTrinket();
+
+                                        Task.Delay(50).ContinueWith(_ =>
+                                        {
+                                            MotorCortex.moveMouseTo(selfChamp->characterCenter.x - enemyX, selfChamp->characterCenter.y - enemyY);
+                                            castSummonerSpell1();
+                                            castSummonerSpell2();
+                                            useItem1();
+                                            useItem2();
+                                            useItem3();
+                                            useItem4();
+                                            useItem5();
+                                            useItem6();
+                                        });
+                                    }
                                 }
                             }
                         }
+                            
                         break;
                     case Action.AttackEnemyChampion:
                     case Action.GoHam:
