@@ -1420,7 +1420,11 @@ namespace League_Autoplay
                 {
                     action = Action.RunAway;
                 }
-                if (gameCurrentTimeStopwatch.DurationInMinutes() <= 10 && detectionData.numberOfEnemyChampions >= 2)
+                if (gameCurrentTimeStopwatch.DurationInMinutes() <= 10 && (detectionData.numberOfEnemyChampions >= 2 || (detectionData.numberOfEnemyChampions == 1 && detectionData.numberOfAllyMinions <= 2)))
+                {
+                    action = Action.RunAway;
+                }
+                if (gameCurrentTimeStopwatch.DurationInMinutes() <= 10 && detectionData.numberOfEnemyChampions >= 1 && detectionData.numberOfEnemyTowers >= 1)
                 {
                     action = Action.RunAway;
                 }
