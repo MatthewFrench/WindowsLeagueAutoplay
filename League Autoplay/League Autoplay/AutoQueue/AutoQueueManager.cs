@@ -230,7 +230,7 @@ namespace League_Autoplay.AutoQueue
             }
             if (randomChampClickStopwatch.DurationInMilliseconds() >= 2000 || VisualCortex.IsTest)
             {
-                randomChampButtonPosition = AutoQueueDetection.findImageInScreen(screen, randomChampButton, 235, 186, 10, 10, 0.95);
+                randomChampButtonPosition = AutoQueueDetection.findImageInScreen(screen, randomChampButton, 235, 186, 10, 10, 0.9);
                 if (randomChampButtonPosition.x != -1)
                 {
 
