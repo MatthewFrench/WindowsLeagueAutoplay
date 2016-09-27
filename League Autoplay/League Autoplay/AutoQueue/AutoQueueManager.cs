@@ -176,7 +176,10 @@ namespace League_Autoplay.AutoQueue
                     Console.WriteLine("\tFound lock in button at " + lockInButtonPosition.x + ", " + lockInButtonPosition.y);
                     if (!VisualCortex.IsTest)
                     {
-                        MotorCortex.clickMouseAt(lockInButtonPosition.x + 10, lockInButtonPosition.y + 10);
+
+                        Task.Delay(1000).ContinueWith(_ =>
+                        {
+                            MotorCortex.clickMouseAt(lockInButtonPosition.x + 10, lockInButtonPosition.y + 10);
                         
 
                         int x = lockInButtonPosition.x - 419;
@@ -185,33 +188,33 @@ namespace League_Autoplay.AutoQueue
                         moveMouseToWithDelay(x, y, 200);
 
                         //Click Enter
-                        Task.Delay(400).ContinueWith(_ =>
+                        Task.Delay(400).ContinueWith(_2 =>
                         {
                             MotorCortex.clickMouseAt(x, y);
                         });
-                        Task.Delay(600).ContinueWith(_ =>
+                        Task.Delay(600).ContinueWith(_2 =>
                         {
                             MotorCortex.typeText("T");
                         });
-                        Task.Delay(800).ContinueWith(_ =>
+                        Task.Delay(800).ContinueWith(_2 =>
                         {
                             MotorCortex.typeText("o");
                         });
-                        Task.Delay(1000).ContinueWith(_ =>
+                        Task.Delay(1000).ContinueWith(_2 =>
                         {
                             MotorCortex.typeText("p");
                         });
-                        Task.Delay(1200).ContinueWith(_ =>
+                        Task.Delay(1200).ContinueWith(_2 =>
                         {
                             MotorCortex.tapEnterKey();
                         });
-                        
+                        });
                     }
 
                     if (!VisualCortex.IsTest) return;
                 }
             }
-            if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 500 || VisualCortex.IsTest)
+            if (acceptMatchClickStopwatch.DurationInMilliseconds() >= 4000 || VisualCortex.IsTest)
             {
                 acceptMatchButtonPosition = AutoQueueDetection.findImageInScreen(screen, acceptMatchButton, 366, 393, 10, 10, 0.70);
                 //if (VisualCortex.IsTest) Console.WriteLine("Searching for accept button");
@@ -222,13 +225,16 @@ namespace League_Autoplay.AutoQueue
                     Console.WriteLine("\tFound accept match button at " + acceptMatchButtonPosition.x + ", " + acceptMatchButtonPosition.y);
                     if (!VisualCortex.IsTest)
                     {
-                        MotorCortex.clickMouseAt(acceptMatchButtonPosition.x + 10, acceptMatchButtonPosition.y + 10);
-                        moveMouseToWithDelay(0, 0, 200);
+                        Task.Delay(4000).ContinueWith(_2 =>
+                        {
+                            MotorCortex.clickMouseAt(acceptMatchButtonPosition.x + 10, acceptMatchButtonPosition.y + 10);
+                            moveMouseToWithDelay(0, 0, 200);
+                        });
                     }
                     if (!VisualCortex.IsTest) return;
                 }
             }
-            if (randomChampClickStopwatch.DurationInMilliseconds() >= 2000 || VisualCortex.IsTest)
+            if (randomChampClickStopwatch.DurationInMilliseconds() >= 6000 || VisualCortex.IsTest)
             {
                 randomChampButtonPosition = AutoQueueDetection.findImageInScreen(screen, randomChampButton, 235, 186, 10, 10, 0.9);
                 if (randomChampButtonPosition.x != -1)
@@ -238,9 +244,11 @@ namespace League_Autoplay.AutoQueue
                     Console.WriteLine("\tFound random champ button");
                     if (!VisualCortex.IsTest)
                     {
-
-                        MotorCortex.clickMouseAt(randomChampButtonPosition.x + 10, randomChampButtonPosition.y + 10);
-                        moveMouseToWithDelay(0, 0, 200);
+                        Task.Delay(1200).ContinueWith(_2 =>
+                        {
+                            MotorCortex.clickMouseAt(randomChampButtonPosition.x + 10, randomChampButtonPosition.y + 10);
+                            moveMouseToWithDelay(0, 0, 200);
+                        });
                         /*
                         //Click Enter
                         Task.Delay(200).ContinueWith(_ =>
@@ -283,7 +291,7 @@ namespace League_Autoplay.AutoQueue
                     if (!VisualCortex.IsTest) return;
                 }
             }
-            if ((playAgainButtonStopwatch.DurationInMilliseconds() >= 5000 && sleeping == false) || VisualCortex.IsTest)
+            if ((playAgainButtonStopwatch.DurationInMilliseconds() >= 10000 && sleeping == false) || VisualCortex.IsTest)
             {
                 //Console.WriteLine("Scanning for play again button");
                 playAgainButtonPosition = AutoQueueDetection.findImageInScreen(screen, playAgainButton, 776, 616, 10, 10, 0.9);
@@ -293,8 +301,11 @@ namespace League_Autoplay.AutoQueue
                     Console.WriteLine("\tFound play again button");
                     if (!VisualCortex.IsTest)
                     {
-                        MotorCortex.clickMouseAt(playAgainButtonPosition.x + 10, playAgainButtonPosition.y + 10);
-                        moveMouseToWithDelay(0, 0, 500);
+                        Task.Delay(8000).ContinueWith(_2 =>
+                        {
+                            MotorCortex.clickMouseAt(playAgainButtonPosition.x + 10, playAgainButtonPosition.y + 10);
+                            moveMouseToWithDelay(0, 0, 500);
+                        });
                     }
                     if (!VisualCortex.IsTest) return;
                 }

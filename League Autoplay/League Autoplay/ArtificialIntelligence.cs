@@ -38,6 +38,8 @@ namespace League_Autoplay
         High_Performance_Timer.Stopwatch fpsLimitStopwatch = new High_Performance_Timer.Stopwatch();
         int fpsLimit = 16;
 
+
+
         public ArtificialIntelligence(UserInterface userInterface, VisualCortex visualCortex)
         {
 
