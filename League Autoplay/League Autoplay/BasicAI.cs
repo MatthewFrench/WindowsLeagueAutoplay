@@ -158,10 +158,13 @@ namespace League_Autoplay
                 GenericObject* surrender = (GenericObject*)detectionData.surrenderActive.ToPointer();
 
                 replaceAction(new GameAction(delegate(GameAction action) {
-                    MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y);
+                    MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y, 1);
                     didAction();
 
-                    action.finished();
+                    Task.Delay(50).ContinueWith(_ =>
+                    {
+                        action.finished();
+                    });
                 }, "Surrender"));
             }
 
@@ -173,13 +176,16 @@ namespace League_Autoplay
 
                 replaceAction(new GameAction(delegate (GameAction action) {
 
-                    MotorCortex.clickMouseAt(continueObject->center.x, continueObject->center.y);
+                    MotorCortex.clickMouseAt(continueObject->center.x, continueObject->center.y, 1);
                     didAction();
                     MotorCortex.releaseControlKey();
                     MotorCortex.releaseShiftKey();
                     MotorCortex.pressTabKey();
 
-                    action.finished();
+                    Task.Delay(50).ContinueWith(_ =>
+                    {
+                        action.finished();
+                    });
                 }, "Continue"));
             }
 
@@ -191,9 +197,12 @@ namespace League_Autoplay
 
                 replaceAction(new GameAction(delegate (GameAction action) {
                     
-                    MotorCortex.clickMouseAt(afkObject->center.x, afkObject->center.y);
+                    MotorCortex.clickMouseAt(afkObject->center.x, afkObject->center.y, 1);
 
-                    action.finished();
+                    Task.Delay(50).ContinueWith(_ =>
+                    {
+                        action.finished();
+                    });
                 }, "afk button"));
                 
             }
@@ -204,9 +213,12 @@ namespace League_Autoplay
 
                 replaceAction(new GameAction(delegate (GameAction action) {
 
-                    MotorCortex.clickMouseAt(stoppedWorkingObject->center.x + 20, stoppedWorkingObject->center.y);
+                    MotorCortex.clickMouseAt(stoppedWorkingObject->center.x + 20, stoppedWorkingObject->center.y, 1);
 
-                    action.finished();
+                    Task.Delay(50).ContinueWith(_ =>
+                    {
+                        action.finished();
+                    });
                 }, "stopped working"));
             }
 
@@ -221,7 +233,10 @@ namespace League_Autoplay
 
                         MotorCortex.moveMouseTo(0, 0, 1);
 
-                        action.finished();
+                        Task.Delay(50).ContinueWith(_ =>
+                        {
+                            action.finished();
+                        });
                     }, "can't see self"));
                     
                 }
@@ -240,9 +255,12 @@ namespace League_Autoplay
 
                 replaceAction(new GameAction(delegate (GameAction action) {
 
-                    MotorCortex.clickMouseRightAt(1024 / 2, 768 / 2);
+                    MotorCortex.clickMouseRightAt(1024 / 2, 768 / 2, 1);
 
-                    action.finished();
+                    Task.Delay(50).ContinueWith(_ =>
+                    {
+                        action.finished();
+                    });
                 }, "not moving"));
             }
 
@@ -371,7 +389,12 @@ namespace League_Autoplay
 
                 });
 
-                action.finished();
+
+                Task.Delay(200 + 200 + message.Length * 100 + 200).ContinueWith(_ =>
+                {
+                    action.finished();
+                });
+                
             }, "text"));
 
         }
