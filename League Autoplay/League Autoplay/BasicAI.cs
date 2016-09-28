@@ -866,7 +866,7 @@ namespace League_Autoplay
             //}
             bool closeShop = false;
             if (inProcessOfBuyingItems) return;
-            if (lastShopBuyStopwatch.DurationInSeconds() >= 60 * 8 || (boughtStarterItems == false))
+            if (lastShopBuyStopwatch.DurationInSeconds() >= 60 * 4 || (boughtStarterItems == false))
             {
                 if (detectionData.shopAvailableShown)
                 {
@@ -877,7 +877,6 @@ namespace League_Autoplay
                         didAction();
                         Console.WriteLine("Buy Items Final");
                         lastShopBuyStopwatch.Reset();
-                        inProcessOfBuyingItems = true;
                         //Buy items
                         int bought = 0;
                         for (int i = 0; i < detectionData.numberOfBuyableItems; i++)
@@ -937,6 +936,10 @@ namespace League_Autoplay
                                 bought++;
                                 boughtItems.Add(item);
                             }
+                        }
+                        if (boughtItems.Count > 0)
+                        {
+                            inProcessOfBuyingItems = true;
                         }
                         if (boughtItems.Count > 0 && !boughtStarterItems)
                         {
