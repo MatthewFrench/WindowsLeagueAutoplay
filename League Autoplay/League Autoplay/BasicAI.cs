@@ -988,7 +988,7 @@ namespace League_Autoplay
                                     });
                                 });
 
-                            }, "buy item"));
+                            }, "buy_item"));
 
                             
                             if (bought < 2)
