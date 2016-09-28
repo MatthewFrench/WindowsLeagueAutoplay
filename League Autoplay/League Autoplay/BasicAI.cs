@@ -427,7 +427,7 @@ namespace League_Autoplay
             });
         }
 
-        public void resetAI()
+        public void resetAI(int lane = 1)
         {
             firstSawSelf = false;
             lastLevelUpStopwatch = new Stopwatch();
@@ -485,7 +485,7 @@ namespace League_Autoplay
             lastOnMapLocation.y = -1;
             baseLocation.x = -1;
             baseLocation.y = -1;
-            moveToLane = 1; //Top lane
+            moveToLane = lane; //Random lane
             boughtStarterItems = false;
             healthGainedPerSecond = 0;
             lastHealthAmount = 0.0;
@@ -865,7 +865,7 @@ namespace League_Autoplay
             //    NSLog(@"Shop bottom left visible");
             //}
             bool closeShop = false;
-            if (lastShopBuyStopwatch.DurationInSeconds() >= 60 * 8 || (boughtStarterItems == false))
+            if (lastShopBuyStopwatch.DurationInSeconds() >= 60 * 16 || (boughtStarterItems == false))
             {
                 if (detectionData.shopAvailableShown)
                 {
@@ -906,20 +906,20 @@ namespace League_Autoplay
                             {
                                 continue;
                             }
-                            Task.Delay(1000 * i).ContinueWith(_ =>
+                            Task.Delay(2000 * i).ContinueWith(_ =>
                             {
                                 MotorCortex.moveMouseTo(clickX, clickY, 20);
                             });
-                            Task.Delay(1000 * i + 200).ContinueWith(_ =>
+                            Task.Delay(2000 * i + 400).ContinueWith(_ =>
                             {
                                 MotorCortex.clickMouseAt(clickX, clickY, 20);
                             });
 
-                            Task.Delay(1000 * i + 450).ContinueWith(_ =>
+                            Task.Delay(2000 * i + 900).ContinueWith(_ =>
                             {
                                 MotorCortex.clickMouseRightAt(clickX, clickY, 20);
                             });
-                            Task.Delay(1000 * i + 700).ContinueWith(_ =>
+                            Task.Delay(2000 * i + 1400).ContinueWith(_ =>
                             {
                                 MotorCortex.moveMouseTo(0, 0, 20);
                             });

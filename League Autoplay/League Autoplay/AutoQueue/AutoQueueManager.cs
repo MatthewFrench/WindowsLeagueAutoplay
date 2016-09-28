@@ -22,10 +22,14 @@ namespace League_Autoplay.AutoQueue
 
         Stopwatch printStatus;
 
+        Random random;
+
         int sleepCount = 0;
         double sleepAwakeTime = 3;
 
         bool sleeping = false;
+
+        int pickedLane = 1;
 
         public AutoQueueManager()
         {
@@ -50,6 +54,8 @@ namespace League_Autoplay.AutoQueue
             printStatus = new Stopwatch();
 
             sleepCount = 0;
+
+            random = new Random(Environment.TickCount);
         }
 
         //public void reset()
@@ -162,6 +168,11 @@ namespace League_Autoplay.AutoQueue
             }
         }
 
+        public int getPickedLane()
+        {
+            return pickedLane;
+        }
+
         public void runAutoQueue(Bitmap screen)
         {
             //Loop through pixels on the screen and look for any of those four buttons.
@@ -176,6 +187,8 @@ namespace League_Autoplay.AutoQueue
                     Console.WriteLine("\tFound lock in button at " + lockInButtonPosition.x + ", " + lockInButtonPosition.y);
                     if (!VisualCortex.IsTest)
                     {
+
+                        pickedLane = random.Next(3) + 1;
 
                         Task.Delay(1000).ContinueWith(_ =>
                         {
@@ -194,15 +207,21 @@ namespace League_Autoplay.AutoQueue
                         });
                         Task.Delay(600).ContinueWith(_2 =>
                         {
-                            MotorCortex.typeText("T");
+                            if (pickedLane == 1) MotorCortex.typeText("T");
+                            if (pickedLane == 2) MotorCortex.typeText("M");
+                            if (pickedLane == 3) MotorCortex.typeText("B");
                         });
                         Task.Delay(800).ContinueWith(_2 =>
                         {
-                            MotorCortex.typeText("o");
+                            if (pickedLane == 1) MotorCortex.typeText("o");
+                            if (pickedLane == 2) MotorCortex.typeText("i");
+                            if (pickedLane == 3) MotorCortex.typeText("o");
                         });
                         Task.Delay(1000).ContinueWith(_2 =>
                         {
-                            MotorCortex.typeText("p");
+                            if (pickedLane == 1) MotorCortex.typeText("p");
+                            if (pickedLane == 2) MotorCortex.typeText("d");
+                            if (pickedLane == 3) MotorCortex.typeText("t");
                         });
                         Task.Delay(1200).ContinueWith(_2 =>
                         {

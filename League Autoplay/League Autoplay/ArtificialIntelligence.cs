@@ -131,7 +131,7 @@ namespace League_Autoplay
 
             if (leagueIsInGame == false && leagueOfLegendsOpen)
             {
-                basicAI.resetAI();
+                basicAI.resetAI(autoQueue.getPickedLane());
                 autoQueue.enteredLeagueOfLegends();
             }
             if (leagueIsInGame == true && !leagueOfLegendsOpen)
