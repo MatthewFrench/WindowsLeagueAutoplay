@@ -11,12 +11,12 @@ namespace League_Autoplay
         Action<GameAction> actionFunction;
         bool actionFinished = false;
         bool actionRunning = false;
-        String actionID = "";
+        String actionTags = "";
 
-        public GameAction(Action<GameAction> function, String ID)
+        public GameAction(Action<GameAction> function, String tags)
         {
             actionFunction = function;
-            actionID = ID;
+            actionTags = tags;
         }
         public void runAction()
         {
@@ -41,9 +41,9 @@ namespace League_Autoplay
         {
             return actionRunning;
         }
-        public String getID()
+        public String getTags()
         {
-            return actionID;
+            return actionTags;
         }
     }
 }
