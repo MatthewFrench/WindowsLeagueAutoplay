@@ -77,6 +77,8 @@ namespace League_Autoplay
 
         Stopwatch notMovingTimer;
 
+        List<GameAction> gameActions;
+
         public BasicAI()
         {
 
@@ -208,7 +210,60 @@ namespace League_Autoplay
             }
 
             newData = false;
+
+            processActions();
         }
+
+        void processActions()
+        {
+            //Process actions
+            if (gameActions.Count > 0)
+            {
+                GameAction action = gameActions[0];
+                if (action.isFinished() == false && action.isRunning() == false)
+                {
+                    action.runAction();
+                } else if (action.isFinished())
+                {
+                    gameActions.RemoveAt(0);
+                }
+            }
+        }
+        void addAction(GameAction action)
+        {
+            gameActions.Add(action);
+        }
+        void replaceAction(GameAction action)
+        {
+            int index = -1;
+            for (int i = 0; i < gameActions.Count; i++)
+            {
+                GameAction action2 = gameActions[i];
+                if (action2.getID().Equals(action.getID()) && action2.isRunning() == false && action2.isFinished() == false)
+                {
+                    index = i;
+                }
+            }
+            //Remove all actions with same ID
+            for (int i = 0; i < gameActions.Count; i++)
+            {
+                GameAction action2 = gameActions[i];
+                if (action2.getID().Equals(action.getID()) && action2.isRunning() == false && action2.isFinished() == false)
+                {
+                    gameActions.Remove(action2);
+                    i--;
+                }
+            }
+            //Insert action
+            if (index == -1)
+            {
+                gameActions.Add(action);
+            } else
+            {
+                gameActions.Insert(index, action);
+            }
+        }
+
 
         public void typeMessageInChat(String message, bool addRandomStuff = true)
         {
@@ -385,6 +440,8 @@ namespace League_Autoplay
             cantSeeSelfMoveMouseStopwatch = new Stopwatch();
 
             notMovingTimer = new Stopwatch();
+
+            gameActions = new List<GameAction>();
         }
 
         void handleAbilityLevelUps()
