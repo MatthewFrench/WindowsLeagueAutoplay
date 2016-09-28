@@ -943,7 +943,7 @@ namespace League_Autoplay
                         {
                             inProcessOfBuyingItems = true;
                         }
-                        if (boughtItems.Count > 0 && !boughtStarterItems)
+                        if (boughtItems.Count > 0)
                         {
                             addAction(new GameAction(delegate (GameAction action) {
 
