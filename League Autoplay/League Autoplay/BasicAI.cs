@@ -156,8 +156,13 @@ namespace League_Autoplay
             {
                 lastSurrenderStopwatch.Reset();
                 GenericObject* surrender = (GenericObject*)detectionData.surrenderActive.ToPointer();
-                MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y);
-                didAction();
+
+                replaceAction(new GameAction(delegate(GameAction action) {
+                    MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y);
+                    didAction();
+
+                    action.finished();
+                }, "Surrender"));
             }
 
             //Handle continue button
@@ -165,11 +170,17 @@ namespace League_Autoplay
             {
                 continueClickStopwatch.Reset();
                 GenericObject* continueObject = (GenericObject*)detectionData.continueActive.ToPointer();
-                MotorCortex.clickMouseAt(continueObject->center.x, continueObject->center.y);
-                didAction();
-                MotorCortex.releaseControlKey();
-                MotorCortex.releaseShiftKey();
-                MotorCortex.pressTabKey();
+
+                replaceAction(new GameAction(delegate (GameAction action) {
+
+                    MotorCortex.clickMouseAt(continueObject->center.x, continueObject->center.y);
+                    didAction();
+                    MotorCortex.releaseControlKey();
+                    MotorCortex.releaseShiftKey();
+                    MotorCortex.pressTabKey();
+
+                    action.finished();
+                }, "Continue"));
             }
 
             //Handle afk and stopped working button
@@ -177,13 +188,26 @@ namespace League_Autoplay
             {
                 afkClickStopwatch.Reset();
                 GenericObject* afkObject = (GenericObject*)detectionData.afkActive.ToPointer();
-                MotorCortex.clickMouseAt(afkObject->center.x, afkObject->center.y);
+
+                replaceAction(new GameAction(delegate (GameAction action) {
+                    
+                    MotorCortex.clickMouseAt(afkObject->center.x, afkObject->center.y);
+
+                    action.finished();
+                }, "afk button"));
+                
             }
             if (detectionData.stoppedWorkingAvailable && stoppedWorkingStopwatch.DurationInMilliseconds() >= 1000)
             {
                 stoppedWorkingStopwatch.Reset();
                 GenericObject* stoppedWorkingObject = (GenericObject*)detectionData.stoppedWorkingActive.ToPointer();
-                MotorCortex.clickMouseAt(stoppedWorkingObject->center.x + 20, stoppedWorkingObject->center.y);
+
+                replaceAction(new GameAction(delegate (GameAction action) {
+
+                    MotorCortex.clickMouseAt(stoppedWorkingObject->center.x + 20, stoppedWorkingObject->center.y);
+
+                    action.finished();
+                }, "stopped working"));
             }
 
             //If can't see self champion or self healthbar move mouse to top left
@@ -192,7 +216,14 @@ namespace League_Autoplay
                 if (cantSeeSelfMoveMouseStopwatch.DurationInSeconds() >= 5)
                 {
                     cantSeeSelfMoveMouseStopwatch.Reset();
-                    MotorCortex.moveMouseTo(0, 0, 1);
+
+                    replaceAction(new GameAction(delegate (GameAction action) {
+
+                        MotorCortex.moveMouseTo(0, 0, 1);
+
+                        action.finished();
+                    }, "can't see self"));
+                    
                 }
             }
 
@@ -206,7 +237,13 @@ namespace League_Autoplay
             if (notMovingTimer.DurationInMinutes() >= 1.0)
             {
                 notMovingTimer.Reset();
-                MotorCortex.clickMouseRightAt(1024 / 2, 768 / 2);
+
+                replaceAction(new GameAction(delegate (GameAction action) {
+
+                    MotorCortex.clickMouseRightAt(1024 / 2, 768 / 2);
+
+                    action.finished();
+                }, "not moving"));
             }
 
             newData = false;
@@ -267,71 +304,75 @@ namespace League_Autoplay
 
         public void typeMessageInChat(String message, bool addRandomStuff = true)
         {
-            didAction();
-            if (addRandomStuff)
-            {
-                int r = random.Next(3);
-                if (r == 0)
-                { //Insert random letter
-
-                    //int num = random.Next(0, 26); // Zero to 25
-                    //char let = (char)('a' + num);
-                    //message = message.Insert(random.Next(message.Length), let + "");
-
-                    //Capitalize a random letter
-                    int num = random.Next(0, message.Length);
-
-                    StringBuilder sb = new StringBuilder(message);
-                    sb[num] = Char.ToUpper(sb[num]);
-                    message = sb.ToString();
-                }
-                else if (r == 1)
-                { //Randomly remove a letter
-                    //Remove one random letter
-                    //message = message.Remove(random.Next(message.Length - 1), 1);
-                    //Say in all chat
-                    message = "/all " + message;
-                }
-                r = random.Next(20);
-                if (r == 0)
+            addAction(new GameAction(delegate (GameAction action) {
+                didAction();
+                if (addRandomStuff)
                 {
-                    message = message.ToLower();
+                    int r = random.Next(3);
+                    if (r == 0)
+                    { //Insert random letter
+
+                        //int num = random.Next(0, 26); // Zero to 25
+                        //char let = (char)('a' + num);
+                        //message = message.Insert(random.Next(message.Length), let + "");
+
+                        //Capitalize a random letter
+                        int num = random.Next(0, message.Length);
+
+                        StringBuilder sb = new StringBuilder(message);
+                        sb[num] = Char.ToUpper(sb[num]);
+                        message = sb.ToString();
+                    }
+                    else if (r == 1)
+                    { //Randomly remove a letter
+                      //Remove one random letter
+                      //message = message.Remove(random.Next(message.Length - 1), 1);
+                      //Say in all chat
+                        message = "/all " + message;
+                    }
+                    r = random.Next(20);
+                    if (r == 0)
+                    {
+                        message = message.ToLower();
+                    }
+                    else if (r == 1)
+                    {
+                        message = message.ToUpper();
+                    }
+                    else if (r == 2 && message.Length > 8)
+                    {
+                        //Add a letter to the end
+
+                        int num = random.Next(0, 26); // Zero to 25
+                        char let = (char)('a' + num);
+                        message = message + let;
+                    }
                 }
-                else if (r == 1)
-                {
-                    message = message.ToUpper();
-                }
-                else if (r == 2 && message.Length > 8)
-                {
-                    //Add a letter to the end
 
-                    int num = random.Next(0, 26); // Zero to 25
-                    char let = (char)('a' + num);
-                    message = message + let;
-                }
-            }
+                Console.WriteLine("Typing message: " + message);
 
-            Console.WriteLine("Typing message: " + message);
-
-            //Click center of screen
-            MotorCortex.moveMouseTo(1024 / 2, 768 / 2, 1);
-            typingMessageStopwatch.Reset();
-
-            Task.Delay(200).ContinueWith(_ =>
-            {
-                MotorCortex.clickMouseAt(1024 / 2, 768 / 2);
+                //Click center of screen
+                MotorCortex.moveMouseTo(1024 / 2, 768 / 2, 1);
                 typingMessageStopwatch.Reset();
 
-                Task.Delay(200).ContinueWith(_2 =>
+                Task.Delay(200).ContinueWith(_ =>
                 {
-                    MotorCortex.tapEnterKey();
+                    MotorCortex.clickMouseAt(1024 / 2, 768 / 2);
                     typingMessageStopwatch.Reset();
 
-                    typeNextLetter(message);
+                    Task.Delay(200).ContinueWith(_2 =>
+                    {
+                        MotorCortex.tapEnterKey();
+                        typingMessageStopwatch.Reset();
+
+                        typeNextLetter(message);
+
+                    });
 
                 });
 
-            });
+                action.finished();
+            }, "text"));
 
         }
 
@@ -512,162 +553,281 @@ namespace League_Autoplay
         }
         void levelUpAbility1()
         {
-            MotorCortex.pressControlKey();
-            Task.Delay(50).ContinueWith(_2 =>
-            {
-                MotorCortex.typeText("q");
 
-                Task.Delay(50).ContinueWith(_3 =>
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.pressControlKey();
+                Task.Delay(50).ContinueWith(_2 =>
                 {
-                    MotorCortex.releaseControlKey();
-                    Task.Delay(50).ContinueWith(_4 =>
+                    MotorCortex.typeText("q");
+
+                    Task.Delay(50).ContinueWith(_3 =>
                     {
                         MotorCortex.releaseControlKey();
+                        Task.Delay(50).ContinueWith(_4 =>
+                        {
+                            MotorCortex.releaseControlKey();
+                            action.finished();
+                        });
                     });
                 });
-            });
-            didAction();
+                didAction();
+                
+            }, "level up"));
         }
         void levelUpAbility2()
         {
-            MotorCortex.pressControlKey();
-            Task.Delay(50).ContinueWith(_2 =>
-            {
-                MotorCortex.typeText("w");
-                Task.Delay(50).ContinueWith(_3 =>
+
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+
+
+                MotorCortex.pressControlKey();
+                Task.Delay(50).ContinueWith(_2 =>
                 {
-                    MotorCortex.releaseControlKey();
-                    Task.Delay(50).ContinueWith(_4 =>
+                    MotorCortex.typeText("w");
+                    Task.Delay(50).ContinueWith(_3 =>
                     {
                         MotorCortex.releaseControlKey();
+                        Task.Delay(50).ContinueWith(_4 =>
+                        {
+                            MotorCortex.releaseControlKey();
+                            action.finished();
+                        });
                     });
                 });
-            });
-            didAction();
+                didAction();
+
+            }, "level up"));
         }
         void levelUpAbility3()
         {
-            MotorCortex.pressControlKey();
-            Task.Delay(50).ContinueWith(_2 =>
-            {
-                MotorCortex.typeText("e");
-                Task.Delay(50).ContinueWith(_3 =>
+            replaceAction(new GameAction(delegate (GameAction action) {
+                
+                MotorCortex.pressControlKey();
+                Task.Delay(50).ContinueWith(_2 =>
                 {
-                    MotorCortex.releaseControlKey();
-                    Task.Delay(50).ContinueWith(_4 =>
+                    MotorCortex.typeText("e");
+                    Task.Delay(50).ContinueWith(_3 =>
                     {
                         MotorCortex.releaseControlKey();
+                        Task.Delay(50).ContinueWith(_4 =>
+                        {
+                            MotorCortex.releaseControlKey();
+                            action.finished();
+                        });
                     });
                 });
-            });
-            didAction();
+                didAction();
+
+            }, "level up"));
+            
         }
         void levelUpAbility4()
         {
-            MotorCortex.pressControlKey();
-            Task.Delay(50).ContinueWith(_2 =>
-            {
-                MotorCortex.typeText("r");
-                Task.Delay(50).ContinueWith(_3 =>
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+
+                MotorCortex.pressControlKey();
+                Task.Delay(50).ContinueWith(_2 =>
                 {
-                    MotorCortex.releaseControlKey();
-                    Task.Delay(50).ContinueWith(_4 =>
+                    MotorCortex.typeText("r");
+                    Task.Delay(50).ContinueWith(_3 =>
                     {
                         MotorCortex.releaseControlKey();
+                        Task.Delay(50).ContinueWith(_4 =>
+                        {
+                            MotorCortex.releaseControlKey();
+                            action.finished();
+                        });
                     });
                 });
-            });
-            didAction();
+                didAction();
+
+            }, "level up"));
+            
         }
 
 
         void tapStopMoving()
         {
-            MotorCortex.typeText("s");
+            replaceAction(new GameAction(delegate (GameAction action) {
+                
+                MotorCortex.typeText("s");
+                action.finished();
+
+            }, "stop moving"));
             didAction();
         }
         void tapShop()
         {
-            MotorCortex.typeText("p");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("p");
+                action.finished();
+
+            }, "tap shop"));
             didAction();
         }
         void tapCameraLock()
         {
-            MotorCortex.typeText("y");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("y");
+                action.finished();
+
+            }, "tap camera lock"));
         }
         void tapSpell1()
         {
-            MotorCortex.typeText("q");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("q");
+                action.finished();
+
+            }, "tap spell 1"));
             didAction();
         }
         void tapSpell2()
         {
-            MotorCortex.typeText("w");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("w");
+                action.finished();
+
+            }, "tap spell 2"));
             didAction();
         }
         void tapSpell3()
         {
-            MotorCortex.typeText("e");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("e");
+                action.finished();
+
+            }, "tap spell 3"));
             didAction();
         }
         void tapSpell4()
         {
-            MotorCortex.typeText("r");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("r");
+                action.finished();
+
+            }, "tap spell 4"));
             didAction();
         }
         void tapWard()
         {
-            MotorCortex.typeText("4");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("4");
+                action.finished();
+
+            }, "tap ward"));
         }
         void tapSummonerSpell1()
         {
-            MotorCortex.typeText("d");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("d");
+                action.finished();
+
+            }, "tap summoner spell 1"));
             didAction();
         }
         void tapSummonerSpell2()
         {
-            MotorCortex.typeText("f");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("f");
+                action.finished();
+
+            }, "tap summoner spell 2"));
             didAction();
         }
         void tapActive1()
         {
-            MotorCortex.typeText("1");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("1");
+                action.finished();
+
+            }, "tap active 1"));
             didAction();
         }
         void tapActive2()
         {
-            MotorCortex.typeText("2");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("2");
+                action.finished();
+
+            }, "tap active 2"));
             didAction();
         }
         void tapActive3()
         {
-            MotorCortex.typeText("3");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("3");
+                action.finished();
+
+            }, "tap active 3"));
             didAction();
         }
         void tapActive5()
         {
-            MotorCortex.typeText("5");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("5");
+                action.finished();
+
+            }, "tap active 5"));
             didAction();
         }
         void tapActive6()
         {
-            MotorCortex.typeText("6");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("6");
+                action.finished();
+
+            }, "tap active 6"));
             didAction();
         }
         void tapActive7()
         {
-            MotorCortex.typeText("7");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("7");
+                action.finished();
+
+            }, "tap active 7"));
             didAction();
         }
         void tapRecall()
         {
-            MotorCortex.typeText("b");
+            replaceAction(new GameAction(delegate (GameAction action) {
+
+                MotorCortex.typeText("b");
+                action.finished();
+
+            }, "tap recall"));
             didAction();
         }
         void tapAttackMove(int x, int y)
         {
-            MotorCortex.moveMouseTo(x, y);
-            MotorCortex.typeText("a");
+            replaceAction(new GameAction(delegate (GameAction action) {
+                MotorCortex.moveMouseTo(x, y, 1);
+                Task.Delay(50).ContinueWith(_ =>
+                {
+                    MotorCortex.typeText("a");
+                    action.finished();
+                });
+
+            }, "tap attack move"));
             didAction();
         }
 
@@ -721,20 +881,20 @@ namespace League_Autoplay
                             }
                             Task.Delay(1000 * i).ContinueWith(_ =>
                             {
-                                MotorCortex.moveMouseTo(clickX, clickY);
+                                MotorCortex.moveMouseTo(clickX, clickY, 1);
                             });
                             Task.Delay(1000 * i + 200).ContinueWith(_ =>
                             {
-                                MotorCortex.clickMouseAt(clickX, clickY);
+                                MotorCortex.clickMouseAt(clickX, clickY, 1);
                             });
 
                             Task.Delay(1000 * i + 450).ContinueWith(_ =>
                             {
-                                MotorCortex.clickMouseRightAt(clickX, clickY);
+                                MotorCortex.clickMouseRightAt(clickX, clickY, 1);
                             });
                             Task.Delay(1000 * i + 700).ContinueWith(_ =>
                             {
-                                MotorCortex.moveMouseTo(0, 0);
+                                MotorCortex.moveMouseTo(0, 0, 1);
                             });
                             if (bought < 2)
                             {
@@ -825,8 +985,20 @@ namespace League_Autoplay
                 lastPlacedWardStopwatch.DurationInMilliseconds() >= 1500)
             {
                 Champion champ = ((Champion*)detectionData.selfChampionsArray.ToPointer())[0];
-                MotorCortex.moveMouseTo(champ.characterCenter.x, champ.characterCenter.y);
-                useTrinket();
+
+
+                replaceAction(new GameAction(delegate (GameAction action) {
+
+                    MotorCortex.moveMouseTo(champ.characterCenter.x, champ.characterCenter.y, 1);
+                    Task.Delay(50).ContinueWith(_ =>
+                    {
+                        useTrinket();
+                        action.finished();
+                    });
+                    
+
+                }, "place ward"));
+                
                 //NSLog(@"Placing ward");
             }
         }
@@ -834,7 +1006,7 @@ namespace League_Autoplay
 
         void castSpell1()
         {
-            if (lastSpell1UseStopwatch.DurationInMilliseconds() >= 10)
+            if (lastSpell1UseStopwatch.DurationInMilliseconds() >= 100)
             {
                 if (detectionData.spell1ActiveAvailable)
                 {
@@ -845,7 +1017,7 @@ namespace League_Autoplay
         }
         void castSpell2()
         {
-            if (lastSpell2UseStopwatch.DurationInMilliseconds() >= 10)
+            if (lastSpell2UseStopwatch.DurationInMilliseconds() >= 100)
             {
                 if (detectionData.spell2ActiveAvailable)
                 {
@@ -856,7 +1028,7 @@ namespace League_Autoplay
         }
         void castSpell3()
         {
-            if (lastSpell3UseStopwatch.DurationInMilliseconds() >= 10)
+            if (lastSpell3UseStopwatch.DurationInMilliseconds() >= 100)
             {
                 if (detectionData.spell3ActiveAvailable)
                 {
@@ -867,7 +1039,7 @@ namespace League_Autoplay
         }
         void castSpell4()
         {
-            if (lastSpell4UseStopwatch.DurationInMilliseconds() >= 10)
+            if (lastSpell4UseStopwatch.DurationInMilliseconds() >= 100)
             {
                 if (detectionData.spell4ActiveAvailable)
                 {
@@ -889,7 +1061,7 @@ namespace League_Autoplay
         }
         void castSummonerSpell1()
         {
-            if (lastSummonerSpell1UseStopwatch.DurationInMilliseconds() >= 50)
+            if (lastSummonerSpell1UseStopwatch.DurationInMilliseconds() >= 200)
             {
                 if (detectionData.summonerSpell1ActiveAvailable)
                 {
@@ -900,7 +1072,7 @@ namespace League_Autoplay
         }
         void castSummonerSpell2()
         {
-            if (lastSummonerSpell2UseStopwatch.DurationInMilliseconds() >= 50)
+            if (lastSummonerSpell2UseStopwatch.DurationInMilliseconds() >= 200)
             {
                 if (detectionData.summonerSpell2ActiveAvailable)
                 {
@@ -911,7 +1083,7 @@ namespace League_Autoplay
         }
         void useItem1()
         {
-            if (lastItem1UseStopwatch.DurationInMilliseconds() >= 200)
+            if (lastItem1UseStopwatch.DurationInMilliseconds() >= 500)
             {
                 //if (gameState->detectionManager->getItem1ActiveAvailable()) {
                 tapActive1();
@@ -922,7 +1094,7 @@ namespace League_Autoplay
         }
         void useItem2()
         {
-            if (lastItem2UseStopwatch.DurationInMilliseconds() >= 200)
+            if (lastItem2UseStopwatch.DurationInMilliseconds() >= 500)
             {
                 //if (gameState->detectionManager->getItem2ActiveAvailable()) {
                 tapActive2();
@@ -932,7 +1104,7 @@ namespace League_Autoplay
         }
         void useItem3()
         {
-            if (lastItem3UseStopwatch.DurationInMilliseconds() >= 200)
+            if (lastItem3UseStopwatch.DurationInMilliseconds() >= 500)
             {
                 //if (gameState->detectionManager->getItem3ActiveAvailable()) {
                 tapActive3();
@@ -942,7 +1114,7 @@ namespace League_Autoplay
         }
         void useItem4()
         {
-            if (lastItem4UseStopwatch.DurationInMilliseconds() >= 200)
+            if (lastItem4UseStopwatch.DurationInMilliseconds() >= 500)
             {
                 //if (gameState->detectionManager->getItem4ActiveAvailable()) {
                 tapActive5();
@@ -952,7 +1124,7 @@ namespace League_Autoplay
         }
         void useItem5()
         {
-            if (lastItem5UseStopwatch.DurationInMilliseconds() >= 200)
+            if (lastItem5UseStopwatch.DurationInMilliseconds() >= 500)
             {
                 //if (gameState->detectionManager->getItem5ActiveAvailable()) {
                 tapActive6();
@@ -962,7 +1134,7 @@ namespace League_Autoplay
         }
         void useItem6()
         {
-            if (lastItem6UseStopwatch.DurationInMilliseconds() >= 200)
+            if (lastItem6UseStopwatch.DurationInMilliseconds() >= 500)
             {
                 //if (gameState->detectionManager->getItem6ActiveAvailable()) {
                 tapActive7();
@@ -1497,7 +1669,19 @@ namespace League_Autoplay
                             didAction();
                             if (lastRunAwayClickStopwatch.DurationInMilliseconds() >= 400)
                             {
-                                MotorCortex.clickMouseRightAt(Convert.ToInt32(baseLocation.x), Convert.ToInt32(baseLocation.y));
+
+                                replaceAction(new GameAction(delegate (GameAction gameAction) {
+
+                                    MotorCortex.clickMouseRightAt(Convert.ToInt32(baseLocation.x), Convert.ToInt32(baseLocation.y), 1);
+                                    Task.Delay(50).ContinueWith(_ =>
+                                    {
+                                        useTrinket();
+                                        gameAction.finished();
+                                    });
+
+
+                                }, "run away"));
+                                
                                 lastRunAwayClickStopwatch.Reset();
                             }
                             if (runAwayPanicStopwatch.DurationInSeconds() >= 10.0)
@@ -1518,31 +1702,46 @@ namespace League_Autoplay
                                     //enemyX = -enemyX;
                                     //enemyY = -enemyY;
                                     //Panic
-                                    if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 1000 || (lastHealthAmount <= 0.25 && lastMoveMouseStopwatch.DurationInMilliseconds() >= 100))
+                                    if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 1000 || (lastHealthAmount <= 0.25 && lastMoveMouseStopwatch.DurationInMilliseconds() >= 500))
                                     {
                                         lastMoveMouseStopwatch.Reset();
-                                        MotorCortex.moveMouseTo(enemyX + selfChamp->characterCenter.x, enemyY + selfChamp->characterCenter.y);
-                                        castSpell4();
-                                        castSpell2();
-                                        if (lastHealthAmount <= 0.25)
-                                        {
-                                            castSpell1();
-                                            castSpell3();
-                                        }
-                                        useTrinket();
 
-                                        Task.Delay(50).ContinueWith(_ =>
-                                        {
-                                            MotorCortex.moveMouseTo(selfChamp->characterCenter.x - enemyX, selfChamp->characterCenter.y - enemyY);
-                                            castSummonerSpell1();
-                                            castSummonerSpell2();
-                                            useItem1();
-                                            useItem2();
-                                            useItem3();
-                                            useItem4();
-                                            useItem5();
-                                            useItem6();
-                                        });
+
+                                        replaceAction(new GameAction(delegate (GameAction gameAction) {
+
+                                            MotorCortex.moveMouseTo(enemyX + selfChamp->characterCenter.x, enemyY + selfChamp->characterCenter.y, 1);
+                                            Task.Delay(50).ContinueWith(_ =>
+                                            {
+                                                castSpell4();
+                                                castSpell2();
+                                                if (lastHealthAmount <= 0.25)
+                                                {
+                                                    castSpell1();
+                                                    castSpell3();
+                                                }
+                                                useTrinket();
+
+                                                Task.Delay(50).ContinueWith(_2 =>
+                                                {
+                                                    MotorCortex.moveMouseTo(selfChamp->characterCenter.x - enemyX, selfChamp->characterCenter.y - enemyY);
+                                                    castSummonerSpell1();
+                                                    castSummonerSpell2();
+                                                    useItem1();
+                                                    useItem2();
+                                                    useItem3();
+                                                    useItem4();
+                                                    useItem5();
+                                                    useItem6();
+                                                });
+
+
+                                                gameAction.finished();
+                                            });
+
+
+                                        }, "panic"));
+
+                                        
                                     }
                                 }
                             }
@@ -1562,30 +1761,41 @@ namespace League_Autoplay
                                 lastClickEnemyChampStopwatch.Reset();
                                 tapAttackMove(lowestHealthEnemyChampion->characterCenter.x, lowestHealthEnemyChampion->characterCenter.y);
                             }
-                            if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 50)
+                            if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 500)
                             {
                                 lastMoveMouseStopwatch.Reset();
-                                MotorCortex.moveMouseTo(x, y);
+                                MotorCortex.moveMouseTo(x, y, 1);
                             }
-                            castSpell3();
-                            castSpell2();
-                            castSpell1();
-                            if (enemyChampionsNear || action == Action.GoHam)
-                            {
-                                if (lowestHealthEnemyChampion->health <= 0.35 || action == Action.GoHam)
-                                {
-                                    castSummonerSpell1();
-                                    castSummonerSpell2();
-                                    castSpell4();
-                                }
-                            }
-                            useItem1();
-                            useItem2();
-                            useItem3();
-                            useItem4();
-                            useItem5();
-                            useItem6();
-                            useTrinket();
+
+                            replaceAction(new GameAction(delegate (GameAction gameAction) {
+                                
+                                    castSpell3();
+                                    castSpell2();
+                                    castSpell1();
+                                    if (enemyChampionsNear || action == Action.GoHam)
+                                    {
+                                        if (lowestHealthEnemyChampion->health <= 0.35 || action == Action.GoHam)
+                                        {
+                                            castSummonerSpell1();
+                                            castSummonerSpell2();
+                                            castSpell4();
+                                        }
+                                    }
+                                    useItem1();
+                                    useItem2();
+                                    useItem3();
+                                    useItem4();
+                                    useItem5();
+                                    useItem6();
+                                    useTrinket();
+
+
+                                    gameAction.finished();
+
+
+                            }, "panic"));
+
+                            
 
                         }
                         break;
@@ -1594,15 +1804,33 @@ namespace League_Autoplay
                             didAction();
                             Console.WriteLine("Action: Attacking Enemy Minion");
                             //NSLog(@"\t\tAction: Attacking Enemy Minion");
-                            if (lastClickEnemyMinionStopwatch.DurationInMilliseconds() >= 100)
+                            if (lastClickEnemyMinionStopwatch.DurationInMilliseconds() >= 500)
                             {
                                 lastClickEnemyMinionStopwatch.Reset();
-                                tapAttackMove(lowestHealthEnemyMinion->characterCenter.x, lowestHealthEnemyMinion->characterCenter.y);
+
+                                replaceAction(new GameAction(delegate (GameAction gameAction) {
+
+                                    tapAttackMove(lowestHealthEnemyMinion->characterCenter.x, lowestHealthEnemyMinion->characterCenter.y);
+                                    gameAction.finished();
+                                    
+                                }, "attack enemy minion"));
+                                
                             }
-                            if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 50)
+                            if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 500)
                             {
                                 lastMoveMouseStopwatch.Reset();
-                                MotorCortex.moveMouseTo(lowestHealthEnemyMinion->characterCenter.x, lowestHealthEnemyMinion->characterCenter.y);
+
+                                replaceAction(new GameAction(delegate (GameAction gameAction) {
+
+                                    MotorCortex.moveMouseTo(lowestHealthEnemyMinion->characterCenter.x, lowestHealthEnemyMinion->characterCenter.y, 1);
+                                    Task.Delay(50).ContinueWith(_ =>
+                                    {
+                                        gameAction.finished();
+                                    });
+
+
+                                }, "move mouse to"));
+                                
                             }
                             castSpell1();
                             castSpell3();
@@ -1613,15 +1841,25 @@ namespace League_Autoplay
                         {
                             didAction();
                             Console.WriteLine("\t\tAction: Attacking Tower");
-                            if (lastClickEnemyTowerStopwatch.DurationInMilliseconds() >= 100)
+                            if (lastClickEnemyTowerStopwatch.DurationInMilliseconds() >= 500)
                             {
                                 lastClickEnemyTowerStopwatch.Reset();
                                 tapAttackMove(nearestEnemyTower->towerCenter.x, nearestEnemyTower->towerCenter.y);
                             }
-                            if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 50)
+                            if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 500)
                             {
                                 lastMoveMouseStopwatch.Reset();
-                                MotorCortex.moveMouseTo(nearestEnemyTower->towerCenter.x, nearestEnemyTower->towerCenter.y);
+
+                                replaceAction(new GameAction(delegate (GameAction gameAction) {
+
+                                    MotorCortex.moveMouseTo(nearestEnemyTower->towerCenter.x, nearestEnemyTower->towerCenter.y, 1);
+                                    Task.Delay(50).ContinueWith(_ =>
+                                    {
+                                        gameAction.finished();
+                                    });
+
+
+                                }, "move mouse to"));
                             }
                             castSpell1();
                             castSpell3();
@@ -1719,7 +1957,18 @@ namespace League_Autoplay
                                     }
                                     int fuzzyOffsetX = (int)( Math.Round(10.0 * fuzzyLaneMovementX) );
                                     int fuzzyOffsetY = (int)(Math.Round(10.0 * fuzzyLaneMovementY));
-                                    MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY);
+
+                                    replaceAction(new GameAction(delegate (GameAction gameAction) {
+
+
+                                        MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY, 1);
+                                        Task.Delay(50).ContinueWith(_ =>
+                                        {
+                                            gameAction.finished();
+                                        });
+
+
+                                    }, "move to lane"));
 
                                     Console.WriteLine("Clicked position to move to: " + x + ", " + y);
                                 }
@@ -1755,7 +2004,7 @@ namespace League_Autoplay
                 if (activeAutoUseTimeStopwatch.DurationInMilliseconds() >= 1000 * 60 * 5)
                 {
                     activeAutoUseTimeStopwatch.Reset();
-                    MotorCortex.moveMouseTo(selfChamp->characterCenter.x, selfChamp->characterCenter.y);
+                    MotorCortex.moveMouseTo(selfChamp->characterCenter.x, selfChamp->characterCenter.y, 1);
                     //Use all actives
                     useItem1();
                     useItem2();
@@ -1810,7 +2059,28 @@ AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] dele
                             x = Convert.ToInt32((map->bottomRight.x - map->topLeft.x) * 0.9 + map->topLeft.x);
                             y = Convert.ToInt32((map->bottomRight.y - map->topLeft.y) * 0.9 + map->topLeft.y);
                         }
-                        MotorCortex.clickMouseRightAt(x, y);
+                        if (fuzzyLaneMovementStopwatch.DurationInSeconds() >= 1)
+                        {
+                            fuzzyLaneMovementStopwatch.Reset();
+                            fuzzyLaneMovementX = random.NextDouble() * 2.0 - 1.0;
+                            fuzzyLaneMovementY = random.NextDouble() * 2.0 - 1.0;
+                        }
+
+                        int fuzzyOffsetX = (int)(Math.Round(10.0 * fuzzyLaneMovementX));
+                        int fuzzyOffsetY = (int)(Math.Round(10.0 * fuzzyLaneMovementY));
+
+                        replaceAction(new GameAction(delegate (GameAction gameAction) {
+
+
+                            MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY, 1);
+                            Task.Delay(50).ContinueWith(_ =>
+                            {
+                                gameAction.finished();
+                            });
+
+
+                        }, "move to lane"));
+                        MotorCortex.clickMouseRightAt(x, y, 1);
                     }// else {
                      //    NSLog(@"Map not visible");
                      //}
