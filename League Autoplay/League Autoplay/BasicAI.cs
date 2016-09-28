@@ -163,7 +163,7 @@ namespace League_Autoplay
 
                 replaceActionWithAnyTag(new GameAction(delegate (GameAction action)
                 {
-                    MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y, 10);
+                    MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y, 5);
                     didAction();
 
                     Task.Delay(50).ContinueWith(_ =>
@@ -182,7 +182,7 @@ namespace League_Autoplay
                 replaceActionWithAnyTag(new GameAction(delegate (GameAction action)
                 {
 
-                    MotorCortex.clickMouseAt(continueObject->center.x, continueObject->center.y, 10);
+                    MotorCortex.clickMouseAt(continueObject->center.x, continueObject->center.y, 5);
                     didAction();
                     MotorCortex.releaseControlKey();
                     MotorCortex.releaseShiftKey();
@@ -204,7 +204,7 @@ namespace League_Autoplay
                 replaceActionWithAnyTag(new GameAction(delegate (GameAction action)
                 {
 
-                    MotorCortex.clickMouseAt(afkObject->center.x, afkObject->center.y, 10);
+                    MotorCortex.clickMouseAt(afkObject->center.x, afkObject->center.y, 5);
 
                     Task.Delay(50).ContinueWith(_ =>
                     {
@@ -221,7 +221,7 @@ namespace League_Autoplay
                 replaceActionWithAnyTag(new GameAction(delegate (GameAction action)
                 {
 
-                    MotorCortex.clickMouseAt(stoppedWorkingObject->center.x + 20, stoppedWorkingObject->center.y, 10);
+                    MotorCortex.clickMouseAt(stoppedWorkingObject->center.x + 20, stoppedWorkingObject->center.y, 5);
 
                     Task.Delay(50).ContinueWith(_ =>
                     {
@@ -264,7 +264,7 @@ namespace League_Autoplay
                 addAction(new GameAction(delegate (GameAction action)
                 {
 
-                    MotorCortex.clickMouseRightAt(1024 / 2, 768 / 2, 10);
+                    MotorCortex.clickMouseRightAt(1024 / 2, 768 / 2, 5);
 
                     Task.Delay(50).ContinueWith(_ =>
                     {
@@ -404,7 +404,7 @@ namespace League_Autoplay
                     else if (r == 1)
                     { //Randomly remove a letter
                       //Remove one random letter
-                      //message = message.Remove(random.Next(message.Length - 1), 10);
+                      //message = message.Remove(random.Next(message.Length - 1), 5);
                       //Say in all chat
                         message = "/all " + message;
                     }
@@ -430,7 +430,7 @@ namespace League_Autoplay
                 Console.WriteLine("Typing message: " + message);
 
                 //Click center of screen
-                MotorCortex.moveMouseTo(1024 / 2, 768 / 2, 10);
+                MotorCortex.moveMouseTo(1024 / 2, 768 / 2, 5);
                 typingMessageStopwatch.Reset();
 
                 Task.Delay(200).ContinueWith(_ =>
@@ -904,7 +904,7 @@ namespace League_Autoplay
         void tapAttackMove(int x, int y, String id = "tap_attack_move mouse_move")
         {
             replaceActionWithAnyTag(new GameAction(delegate (GameAction action) {
-                MotorCortex.moveMouseTo(x, y, 10);
+                MotorCortex.moveMouseTo(x, y, 5);
                 Task.Delay(50).ContinueWith(_ =>
                 {
                     MotorCortex.typeText("a");
@@ -1094,7 +1094,7 @@ namespace League_Autoplay
 
                 addAction(new GameAction(delegate (GameAction action) {
 
-                    MotorCortex.moveMouseTo(champ.characterCenter.x, champ.characterCenter.y, 10);
+                    MotorCortex.moveMouseTo(champ.characterCenter.x, champ.characterCenter.y, 5);
                     Task.Delay(50).ContinueWith(_ =>
                     {
                         useTrinket();
@@ -1777,7 +1777,7 @@ namespace League_Autoplay
                                 //clearActions();
                                 replaceActionWithAnyTag(new GameAction(delegate (GameAction gameAction) {
 
-                                    MotorCortex.clickMouseRightAt(Convert.ToInt32(baseLocation.x), Convert.ToInt32(baseLocation.y), 10);
+                                    MotorCortex.clickMouseRightAt(Convert.ToInt32(baseLocation.x), Convert.ToInt32(baseLocation.y), 5);
                                     Task.Delay(50).ContinueWith(_ =>
                                     {
                                         useTrinket();
@@ -1870,7 +1870,7 @@ namespace League_Autoplay
                             if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 500)
                             {
                                 lastMoveMouseStopwatch.Reset();
-                                MotorCortex.moveMouseTo(x, y, 10);
+                                MotorCortex.moveMouseTo(x, y, 5);
 
                                 replaceActionWithAnyTag(new GameAction(delegate (GameAction gameAction) {
 
@@ -1927,7 +1927,7 @@ namespace League_Autoplay
 
                                 replaceActionWithAnyTag(new GameAction(delegate (GameAction gameAction) {
 
-                                    MotorCortex.moveMouseTo(lowestHealthEnemyMinion->characterCenter.x, lowestHealthEnemyMinion->characterCenter.y, 10);
+                                    MotorCortex.moveMouseTo(lowestHealthEnemyMinion->characterCenter.x, lowestHealthEnemyMinion->characterCenter.y, 5);
                                     Task.Delay(50).ContinueWith(_ =>
                                     {
                                         gameAction.finished();
@@ -1958,7 +1958,7 @@ namespace League_Autoplay
 
                                 replaceActionWithAnyTag(new GameAction(delegate (GameAction gameAction) {
 
-                                    MotorCortex.moveMouseTo(nearestEnemyTower->towerCenter.x, nearestEnemyTower->towerCenter.y, 10);
+                                    MotorCortex.moveMouseTo(nearestEnemyTower->towerCenter.x, nearestEnemyTower->towerCenter.y, 5);
                                     Task.Delay(50).ContinueWith(_ =>
                                     {
                                         gameAction.finished();
@@ -2067,7 +2067,7 @@ namespace League_Autoplay
                                     addAction(new GameAction(delegate (GameAction gameAction) {
 
 
-                                        MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY, 10);
+                                        MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY, 5);
                                         Task.Delay(50).ContinueWith(_ =>
                                         {
                                             gameAction.finished();
@@ -2110,7 +2110,7 @@ namespace League_Autoplay
                 if (activeAutoUseTimeStopwatch.DurationInMilliseconds() >= 1000 * 60 * 5)
                 {
                     activeAutoUseTimeStopwatch.Reset();
-                    MotorCortex.moveMouseTo(selfChamp->characterCenter.x, selfChamp->characterCenter.y, 10);
+                    MotorCortex.moveMouseTo(selfChamp->characterCenter.x, selfChamp->characterCenter.y, 5);
                     //Use all actives
                     useItem1();
                     useItem2();
@@ -2178,7 +2178,7 @@ AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] dele
                         addAction(new GameAction(delegate (GameAction gameAction) {
 
 
-                            MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY, 10);
+                            MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY, 5);
                             Task.Delay(50).ContinueWith(_ =>
                             {
                                 gameAction.finished();
@@ -2186,7 +2186,7 @@ AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] dele
 
 
                         }, "move_to_lane mouse_move"));
-                        MotorCortex.clickMouseRightAt(x, y, 10);
+                        MotorCortex.clickMouseRightAt(x, y, 5);
                     }// else {
                      //    NSLog(@"Map not visible");
                      //}
