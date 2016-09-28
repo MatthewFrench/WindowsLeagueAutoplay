@@ -287,6 +287,18 @@ namespace League_Autoplay
                 }
             }
         }
+        void clearActions()
+        {
+            for (int i = 0; i < gameActions.Count; i++)
+            {
+                GameAction action2 = gameActions[i];
+                if (action2.isRunning() == false)
+                {
+                    gameActions.Remove(action2);
+                    i--;
+                }
+            }
+        }
         void addAction(GameAction action)
         {
             gameActions.Add(action);
@@ -1717,7 +1729,7 @@ namespace League_Autoplay
                             didAction();
                             if (lastRunAwayClickStopwatch.DurationInMilliseconds() >= 1000)
                             {
-
+                                clearActions();
                                 replaceAction(new GameAction(delegate (GameAction gameAction) {
 
                                     MotorCortex.clickMouseRightAt(Convert.ToInt32(baseLocation.x), Convert.ToInt32(baseLocation.y), 10);
@@ -1806,6 +1818,7 @@ namespace League_Autoplay
                             int y = lowestHealthEnemyChampion->characterCenter.y;
                             if (lastClickEnemyChampStopwatch.DurationInMilliseconds() >= 100)
                             {
+                                clearActions();
                                 lastClickEnemyChampStopwatch.Reset();
                                 tapAttackMove(lowestHealthEnemyChampion->characterCenter.x, lowestHealthEnemyChampion->characterCenter.y);
                             }
@@ -1856,6 +1869,7 @@ namespace League_Autoplay
                             //NSLog(@"\t\tAction: Attacking Enemy Minion");
                             if (lastClickEnemyMinionStopwatch.DurationInMilliseconds() >= 100)
                             {
+                                clearActions();
                                 lastClickEnemyMinionStopwatch.Reset();
                                 
                                  tapAttackMove(lowestHealthEnemyMinion->characterCenter.x, lowestHealthEnemyMinion->characterCenter.y);
@@ -1889,6 +1903,7 @@ namespace League_Autoplay
                             Console.WriteLine("\t\tAction: Attacking Tower");
                             if (lastClickEnemyTowerStopwatch.DurationInMilliseconds() >= 500)
                             {
+                                clearActions();
                                 lastClickEnemyTowerStopwatch.Reset();
                                 tapAttackMove(nearestEnemyTower->towerCenter.x, nearestEnemyTower->towerCenter.y);
                             }
