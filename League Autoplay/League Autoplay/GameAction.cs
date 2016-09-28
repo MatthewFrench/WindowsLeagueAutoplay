@@ -26,12 +26,12 @@ namespace League_Autoplay
         public void finished()
         {
             //Add a 50 millisecond delay
-            Task.Delay(50).ContinueWith(_ =>
-            {
+            //Task.Delay(50).ContinueWith(_ =>
+            //{
                 actionFinished = true;
                 actionRunning = false;
-                Console.WriteLine("Finished Action");
-            });
+            //    Console.WriteLine("Finished Action");
+            //});
         }
         public bool isFinished()
         {

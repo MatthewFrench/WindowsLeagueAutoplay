@@ -1752,7 +1752,7 @@ namespace League_Autoplay
 
                                         replaceAction(new GameAction(delegate (GameAction gameAction) {
 
-                                            MotorCortex.moveMouseTo(enemyX + selfChamp->characterCenter.x, enemyY + selfChamp->characterCenter.y, 20);
+                                            MotorCortex.moveMouseTo(enemyX + selfChamp->characterCenter.x, enemyY + selfChamp->characterCenter.y, 5);
                                             Task.Delay(50).ContinueWith(_ =>
                                             {
                                                 castSpell4();
@@ -1766,7 +1766,7 @@ namespace League_Autoplay
 
                                                 Task.Delay(50).ContinueWith(_2 =>
                                                 {
-                                                    MotorCortex.moveMouseTo(selfChamp->characterCenter.x - enemyX, selfChamp->characterCenter.y - enemyY);
+                                                    MotorCortex.moveMouseTo(selfChamp->characterCenter.x - enemyX, selfChamp->characterCenter.y - enemyY, 5);
                                                     castSummonerSpell1();
                                                     castSummonerSpell2();
                                                     useItem1();
