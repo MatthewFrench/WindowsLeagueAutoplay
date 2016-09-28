@@ -21,11 +21,17 @@ namespace League_Autoplay
         public void runAction()
         {
             actionRunning = true;
+            actionFunction(this);
         }
         public void finished()
         {
-            actionFinished = true;
-            actionRunning = false;
+            //Add a 50 millisecond delay
+            Task.Delay(50).ContinueWith(_ =>
+            {
+                actionFinished = true;
+                actionRunning = false;
+                Console.WriteLine("Finished Action");
+            });
         }
         public bool isFinished()
         {
