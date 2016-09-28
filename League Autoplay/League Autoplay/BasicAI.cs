@@ -880,7 +880,6 @@ namespace League_Autoplay
                         int bought = 0;
                         for (int i = 0; i < detectionData.numberOfBuyableItems; i++)
                         {
-
                             GenericObject* array = (GenericObject*)detectionData.buyableItemsArray.ToPointer();
 
 
@@ -906,22 +905,22 @@ namespace League_Autoplay
                             {
                                 continue;
                             }
-                            Task.Delay(2000 * i).ContinueWith(_ =>
+                            Task.Delay(3000 * i).ContinueWith(_ =>
                             {
-                                MotorCortex.moveMouseTo(clickX, clickY, 20);
+                                MotorCortex.moveMouseTo(clickX, clickY, 5);
                             });
-                            Task.Delay(2000 * i + 400).ContinueWith(_ =>
+                            Task.Delay(3000 * i + 750).ContinueWith(_ =>
                             {
-                                MotorCortex.clickMouseAt(clickX, clickY, 20);
+                                MotorCortex.clickMouseAt(clickX, clickY, 5);
                             });
 
-                            Task.Delay(2000 * i + 900).ContinueWith(_ =>
+                            Task.Delay(3000 * i + 1500).ContinueWith(_ =>
                             {
-                                MotorCortex.clickMouseRightAt(clickX, clickY, 20);
+                                MotorCortex.clickMouseRightAt(clickX, clickY, 5);
                             });
-                            Task.Delay(2000 * i + 1400).ContinueWith(_ =>
+                            Task.Delay(3000 * i + 2250).ContinueWith(_ =>
                             {
-                                MotorCortex.moveMouseTo(0, 0, 20);
+                                MotorCortex.moveMouseTo(0, 0, 10);
                             });
                             if (bought < 2)
                             {
@@ -931,7 +930,10 @@ namespace League_Autoplay
                         }
                         if (boughtItems.Count > 0 && !boughtStarterItems)
                         {
-                            boughtStarterItems = true;
+                            Task.Delay(3000 * boughtItems.Count).ContinueWith(_ =>
+                            {
+                                boughtStarterItems = true;
+                            });
                         }
                         lastShopBuyingStopwatch.Reset();
                         //NSLog(@"Bought items");
