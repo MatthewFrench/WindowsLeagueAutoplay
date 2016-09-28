@@ -903,23 +903,31 @@ namespace League_Autoplay
                             {
                                 continue;
                             }
-                            Task.Delay(6000 * i).ContinueWith(_ =>
-                            {
-                                MotorCortex.moveMouseTo(clickX, clickY, 5);
-                            });
-                            Task.Delay(6000 * i + 1500).ContinueWith(_ =>
-                            {
-                                MotorCortex.clickMouseAt(clickX, clickY, 5);
-                            });
 
-                            Task.Delay(6000 * i + 3000).ContinueWith(_ =>
-                            {
-                                MotorCortex.clickMouseRightAt(clickX, clickY, 5);
-                            });
-                            Task.Delay(6000 * i + 4500).ContinueWith(_ =>
-                            {
-                                MotorCortex.moveMouseTo(0, 0, 5);
-                            });
+                            addAction(new GameAction(delegate (GameAction action) {
+                                    MotorCortex.moveMouseTo(clickX, clickY, 5);
+                                Task.Delay(1500).ContinueWith(_ =>
+                                {
+                                    MotorCortex.clickMouseAt(clickX, clickY, 5);
+                                });
+
+                                Task.Delay(3000).ContinueWith(_ =>
+                                {
+                                    MotorCortex.clickMouseRightAt(clickX, clickY, 5);
+                                });
+                                Task.Delay(4500).ContinueWith(_ =>
+                                {
+
+                                    MotorCortex.moveMouseTo(0, 0, 5);
+                                    Task.Delay(1500).ContinueWith(_2 =>
+                                    {
+                                        action.finished();
+                                    });
+                                });
+
+                            }, "buy item"));
+
+                            
                             if (bought < 2)
                             {
                                 bought++;
