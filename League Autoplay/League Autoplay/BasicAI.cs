@@ -97,11 +97,11 @@ namespace League_Autoplay
         {
             if (newData)
             {
-                Console.Write("{P}");
+                Console.Write("{P:"+gameActions.Count+"}");
             }
             else
             {
-                Console.Write("|");
+                Console.Write("|" + gameActions.Count);
             }
             Console.Out.Flush();
 
