@@ -288,11 +288,12 @@ namespace League_Autoplay
                 if (action.isFinished() == false && action.isRunning() == false)
                 {
                     action.runAction();
-                    Console.WriteLine("Running Action: " + action.getTags());
+                    //Console.WriteLine("Running Action: " + action.getTags());
                 } else if (action.isFinished())
                 {
                     gameActions.RemoveAt(0);
-                    Console.WriteLine("Removing Action" + action.getTags());
+                    processActions();
+                    //Console.WriteLine("Removing Action" + action.getTags());
                 }
             }
         }
@@ -461,7 +462,7 @@ namespace League_Autoplay
 
         void typeNextLetter(String message)
         {
-            Console.WriteLine("Typing message with letters left: " + message);
+            //Console.WriteLine("Typing message with letters left: " + message);
             if (message.Length == 0)
             {
                 Task.Delay(100).ContinueWith(_ =>
@@ -928,11 +929,11 @@ namespace League_Autoplay
                 if (detectionData.shopAvailableShown)
                 {
 
-                    Console.WriteLine("Buy Items Shop available");
+                    //Console.WriteLine("Buy Items Shop available");
                     if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown)
                     {
                         didAction();
-                        Console.WriteLine("Buy Items Final");
+                        //Console.WriteLine("Buy Items Final");
                         lastShopBuyStopwatch.Reset();
                         //Buy items
                         int bought = 0;
@@ -1016,7 +1017,7 @@ namespace League_Autoplay
                     }
                     else
                     { //Open up the shop
-                        Console.WriteLine("Buy Items Open Shop");
+                        //Console.WriteLine("Buy Items Open Shop");
                         if (lastShopOpenTapStopwatch.DurationInMilliseconds() >= 5000)
                         {
                             lastShopOpenTapStopwatch.Reset();
@@ -1029,7 +1030,7 @@ namespace League_Autoplay
                 {
                     if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown)
                     {
-                        Console.WriteLine("Buy Items Shop open but not available");
+                        //Console.WriteLine("Buy Items Shop open but not available");
                         closeShop = true;
                         //NSLog(@"Shop not available, closing shop");
                     }
@@ -1041,7 +1042,7 @@ namespace League_Autoplay
                 if (detectionData.shopTopLeftCornerShown && detectionData.shopBottomLeftCornerShown &&
                     lastShopBuyingStopwatch.DurationInMilliseconds() >= 10000)
                 {
-                    Console.WriteLine("Buy Items Shop open but shouldn't be");
+                    //Console.WriteLine("Buy Items Shop open but shouldn't be");
                     //Gave a 4 seconds to buy
                     closeShop = true;
                     //NSLog(@"Closing shop because we already bought.");
@@ -1051,7 +1052,7 @@ namespace League_Autoplay
             {
                 if (lastShopCloseTapStopwatch.DurationInMilliseconds() >= 3000)
                 {
-                    Console.WriteLine("Buy Items Closing Shop");
+                    //Console.WriteLine("Buy Items Closing Shop");
                     lastShopCloseTapStopwatch.Reset();
                     tapShop();
                 }
@@ -1587,7 +1588,7 @@ namespace League_Autoplay
                 { //Losing health rapidly
                     action = Action.RunAway;
 
-                    Console.WriteLine("Running away cause health decreasing fast");
+                    //Console.WriteLine("Running away cause health decreasing fast");
                 }
 
                 //Attack enemy if there are more allies than enemies
@@ -1607,7 +1608,7 @@ namespace League_Autoplay
                     //Too many baddies, peace.
                     action = Action.RunAway;
 
-                    Console.WriteLine("Running away cause enemies nearby");
+                    //Console.WriteLine("Running away cause enemies nearby");
                 }
 
                 if (action == Action.AttackEnemyMinion && enemyTowerNear)
@@ -1616,7 +1617,7 @@ namespace League_Autoplay
                     {
                         action = Action.RunAway;
 
-                        Console.WriteLine("Running away cause near enemy tower");
+                        //Console.WriteLine("Running away cause near enemy tower");
 
                         if (allyMinionsNear && (currentFollowState == FollowState.FollowAnything || currentFollowState == FollowState.FollowOnlyMinions))
                         {
@@ -1650,7 +1651,7 @@ namespace League_Autoplay
                     {
                         action = Action.RunAway;
 
-                        Console.WriteLine("Running away cause under tower and no minions");
+                        //Console.WriteLine("Running away cause under tower and no minions");
                     }
                 }
 
@@ -1665,7 +1666,7 @@ namespace League_Autoplay
                 {
                     action = Action.RunAway;
 
-                    Console.WriteLine("Running away cause low health 3");
+                    //Console.WriteLine("Running away cause low health 3");
                 }
                 else if (selfChamp->health < 50 && !enemyChampionsNear && !underEnemyTower)
                 {
@@ -1676,14 +1677,14 @@ namespace League_Autoplay
                     else
                     {
                         action = Action.RunAway;
-                        Console.WriteLine("Running away cause low health 2");
-                        Console.WriteLine("Health: " + selfChamp->health + ", enemyChampionWasNear: " + enemyChampionWasNear + "\n");
+                        //Console.WriteLine("Running away cause low health 2");
+                        //Console.WriteLine("Health: " + selfChamp->health + ", enemyChampionWasNear: " + enemyChampionWasNear + "\n");
                     }
                 }
                 else if (selfChamp->health <= 35)
                 {
                     action = Action.RunAway;
-                    Console.WriteLine("Running away cause low health");
+                    //Console.WriteLine("Running away cause low health");
                 }
                 if (detectionData.potionActiveAvailable && selfChamp->health < 80)
                 {
@@ -1706,7 +1707,7 @@ namespace League_Autoplay
                 {
                     action = Action.RunAway;
 
-                    Console.WriteLine("Running away cause not enough allies nearby");
+                    //Console.WriteLine("Running away cause not enough allies nearby");
                 }
 
                 //Ham code
@@ -1765,12 +1766,12 @@ namespace League_Autoplay
 
                 //int actionSpeed = 0.25;
                 lastDecision = action;
-                Console.WriteLine("");
+                //Console.WriteLine("");
                 switch (action)
                 {
                     case Action.RunAway:
                         {
-                            Console.WriteLine("Action: Running Away");
+                            //Console.WriteLine("Action: Running Away");
                             didAction();
                             if (lastRunAwayClickStopwatch.DurationInMilliseconds() >= 1000)
                             {
@@ -1857,7 +1858,7 @@ namespace League_Autoplay
                     case Action.GoHam:
                         {
                             didAction();
-                            Console.WriteLine("Action: Attacking Enemy Champion");
+                            //Console.WriteLine("Action: Attacking Enemy Champion");
                             //NSLog(@"\t\tAction: Attacking enemy champion");
                             int x = lowestHealthEnemyChampion->characterCenter.x;
                             int y = lowestHealthEnemyChampion->characterCenter.y;
@@ -1910,7 +1911,7 @@ namespace League_Autoplay
                     case Action.AttackEnemyMinion:
                         {
                             didAction();
-                            Console.WriteLine("Action: Attacking Enemy Minion");
+                            //Console.WriteLine("Action: Attacking Enemy Minion");
                             //NSLog(@"\t\tAction: Attacking Enemy Minion");
                             if (lastClickEnemyMinionStopwatch.DurationInMilliseconds() >= 100)
                             {
@@ -1945,7 +1946,7 @@ namespace League_Autoplay
                     case Action.AttackTower:
                         {
                             didAction();
-                            Console.WriteLine("\t\tAction: Attacking Tower");
+                            //Console.WriteLine("\t\tAction: Attacking Tower");
                             if (lastClickEnemyTowerStopwatch.DurationInMilliseconds() >= 500)
                             {
                                 //clearActions();
@@ -1975,7 +1976,7 @@ namespace League_Autoplay
                     case Action.FollowAllyChampion:
                         {
                             didAction();
-                            Console.WriteLine("Action: Following Ally Champion");
+                            //Console.WriteLine("Action: Following Ally Champion");
                             //NSLog(@"\t\tAction: Following Ally Champion");
                             if (lastClickAllyChampionStopwatch.DurationInMilliseconds() >= 100)
                             {
@@ -1990,7 +1991,7 @@ namespace League_Autoplay
                     case Action.FollowAllyMinion:
                         {
                             didAction();
-                            Console.WriteLine("Action: Following Ally Minion");
+                            //Console.WriteLine("Action: Following Ally Minion");
                             //NSLog(@"\t\tAction: Following Ally Minion");
                             if (lastClickAllyMinionStopwatch.DurationInMilliseconds() >= 100)
                             {
@@ -2005,12 +2006,12 @@ namespace League_Autoplay
                     case Action.MoveToMid:
                         {
                             didAction();
-                            Console.WriteLine("Action: Moving to Mid");
+                            //Console.WriteLine("Action: Moving to Mid");
                             //NSLog(@"\t\tAction: Moving to Mid");
 
                             if (gameCurrentTimeStopwatch.DurationInMinutes() >= 10 && moveToLanePathSwitchStopwatch.DurationInMinutes() >= 1)
                             {
-                                Console.WriteLine("Switching lane");
+                                //Console.WriteLine("Switching lane");
                                 //Switch to a random lane after 20 min
                                 moveToLane += 1;
                                 if (moveToLane > 3) moveToLane = 1;
@@ -2076,7 +2077,7 @@ namespace League_Autoplay
 
                                     }, "move_to_lane mouse_move"));
 
-                                    Console.WriteLine("Clicked position to move to: " + x + ", " + y);
+                                    //Console.WriteLine("Clicked position to move to: " + x + ", " + y);
                                 }
                                 else
                                 {
@@ -2088,14 +2089,14 @@ namespace League_Autoplay
                     case Action.Recall:
                         {
                             didAction();
-                            Console.WriteLine("Action: Recalling");
+                            //Console.WriteLine("Action: Recalling");
                             //NSLog(@"\t\tAction: Recalling");
                             castRecall();
                         }
                         break;
                     case Action.StandStill:
                         {
-                            Console.WriteLine("Action: Standing Still");
+                            //Console.WriteLine("Action: Standing Still");
                             if (standStillTimeStopwatch.DurationInMilliseconds() >= 500)
                             {
                                 standStillTimeStopwatch.Reset();
@@ -2176,11 +2177,15 @@ AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] dele
                         int fuzzyOffsetY = (int)(Math.Round(10.0 * fuzzyLaneMovementY));
 
                         addAction(new GameAction(delegate (GameAction gameAction) {
+                            Console.WriteLine("Moving to lane");
 
+                            Stopwatch testWatch = new Stopwatch();
 
                             MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY, 5);
                             Task.Delay(50).ContinueWith(_ =>
                             {
+                                Console.WriteLine("Finished move mouse to lane in: " + testWatch.DurationInMilliseconds() + " milliseconds");
+
                                 gameAction.finished();
                             });
 
