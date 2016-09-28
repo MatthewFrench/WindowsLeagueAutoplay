@@ -844,7 +844,7 @@ namespace League_Autoplay
             }, "tap recall"));
             didAction();
         }
-        void tapAttackMove(int x, int y)
+        void tapAttackMove(int x, int y, String id = "tap attack move")
         {
             replaceAction(new GameAction(delegate (GameAction action) {
                 MotorCortex.moveMouseTo(x, y, 10);
@@ -854,7 +854,7 @@ namespace League_Autoplay
                     action.finished();
                 });
 
-            }, "tap attack move"));
+            }, id));
             didAction();
         }
 
@@ -1804,7 +1804,7 @@ namespace League_Autoplay
                             //NSLog(@"\t\tAction: Attacking enemy champion");
                             int x = lowestHealthEnemyChampion->characterCenter.x;
                             int y = lowestHealthEnemyChampion->characterCenter.y;
-                            if (lastClickEnemyChampStopwatch.DurationInMilliseconds() >= 250)
+                            if (lastClickEnemyChampStopwatch.DurationInMilliseconds() >= 150)
                             {
                                 lastClickEnemyChampStopwatch.Reset();
                                 tapAttackMove(lowestHealthEnemyChampion->characterCenter.x, lowestHealthEnemyChampion->characterCenter.y);
@@ -1813,10 +1813,9 @@ namespace League_Autoplay
                             {
                                 lastMoveMouseStopwatch.Reset();
                                 MotorCortex.moveMouseTo(x, y, 10);
-                            }
 
-                            replaceAction(new GameAction(delegate (GameAction gameAction) {
-                                
+                                replaceAction(new GameAction(delegate (GameAction gameAction) {
+
                                     castSpell3();
                                     castSpell2();
                                     castSpell1();
@@ -1841,7 +1840,10 @@ namespace League_Autoplay
                                     gameAction.finished();
 
 
-                            }, "panic"));
+                                }, "panic"));
+                            }
+
+                            
 
                             
 
@@ -1852,16 +1854,12 @@ namespace League_Autoplay
                             didAction();
                             Console.WriteLine("Action: Attacking Enemy Minion");
                             //NSLog(@"\t\tAction: Attacking Enemy Minion");
-                            if (lastClickEnemyMinionStopwatch.DurationInMilliseconds() >= 500)
+                            if (lastClickEnemyMinionStopwatch.DurationInMilliseconds() >= 250)
                             {
                                 lastClickEnemyMinionStopwatch.Reset();
-
-                                replaceAction(new GameAction(delegate (GameAction gameAction) {
-
-                                    tapAttackMove(lowestHealthEnemyMinion->characterCenter.x, lowestHealthEnemyMinion->characterCenter.y);
-                                    gameAction.finished();
+                                
+                                 tapAttackMove(lowestHealthEnemyMinion->characterCenter.x, lowestHealthEnemyMinion->characterCenter.y);
                                     
-                                }, "attack enemy minion"));
                                 
                             }
                             if (lastMoveMouseStopwatch.DurationInMilliseconds() >= 500)
