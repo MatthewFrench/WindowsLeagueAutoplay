@@ -58,6 +58,7 @@ namespace League_Autoplay
         Stopwatch printGameTime;
 
         bool boughtStarterItems;
+        bool inProcessOfBuyingItems;
         List<GenericObject> boughtItems;
 
         PositionDouble baseLocation;
@@ -473,6 +474,7 @@ namespace League_Autoplay
 
 
             boughtItems = new List<GenericObject>();
+            inProcessOfBuyingItems = false;
             gameCurrentTimeStopwatch = new Stopwatch();
 
             lastSurrenderStopwatch = new Stopwatch();
@@ -863,7 +865,8 @@ namespace League_Autoplay
             //    NSLog(@"Shop bottom left visible");
             //}
             bool closeShop = false;
-            if (lastShopBuyStopwatch.DurationInSeconds() >= 60 * 16 || (boughtStarterItems == false))
+            if (inProcessOfBuyingItems) return;
+            if (lastShopBuyStopwatch.DurationInSeconds() >= 60 * 8 || (boughtStarterItems == false))
             {
                 if (detectionData.shopAvailableShown)
                 {
@@ -874,6 +877,7 @@ namespace League_Autoplay
                         didAction();
                         Console.WriteLine("Buy Items Final");
                         lastShopBuyStopwatch.Reset();
+                        inProcessOfBuyingItems = true;
                         //Buy items
                         int bought = 0;
                         for (int i = 0; i < detectionData.numberOfBuyableItems; i++)
@@ -936,10 +940,14 @@ namespace League_Autoplay
                         }
                         if (boughtItems.Count > 0 && !boughtStarterItems)
                         {
-                            Task.Delay(6000 * boughtItems.Count).ContinueWith(_ =>
-                            {
+                            addAction(new GameAction(delegate (GameAction action) {
+
                                 boughtStarterItems = true;
-                            });
+                                inProcessOfBuyingItems = false;
+
+                                action.finished();
+
+                            }, "end buy"));
                         }
                         lastShopBuyingStopwatch.Reset();
                         //NSLog(@"Bought items");
