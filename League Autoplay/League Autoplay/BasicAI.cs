@@ -233,12 +233,10 @@ namespace League_Autoplay
 
                     replaceAction(new GameAction(delegate (GameAction action) {
 
-                        MotorCortex.moveMouseTo(0, 0, 20);
-                        Console.WriteLine("First part can't see self.");
-                        Task.Delay(50).ContinueWith(_ =>
+                        MotorCortex.moveMouseTo(0, 0, 5);
+                        Task.Delay(500).ContinueWith(_ =>
                         {
                             action.finished();
-                            Console.WriteLine("Finished can't see self");
                         });
                     }, "can't see self"));
                     
@@ -905,22 +903,22 @@ namespace League_Autoplay
                             {
                                 continue;
                             }
-                            Task.Delay(3000 * i).ContinueWith(_ =>
+                            Task.Delay(6000 * i).ContinueWith(_ =>
                             {
                                 MotorCortex.moveMouseTo(clickX, clickY, 5);
                             });
-                            Task.Delay(3000 * i + 750).ContinueWith(_ =>
+                            Task.Delay(6000 * i + 1500).ContinueWith(_ =>
                             {
                                 MotorCortex.clickMouseAt(clickX, clickY, 5);
                             });
 
-                            Task.Delay(3000 * i + 1500).ContinueWith(_ =>
+                            Task.Delay(6000 * i + 3000).ContinueWith(_ =>
                             {
                                 MotorCortex.clickMouseRightAt(clickX, clickY, 5);
                             });
-                            Task.Delay(3000 * i + 2250).ContinueWith(_ =>
+                            Task.Delay(6000 * i + 4500).ContinueWith(_ =>
                             {
-                                MotorCortex.moveMouseTo(0, 0, 10);
+                                MotorCortex.moveMouseTo(0, 0, 5);
                             });
                             if (bought < 2)
                             {
@@ -930,7 +928,7 @@ namespace League_Autoplay
                         }
                         if (boughtItems.Count > 0 && !boughtStarterItems)
                         {
-                            Task.Delay(3000 * boughtItems.Count).ContinueWith(_ =>
+                            Task.Delay(6000 * boughtItems.Count).ContinueWith(_ =>
                             {
                                 boughtStarterItems = true;
                             });
