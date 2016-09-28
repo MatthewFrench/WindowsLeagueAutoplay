@@ -96,11 +96,10 @@ namespace League_Autoplay
 
         public unsafe void processAI()
         {
-            processActions();
 
             if (newData)
             {
-                Console.Write("{P:"+gameActions.Count+"}");
+                Console.Write("{P:" + gameActions.Count + "}");
             }
             else
             {
@@ -145,6 +144,8 @@ namespace League_Autoplay
 
             if (typingMessageStopwatch.DurationInSeconds() <= 4.0)
             { // Don't do anything when we are typing
+
+                processActions();
                 return;
             }
 
@@ -160,7 +161,8 @@ namespace League_Autoplay
                 lastSurrenderStopwatch.Reset();
                 GenericObject* surrender = (GenericObject*)detectionData.surrenderActive.ToPointer();
 
-                replaceActionWithAnyTag(new GameAction(delegate(GameAction action) {
+                replaceActionWithAnyTag(new GameAction(delegate (GameAction action)
+                {
                     MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y, 10);
                     didAction();
 
@@ -177,7 +179,8 @@ namespace League_Autoplay
                 continueClickStopwatch.Reset();
                 GenericObject* continueObject = (GenericObject*)detectionData.continueActive.ToPointer();
 
-                replaceActionWithAnyTag(new GameAction(delegate (GameAction action) {
+                replaceActionWithAnyTag(new GameAction(delegate (GameAction action)
+                {
 
                     MotorCortex.clickMouseAt(continueObject->center.x, continueObject->center.y, 10);
                     didAction();
@@ -198,8 +201,9 @@ namespace League_Autoplay
                 afkClickStopwatch.Reset();
                 GenericObject* afkObject = (GenericObject*)detectionData.afkActive.ToPointer();
 
-                replaceActionWithAnyTag(new GameAction(delegate (GameAction action) {
-                    
+                replaceActionWithAnyTag(new GameAction(delegate (GameAction action)
+                {
+
                     MotorCortex.clickMouseAt(afkObject->center.x, afkObject->center.y, 10);
 
                     Task.Delay(50).ContinueWith(_ =>
@@ -207,14 +211,15 @@ namespace League_Autoplay
                         action.finished();
                     });
                 }, "afk_button mouse_move"));
-                
+
             }
             if (detectionData.stoppedWorkingAvailable && stoppedWorkingStopwatch.DurationInMilliseconds() >= 1000)
             {
                 stoppedWorkingStopwatch.Reset();
                 GenericObject* stoppedWorkingObject = (GenericObject*)detectionData.stoppedWorkingActive.ToPointer();
 
-                replaceActionWithAnyTag(new GameAction(delegate (GameAction action) {
+                replaceActionWithAnyTag(new GameAction(delegate (GameAction action)
+                {
 
                     MotorCortex.clickMouseAt(stoppedWorkingObject->center.x + 20, stoppedWorkingObject->center.y, 10);
 
@@ -232,7 +237,8 @@ namespace League_Autoplay
                 {
                     cantSeeSelfMoveMouseStopwatch.Reset();
 
-                    addAction(new GameAction(delegate (GameAction action) {
+                    addAction(new GameAction(delegate (GameAction action)
+                    {
 
                         MotorCortex.moveMouseTo(0, 0, 5);
                         Task.Delay(500).ContinueWith(_ =>
@@ -240,7 +246,7 @@ namespace League_Autoplay
                             action.finished();
                         });
                     }, "can't_see_self mouse_move"));
-                    
+
                 }
             }
 
@@ -255,7 +261,8 @@ namespace League_Autoplay
             {
                 notMovingTimer.Reset();
 
-                addAction(new GameAction(delegate (GameAction action) {
+                addAction(new GameAction(delegate (GameAction action)
+                {
 
                     MotorCortex.clickMouseRightAt(1024 / 2, 768 / 2, 10);
 
@@ -267,7 +274,9 @@ namespace League_Autoplay
             }
 
             newData = false;
-            
+
+
+            processActions();
         }
 
         void processActions()
