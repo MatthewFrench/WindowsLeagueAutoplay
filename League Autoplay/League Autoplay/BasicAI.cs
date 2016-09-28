@@ -95,6 +95,8 @@ namespace League_Autoplay
 
         public unsafe void processAI()
         {
+            processActions();
+
             if (newData)
             {
                 Console.Write("{P:"+gameActions.Count+"}");
@@ -265,8 +267,7 @@ namespace League_Autoplay
             }
 
             newData = false;
-
-            processActions();
+            
         }
 
         void processActions()
