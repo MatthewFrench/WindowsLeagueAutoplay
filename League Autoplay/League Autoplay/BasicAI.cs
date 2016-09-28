@@ -371,7 +371,7 @@ namespace League_Autoplay
                 }
             }*/
             //Insert action
-            if (index == -1)
+            if (index == -1 || index >= gameActions.Count)
             {
                 gameActions.Add(action);
             } else
