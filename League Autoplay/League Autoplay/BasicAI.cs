@@ -865,8 +865,8 @@ namespace League_Autoplay
             //    NSLog(@"Shop bottom left visible");
             //}
             bool closeShop = false;
-            if (inProcessOfBuyingItems) return;
-            if (lastShopBuyStopwatch.DurationInSeconds() >= 60 * 4 || (boughtStarterItems == false))
+            if (inProcessOfBuyingItems && detectionData.shopAvailableShown) return;
+            if (lastShopBuyStopwatch.DurationInSeconds() >= 60 * 8 || (boughtStarterItems == false))
             {
                 if (detectionData.shopAvailableShown)
                 {
@@ -906,6 +906,8 @@ namespace League_Autoplay
                             {
                                 continue;
                             }
+
+                            tapStopMoving();
 
                             addAction(new GameAction(delegate (GameAction action) {
                                     MotorCortex.moveMouseTo(clickX, clickY, 5);
