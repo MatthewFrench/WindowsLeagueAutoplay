@@ -306,7 +306,7 @@ namespace League_Autoplay
                 GameAction action2 = gameActions[i];
                 if (action2.isRunning() == false)
                 {
-                    String[] actionTagArray = tags.Split(' ');
+                    String[] actionTagArray = action2.getTags().Split(' ');
                     bool remove = false;
 
                     foreach (String tag1 in targetTagArray)
