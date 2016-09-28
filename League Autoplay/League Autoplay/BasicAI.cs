@@ -237,7 +237,7 @@ namespace League_Autoplay
                 {
                     cantSeeSelfMoveMouseStopwatch.Reset();
 
-                    addAction(new GameAction(delegate (GameAction action)
+                    replaceActionWithExactTags(new GameAction(delegate (GameAction action)
                     {
 
                         MotorCortex.moveMouseTo(0, 0, 5);
@@ -261,7 +261,7 @@ namespace League_Autoplay
             {
                 notMovingTimer.Reset();
 
-                addAction(new GameAction(delegate (GameAction action)
+                replaceActionWithExactTags(new GameAction(delegate (GameAction action)
                 {
 
                     MotorCortex.clickMouseRightAt(1024 / 2, 768 / 2, 5);
@@ -326,10 +326,82 @@ namespace League_Autoplay
                 }
             }
         }
+        void clearActionsWithExactTags(String tags)
+        {
+            String[] targetTagArray = tags.Split(' ');
+
+            for (int i = 0; i < gameActions.Count; i++)
+            {
+                GameAction action2 = gameActions[i];
+                if (action2.isRunning() == false)
+                {
+                    String[] actionTagArray = action2.getTags().Split(' ');
+                    int tagCount = 0;
+
+                    foreach (String tag1 in targetTagArray)
+                    {
+                        foreach (String tag2 in actionTagArray)
+                        {
+                            if (tag1.Equals(tag2))
+                            {
+                                tagCount++;
+                            }
+                        }
+                    }
+                    if (tagCount > 0 && tagCount == targetTagArray.Count())
+                    {
+                        gameActions.Remove(action2);
+                        i--;
+                    }
+                }
+            }
+        }
         void addAction(GameAction action)
         {
+
             gameActions.Add(action);
         }
+        void replaceActionWithExactTags(GameAction action)
+        {
+            String[] targetTagArray = action.getTags().Split(' ');
+
+            int index = -1;
+            for (int i = 0; i < gameActions.Count; i++)
+            {
+                GameAction action2 = gameActions[i];
+
+
+                if (action2.isRunning() == false && action2.isFinished() == false)
+                {
+
+                    String[] actionTagArray = action2.getTags().Split(' ');
+                    int containsTag = 0;
+                    foreach (String tag1 in targetTagArray)
+                    {
+                        foreach (String tag2 in actionTagArray)
+                        {
+                            if (tag1.Equals(tag2))
+                            {
+                                containsTag++;
+                            }
+                        }
+                    }
+                    if (containsTag > 0 && containsTag == targetTagArray.Count()) index = i;
+                }
+            }
+            //Remove all actions with same ID
+            clearActionsWithExactTags(action.getTags());
+            //Insert action
+            if (index == -1 || index >= gameActions.Count)
+            {
+                gameActions.Add(action);
+            }
+            else
+            {
+                gameActions.Insert(index, action);
+            }
+        }
+
         void replaceActionWithAnyTag(GameAction action)
         {
             String[] targetTagArray = action.getTags().Split(' ');
@@ -1093,7 +1165,7 @@ namespace League_Autoplay
                 Champion champ = ((Champion*)detectionData.selfChampionsArray.ToPointer())[0];
 
 
-                addAction(new GameAction(delegate (GameAction action) {
+                replaceActionWithExactTags(new GameAction(delegate (GameAction action) {
 
                     MotorCortex.moveMouseTo(champ.characterCenter.x, champ.characterCenter.y, 5);
                     Task.Delay(50).ContinueWith(_ =>
@@ -2065,12 +2137,15 @@ namespace League_Autoplay
                                     int fuzzyOffsetX = (int)( Math.Round(10.0 * fuzzyLaneMovementX) );
                                     int fuzzyOffsetY = (int)(Math.Round(10.0 * fuzzyLaneMovementY));
 
-                                    addAction(new GameAction(delegate (GameAction gameAction) {
 
+                                    replaceActionWithExactTags(new GameAction(delegate (GameAction gameAction) {
+                                        Console.WriteLine("Moving to lane");
+                                        Stopwatch testWatch = new Stopwatch();
 
                                         MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY, 5);
                                         Task.Delay(50).ContinueWith(_ =>
                                         {
+                                            Console.WriteLine("Finished move mouse to lane in: " + testWatch.DurationInMilliseconds() + " milliseconds");
                                             gameAction.finished();
                                         });
 
@@ -2176,15 +2251,11 @@ AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] dele
                         int fuzzyOffsetX = (int)(Math.Round(10.0 * fuzzyLaneMovementX));
                         int fuzzyOffsetY = (int)(Math.Round(10.0 * fuzzyLaneMovementY));
 
-                        addAction(new GameAction(delegate (GameAction gameAction) {
-                            Console.WriteLine("Moving to lane");
-
-                            Stopwatch testWatch = new Stopwatch();
+                        replaceActionWithExactTags(new GameAction(delegate (GameAction gameAction) {
 
                             MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY, 5);
                             Task.Delay(50).ContinueWith(_ =>
                             {
-                                Console.WriteLine("Finished move mouse to lane in: " + testWatch.DurationInMilliseconds() + " milliseconds");
 
                                 gameAction.finished();
                             });
