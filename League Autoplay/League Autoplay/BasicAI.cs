@@ -241,7 +241,7 @@ namespace League_Autoplay
                     replaceActionWithExactTags(new GameAction(delegate (GameAction action)
                     {
 
-                        MotorCortex.moveMouseTo(0, 0, 5);
+                        MotorCortex.moveMouseTo(1024/2, 768/2,5);
                         GameTaskScheduler.Delay(3000, () =>
                         {
                             action.finished();
@@ -1057,7 +1057,7 @@ namespace League_Autoplay
                                 GameTaskScheduler.Delay(1500 + 100 + 500, () =>
                                 {
 
-                                    MotorCortex.moveMouseTo(0, 0, 5);
+                                    MotorCortex.moveMouseTo(1024/2, 768/2,5);
                                     GameTaskScheduler.Delay(1500, () =>
                                     {
                                         action.finished();
