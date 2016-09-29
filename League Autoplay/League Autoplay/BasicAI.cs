@@ -167,7 +167,7 @@ namespace League_Autoplay
                     MotorCortex.clickMouseAt(surrender->center.x, surrender->center.y, 5);
                     didAction();
 
-                    GameTaskScheduler.Delay(50, () =>
+                    GameTaskScheduler.Delay(200, () =>
                     {
                         action.finished();
                     });
@@ -189,7 +189,7 @@ namespace League_Autoplay
                     MotorCortex.releaseShiftKey();
                     MotorCortex.pressTabKey();
 
-                    GameTaskScheduler.Delay(50, () =>
+                    GameTaskScheduler.Delay(200, () =>
                     {
                         action.finished();
                     });
@@ -207,7 +207,7 @@ namespace League_Autoplay
 
                     MotorCortex.clickMouseAt(afkObject->center.x, afkObject->center.y, 5);
 
-                    GameTaskScheduler.Delay(50, () =>
+                    GameTaskScheduler.Delay(200, () =>
                     {
                         action.finished();
                     });
@@ -224,7 +224,7 @@ namespace League_Autoplay
 
                     MotorCortex.clickMouseAt(stoppedWorkingObject->center.x + 20, stoppedWorkingObject->center.y, 5);
 
-                    GameTaskScheduler.Delay(50, () =>
+                    GameTaskScheduler.Delay(200, () =>
                     {
                         action.finished();
                     });
@@ -242,7 +242,7 @@ namespace League_Autoplay
                     {
 
                         MotorCortex.moveMouseTo(0, 0, 5);
-                        GameTaskScheduler.Delay(500, () =>
+                        GameTaskScheduler.Delay(2000, () =>
                         {
                             action.finished();
                         });
@@ -267,7 +267,7 @@ namespace League_Autoplay
 
                     MotorCortex.clickMouseRightAt(1024 / 2, 768 / 2, 5);
 
-                    GameTaskScheduler.Delay(50, () =>
+                    GameTaskScheduler.Delay(200, () =>
                     {
                         action.finished();
                     });
@@ -718,14 +718,14 @@ namespace League_Autoplay
             addAction(new GameAction(delegate (GameAction action) {
 
                 MotorCortex.pressControlKey();
-                GameTaskScheduler.Delay(50, () =>
+                GameTaskScheduler.Delay(200, () =>
                 {
                     MotorCortex.typeText("q");
 
-                    GameTaskScheduler.Delay(50, () =>
+                    GameTaskScheduler.Delay(200, () =>
                     {
                         MotorCortex.releaseControlKey();
-                        GameTaskScheduler.Delay(50, () =>
+                        GameTaskScheduler.Delay(200, () =>
                         {
                             MotorCortex.releaseControlKey();
                             action.finished();
@@ -744,13 +744,13 @@ namespace League_Autoplay
 
 
                 MotorCortex.pressControlKey();
-                GameTaskScheduler.Delay(50, () =>
+                GameTaskScheduler.Delay(200, () =>
                 {
                     MotorCortex.typeText("w");
-                    GameTaskScheduler.Delay(50, () =>
+                    GameTaskScheduler.Delay(200, () =>
                     {
                         MotorCortex.releaseControlKey();
-                        GameTaskScheduler.Delay(50, () =>
+                        GameTaskScheduler.Delay(200, () =>
                         {
                             MotorCortex.releaseControlKey();
                             action.finished();
@@ -766,13 +766,13 @@ namespace League_Autoplay
             addAction(new GameAction(delegate (GameAction action) {
                 
                 MotorCortex.pressControlKey();
-                GameTaskScheduler.Delay(50, () =>
+                GameTaskScheduler.Delay(200, () =>
                 {
                     MotorCortex.typeText("e");
-                    GameTaskScheduler.Delay(50, () =>
+                    GameTaskScheduler.Delay(200, () =>
                     {
                         MotorCortex.releaseControlKey();
-                        GameTaskScheduler.Delay(50, () =>
+                        GameTaskScheduler.Delay(200, () =>
                         {
                             MotorCortex.releaseControlKey();
                             action.finished();
@@ -790,13 +790,13 @@ namespace League_Autoplay
 
 
                 MotorCortex.pressControlKey();
-                GameTaskScheduler.Delay(50, () =>
+                GameTaskScheduler.Delay(200, () =>
                 {
                     MotorCortex.typeText("r");
-                    GameTaskScheduler.Delay(50, () =>
+                    GameTaskScheduler.Delay(200, () =>
                     {
                         MotorCortex.releaseControlKey();
-                        GameTaskScheduler.Delay(50, () =>
+                        GameTaskScheduler.Delay(200, () =>
                         {
                             MotorCortex.releaseControlKey();
                             action.finished();
@@ -982,7 +982,7 @@ namespace League_Autoplay
         {
             replaceActionWithAnyTag(new GameAction(delegate (GameAction action) {
                 MotorCortex.moveMouseTo(x, y, 5);
-                GameTaskScheduler.Delay(50, () =>
+                GameTaskScheduler.Delay(200, () =>
                 {
                     MotorCortex.typeText("a");
                     action.finished();
@@ -1172,7 +1172,7 @@ namespace League_Autoplay
                 replaceActionWithExactTags(new GameAction(delegate (GameAction action) {
 
                     MotorCortex.moveMouseTo(champ.characterCenter.x, champ.characterCenter.y, 5);
-                    GameTaskScheduler.Delay(50, () =>
+                    GameTaskScheduler.Delay(200, () =>
                     {
                         useTrinket();
                         action.finished();
@@ -1855,7 +1855,7 @@ namespace League_Autoplay
                                 replaceActionWithAnyTag(new GameAction(delegate (GameAction gameAction) {
 
                                     MotorCortex.clickMouseRightAt(Convert.ToInt32(baseLocation.x), Convert.ToInt32(baseLocation.y), 5);
-                                    GameTaskScheduler.Delay(50, () =>
+                                    GameTaskScheduler.Delay(200, () =>
                                     {
                                         useTrinket();
                                         gameAction.finished();
@@ -1892,7 +1892,7 @@ namespace League_Autoplay
                                         replaceActionWithAnyTag(new GameAction(delegate (GameAction gameAction) {
 
                                             MotorCortex.moveMouseTo(enemyX + selfChamp->characterCenter.x, enemyY + selfChamp->characterCenter.y, 5);
-                                            GameTaskScheduler.Delay(50, () =>
+                                            GameTaskScheduler.Delay(200, () =>
                                             {
                                                 castSpell4();
                                                 castSpell2();
@@ -1903,7 +1903,7 @@ namespace League_Autoplay
                                                 }
                                                 useTrinket();
 
-                                                GameTaskScheduler.Delay(50, () =>
+                                                GameTaskScheduler.Delay(200, () =>
                                                 {
                                                     MotorCortex.moveMouseTo(selfChamp->characterCenter.x - enemyX, selfChamp->characterCenter.y - enemyY, 5);
                                                     castSummonerSpell1();
@@ -2005,7 +2005,7 @@ namespace League_Autoplay
                                 replaceActionWithAnyTag(new GameAction(delegate (GameAction gameAction) {
 
                                     MotorCortex.moveMouseTo(lowestHealthEnemyMinion->characterCenter.x, lowestHealthEnemyMinion->characterCenter.y, 5);
-                                    GameTaskScheduler.Delay(50, () =>
+                                    GameTaskScheduler.Delay(200, () =>
                                     {
                                         gameAction.finished();
                                     });
@@ -2036,7 +2036,7 @@ namespace League_Autoplay
                                 replaceActionWithAnyTag(new GameAction(delegate (GameAction gameAction) {
 
                                     MotorCortex.moveMouseTo(nearestEnemyTower->towerCenter.x, nearestEnemyTower->towerCenter.y, 5);
-                                    GameTaskScheduler.Delay(50, () =>
+                                    GameTaskScheduler.Delay(200, () =>
                                     {
                                         gameAction.finished();
                                     });
@@ -2147,7 +2147,7 @@ namespace League_Autoplay
                                         Stopwatch testWatch = new Stopwatch();
 
                                         MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY, 5);
-                                        GameTaskScheduler.Delay(50, () =>
+                                        GameTaskScheduler.Delay(200, () =>
                                         {
                                             Console.WriteLine("Finished move mouse to lane in: " + testWatch.DurationInMilliseconds() + " milliseconds");
                                             gameAction.finished();
@@ -2258,7 +2258,7 @@ AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] dele
                         replaceActionWithExactTags(new GameAction(delegate (GameAction gameAction) {
 
                             MotorCortex.clickMouseRightAt(x + fuzzyOffsetX, y + fuzzyOffsetY, 5);
-                            GameTaskScheduler.Delay(50, () =>
+                            GameTaskScheduler.Delay(200, () =>
                             {
 
                                 gameAction.finished();

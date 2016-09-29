@@ -123,6 +123,8 @@
     <Compile Include="AutoQueue\AutoQueueManager.cs" />
     <Compile Include="BasicAI.cs" />
     <Compile Include="DetectionData.cs" />
+    <Compile Include="GameTask\GameTask.cs" />
+    <Compile Include="GameTask\GameTaskScheduler.cs" />
     <Compile Include="High Performance Timer\ATimer.cs" />
     <Compile Include="High Performance Timer\MicroTimer.cs" />
     <Compile Include="High Performance Timer\Stopwatch.cs" />
