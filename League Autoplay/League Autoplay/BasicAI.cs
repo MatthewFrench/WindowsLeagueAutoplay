@@ -147,6 +147,7 @@ namespace League_Autoplay
             { // Don't do anything when we are typing
 
                 processActions();
+                GameTaskScheduler.ProcessTasks();
                 return;
             }
 
