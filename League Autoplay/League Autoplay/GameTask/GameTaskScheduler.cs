@@ -12,13 +12,10 @@ namespace League_Autoplay.GameTask
 
         public static void ProcessTasks()
         {
-            foreach (GameTask task in tasks)
-            {
-                task.Process();
-            }
             for (int i = 0; i < tasks.Count; i++)
             {
                 GameTask task = tasks[i];
+                task.Process();
                 if (task.IsFinished())
                 {
                     tasks.RemoveAt(i);

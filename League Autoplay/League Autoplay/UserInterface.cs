@@ -35,8 +35,8 @@ namespace League_Autoplay
 
             artificialIntelligence = new ArtificialIntelligence(this, visualCortex);
 
-            //Set fps box to 60fps
-            aiFpsBox.SelectedIndex = 6;
+            //Set fps box to 120fps
+            aiFpsBox.SelectedIndex = 7;
             updateDisplayCheckBox.Checked = true;
         }
         public TaskScheduler getUIContext()
